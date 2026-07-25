@@ -1,6 +1,6 @@
 /* ==========================================================================
    NOTES POINT — ENTERPRISE SUPER ADMIN JavaScript ENGINE (2026 EDITION)
-   Architecture: Modular SaaS Master Core System (CORS & Rules Patched)
+   Architecture: Modular SaaS Master Core System (CORS & Mobile PDF Patched)
    ========================================================================== */
 
 /* global firebase */
@@ -465,7 +465,7 @@
   }
 
   /* ==========================================================================
-     09. DIRECTORY MANAGER
+     09. DIRECTORY MANAGER (MOBILE BLOB VIEWER HANDLER)
      ========================================================================== */
   class DirectoryManager {
     static init() {
@@ -538,13 +538,33 @@
           <td><span class="badge-tag green">${item.docType}</span></td>
           <td style="font-size:0.8rem; color:#64748B;">${item.createdAt ? item.createdAt.split('T')[0] : 'Today'}</td>
           <td>
-            <a href="${item.fileUrl}" target="_blank" style="color:#2563EB; font-weight:700; margin-right:12px;" title="Preview"><i class="fa-solid fa-eye"></i></a>
+            <a href="#" onclick="window.openPdfBlob(event, '${item.fileUrl}')" style="color:#2563EB; font-weight:700; margin-right:12px;" title="Preview"><i class="fa-solid fa-eye"></i></a>
             <button type="button" onclick="window.deleteNoteItem('${item.id}')" style="background:none; border:none; color:#EF4444; font-weight:700; cursor:pointer;" title="Delete"><i class="fa-solid fa-trash-can"></i></button>
           </td>
         </tr>
       `).join('');
     }
   }
+
+  // Mobile Safe Blob Opener Handler
+  global.openPdfBlob = async (e, url) => {
+    if (e) e.preventDefault();
+    if (!url) return;
+
+    try {
+      // Agar base64 data URL hai toh usko blob mein convert karo taaki mobile par khul sake
+      if (url.startsWith('data:')) {
+        const res = await fetch(url);
+        const blob = await res.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        window.open(blobUrl, '_blank');
+      } else {
+        window.open(url, '_blank');
+      }
+    } catch (err) {
+      window.open(url, '_blank');
+    }
+  };
 
   global.deleteNoteItem = async (id) => {
     if (!confirm("Are you sure you want to delete this document permanently?")) return;
