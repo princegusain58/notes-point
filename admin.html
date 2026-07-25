@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NotesPoint — Enterprise Admin Control Portal</title>
+  
+  <!-- Google Typography Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- SVG Favicon Logo for Notes Point Tab Bar -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+  <!-- FontAwesome Icons Engine -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Dedicated Admin System Stylesheet -->
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- ==========================================================================
+     DASHBOARD MAIN SHELL (DIRECT ACCESS PORTAL)
+     ========================================================================== -->
+  <div id="adminDashboardShell" class="admin-shell">
+
+    <!-- Sidebar Navigation Drawer -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo-icon">
+          <i class="fa-solid fa-layer-group"></i>
+        </div>
+        <div class="brand-info">
+          <span class="brand-title">NotesPoint</span>
+          <span class="brand-subtitle">Admin Command Center</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="#overview" class="nav-item active" data-target="overviewSection">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Overview Analytics</span>
+        </a>
+        <button type="button" id="exportFeedbackExcelBtn" class="admin-btn-secondary" style="background: #10B981; color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin: 10px 15px; width: calc(100% - 30px);">
+          📊 Export Feedbacks (Excel/CSV)
+        </button>
+        <a href="#uploader" class="nav-item" data-target="uploaderSection">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <span>Bulk PDF Uploader</span>
+        </a>
+        <a href="#directory" class="nav-item" data-target="directorySection">
+          <i class="fa-solid fa-folder-tree"></i>
+          <span>Content Directory</span>
+        </a>
+        <a href="#ticker" class="nav-item" data-target="tickerSection">
+          <i class="fa-solid fa-bullhorn"></i>
+          <span>Ticker Announcements</span>
+        </a>
+        <a href="#reviews" class="nav-item" data-target="reviewsSection">
+          <i class="fa-solid fa-comments"></i>
+          <span>Review Moderation</span>
+          <span id="pendingReviewsBadge" class="menu-count-badge">0</span>
+        </a>
+        <a href="#maintenance" class="nav-item" data-target="maintenanceSection">
+          <i class="fa-solid fa-sliders"></i>
+          <span>Maintenance & Control</span>
+        </a>
+        <a href="#logs" class="nav-item" data-target="logsSection">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span>Audit Activity Logs</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="admin-user-info">
+          <div class="avatar-circle">
+            <i class="fa-solid fa-user-gear"></i>
+          </div>
+          <div class="user-details">
+            <span class="user-name">NotesPoint Admin</span>
+            <span class="user-role">System Manager</span>
+          </div>
+        </div>
+        <a href="index.html" class="btn-icon-danger" title="Exit to Website">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </a>
+      </div>
+    </aside>
+
+
+    <!-- Main Work Area Container -->
+    <main class="admin-main">
+
+      <!-- Top Dashboard Header Bar -->
+      <header class="admin-topbar">
+        <div class="topbar-left">
+          <button id="toggleSidebarMobile" class="sidebar-toggle-btn">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <h1 id="pageSectionTitle">Dashboard Overview & Analytics</h1>
+        </div>
+        
+        <button id="downloadUsersExcelBtn" class="admin-btn-primary" style="background: #10B981; color: #fff; padding: 10px 16px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+          Download Users Excel (CSV)
+        </button>
+
+        <div class="topbar-right">
+          <!-- Live Date & Clock Badges -->
+          <div class="topbar-clock-chip">
+            <span id="adminLiveDate">📅 Syncing...</span>
+            <span id="adminLiveClock" class="clock-accent">⏰ 00:00:00 AM</span>
+          </div>
+
+          <!-- Quick Actions -->
+          <button id="quickBackupBtn" class="btn-topbar-action" title="Export Backup">
+            <i class="fa-solid fa-download"></i>
+            <span>Backup Data</span>
+          </button>
+          
+          <a href="index.html" target="_blank" class="btn-topbar-action outline" title="View Public Portal">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>Live Site</span>
+          </a>
+        </div>
+      </header>
+
+
+      <!-- Workspace Content Area -->
+      <div class="admin-workspace">
+
+        <!-- SECTION 01: OVERVIEW ANALYTICS -->
+        <section id="overviewSection" class="workspace-section active">
+          <!-- Metric Stat Cards -->
+          <div class="stats-cards-grid">
+            <div class="stat-card">
+              <div class="stat-icon blue"><i class="fa-solid fa-file-pdf"></i></div>
+              <div class="stat-data">
+                <span class="stat-label">Total Material Uploads</span>
+                <h3 id="statTotalNotes">0</h3>
+                <span class="stat-trend positive"><i class="fa-solid fa-arrows-rotate"></i> Live Firestore Sync</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon purple"><i class="fa-solid fa-users"></i></div>
+              <div class="stat-data">
+                <span class="stat-label">Active Student Users</span>
+                <h3 id="statTotalUsers">0</h3>
+                <span class="stat-trend positive"><i class="fa-solid fa-user-check"></i> Registered Members</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon green"><i class="fa-solid fa-database"></i></div>
+              <div class="stat-data">
+                <span class="stat-label">Storage Usage</span>
+                <h3 id="statStorageUsed">0.0 MB / 5 GB</h3>
+                <div class="progress-bar-wrap">
+                  <div id="storageProgressBar" class="progress-bar-fill" style="width: 0%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon orange"><i class="fa-solid fa-star"></i></div>
+              <div class="stat-data">
+                <span class="stat-label">Approved Feedback</span>
+                <h3 id="statApprovedReviews">0</h3>
+                <span class="stat-trend neutral"><i class="fa-solid fa-comments"></i> Student Ratings</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts & Distribution Row -->
+          <div class="analytics-panels-row">
+            <div class="panel-card chart-panel">
+              <div class="panel-header">
+                <h3><i class="fa-solid fa-chart-column"></i> Material Category Breakdown</h3>
+                <span class="panel-subtitle">By Stream & Class Level</span>
+              </div>
+              <div class="chart-container">
+                <div class="custom-bar-chart">
+                  <div class="chart-bar-group">
+                    <span class="bar-value">Class 10</span>
+                    <div class="bar-track"><div class="bar-fill" style="height: 85%;"></div></div>
+                    <span class="bar-label">Sci/Math</span>
+                  </div>
+                  <div class="chart-bar-group">
+                    <span class="bar-value">Class 12</span>
+                    <div class="bar-track"><div class="bar-fill purple" style="height: 95%;"></div></div>
+                    <span class="bar-label">PCM/PCB</span>
+                  </div>
+                  <div class="chart-bar-group">
+                    <span class="bar-value">Class 12</span>
+                    <div class="bar-track"><div class="bar-fill green" style="height: 60%;"></div></div>
+                    <span class="bar-label">Commerce</span>
+                  </div>
+                  <div class="chart-bar-group">
+                    <span class="bar-value">Class 11</span>
+                    <div class="bar-track"><div class="bar-fill orange" style="height: 70%;"></div></div>
+                    <span class="bar-label">Science</span>
+                  </div>
+                  <div class="chart-bar-group">
+                    <span class="bar-value">Class 9</span>
+                    <div class="bar-track"><div class="bar-fill cyan" style="height: 50%;"></div></div>
+                    <span class="bar-label">Foundation</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-card quick-actions-panel">
+              <div class="panel-header">
+                <h3><i class="fa-solid fa-bolt"></i> Quick System Controls</h3>
+              </div>
+              <div class="quick-buttons-stack">
+                <button class="btn-quick-action" onclick="switchSection('uploaderSection')">
+                  <i class="fa-solid fa-file-circle-plus"></i> Upload New PDF Chapter
+                </button>
+                <button class="btn-quick-action" onclick="switchSection('tickerSection')">
+                  <i class="fa-solid fa-pen-to-square"></i> Change Banner Announcement
+                </button>
+                <button class="btn-quick-action" onclick="switchSection('reviewsSection')">
+                  <i class="fa-solid fa-user-check"></i> Review Student Feedback
+                </button>
+                <button id="btnForceClearCache" class="btn-quick-action danger">
+                  <i class="fa-solid fa-broom"></i> Flush Storage Cache
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- SECTION 02: BULK PDF UPLOADER ENGINE -->
+        <section id="uploaderSection" class="workspace-section">
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3><i class="fa-solid fa-cloud-arrow-up"></i> Multi-PDF Storage Uploader Engine</h3>
+              <p>Upload NCERT Chapter Notes, Derivations, Formula Sheets & Solved Board PYQs</p>
+            </div>
+
+            <form id="pdfUploadForm" class="uploader-form">
+              <!-- Drag and Drop Target Area -->
+              <div id="dropZone" class="drop-zone-area">
+                <input type="file" id="pdfFileInput" accept="application/pdf" multiple hidden>
+                <div class="drop-zone-content">
+                  <div class="cloud-icon-circle">
+                    <i class="fa-solid fa-file-pdf"></i>
+                  </div>
+                  <h4>Drag & Drop PDF Material Files Here</h4>
+                  <p>or <button type="button" id="browsePdfBtn" class="btn-inline-link">Browse Files from Computer</button></p>
+                  <span class="file-size-hint">Maximum recommended file size: 25 MB per PDF</span>
+                </div>
+                <div id="selectedFilesList" class="selected-files-list"></div>
+              </div>
+
+              <!-- Metadata Selection Controls -->
+              <div class="form-grid-3">
+                <div class="input-group">
+                  <label><i class="fa-solid fa-graduation-cap"></i> Target Class Level *</label>
+                  <select id="uploadClassSelect" required>
+                    <option value="" disabled selected>Select Class Level</option>
+                    <option value="9">Class 9th Foundation</option>
+                    <option value="10">Class 10th Board</option>
+                    <option value="11">Class 11th Higher Secondary</option>
+                    <option value="12">Class 12th Board Special</option>
+                  </select>
+                </div>
+
+                <div class="input-group">
+                  <label><i class="fa-solid fa-diagram-project"></i> Stream / Category *</label>
+                  <select id="uploadStreamSelect">
+                    <option value="General" selected>General / Common</option>
+                    <option value="Science">Science</option>
+                    <option value="Science (PCM)">Science (PCM)</option>
+                    <option value="Science (PCB)">Science (PCB)</option>
+                    <option value="Commerce">Commerce</option>
+                    <option value="Humanities">Humanities / Arts</option>
+                  </select>
+                </div>
+
+                <div class="input-group">
+                  <label><i class="fa-solid fa-book-bookmark"></i> Subject Title *</label>
+                  <input type="text" id="uploadSubjectInput" placeholder="e.g. Physics, Mathematics, Economics" required>
+                </div>
+              </div>
+
+              <div class="form-grid-3">
+                <div class="input-group">
+                  <label><i class="fa-solid fa-list-check"></i> Chapter Name & Number *</label>
+                  <input type="text" id="uploadChapterInput" placeholder="e.g. Chapter 3: Electrostatics" required>
+                </div>
+
+                <div class="input-group">
+               <label><i class="fa-solid fa-tags"></i> Document Material Tag *</label>
+              <select id="uploadDocTypeSelect" required>
+              <option value="NCERT Book">NCERT Book 📚</option>
+              <option value="Chapter Note">Full Chapter NCERT Note</option>
+             <option value="Formula Sheet">Formula & Derivation Sheet </option>
+             <option value="PYQ">10-Year Solved Board PYQ</option>
+             <option value="Sample Paper">Official Board Sample Paper</option>
+              </select>
+               </div>
+
+                <div class="input-group">
+                  <label><i class="fa-solid fa-pen-nib"></i> Author / Contributor</label>
+                  <input type="text" id="uploadAuthorInput" value="NotesPoint Senior Faculty" placeholder="e.g. Core Faculty Team">
+                </div>
+              </div>
+
+              <!-- Upload Progress Tracking Bar -->
+              <div id="uploadProgressContainer" class="upload-progress-box" hidden>
+                <div class="progress-info">
+                  <span id="uploadProgressStatus">Uploading PDF to Storage...</span>
+                  <span id="uploadProgressPercent">0%</span>
+                </div>
+                <div class="progress-bar-track">
+                  <div id="uploadProgressBarFill" class="progress-bar-fill-active" style="width: 0%;"></div>
+                </div>
+              </div>
+
+              <div class="form-actions-row">
+                <button type="reset" class="btn-admin-secondary">
+                  <i class="fa-solid fa-rotate-left"></i> Reset Form
+                </button>
+                <button type="submit" id="startUploadBtn" class="btn-admin-primary">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Upload Document To Live Platform
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+
+        <!-- SECTION 03: CONTENT MANAGEMENT DIRECTORY -->
+        <section id="directorySection" class="workspace-section">
+          <div class="panel-card">
+            <div class="panel-header-toolbar">
+              <div>
+                <h3><i class="fa-solid fa-folder-tree"></i> Live Material File Directory</h3>
+                <p>Manage, Filter, Preview & Delete Uploaded Material PDFs</p>
+              </div>
+
+              <!-- Filter Controls -->
+              <div class="directory-filters">
+                <div class="search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input type="text" id="directorySearchInput" placeholder="Search by subject or chapter...">
+                </div>
+
+                <select id="directoryClassFilter">
+                  <option value="ALL">All Classes</option>
+                  <option value="9">Class 9th</option>
+                  <option value="10">Class 10th</option>
+                  <option value="11">Class 11th</option>
+                  <option value="12">Class 12th</option>
+                </select>
+
+                <select id="directoryTagFilter">
+                  <option value="ALL">All Document Types</option>
+                  <option value="Chapter Note">Chapter Notes</option>
+                  <option value="Formula Sheet">Formula Sheets</option>
+                  <option value="PYQ">PYQs</option>
+                  <option value="Sample Paper">Sample Papers</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Material Table Directory -->
+            <div class="table-responsive-wrapper">
+              <table class="admin-data-table">
+                <thead>
+                  <tr>
+                    <th>Class</th>
+                    <th>Subject & Stream</th>
+                    <th>Chapter & Document Details</th>
+                    <th>Type Tag</th>
+                    <th>Date Added</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="directoryTableBody">
+                  <tr>
+                    <td colspan="6" class="table-empty-state">
+                      <i class="fa-solid fa-spinner fa-spin"></i> Loading directory contents...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- SECTION 04: TICKER & ANNOUNCEMENT MANAGER -->
+        <section id="tickerSection" class="workspace-section">
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3><i class="fa-solid fa-bullhorn"></i> Running Ticker Announcement Control</h3>
+              <p>Update running announcement message displayed at top bar of index.html</p>
+            </div>
+
+            <form id="tickerUpdateForm" class="ticker-form">
+              <div class="input-group">
+                <label><i class="fa-solid fa-scroll"></i> Running Ticker Banner Text *</label>
+                <textarea id="tickerTextInput" rows="4" placeholder="Enter running notice text..." required>🔥 Welcome to NotesPoint! Class 9th to 12th CBSE & State Boards Revision Notes, PYQs & Sample Papers are Live! 100% Free Access. 🔥</textarea>
+              </div>
+
+              <div class="ticker-preview-box">
+                <span class="preview-label"><i class="fa-solid fa-eye"></i> Live Ticker Preview:</span>
+                <div class="ticker-preview-bar">
+                  <div id="tickerPreviewTrack" class="ticker-preview-text">
+                    🔥 Welcome to NotesPoint! Class 9th to 12th CBSE & State Boards Revision Notes, PYQs & Sample Papers are Live! 100% Free Access. 🔥
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-admin-primary">
+                <i class="fa-solid fa-paper-plane"></i> Publish Ticker Notice To Website
+              </button>
+            </form>
+          </div>
+        </section>
+
+
+        <!-- SECTION 05: REVIEW MODERATION SYSTEM -->
+        <section id="reviewsSection" class="workspace-section">
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3><i class="fa-solid fa-comments"></i> Student Review & Feedback Moderation</h3>
+              <p>Approve or Reject Student Feedback before publishing live to Public Index Page</p>
+            </div>
+
+            <div id="adminReviewsList" class="reviews-moderation-grid">
+              <div class="empty-placeholder">
+                <i class="fa-solid fa-comments-dollar"></i>
+                <p>Loading pending reviews list...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- SECTION 06: MAINTENANCE & SYSTEM TOGGLE -->
+        <section id="maintenanceSection" class="workspace-section">
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3><i class="fa-solid fa-sliders"></i> Global Site Controls & Maintenance Mode</h3>
+              <p>Toggle Maintenance Screen or Site Options</p>
+            </div>
+
+            <div class="control-tiles-grid">
+              <div class="control-tile">
+                <div class="tile-info">
+                  <h4><i class="fa-solid fa-wrench"></i> Scheduled Maintenance Mode</h4>
+                  <p>Turn ON to show "Under Scheduled Maintenance" screen to public visitors.</p>
+                </div>
+                <label class="switch-toggle">
+                  <input type="checkbox" id="toggleMaintenanceSwitch">
+                  <span class="slider-round"></span>
+                </label>
+              </div>
+
+              <div class="control-tile">
+                <div class="tile-info">
+                  <h4><i class="fa-solid fa-user-lock"></i> Mandatory Student Registration Lock</h4>
+                  <p>Require students to login/signup before downloading any PDF notes.</p>
+                </div>
+                <label class="switch-toggle">
+                  <input type="checkbox" id="toggleLoginLockSwitch" checked>
+                  <span class="slider-round"></span>
+                </label>
+              </div>
+
+              <div class="control-tile">
+                <div class="tile-info">
+                  <h4><i class="fa-solid fa-volume-high"></i> Platform UI Sound Synthesizer</h4>
+                  <p>Enable/Disable audio feedback clicks across website.</p>
+                </div>
+                <label class="switch-toggle">
+                  <input type="checkbox" id="toggleAudioSwitch" checked>
+                  <span class="slider-round"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- SECTION 07: AUDIT LOGS & ACTIVITY TRACKER -->
+        <section id="logsSection" class="workspace-section">
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3><i class="fa-solid fa-clock-rotate-left"></i> System Audit & Activity Logs</h3>
+              <p>Time-stamped records of uploads, deletions and administrative changes</p>
+            </div>
+
+            <div class="audit-logs-list" id="auditLogsContainer">
+              <div class="log-item">
+                <span class="log-time">Just now</span>
+                <span class="log-tag info">SYSTEM</span>
+                <span class="log-text">Admin Control Portal session active.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Firebase Core SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+
+  <!-- Dedicated Admin System Script -->
+  <script src="admin.js"></script>
+</body>
+</html>

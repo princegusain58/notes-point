@@ -1,0 +1,1507 @@
+/* =========================================================
+   Notes Point — Comprehensive Student Panel Stylesheet
+   ========================================================= */
+
+:root {
+  --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --color-primary: #4F46E5;
+  --color-primary-hover: #4338CA;
+  --color-secondary: #7C3AED;
+  --color-bg: #FFFFFF;
+  --color-bg-alt: #F8FAFC;
+  --color-text: #0F172A;
+  --color-muted: #64748B;
+  --color-border: #E2E8F0;
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 10px 30px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.22);
+}
+
+/* =========================================================
+   DARK MODE THEME OVERRIDES
+   ========================================================= */
+body.dark-theme {
+  --color-bg: #0F172A;
+  --color-bg-alt: #1E293B;
+  --color-text: #F8FAFC;
+  --color-muted: #94A3B8;
+  --color-border: #334155;
+  background-color: var(--color-bg) !important;
+  color: var(--color-text) !important;
+}
+
+body.dark-theme .class-card,
+body.dark-theme .subject-card,
+body.dark-theme .note-card,
+body.dark-theme .notes-modal-container,
+body.dark-theme .pdf-modal-container,
+body.dark-theme .feedback-card,
+body.dark-theme .shortcut-pill {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+  color: #F8FAFC !important;
+}
+
+body.dark-theme .btn-clean-white {
+  background-color: #334155 !important;
+  border-color: #475569 !important;
+  color: #F8FAFC !important;
+}
+
+body.dark-theme .btn-clean-white:hover {
+  background-color: #475569 !important;
+}
+
+body.student-panel-body {
+  background-color: var(--color-bg-alt);
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* =========================================================
+   PERFECTLY CENTERED ANNOUNCEMENT TICKER BAR
+   ========================================================= */
+.announcement-ticker-bar {
+  background: linear-gradient(135deg, #1E1B4B, #312E81);
+  color: #FFFFFF;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.88rem;
+  font-weight: 500;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ticker-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ticker-badge {
+  background: #EF4444;
+  color: #FFFFFF;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  animation: pulseBadge 1.8s infinite;
+}
+
+@keyframes pulseBadge {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.95; }
+}
+
+.ticker-text {
+  color: #E0E7FF;
+  line-height: 1.3;
+}
+
+/* =========================================================
+   HEADER & USER BADGE CONTROLS
+   ========================================================= */
+.header-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+/* DARK MODE TOGGLE BUTTON */
+.btn-theme-toggle {
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+}
+
+body.dark-theme .btn-theme-toggle {
+  background: #334155;
+  border-color: #475569;
+}
+
+.btn-theme-toggle:hover {
+  transform: scale(1.08);
+}
+
+.user-pill-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #EEF2FF;
+  padding: 6px 14px 6px 6px;
+  border-radius: 999px;
+  border: 1px solid #C7D2FE;
+}
+
+body.dark-theme .user-pill-wrap {
+  background: #1E293B;
+  border-color: #334155;
+}
+
+.avatar-circle-sm {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.user-display-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.btn-logout-sm {
+  background: #FEF2F2;
+  color: #DC2626;
+  border: 1px solid #FCA5A5;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-logout-sm:hover {
+  background: #DC2626;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   HERO SECTION & ANIMATED NAME ENTRANCE
+   ========================================================= */
+.student-hero {
+  padding-block: 65px 35px;
+  text-align: center;
+  position: relative;
+}
+
+.student-hero-inner {
+  max-width: 820px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.student-badge-eyebrow {
+  background: rgba(79, 70, 229, 0.08);
+  color: var(--color-primary);
+  padding: 5px 16px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+}
+
+@keyframes flameShineEntry {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(15px);
+    filter: blur(8px) brightness(1.8);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05) translateY(-3px);
+    filter: blur(2px) brightness(1.4);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0) brightness(1);
+  }
+}
+
+@keyframes textGradientGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.student-hero h1 {
+  font-size: clamp(2.2rem, 4.8vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 14px;
+  animation: flameShineEntry 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-animated {
+  background: linear-gradient(270deg, #FF4500, #FF8C00, #7C3AED, #4F46E5, #FF4500);
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGradientGlow 4s ease infinite;
+  display: inline-block;
+  font-weight: 800;
+}
+
+.student-hero-sub {
+  font-size: 1rem;
+  color: var(--color-muted);
+  max-width: 62ch;
+  margin-bottom: 26px;
+}
+
+.hero-class-shortcuts {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.shortcut-pill {
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text);
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.shortcut-pill:hover {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+}
+
+/* =========================================================
+   QUICK ACCESS & CLASS GRID
+   ========================================================= */
+.student-quicklinks-inner {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+.quicklink-count {
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: rgba(79, 70, 229, 0.1);
+  border-radius: 999px;
+  padding: 2px 8px;
+  margin-left: 6px;
+}
+
+.text-center { text-align: center; }
+
+.student-step { padding-block: 45px; }
+
+.class-rail {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 22px;
+  margin-top: 30px;
+}
+
+.class-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border);
+  border-radius: 20px;
+  padding: 26px;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 170px;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.class-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-primary);
+  box-shadow: 0 14px 30px -6px rgba(79, 70, 229, 0.2);
+}
+
+.class-index {
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: rgba(79, 70, 229, 0.1);
+  padding: 2px 8px;
+  border-radius: 6px;
+  width: fit-content;
+  margin-bottom: 8px;
+}
+
+.class-num {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.class-desc {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  line-height: 1.45;
+}
+
+.class-arrow {
+  position: absolute;
+  bottom: 22px;
+  right: 22px;
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 1.25rem;
+}
+
+/* =========================================================
+   SUBJECT GRID
+   ========================================================= */
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.subject-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 110px;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.subject-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 24px -4px rgba(79, 70, 229, 0.18);
+}
+
+.subject-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.subject-open-hint {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-top: 12px;
+}
+
+/* =========================================================
+   CLEAN WHITE BUTTONS
+   ========================================================= */
+.btn-clean-white {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1.5px solid #CBD5E1 !important;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+}
+
+.btn-clean-white:hover {
+  background: #F1F5F9 !important;
+  border-color: #94A3B8 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+}
+
+.btn-modal-exit-red {
+  background: #FEF2F2;
+  color: #DC2626;
+  border: 1.5px solid #FCA5A5;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-modal-exit-red:hover {
+  background: #DC2626;
+  color: #FFFFFF;
+  border-color: #DC2626;
+  transform: scale(1.08);
+}
+
+/* =========================================================
+   FLOATING PROFESSIONAL NOTES PANEL MODAL
+   ========================================================= */
+.notes-panel-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 350 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px !important;
+}
+
+.notes-panel-modal[hidden] { display: none !important; }
+
+.notes-modal-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  background: rgba(15, 23, 42, 0.72) !important;
+  backdrop-filter: blur(6px) !important;
+}
+
+.notes-modal-container {
+  position: relative !important;
+  z-index: 2 !important;
+  width: 100% !important;
+  max-width: 850px !important;
+  max-height: 85vh !important;
+  background: #FFFFFF !important;
+  border-radius: 24px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.notes-modal-header {
+  padding: 20px 28px !important;
+  background: var(--color-bg-alt) !important;
+  border-bottom: 1.5px solid var(--color-border) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.notes-modal-titles h2 {
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+}
+
+.notes-modal-body {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  padding: 28px !important;
+}
+
+.note-card {
+  background: #FFFFFF !important;
+  border: 1.5px solid var(--color-border) !important;
+  border-radius: 18px !important;
+  padding: 22px !important;
+  margin-bottom: 18px !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: all 0.2s ease !important;
+}
+
+.note-card:hover {
+  border-color: var(--color-primary) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.note-card-title {
+  font-size: 1.18rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 4px !important;
+  color: var(--color-text) !important;
+}
+
+.note-card-subject {
+  font-size: 0.88rem !important;
+  color: var(--color-muted) !important;
+  margin-bottom: 14px !important;
+}
+
+.note-card-actions {
+  display: flex !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+
+/* =========================================================
+   WINDOWS OS & CHROME STYLE PDF VIEWER MODAL (FIXED ALIGNMENT)
+   ========================================================= */
+.pdf-viewer-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px !important;
+}
+
+.pdf-viewer-modal[hidden] { display: none !important; }
+
+.pdf-modal-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  background: rgba(15, 23, 42, 0.82) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.pdf-modal-container {
+  position: relative !important;
+  z-index: 2 !important;
+  width: 92% !important;
+  max-width: 1000px !important;
+  height: 88vh !important;
+  background: #FFFFFF !important;
+  border-radius: 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  box-shadow: var(--shadow-lg) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.pdf-modal-container.is-maximized {
+  max-width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+}
+
+.pdf-modal-header.win-header {
+  padding: 12px 20px !important;
+  background: #0F172A !important;
+  color: #FFFFFF !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-bottom: 1px solid #1E293B !important;
+  flex-shrink: 0 !important;
+}
+
+.pdf-modal-title.win-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  max-width: 65% !important;
+}
+
+.win-pdf-icon {
+  color: #EF4444 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.win-title h3 {
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  color: #F8FAFC !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.win-controls-wrap {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.win-btn.win-download-btn {
+  background: #2563EB !important;
+  color: #FFFFFF !important;
+  padding: 6px 14px !important;
+  border-radius: 8px !important;
+  text-decoration: none !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: all 0.2s ease !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.win-btn.win-download-btn:hover {
+  background: #1D4ED8 !important;
+}
+
+.win-sys-buttons {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.win-btn {
+  background: transparent !important;
+  border: none !important;
+  color: #94A3B8 !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.85rem !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.win-btn:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #FFFFFF !important;
+}
+
+.win-btn.win-close:hover {
+  background: #DC2626 !important;
+  color: #FFFFFF !important;
+}
+
+.pdf-modal-body {
+  flex: 1 !important;
+  background: #525659 !important;
+  width: 100% !important;
+  height: calc(100% - 56px) !important;
+}
+
+.pdf-modal-body iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  background: #FFFFFF !important;
+}
+
+/* =========================================================
+   ABOUT & FEEDBACK FORM
+   ========================================================= */
+.about-student-section {
+  padding-block: 50px 30px;
+  border-top: 1px solid var(--color-border);
+}
+
+.about-desc {
+  max-width: 60ch;
+  margin: 10px auto 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.feedback-section { padding-block: 30px 50px; }
+
+.feedback-card {
+  max-width: 580px;
+  margin-inline: auto;
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border);
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow: var(--shadow-md);
+}
+
+.feedback-header h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.feedback-header p {
+  color: var(--color-muted);
+  font-size: 0.88rem;
+  margin-bottom: 22px;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feedback-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.feedback-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.feedback-field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.feedback-field input,
+.feedback-field textarea {
+  width: 100%;
+  padding: 11px 15px;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.feedback-field input:focus,
+.feedback-field textarea:focus {
+  border-color: var(--color-primary);
+}
+
+/* =========================================================
+   FOOTER DIRECT LOGO LINKS
+   ========================================================= */
+.footer-logo-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.footer-social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  padding: 8px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.footer-social-pill:hover {
+  background: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-links-list a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-links-list a:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+.footer-subjects-text {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .feedback-field-row { grid-template-columns: 1fr; }
+  .ticker-content { flex-direction: column; gap: 6px; }
+  .win-controls-wrap { gap: 8px; }
+}
+/* =========================================================
+   FIX FOR ADMIN STYLE SIDEBAR & MAIN WRAPPER LAYOUT
+   ========================================================= */
+body.admin-body-wrap {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  background-color: #F8FAFC !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  overflow-x: hidden;
+}
+
+/* Sidebar Fixed Fix */
+.admin-sidebar {
+  width: 260px !important;
+  height: 100vh !important;
+  background: #ffffff !important;
+  border-right: 1px solid #E2E8F0 !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  z-index: 100 !important;
+}
+
+/* Main Wrapper Margin Fix so content goes to right of sidebar */
+.admin-main-wrapper {
+  margin-left: 260px !important;
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh !important;
+  background: #F8FAFC !important;
+  width: calc(100% - 260px) !important;
+}
+
+/* Topbar Header Fix */
+.admin-topbar {
+  height: 70px !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 30px !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 99 !important;
+}
+
+/* Content Body Area */
+.admin-content-body {
+  padding: 30px !important;
+  flex: 1 !important;
+  overflow-y: auto !important;
+}
+
+/* Workspace Sections Toggle */
+.workspace-section {
+  display: none !important;
+}
+
+.workspace-section.active {
+  display: block !important;
+}
+/* =========================================================
+   UI FIXES: SOFT BLUE BANNER & PREMIUM ACTIVE SCHOLAR BOX
+   ========================================================= */
+
+/* Softened & Elegant Blue Welcome Banner */
+#overviewSection .admin-card[style*="background"] {
+  background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%) !important;
+  box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#overviewSection .admin-card[style*="background"] p {
+  color: #EFF6FF !important;
+}
+
+/* Premium Active Scholar Sidebar User Box */
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid #E2E8F0;
+  background: #F8FAFC;
+}
+
+.admin-user-mini {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #FFFFFF;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.admin-avatar {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, #2563EB, #7C3AED);
+  color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.admin-user-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.admin-user-info strong {
+  font-size: 0.9rem;
+  color: #0F172A;
+  font-weight: 700;
+}
+
+.admin-user-info span {
+  font-size: 0.75rem;
+  color: #2563EB;
+  font-weight: 600;
+  background: rgba(37, 99, 235, 0.1);
+  padding: 1px 6px;
+  border-radius: 4px;
+  width: fit-content;
+  margin-top: 2px;
+}
+
+.btn-sidebar-logout {
+  background: #FEF2F2 !important;
+  color: #DC2626 !important;
+  border: 1px solid #FCA5A5 !important;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-sidebar-logout:hover {
+  background: #DC2626 !important;
+  color: #FFFFFF !important;
+}
+.board-label {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #64748b;
+}
+.class-image{
+    width:100%;
+    height:170px;
+    object-fit:cover;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+/* =========================================================
+   STUDENT PANEL CLASS CARD IMAGE STYLING
+   ========================================================= */
+.student-panel .book-cover-wrap,
+.class-card .book-cover-wrap {
+  width: 100%;
+  max-width: 140px;
+  margin: 0 auto 16px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.student-panel .ncert-book-img,
+.class-card .ncert-book-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+}
+
+.class-card:hover .book-cover-wrap {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 16px 30px rgba(37, 99, 235, 0.35);
+}
+/* =========================================================
+   CLICK PASS-THROUGH FIX FOR CLASS CARDS
+   ========================================================= */
+.class-card .book-cover-wrap,
+.class-card .ncert-book-img,
+.class-card * {
+  pointer-events: none !important;
+}
+
+.class-card {
+  pointer-events: auto !important;
+}
+/* =========================================================
+   COMMERCIAL MENTOR STYLE SUBJECT CARDS (LIGHT UI)
+   ========================================================= */
+.subject-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+  gap: 20px !important;
+  margin-top: 20px !important;
+}
+
+.subject-card {
+  background: #ffffff !important;
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+  position: relative !important;
+}
+
+.subject-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 12px 25px rgba(37, 99, 235, 0.15) !important;
+  border-color: #3B82F6 !important;
+}
+
+/* Light Blue Image Container */
+.subject-card-banner {
+  background: linear-gradient(180deg, #EFF6FF 0%, #DBEAFE 100%) !important;
+  padding: 24px 16px 16px 16px !important;
+  position: relative !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Top-Left Red 100% FREE Ribbon */
+.free-ribbon-badge {
+  position: absolute !important;
+  top: 12px !important;
+  left: -4px !important;
+  background: #EF4444 !important;
+  color: #ffffff !important;
+  font-size: 0.7rem !important;
+  font-weight: 800 !important;
+  padding: 4px 10px !important;
+  border-radius: 0 4px 4px 0 !important;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4) !important;
+  letter-spacing: 0.5px !important;
+  z-index: 2 !important;
+}
+
+/* 3:4 Book Cover Wrap inside Card */
+.subject-img-wrap {
+  width: 100% !important;
+  max-width: 120px !important;
+  aspect-ratio: 3 / 4 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15) !important;
+}
+
+.subject-cover-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+/* Bottom Card Details */
+.subject-card-info {
+  padding: 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: #ffffff !important;
+}
+
+.subject-card-title {
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  color: #0F172A !important;
+  margin: 0 !important;
+}
+
+.subject-card-cta {
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  color: #2563EB !important;
+}
+/* =========================================================
+   ROBOT EMPTY STATE & SUPPORT BANNER STYLING
+   ========================================================= */
+/* Robot Empty State Modal Styling */
+.empty-state-card {
+  text-align: center !important;
+  padding: 30px 15px !important;
+  background: #ffffff !important;
+  border-radius: 16px !important;
+}
+
+.empty-state-img {
+  width: 100% !important;
+  max-width: 210px !important;
+  height: auto !important;
+  margin: 0 auto 12px auto !important;
+  display: block !important;
+}
+
+.empty-state-card h4 {
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  color: #0F172A !important;
+  margin-bottom: 6px !important;
+}
+
+.empty-state-card p {
+  font-size: 0.88rem !important;
+  color: #64748B !important;
+  margin: 0 !important;
+}
+
+/* Support Section 2-Column Layout */
+.support-card-container {
+  background: #ffffff !important;
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 16px !important;
+  padding: 28px !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+  gap: 30px !important;
+  align-items: center !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
+}
+
+.support-banner-box {
+  text-align: center !important;
+}
+
+.support-banner-img {
+  width: 100% !important;
+  max-width: 320px !important;
+  height: auto !important;
+  border-radius: 14px !important;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15) !important;
+  display: inline-block !important;
+}
+
+.support-form-box h3 {
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  color: #0F172A !important;
+  margin-bottom: 6px !important;
+}
+
+.support-form-box p {
+  font-size: 0.88rem !important;
+  color: #64748B !important;
+  margin-bottom: 18px !important;
+  line-height: 1.5 !important;
+}
+
+.support-form-box form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+}
+
+.support-form-box input,
+.support-form-box textarea {
+  width: 100% !important;
+  padding: 11px 15px !important;
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 10px !important;
+  font-size: 0.9rem !important;
+  outline: none !important;
+  transition: border-color 0.2s !important;
+}
+
+.support-form-box input:focus,
+.support-form-box textarea:focus {
+  border-color: #2563EB !important;
+}
+/* =========================================================
+   MAKKAN SMOOTH UI & HARDWARE ACCELERATED ANIMATIONS
+   ========================================================= */
+
+/* 1. Global GPU Acceleration for Smooth Rendering */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 2. Modal Overlay Smooth Fade In/Out */
+#notesPanel, 
+#pdfViewerModal {
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+              visibility 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+/* Modal Open Animation (Scale & Slide Smooth Transition) */
+#notesPanel:not([hidden]), 
+#pdfViewerModal:not([hidden]) {
+  animation: modalPopIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 3. Makkan Smooth Cards & Row Hover Effects */
+.subject-card, 
+.class-card, 
+.note-card-row {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.25s ease, 
+              border-color 0.2s ease,
+              background-color 0.2s ease !important;
+  will-change: transform, box-shadow;
+}
+
+/* Subtle Hover Elevation */
+.subject-card:hover, 
+.class-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 24px -8px rgba(37, 99, 235, 0.15) !important;
+}
+
+.note-card-row:hover {
+  transform: translateX(3px);
+  border-color: #BFDBFE !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08) !important;
+}
+
+/* 4. Action Buttons Micro-Interactions (Eye, Download, Save) */
+.note-card-row button, 
+.note-card-row a {
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              background-color 0.15s ease, 
+              color 0.15s ease !important;
+}
+
+.note-card-row button:hover, 
+.note-card-row a:hover {
+  transform: scale(1.12);
+}
+
+.note-card-row button:active, 
+.note-card-row a:active {
+  transform: scale(0.92);
+}
+
+/* 5. Sidebar Navigation Switching Smoothness */
+.sidebar-menu .nav-item {
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.sidebar-menu .nav-item:hover {
+  transform: translateX(4px);
+}
+
+/* 6. Smooth Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+/* =========================================================
+   NOTESPOINT — ULTRA HIGH-SMOOTHNESS & 60FPS ANIMATIONS
+   ========================================================= */
+
+/* 1. Global Hardware Acceleration & Butter Smooth Scroll */
+html {
+  scroll-behavior: smooth !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  overflow-x: hidden;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 2. GPU Layer Promotion for Fast Rendering */
+header, 
+nav, 
+.hero-section, 
+.card, 
+.modal, 
+.btn, 
+button {
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Forces GPU Acceleration */
+}
+
+/* 3. High-Performance Card & Container Hover Effects */
+.card, 
+.feature-card, 
+.class-card, 
+.subject-card, 
+.course-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 0.25s ease !important;
+}
+
+.card:hover, 
+.feature-card:hover, 
+.class-card:hover, 
+.subject-card:hover {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow: 0 16px 32px -8px rgba(79, 70, 229, 0.18) !important;
+}
+
+/* 4. Super Smooth Micro-Interactions on Buttons & Links */
+button, 
+.btn, 
+a.cta-btn, 
+.nav-link {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              background-color 0.2s ease, 
+              color 0.2s ease, 
+              box-shadow 0.2s ease !important;
+}
+
+/* Button Hover Pop & Click Press Effects */
+button:hover, 
+.btn:hover, 
+a.cta-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+}
+
+button:active, 
+.btn:active, 
+a.cta-btn:active {
+  transform: translateY(1px) scale(0.96);
+}
+
+/* 5. Smooth Spring Modal & Popup Pop-in Effect */
+.modal, 
+.popup-dialog, 
+#notesPanel, 
+#pdfViewerModal {
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+              visibility 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal:not([hidden]), 
+.popup-dialog:not([hidden]), 
+#notesPanel:not([hidden]), 
+#pdfViewerModal:not([hidden]) {
+  animation: ultraSmoothModalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes ultraSmoothModalIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.94) translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 6. Smooth Navbar & Sticky Header Transitions */
+header.sticky-header {
+  transition: background-color 0.3s ease, 
+              backdrop-filter 0.3s ease, 
+              box-shadow 0.3s ease, 
+              padding 0.3s ease !important;
+}
+
+/* 7. Modern Silky Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 99px;
+  border: 2px solid rgba(241, 245, 249, 0.6);
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4F46E5;
+}

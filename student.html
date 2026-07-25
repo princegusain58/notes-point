@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Portal — Notes Point Dashboard</title>
+<meta name="description" content="Notes Point Student Command Center & Study Materials Dashboard.">
+<meta name="theme-color" content="#2563EB">
+
+<!-- Clean & Guaranteed Working NP Favicon Logo -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%232563EB%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22700%22 font-size=%2250%22 fill=%22%23ffffff%22>NP</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="student.css">
+
+<!-- MOBILE RESPONSIVENESS & SIDEBAR TOGGLE FIX -->
+<style>
+  @media (max-width: 992px) {
+    .admin-sidebar {
+      position: fixed !important;
+      left: -100% !important;
+      top: 0 !important;
+      height: 100vh !important;
+      z-index: 9999 !important;
+      transition: left 0.3s ease-in-out !important;
+      background: #ffffff !important;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.15) !important;
+      width: 260px !important;
+    }
+    .admin-sidebar.open { left: 0 !important; }
+    .admin-main-wrapper { margin-left: 0 !important; width: 100% !important; padding: 0 !important; }
+    .admin-content-body { padding: 12px !important; }
+    .class-rail, .subject-grid, .admin-grid-stats, .notes-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+    .admin-topbar { padding: 12px 16px !important; display: flex !important; justify-content: space-between !important; align-items: center !important; }
+    .mobile-toggle-btn { display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 1.25rem !important; padding: 8px 12px !important; background: #F1F5F9 !important; border: 1px solid #CBD5E1 !important; border-radius: 8px !important; cursor: pointer !important; color: #0F172A !important; }
+    .topbar-clock-pill { font-size: 0.75rem !important; padding: 4px 8px !important; }
+  }
+</style>
+</head>
+<body class="admin-body-wrap">
+
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="admin-sidebar" id="appSidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
+      <div class="brand-text">
+        <h2>NotesPoint</h2>
+        <span>Student Workspace</span>
+      </div>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li>
+        <a href="#" class="nav-item active" data-target="overviewSection">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Dashboard Overview</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-item" data-target="classesSection">
+          <i class="fa-solid fa-book-open-reader"></i>
+          <span>Browse Classes &amp; Notes</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-item" data-target="savedSection" id="sidebarSavedBtn">
+          <i class="fa-solid fa-bookmark"></i>
+          <span>Saved Notes</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-item" data-target="recentSection" id="sidebarRecentBtn">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span>Recently Viewed</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-item" data-target="supportSection">
+          <i class="fa-solid fa-headset"></i>
+          <span>Support &amp; Feedback</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="admin-user-mini">
+        <div class="admin-avatar" id="userAvatarLetter">S</div>
+        <div class="admin-user-info">
+          <strong id="studentHeaderName">Student</strong>
+          <span>Active Scholar</span>
+        </div>
+        <button type="button" class="btn-sidebar-logout" id="logoutBtn" title="Logout">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WORKSPACE AREA -->
+  <div class="admin-main-wrapper">
+    
+    <!-- TOP HEADER BAR -->
+    <header class="admin-topbar">
+      <div class="topbar-left" style="display: flex; align-items: center; gap: 12px;">
+        <button type="button" class="mobile-toggle-btn" id="toggleSidebarMobile" aria-label="Toggle Sidebar">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <h1 id="pageSectionTitle" style="font-size: 1.2rem; font-weight: 700; color: #0F172A; margin: 0;">Dashboard Overview</h1>
+      </div>
+
+      <div class="topbar-right" style="display: flex; align-items: center; gap: 10px;">
+        <div class="topbar-clock-pill">
+          <span id="adminLiveDate">📅 Syncing...</span>
+          <span class="clock-divider">|</span>
+          <span id="adminLiveClock">⏰ 00:00:00</span>
+        </div>
+        <button type="button" class="btn-topbar-action" id="themeToggleBtn" title="Toggle Theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT WORKSPACE SECTIONS -->
+    <main class="admin-content-body">
+
+      <!-- SECTION 1: OVERVIEW DASHBOARD -->
+      <section class="workspace-section active" id="overviewSection">
+        <div class="admin-grid-stats">
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="fa-solid fa-book-bookmark"></i></div>
+            <div class="stat-details">
+              <span>Available Classes</span>
+              <h3 id="statTotalClasses">Class 9–12 &amp; Entrance</h3>
+              <p class="stat-trend success"><span>100% Free Materials</span></p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon purple"><i class="fa-solid fa-file-pdf"></i></div>
+            <div class="stat-details">
+              <span>Study Materials</span>
+              <h3 id="statTotalNotes">Ready</h3>
+              <p class="stat-trend info"><span>NCERT Books & PYQs</span></p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green"><i class="fa-solid fa-star"></i></div>
+            <div class="stat-details">
+              <span>Exam Readiness</span>
+              <h3 id="statReadiness">100%</h3>
+              <p class="stat-trend success"><span>Free Access</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- WELCOME BANNER CARD -->
+        <div class="admin-card mt-24" style="background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); color: #fff; padding: 28px; border-radius: 16px; margin-top: 20px;">
+          <h2 style="font-size: 1.6rem; margin-bottom: 8px;">Welcome back, <span id="studentName">Student</span>! 👋</h2>
+          <p style="opacity: 0.95; font-size: 0.95rem; max-width: 600px; margin-bottom: 20px; color: #EFF6FF;">
+            Tayyari jeet ki! All study notes, NCERT books, and competitive exam materials are now 100% free. Choose your grade below to get started.
+          </p>
+          <button type="button" class="admin-btn-primary" onclick="window.switchSection('classesSection');" style="background: #ffffff; color: #2563EB; font-weight: 700; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer;">
+            Browse Classes Now →
+          </button>
+        </div>
+      </section>
+
+      <!-- SECTION 2: BROWSE CLASSES & SUBJECTS -->
+      <section class="workspace-section" id="classesSection">
+        <div class="admin-card">
+          <div class="section-head mb-20" id="classHeaderArea">
+            <h2 style="font-size: 1.3rem; font-weight: 700;">Select Your Class, NCERT Books or Competitive Exam</h2>
+            <p style="color: #64748B; font-size: 0.9rem;">100% Free Chapter Notes, NCERT Books, PYQs &amp; Entrance Material.</p>
+          </div>
+
+          <!-- Class Selection Cards Rail -->
+          <div class="class-rail" id="classRail" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;" role="list">
+            
+            <!-- CLASS 9 -->
+            <button type="button" class="class-card admin-card" role="listitem" data-class="9" style="text-align: left; cursor: pointer; border: 1px solid #CBD5E1; padding: 20px; border-radius: 12px; background: #fff;">
+              <div class="book-cover-wrap"><img src="images/class9.jpg" alt="Class 9 Notes Cover" class="ncert-book-img"></div>
+              <span class="class-index" style="color: #2563EB; font-weight: 800; font-size: 1.2rem;">01</span>
+              <h3 style="font-size: 1.2rem; margin: 8px 0;">Class 9</h3>
+              <p style="font-size: 0.85rem; color: #64748B;">NCERT Books, Science, Maths, PYQs</p>
+            </button>
+         
+            <!-- CLASS 10 -->
+            <button type="button" class="class-card admin-card" role="listitem" data-class="10" style="text-align: left; cursor: pointer; border: 1px solid #CBD5E1; padding: 20px; border-radius: 12px; background: #fff;">
+              <div class="book-cover-wrap"><img src="images/class10.jpg" alt="Class 10 Notes Cover" class="ncert-book-img"></div>
+              <span class="class-index" style="color: #2563EB; font-weight: 800; font-size: 1.2rem;">02</span>
+              <h3 style="font-size: 1.2rem; margin: 8px 0;">Class 10</h3>
+              <p style="font-size: 0.85rem; color: #64748B;">NCERT Books, Board Notes, PYQs</p>
+            </button>
+
+            <!-- CLASS 11 -->
+            <button type="button" class="class-card admin-card" role="listitem" data-class="11" style="text-align: left; cursor: pointer; border: 1px solid #CBD5E1; padding: 20px; border-radius: 12px; background: #fff;">
+              <div class="book-cover-wrap"><img src="images/class11.jpg" alt="Class 11 Notes Cover" class="ncert-book-img"></div>
+              <span class="class-index" style="color: #2563EB; font-weight: 800; font-size: 1.2rem;">03</span>
+              <h3 style="font-size: 1.2rem; margin: 8px 0;">Class 11</h3>
+              <p style="font-size: 0.85rem; color: #64748B;">NCERT Books, Science, Commerce, Arts</p>
+            </button>
+
+            <!-- CLASS 12 -->
+            <button type="button" class="class-card admin-card" role="listitem" data-class="12" style="text-align: left; cursor: pointer; border: 1px solid #CBD5E1; padding: 20px; border-radius: 12px; background: #fff;">
+              <div class="book-cover-wrap"><img src="images/class12.jpg" alt="Class 12 Notes Cover" class="ncert-book-img"></div>
+              <span class="class-index" style="color: #2563EB; font-weight: 800; font-size: 1.2rem;">04</span>
+              <h3 style="font-size: 1.2rem; margin: 8px 0;">Class 12</h3>
+              <p style="font-size: 0.85rem; color: #64748B;">NCERT Books, Board Revision, PYQs</p>
+            </button>
+
+            <!-- COMPETITIVE EXAMS -->
+            <button type="button" class="class-card admin-card" role="listitem" data-class="competitive" style="text-align: left; cursor: pointer; border: 1px solid #7C3AED; padding: 20px; border-radius: 12px; background: linear-gradient(135deg, #F3E8FF 0%, #FFFFFF 100%);">
+              <div class="book-cover-wrap"><img src="images/compitative.jpg" alt="Competitive Exams Cover" class="ncert-book-img" onerror="this.src='images/class12.jpg'"></div>
+              <span class="class-index" style="color: #7C3AED; font-weight: 800; font-size: 1.2rem;">🔥</span>
+              <h3 style="font-size: 1.2rem; margin: 8px 0; color: #6D28D9;">Competitive Exams</h3>
+              <p style="font-size: 0.85rem; color: #5B21B6;">JEE Main/Adv, NEET-UG, CUET, NDA</p>
+            </button>
+
+          </div>
+
+          <!-- Dynamic Subject Grid Container -->
+          <div id="subjectContainerArea" style="margin-top: 10px;" hidden>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid #E2E8F0; padding-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+              <h3 id="selectedClassTitle" style="font-size: 1.2rem; color: #0F172A; font-weight: 700;">Subjects &amp; NCERT Books</h3>
+              <button type="button" class="admin-btn-secondary" id="backToClassesBtn" style="padding: 8px 16px; cursor: pointer; border: 1px solid #CBD5E1; border-radius: 8px; background: #F8FAFC; font-weight: 600;">← Back</button>
+            </div>
+            
+            <div class="nav-level mb-16" id="streamLevel" hidden style="margin-bottom: 16px;">
+              <h4 style="font-size: 0.95rem; margin-bottom: 8px; color: #334155;">Select Stream:</h4>
+              <div class="nav-pills" id="streamPills" style="display: flex; gap: 10px; flex-wrap: wrap;"></div>
+            </div>
+
+            <div class="subject-grid" id="subjectGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: SAVED NOTES -->
+      <section class="workspace-section" id="savedSection">
+        <div class="admin-card">
+          <h2>⭐ Saved Notes</h2>
+          <p style="color: #64748B; margin-bottom: 20px;">Quick access to your bookmarked study materials.</p>
+          <div id="savedNotesListContainer" class="notes-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;"></div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: RECENTLY VIEWED -->
+      <section class="workspace-section" id="recentSection">
+        <div class="admin-card">
+          <h2>🕒 Recently Viewed Notes</h2>
+          <p style="color: #64748B; margin-bottom: 20px;">Materials you checked recently.</p>
+          <div id="recentNotesListContainer" class="notes-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;"></div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: SUPPORT & FEEDBACK -->
+      <section class="workspace-section" id="supportSection">
+        <div class="admin-card" style="max-width: 900px; margin: 0 auto;">
+          <div class="support-card-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; align-items: center;">
+            <div class="support-banner-box" style="text-align: center;">
+              <img src="images/support-banner.jpg" alt="Support & Feedback" class="support-banner-img" style="width: 100%; max-width: 320px; border-radius: 14px; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15); display: inline-block;">
+            </div>
+            <div class="support-form-box">
+              <h2 style="font-size: 1.4rem; font-weight: 700; color: #0F172A; margin-bottom: 6px;">💬 Student Support &amp; Feedback</h2>
+              <p style="color: #64748B; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">Have a question or want to request missing notes? Send us a message directly.</p>
+
+              <form style="display: flex; flex-direction: column; gap: 14px;">
+                <div>
+                  <label style="display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.88rem;">Your Name</label>
+                  <input type="text" name="name" id="supportNameInput" class="admin-input" placeholder="Rahul Sharma" required style="width: 100%; padding: 10px 14px; border: 1px solid #CBD5E1; border-radius: 8px;">
+                </div>
+                <div>
+                  <label style="display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.88rem;">Your Email</label>
+                  <input type="email" name="email" id="supportEmailInput" class="admin-input" placeholder="you@example.com" required style="width: 100%; padding: 10px 14px; border: 1px solid #CBD5E1; border-radius: 8px;">
+                </div>
+                <div>
+                  <label style="display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.88rem;">Message / Request</label>
+                  <textarea name="message" rows="4" class="admin-input" placeholder="Write your message here..." required style="width: 100%; padding: 10px 14px; border: 1px solid #CBD5E1; border-radius: 8px; resize: vertical;"></textarea>
+                </div>
+                <button type="submit" class="admin-btn-primary" style="background: #2563EB; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer;">Send Message 🚀</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- NOTES MODAL & PDF VIEWER MODAL -->
+  <div class="notes-panel-modal" id="notesPanel" hidden style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; align-items: center; justify-content: center;">
+    <div class="notes-modal-container" style="background: #fff; width: 92%; max-width: 850px; max-height: 85vh; border-radius: 14px; display: flex; flex-direction: column; overflow: hidden;">
+      <div class="notes-modal-header" style="padding: 16px 20px; background: #F8FAFC; border-bottom: 1px solid #CBD5E1; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <p class="eyebrow" id="notesPanelBreadcrumb" style="font-size: 0.75rem; color: #2563EB; font-weight: 700; text-transform: uppercase;"></p>
+          <h2 id="notesPanelTitle" style="font-size: 1.2rem; color: #0F172A;"></h2>
+        </div>
+        <button type="button" id="notesPanelClose" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #EF4444;"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="notes-modal-body" style="padding: 20px; overflow-y: auto; flex: 1;">
+        <p class="browse-status" id="notesPanelStatus" style="font-size: 0.85rem; color: #64748B; margin-bottom: 14px;"></p>
+        <div class="notes-grid" id="notesPanelGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;"></div>
+        
+        <div class="notes-state" id="notesPanelEmpty" hidden style="text-align: center; padding: 25px 15px;">
+          <img src="images/empty-state.png" alt="No Notes Available" style="width: 100%; max-width: 210px; height: auto; margin: 0 auto 12px auto; display: block;">
+          <h3 style="font-size: 1.15rem; font-weight: 700; color: #0F172A; margin-bottom: 6px;">No materials available yet</h3>
+          <p id="notesPanelEmptyMessage" style="color: #64748B; font-size: 0.9rem;">This shelf is empty right now. We are uploading notes for this subject soon!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF VIEWER MODAL -->
+  <div class="pdf-viewer-modal" id="pdfViewerModal" hidden style="position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1100; display: flex; align-items: center; justify-content: center;">
+    <div class="pdf-modal-container win-header" style="background: #fff; width: 95%; height: 90vh; border-radius: 10px; display: flex; flex-direction: column; overflow: hidden;">
+      <div class="pdf-modal-header" style="background: #0F172A; color: #fff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center;">
+        <h3 id="pdfModalDocumentTitle" style="font-size: 1rem;">Chapter Notes PDF</h3>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <a href="#" id="pdfModalDownloadBtn" class="win-btn" style="background: #2563EB; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; text-decoration: none;" download target="_blank">Download</a>
+          <button type="button" id="pdfModalCloseBtn" style="background: none; border: none; color: #fff; font-size: 1.1rem; cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div style="flex: 1; background: #E2E8F0;">
+        <iframe id="pdfIframe" src="" frameborder="0" style="width: 100%; height: 100%;" title="PDF Viewer"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs & Script -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="student.js"></script>
+</body>
+</html>
