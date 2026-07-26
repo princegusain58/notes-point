@@ -336,12 +336,24 @@
 
     const titleText = activeClass === 'competitive' ? 'Competitive Entrance Exams' : `Class ${activeClass} — Subjects & Resources`;
     if (selectedClassTitle) {
+      // CENTER ALIGNED TITLE & BACK BUTTON CONTAINER
       selectedClassTitle.innerHTML = `
-        ${titleText}
-        <span class="board-label" style="display:block; font-size:0.85rem; color:#64748B; margin-top:4px;">
-          100% Free Study Materials & NCERT Books
-        </span>
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; margin-bottom: 12px; gap: 10px;">
+          <button type="button" class="admin-btn-secondary" id="dynamicBackBtn" style="padding: 6px 16px; cursor: pointer; border: 1px solid #CBD5E1; border-radius: 8px; background: #F8FAFC; font-weight: 600; font-size: 0.85rem;">← Back</button>
+          <h3 style="font-size: 1.25rem; color: #0F172A; font-weight: 700; margin: 0; text-align: center;">${titleText}</h3>
+          <span class="board-label" style="display:block; font-size:0.85rem; color:#64748B; margin-top:0px; text-align: center;">
+            100% Free Study Materials & NCERT Books
+          </span>
+        </div>
       `;
+      
+      // Bind dynamic back button click event
+      setTimeout(() => {
+        const dynBack = document.getElementById('dynamicBackBtn');
+        if (dynBack) {
+          dynBack.addEventListener('click', goToClassStep);
+        }
+      }, 50);
     }
 
     if (CURRICULUM[activeClass]?.streams) {
