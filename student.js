@@ -29,9 +29,6 @@
   const notesCollection = db.collection('notes');
   const FieldValue = firebase.firestore.FieldValue;
 
-  /* =========================================================
-     LIVE TICKER MANAGER
-     ========================================================= */
   function initLiveTicker() {
     const tickerTrack = document.getElementById('tickerPreviewTrack') || document.querySelector('.ticker-track') || document.getElementById('runningTickerText');
     if (!tickerTrack) return;
@@ -48,9 +45,6 @@
     }).catch(() => {});
   }
 
-  /* =========================================================
-     REAL STUDENT NAME & SESSION SYNC (TOPPER FIXED)
-     ========================================================= */
   function initStudentSession() {
     const studentNameHeading = document.getElementById('studentName');
     const studentHeaderName = document.getElementById('studentHeaderName');
@@ -89,9 +83,6 @@
 
   initStudentSession();
 
-  /* =========================================================
-     LOCAL FEEDBACK / SUPPORT FORM HANDLER (DIRECT TO ADMIN)
-     ========================================================= */
   function initFeedbackInterceptor() {
     const supportForm = document.querySelector('#supportSection form') || document.querySelector('form[action*="formsubmit.co"]');
     if (!supportForm) return;
@@ -169,9 +160,6 @@
   const RECENT_KEY = 'notesPointRecentlyViewed';
   const RECENT_LIMIT = 12;
 
-  /* =========================================================
-     DARK MODE TOGGLE
-     ========================================================= */
   const themeToggleBtn = document.getElementById('themeToggleBtn');
   const sunIcon = themeToggleBtn?.querySelector('.theme-icon-sun');
   const moonIcon = themeToggleBtn?.querySelector('.theme-icon-moon');
@@ -279,9 +267,6 @@
     });
   });
 
-  /* =========================================================
-     NAVIGATION & RENDERING (CLASS & SUBJECT BROWSING)
-     ========================================================= */
   const classRail = document.getElementById('classRail');
   const classHeaderArea = document.getElementById('classHeaderArea');
   const subjectContainerArea = document.getElementById('subjectContainerArea');
@@ -290,10 +275,6 @@
   const streamPills = document.getElementById('streamPills');
   const subjectGrid = document.getElementById('subjectGrid');
   const selectedClassTitle = document.getElementById('selectedClassTitle');
-
-  if (backToClassesBtn) {
-    backToClassesBtn.textContent = '← Back';
-  }
 
   let activeClass = '';
   let activeStream = '';
@@ -336,24 +317,15 @@
 
     const titleText = activeClass === 'competitive' ? 'Competitive Entrance Exams' : `Class ${activeClass} — Subjects & Resources`;
     if (selectedClassTitle) {
-      // CENTER ALIGNED TITLE & BACK BUTTON CONTAINER
+      // CENTER ALIGNED TITLE WITHOUT EXTRA BACK BUTTON
       selectedClassTitle.innerHTML = `
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; margin-bottom: 12px; gap: 10px;">
-          <button type="button" class="admin-btn-secondary" id="dynamicBackBtn" style="padding: 6px 16px; cursor: pointer; border: 1px solid #CBD5E1; border-radius: 8px; background: #F8FAFC; font-weight: 600; font-size: 0.85rem;">← Back</button>
-          <h3 style="font-size: 1.25rem; color: #0F172A; font-weight: 700; margin: 0; text-align: center;">${titleText}</h3>
-          <span class="board-label" style="display:block; font-size:0.85rem; color:#64748B; margin-top:0px; text-align: center;">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; margin-bottom: 20px; gap: 6px;">
+          <h3 style="font-size: 1.35rem; color: #0F172A; font-weight: 800; margin: 0; text-align: center;">${titleText}</h3>
+          <span class="board-label" style="display:block; font-size:0.9rem; color:#64748B; text-align: center;">
             100% Free Study Materials & NCERT Books
           </span>
         </div>
       `;
-      
-      // Bind dynamic back button click event
-      setTimeout(() => {
-        const dynBack = document.getElementById('dynamicBackBtn');
-        if (dynBack) {
-          dynBack.addEventListener('click', goToClassStep);
-        }
-      }, 50);
     }
 
     if (CURRICULUM[activeClass]?.streams) {
@@ -383,8 +355,6 @@
       }
     }
   });
-
-  backToClassesBtn?.addEventListener('click', goToClassStep);
 
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-class]');
@@ -416,9 +386,6 @@
     });
   }
 
-  /* =========================================================
-     SUBJECT CARD RENDERER (PERFECT BADGE & TITLE ALIGNMENT)
-     ========================================================= */
   function renderSubjectGrid(subjects) {
     if (!subjectGrid) return;
     subjectGrid.innerHTML = '';
@@ -467,9 +434,6 @@
     });
   }
 
-  /* =========================================================
-     FLEXIBLE NOTES MODAL & SMART STREAM MATCHING
-     ========================================================= */
   const notesPanel = document.getElementById('notesPanel');
   const notesPanelClose = document.getElementById('notesPanelClose');
   const notesPanelOverlay = document.getElementById('notesPanelOverlay');
@@ -479,7 +443,6 @@
   const notesPanelGrid = document.getElementById('notesPanelGrid');
   const notesPanelLoading = document.getElementById('notesPanelLoading');
   const notesPanelEmpty = document.getElementById('notesPanelEmpty');
-  const notesPanelEmptyMessage = document.getElementById('notesPanelEmptyMessage');
 
   function incrementCount(id, field) {
     if (!id) return;
@@ -633,7 +596,7 @@
     return card;
   }
 
-  function renderNotesList(notesArray, titleName = '') {
+  function renderNotesList(notesArray) {
     if (!notesPanelGrid) return;
     notesPanelGrid.innerHTML = '';
     notesPanelGrid.style.cssText = 'display: flex; flex-direction: column; width: 100%;';
@@ -717,7 +680,7 @@
 
     const filteredLocal = localNotes.filter(filterNoteHelper);
     if (notesPanelLoading) notesPanelLoading.hidden = true;
-    renderNotesList(filteredLocal, subjectValue);
+    renderNotesList(filteredLocal);
 
     if (notesCollection) {
       notesCollection.get().then((snapshot) => {
@@ -733,7 +696,7 @@
         [...filteredLocal, ...firestoreNotes].forEach(item => {
           combinedMap.set(item.fileUrl || item.id || item.chapter, item);
         });
-        renderNotesList(Array.from(combinedMap.values()), subjectValue);
+        renderNotesList(Array.from(combinedMap.values()));
       }).catch(() => {});
     }
   }
@@ -743,7 +706,7 @@
     if (notesPanelTitle) notesPanelTitle.textContent = title;
     if (notesPanel) notesPanel.hidden = false;
     if (notesPanelLoading) notesPanelLoading.hidden = true;
-    renderNotesList(items, title);
+    renderNotesList(items);
     if (items.length === 0 && notesPanelEmptyMessage) {
       notesPanelEmptyMessage.textContent = emptyMessage;
     }
@@ -758,9 +721,6 @@
 
   initLiveTicker();
 
-  /* =========================================================
-     SIDEBAR & SECTION SWITCHING
-     ========================================================= */
   const navItems = document.querySelectorAll('.sidebar-menu .nav-item');
   const sections = document.querySelectorAll('.workspace-section');
   const pageSectionTitle = document.getElementById('pageSectionTitle');
@@ -800,28 +760,6 @@
       const target = item.getAttribute('data-target');
       if (target) window.switchSection(target);
     });
-  });
-
-  function updateClock() {
-    const clockEl = document.getElementById('adminLiveClock');
-    const dateEl = document.getElementById('adminLiveDate');
-    const now = new Date();
-    
-    if (clockEl) clockEl.textContent = '⏰ ' + now.toLocaleTimeString();
-    if (dateEl) {
-      const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-      dateEl.textContent = '📅 ' + now.toLocaleDateString('en-US', options);
-    }
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
-
-  sections.forEach(sec => {
-    if (sec.classList.contains('active')) {
-      sec.style.display = 'block';
-    } else {
-      sec.style.display = 'none';
-    }
   });
 
   document.addEventListener('DOMContentLoaded', () => {
