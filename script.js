@@ -1431,31 +1431,87 @@ setupMobileNav();
     });
   }
 
-  /* =========================================================
-   AI CHATBOT TOGGLE LOGIC (FIXED FOR VEDANTU FLOATING DOCK)
+/* =========================================================
+   AI CHATBOT TOGGLE LOGIC (POPUP MODAL & BOT RESPONSE)
    ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
   const chatTrigger = document.getElementById('aiChatTrigger');
-  const chatWindow = document.getElementById('aiChatWindow');
-  const chatClose = document.getElementById('aiChatClose');
+  const chatModal = document.getElementById('aiChatModal');
+  const closeBtn = document.getElementById('closeAiModalBtn');
+  const userInput = document.getElementById('aiUserInput');
+  const sendBtn = document.getElementById('aiSendMsgBtn');
+  const chatMessages = document.getElementById('aiChatMessages');
 
-  if (chatTrigger && chatWindow) {
+  if (chatTrigger && chatModal) {
     chatTrigger.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (chatWindow.hasAttribute('hidden')) {
-        chatWindow.removeAttribute('hidden');
-        chatWindow.style.display = 'flex';
+      e.preventDefault();
+      if (chatModal.style.display === 'none' || !chatModal.style.display) {
+        chatModal.style.display = 'flex';
+        if (userInput) userInput.focus();
       } else {
-        chatWindow.setAttribute('hidden', 'true');
-        chatWindow.style.display = 'none';
+        chatModal.style.display = 'none';
       }
     });
   }
 
-  if (chatClose && chatWindow) {
-    chatClose.addEventListener('click', () => {
-      chatWindow.setAttribute('hidden', 'true');
-      chatWindow.style.display = 'none';
+  if (closeBtn && chatModal) {
+    closeBtn.addEventListener('click', () => {
+      chatModal.style.display = 'none';
+    });
+  }
+
+  function appendMsg(text, sender) {
+    if (!chatMessages) return;
+    const msg = document.createElement('div');
+    if (sender === 'user') {
+      msg.style.cssText = 'background: #2563EB; color: #ffffff; padding: 10px 12px; border-radius: 12px 12px 2px 12px; max-width: 85%; align-self: flex-end; font-size: 0.85rem;';
+    } else {
+      msg.style.cssText = 'background: #EFF6FF; color: #1E3A8A; padding: 10px 12px; border-radius: 12px 12px 12px 2px; max-width: 85%; align-self: flex-start; border: 1px solid #BFDBFE; font-size: 0.85rem; line-height: 1.5;';
+    }
+    msg.innerHTML = text.replace(/\n/g, '<br>');
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function getAiReply(text) {
+    const q = text.toLowerCase();
+    if (q.includes('10') || q.includes('class 10')) {
+      return "📚 Class 10 Science, Maths aur Board PYQs 100% free hain. 'Student Panel' par jaakar dekhein!";
+    }
+    if (q.includes('12') || q.includes('class 12')) {
+      return "⚡ Class 12 Physics derivations aur Chemistry reaction sheets Ready hain!";
+    }
+    if (q.includes('jee') || q.includes('neet') || q.includes('entrance')) {
+      return "🔥 JEE/NEET/CUET ke Formula Books Competitive Panel mein hain.";
+    }
+    if (q.includes('download') || q.includes('pdf')) {
+      return "📥 Download karne ke liye Note Card par Download (📥) icon par click karein.";
+    }
+    if (q.includes('hi') || q.includes('hello') || q.includes('hey')) {
+      return "👋 Namaste! Main NotesPoint AI Assistant hoon. Kis class ya subject ke notes chahiye aapko?";
+    }
+    return "🤖 Main samajh gaya! Aap Student Panel par jaakar direct notes view kar sakte hain ya Support Form se Admin ko message bhejein.";
+  }
+
+  function handleSend() {
+    if (!userInput) return;
+    const val = userInput.value.trim();
+    if (!val) return;
+
+    appendMsg(val, 'user');
+    userInput.value = '';
+
+    setTimeout(() => {
+      const reply = getAiReply(val);
+      appendMsg(reply, 'bot');
+    }, 400);
+  }
+
+  if (sendBtn) sendBtn.addEventListener('click', handleSend);
+  if (userInput) {
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleSend();
     });
   }
 });
@@ -1470,9 +1526,13 @@ document.addEventListener('DOMContentLoaded', () => {
     fbForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const name = document.getElementById('fbStudentName').value.trim();
-      const email = document.getElementById('fbStudentEmail').value.trim();
-      const message = document.getElementById('fbStudentMsg').value.trim();
+      const nameEl = document.getElementById('fbStudentName');
+      const emailEl = document.getElementById('fbStudentEmail');
+      const msgEl = document.getElementById('fbStudentMsg');
+
+      const name = nameEl ? nameEl.value.trim() : 'Student';
+      const email = emailEl ? emailEl.value.trim() : '';
+      const message = msgEl ? msgEl.value.trim() : '';
 
       const reviewObj = {
         id: 'rev_' + Date.now(),
