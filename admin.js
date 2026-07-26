@@ -18,7 +18,8 @@
     reviews: 'notespoint_student_reviews_v7',
     logs: 'notespoint_admin_audit_logs_v7',
     config: 'notespoint_site_config_v7',
-    users: 'notespoint_db_users'
+    users: 'notespoint_db_users',
+    visitors: 'notespoint_visitor_logs_v7'
   };
 
   const DEFAULT_FIREBASE_CONFIG = {
@@ -76,7 +77,40 @@
   }
 
   /* ==========================================================================
-     03. SYSTEM LOGGER ENGINE
+     03. VISITOR TRAFFIC TRACKER (Bina Login ke Traffic & Source Track Karna)
+     ========================================================================== */
+  class VisitorTrafficTracker {
+    static init() {
+      const urlParams = new URLSearchParams(window.location.search);
+      let sourceRef = urlParams.get('ref') || urlParams.get('source') || urlParams.get('utm_source');
+
+      if (!sourceRef) {
+        const referrer = document.referrer.toLowerCase();
+        if (referrer.includes('instagram')) sourceRef = 'Instagram';
+        else if (referrer.includes('whatsapp')) sourceRef = 'WhatsApp';
+        else if (referrer.includes('facebook') || referrer.includes('fb')) sourceRef = 'Facebook';
+        else if (referrer.includes('google')) sourceRef = 'Google Search';
+        else sourceRef = 'Direct Link / Bookmark';
+      }
+
+      const now = new Date();
+      const visitorRecord = {
+        id: 'vis_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+        name: 'Visitor_' + Math.floor(Math.random() * 89999 + 10000),
+        source: sourceRef,
+        date: now.toLocaleDateString(),
+        time: now.toLocaleTimeString('en-US', { hour12: true }),
+        timestamp: now.toISOString()
+      };
+
+      let visitors = LocalStorageManager.get(STORAGE_KEYS.visitors, []);
+      visitors.unshift(visitorRecord);
+      LocalStorageManager.set(STORAGE_KEYS.visitors, visitors.slice(0, 500));
+    }
+  }
+
+  /* ==========================================================================
+     04. SYSTEM LOGGER ENGINE
      ========================================================================== */
   class LoggerEngine {
     static info(msg, context = 'GENERAL') {
@@ -131,7 +165,7 @@
   }
 
   /* ==========================================================================
-     04. WEB AUDIO SYNTHESIZER
+     05. WEB AUDIO SYNTHESIZER
      ========================================================================== */
   class AudioSynthesizer {
     static init() {
@@ -174,7 +208,7 @@
   }
 
   /* ==========================================================================
-     05. FIREBASE CONTROLLER
+     06. FIREBASE CONTROLLER
      ========================================================================== */
   class FirebaseController {
     static init() {
@@ -228,7 +262,7 @@
   }
 
   /* ==========================================================================
-     06. NAVIGATION ROUTER
+     07. NAVIGATION ROUTER
      ========================================================================== */
   class NavigationRouter {
     static init() {
@@ -285,7 +319,7 @@
   global.switchSection = (id) => NavigationRouter.switchSection(id);
 
   /* ==========================================================================
-     07. CLOCK ENGINE
+     08. CLOCK ENGINE
      ========================================================================== */
   class ClockEngine {
     static start() {
@@ -308,7 +342,7 @@
   }
 
   /* ==========================================================================
-     08. UPLOADER ENGINE (WITH AUTO-SUBJECT MAPPING & FULL VALIDATION)
+     09. UPLOADER ENGINE (AUTO-SUBJECT MAPPING INCLUDED)
      ========================================================================== */
   class UploaderEngine {
     static init() {
@@ -480,7 +514,7 @@
   }
 
   /* ==========================================================================
-     09. DIRECTORY MANAGER (FULL FILTERING & BLOB HANDLER)
+     10. DIRECTORY MANAGER
      ========================================================================== */
   class DirectoryManager {
     static init() {
@@ -601,7 +635,7 @@
   };
 
   /* ==========================================================================
-     10. TICKER PUBLISHER
+     11. TICKER PUBLISHER
      ========================================================================== */
   class TickerPublisher {
     static init() {
@@ -647,7 +681,7 @@
   }
 
   /* ==========================================================================
-     11. REVIEW MODERATOR
+     12. REVIEW MODERATOR
      ========================================================================== */
   class ReviewModerator {
     static render() {
@@ -723,7 +757,7 @@
   };
 
   /* ==========================================================================
-     12. ANALYTICS ENGINE
+     13. ANALYTICS ENGINE
      ========================================================================== */
   class AnalyticsEngine {
     static calculateMetrics() {
@@ -756,7 +790,7 @@
   }
 
   /* ==========================================================================
-     13. TOAST ENGINE
+     14. TOAST ENGINE
      ========================================================================== */
   class ToastEngine {
     static show(message, type = 'INFO') {
@@ -794,13 +828,13 @@
   }
 
   /* ==========================================================================
-     14. USERS & FEEDBACK EXCEL / CSV DOWNLOAD ENGINE
+     15. VISITORS & FEEDBACK EXCEL / CSV DOWNLOAD ENGINE
      ========================================================================== */
   class UsersExcelExporter {
     static init() {
       const exportUsersBtn = document.getElementById('downloadUsersExcelBtn');
       if (exportUsersBtn) {
-        exportUsersBtn.addEventListener('click', () => this.exportUsersToCSV());
+        exportUsersBtn.addEventListener('click', () => this.exportVisitorsToCSV());
       }
 
       const exportFeedbackBtn = document.getElementById('exportFeedbackExcelBtn');
@@ -809,27 +843,31 @@
       }
     }
 
-    static exportUsersToCSV() {
+    static exportVisitorsToCSV() {
       AudioSynthesizer.playSuccess();
-      const users = LocalStorageManager.get(STORAGE_KEYS.users, []);
+      const visitors = LocalStorageManager.get(STORAGE_KEYS.visitors, []);
+
+      if (visitors.length === 0) {
+        ToastEngine.show("Abhi tak koi visitor data record nahi hua hai!", "WARN");
+        return;
+      }
 
       let csvContent = "data:text/csv;charset=utf-8,";
-      csvContent += "Full Name,Email Address,Role\r\n";
+      csvContent += "Visitor ID/Name,Traffic Source (Kahan se aaya),Date,Time\r\n";
 
-      users.forEach(user => {
-        const row = `"${user.name || ''}","${user.email || ''}","${user.role || 'student'}"`;
-        csvContent += row + "\r\n";
+      visitors.forEach(v => {
+        csvContent += `"${v.name}","${v.source}","${v.date}","${v.time}"\r\n`;
       });
 
       const encodedUri = encodeURI(csvContent);
       const link = document.createElement('a');
       link.setAttribute('href', encodedUri);
-      link.setAttribute('download', `NotesPoint_Registered_Users_${Date.now()}.csv`);
+      link.setAttribute('download', `NotesPoint_Live_Visitors_Traffic_${Date.now()}.csv`);
       document.body.appendChild(link);
       link.click();
       link.remove();
 
-      ToastEngine.show("📥 Users Excel Sheet Downloaded Successfully!", "SUCCESS");
+      ToastEngine.show("📥 Visitors Traffic Excel Sheet Downloaded Successfully!", "SUCCESS");
     }
 
     static exportFeedbacksToCSV() {
@@ -861,7 +899,7 @@
   }
 
   /* ==========================================================================
-     15. BACKUP CONTROLS
+     16. BACKUP CONTROLS
      ========================================================================== */
   function setupBackupControls() {
     const backupBtn = document.getElementById('quickBackupBtn');
@@ -873,7 +911,7 @@
           notes: LocalStorageManager.get(STORAGE_KEYS.notes, []),
           reviews: LocalStorageManager.get(STORAGE_KEYS.reviews, []),
           ticker: LocalStorageManager.get(STORAGE_KEYS.ticker, ''),
-          users: LocalStorageManager.get(STORAGE_KEYS.users, []),
+          visitors: LocalStorageManager.get(STORAGE_KEYS.visitors, []),
           exportedAt: new Date().toISOString()
         };
 
@@ -901,9 +939,10 @@
   }
 
   /* ==========================================================================
-     16. BOOTSTRAPPER
+     17. BOOTSTRAPPER
      ========================================================================== */
   document.addEventListener('DOMContentLoaded', () => {
+    VisitorTrafficTracker.init();
     FirebaseController.init();
     NavigationRouter.init();
     ClockEngine.start();
