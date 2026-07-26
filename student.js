@@ -464,6 +464,38 @@
     notesCollection.doc(id).update({ [field]: FieldValue.increment(1) }).catch(() => {});
   }
 
+  // HELPER TO SAFELY OPEN BASE64 OR WEB PDF IN NEW CHROME TAB
+  function openPdfInNewTab(url) {
+    if (!url) {
+      alert("PDF file URL not found.");
+      return;
+    }
+
+    if (url.startsWith('data:application/pdf')) {
+      try {
+        const base64Parts = url.split(',');
+        const base64Data = base64Parts[1] || base64Parts[0];
+        const byteCharacters = atob(base64Data);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'application/pdf' });
+        const blobUrl = URL.createObjectURL(blob);
+        window.open(blobUrl, '_blank');
+      } catch (err) {
+        console.error("Blob conversion error:", err);
+        const win = window.open();
+        if (win) {
+          win.document.write(`<iframe src="${url}" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>`);
+        }
+      }
+    } else {
+      window.open(url, '_blank');
+    }
+  }
+
   function buildNoteCard(id, note) {
     const card = document.createElement('article');
     card.className = 'note-card-row';
@@ -528,7 +560,7 @@
       saveBtn.style.borderColor = isNowSaved ? '#FDE68A' : '#E2E8F0';
     });
 
-    // EYE BUTTON: DIRECT CHROME NEW TAB OPEN
+    // EYE BUTTON: SAFELY OPEN PDF IN LAPTOP & MOBILE CHROME
     const viewBtn = document.createElement('button');
     viewBtn.type = 'button';
     viewBtn.title = 'Read PDF Full Screen in Chrome';
@@ -549,18 +581,12 @@
     viewBtn.addEventListener('click', () => {
       incrementCount(id, 'viewCount');
       addRecentlyViewed(id, note);
-      if (note.fileUrl) {
-        window.open(note.fileUrl, '_blank');
-      } else {
-        alert("PDF file URL not found.");
-      }
+      openPdfInNewTab(note.fileUrl);
     });
 
-    const downloadLink = document.createElement('a');
-    downloadLink.href = note.fileUrl || '#';
-    downloadLink.target = '_blank';
+    const downloadLink = document.createElement('button');
+    downloadLink.type = 'button';
     downloadLink.title = 'Download PDF';
-    downloadLink.download = `${note.chapter || 'note'}.pdf`;
     downloadLink.style.cssText = `
       background: #F0FDF4;
       color: #16A34A;
@@ -572,13 +598,13 @@
       align-items: center;
       justify-content: center;
       font-size: 0.95rem;
-      text-decoration: none;
       cursor: pointer;
     `;
     downloadLink.innerHTML = '📥';
     downloadLink.addEventListener('click', () => {
       incrementCount(id, 'downloadCount');
       addRecentlyViewed(id, note);
+      openPdfInNewTab(note.fileUrl);
     });
 
     actionsDiv.append(saveBtn, viewBtn, downloadLink);
