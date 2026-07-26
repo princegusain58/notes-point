@@ -159,14 +159,14 @@
           </div>
         </div>
 
-        <!-- WELCOME BANNER CARD -->
-        <div class="admin-card mt-24" style="background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); color: #fff; padding: 28px; border-radius: 16px; margin-top: 20px;">
-          <h2 style="font-size: 1.6rem; margin-bottom: 8px;">Welcome back, <span id="studentName">Student</span>! 👋</h2>
-          <p style="opacity: 0.95; font-size: 0.95rem; max-width: 600px; margin-bottom: 20px; color: #EFF6FF;">
+        <!-- WELCOME BANNER CARD (WHITE THEME FIX) -->
+        <div class="admin-card mt-24" style="background: #ffffff; color: #0F172A; padding: 28px; border-radius: 16px; margin-top: 20px; border: 1px solid #E2E8F0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);">
+          <h2 style="font-size: 1.6rem; margin-bottom: 8px; color: #0F172A;">Welcome back, <span id="studentName" style="color: #2563EB;">Student</span>! 👋</h2>
+          <p style="font-size: 0.95rem; max-width: 600px; margin-bottom: 20px; color: #64748B;">
             Tayyari jeet ki! All study notes, NCERT books, and competitive exam materials are now 100% free. Choose your grade below to get started.
           </p>
-          <button type="button" class="admin-btn-primary" onclick="window.switchSection('classesSection');" style="background: #ffffff; color: #2563EB; font-weight: 700; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer;">
-            Browse Classes Now →
+          <button type="button" class="admin-btn-primary" onclick="window.switchSection('classesSection');" style="background: #2563EB; color: #ffffff; font-weight: 700; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; transition: background 0.2s ease;">
+            Open Notes →
           </button>
         </div>
       </section>
@@ -184,7 +184,7 @@
             
             <!-- CLASS 9 -->
             <button type="button" class="class-card admin-card" role="listitem" data-class="9" style="text-align: left; cursor: pointer; border: 1px solid #CBD5E1; padding: 20px; border-radius: 12px; background: #fff;">
-              <div class="book-cover-wrap"><img src="images/class9.jpg" alt="Class 9 Notes Cover" class="ncert-book-img"></div>
+              <div class="book-cover-wrap"><img src="class9.jpg" alt="Class 9 Notes Cover" class="ncert-book-img"></div>
               <span class="class-index" style="color: #2563EB; font-weight: 800; font-size: 1.2rem;">01</span>
               <h3 style="font-size: 1.2rem; margin: 8px 0;">Class 9</h3>
               <p style="font-size: 0.85rem; color: #64748B;">NCERT Books, Science, Maths, PYQs</p>
@@ -192,7 +192,7 @@
          
             <!-- CLASS 10 -->
             <button type="button" class="class-card admin-card" role="listitem" data-class="10" style="text-align: left; cursor: pointer; border: 1px solid #CBD5E1; padding: 20px; border-radius: 12px; background: #fff;">
-              <div class="book-cover-wrap"><img src="images/class10.jpg" alt="Class 10 Notes Cover" class="ncert-book-img"></div>
+              <div class="book-cover-wrap"><img src="class10.jpg" alt="Class 10 Notes Cover" class="ncert-book-img"></div>
               <span class="class-index" style="color: #2563EB; font-weight: 800; font-size: 1.2rem;">02</span>
               <h3 style="font-size: 1.2rem; margin: 8px 0;">Class 10</h3>
               <p style="font-size: 0.85rem; color: #64748B;">NCERT Books, Board Notes, PYQs</p>
@@ -200,7 +200,7 @@
 
             <!-- CLASS 11 -->
             <button type="button" class="class-card admin-card" role="listitem" data-class="11" style="text-align: left; cursor: pointer; border: 1px solid #CBD5E1; padding: 20px; border-radius: 12px; background: #fff;">
-              <div class="book-cover-wrap"><img src="images/class11.jpg" alt="Class 11 Notes Cover" class="ncert-book-img"></div>
+              <div class="book-cover-wrap"><img src="class11.jpg" alt="Class 11 Notes Cover" class="ncert-book-img"></div>
               <span class="class-index" style="color: #2563EB; font-weight: 800; font-size: 1.2rem;">03</span>
               <h3 style="font-size: 1.2rem; margin: 8px 0;">Class 11</h3>
               <p style="font-size: 0.85rem; color: #64748B;">NCERT Books, Science, Commerce, Arts</p>
@@ -208,7 +208,7 @@
 
             <!-- CLASS 12 -->
             <button type="button" class="class-card admin-card" role="listitem" data-class="12" style="text-align: left; cursor: pointer; border: 1px solid #CBD5E1; padding: 20px; border-radius: 12px; background: #fff;">
-              <div class="book-cover-wrap"><img src="images/class12.jpg" alt="Class 12 Notes Cover" class="ncert-book-img"></div>
+              <div class="book-cover-wrap"><img src="class12.jpg" alt="Class 12 Notes Cover" class="ncert-book-img"></div>
               <span class="class-index" style="color: #2563EB; font-weight: 800; font-size: 1.2rem;">04</span>
               <h3 style="font-size: 1.2rem; margin: 8px 0;">Class 12</h3>
               <p style="font-size: 0.85rem; color: #64748B;">NCERT Books, Board Revision, PYQs</p>
@@ -216,7 +216,7 @@
 
             <!-- COMPETITIVE EXAMS -->
             <button type="button" class="class-card admin-card" role="listitem" data-class="competitive" style="text-align: left; cursor: pointer; border: 1px solid #7C3AED; padding: 20px; border-radius: 12px; background: linear-gradient(135deg, #F3E8FF 0%, #FFFFFF 100%);">
-              <div class="book-cover-wrap"><img src="images/compitative.jpg" alt="Competitive Exams Cover" class="ncert-book-img" onerror="this.src='images/class12.jpg'"></div>
+              <div class="book-cover-wrap"><img src="compitative.jpg" alt="Competitive Exams Cover" class="ncert-book-img" onerror="this.src='class12.jpg'"></div>
               <span class="class-index" style="color: #7C3AED; font-weight: 800; font-size: 1.2rem;">🔥</span>
               <h3 style="font-size: 1.2rem; margin: 8px 0; color: #6D28D9;">Competitive Exams</h3>
               <p style="font-size: 0.85rem; color: #5B21B6;">JEE Main/Adv, NEET-UG, CUET, NDA</p>
@@ -264,7 +264,7 @@
         <div class="admin-card" style="max-width: 900px; margin: 0 auto;">
           <div class="support-card-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; align-items: center;">
             <div class="support-banner-box" style="text-align: center;">
-              <img src="images/support-banner.jpg" alt="Support & Feedback" class="support-banner-img" style="width: 100%; max-width: 320px; border-radius: 14px; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15); display: inline-block;">
+              <img src="support-banner.jpg" alt="Support & Feedback" class="support-banner-img" style="width: 100%; max-width: 320px; border-radius: 14px; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15); display: inline-block;">
             </div>
             <div class="support-form-box">
               <h2 style="font-size: 1.4rem; font-weight: 700; color: #0F172A; margin-bottom: 6px;">💬 Student Support &amp; Feedback</h2>
@@ -308,7 +308,7 @@
         <div class="notes-grid" id="notesPanelGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;"></div>
         
         <div class="notes-state" id="notesPanelEmpty" hidden style="text-align: center; padding: 25px 15px;">
-          <img src="images/empty-state.png" alt="No Notes Available" style="width: 100%; max-width: 210px; height: auto; margin: 0 auto 12px auto; display: block;">
+          <img src="empty-state.png" alt="No Notes Available" style="width: 100%; max-width: 210px; height: auto; margin: 0 auto 12px auto; display: block;">
           <h3 style="font-size: 1.15rem; font-weight: 700; color: #0F172A; margin-bottom: 6px;">No materials available yet</h3>
           <p id="notesPanelEmptyMessage" style="color: #64748B; font-size: 0.9rem;">This shelf is empty right now. We are uploading notes for this subject soon!</p>
         </div>
