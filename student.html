@@ -159,13 +159,13 @@
           </div>
         </div>
 
-        <!-- WELCOME BANNER CARD (WHITE THEME FIX) -->
-        <div class="admin-card mt-24" style="background: #ffffff; color: #0F172A; padding: 28px; border-radius: 16px; margin-top: 20px; border: 1px solid #E2E8F0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);">
+        <!-- WELCOME BANNER CARD (CLEAN WHITE THEME FIX) -->
+        <div class="admin-card mt-24" style="background: #ffffff; color: #0F172A; padding: 28px; border-radius: 16px; margin-top: 20px; border: 1px solid #E2E8F0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);">
           <h2 style="font-size: 1.6rem; margin-bottom: 8px; color: #0F172A;">Welcome back, <span id="studentName" style="color: #2563EB;">Student</span>! 👋</h2>
           <p style="font-size: 0.95rem; max-width: 600px; margin-bottom: 20px; color: #64748B;">
             Tayyari jeet ki! All study notes, NCERT books, and competitive exam materials are now 100% free. Choose your grade below to get started.
           </p>
-          <button type="button" class="admin-btn-primary" onclick="window.switchSection('classesSection');" style="background: #2563EB; color: #ffffff; font-weight: 700; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; transition: background 0.2s ease;">
+          <button type="button" class="admin-btn-primary" onclick="window.switchSection('classesSection');" style="background: #2563EB; color: #ffffff; font-weight: 700; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer;">
             Open Notes →
           </button>
         </div>
@@ -293,7 +293,7 @@
     </main>
   </div>
 
-  <!-- NOTES MODAL & PDF VIEWER MODAL -->
+  <!-- NOTES MODAL -->
   <div class="notes-panel-modal" id="notesPanel" hidden style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; align-items: center; justify-content: center;">
     <div class="notes-modal-container" style="background: #fff; width: 92%; max-width: 850px; max-height: 85vh; border-radius: 14px; display: flex; flex-direction: column; overflow: hidden;">
       <div class="notes-modal-header" style="padding: 16px 20px; background: #F8FAFC; border-bottom: 1px solid #CBD5E1; display: flex; justify-content: space-between; align-items: center;">
@@ -312,22 +312,6 @@
           <h3 style="font-size: 1.15rem; font-weight: 700; color: #0F172A; margin-bottom: 6px;">No materials available yet</h3>
           <p id="notesPanelEmptyMessage" style="color: #64748B; font-size: 0.9rem;">This shelf is empty right now. We are uploading notes for this subject soon!</p>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PDF VIEWER MODAL -->
-  <div class="pdf-viewer-modal" id="pdfViewerModal" hidden style="position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1100; display: flex; align-items: center; justify-content: center;">
-    <div class="pdf-modal-container win-header" style="background: #fff; width: 95%; height: 90vh; border-radius: 10px; display: flex; flex-direction: column; overflow: hidden;">
-      <div class="pdf-modal-header" style="background: #0F172A; color: #fff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center;">
-        <h3 id="pdfModalDocumentTitle" style="font-size: 1rem;">Chapter Notes PDF</h3>
-        <div style="display: flex; gap: 10px; align-items: center;">
-          <a href="#" id="pdfModalDownloadBtn" class="win-btn" style="background: #2563EB; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; text-decoration: none;" download target="_blank">Download</a>
-          <button type="button" id="pdfModalCloseBtn" style="background: none; border: none; color: #fff; font-size: 1.1rem; cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-      </div>
-      <div style="flex: 1; background: #E2E8F0;">
-        <iframe id="pdfIframe" src="" frameborder="0" style="width: 100%; height: 100%;" title="PDF Viewer"></iframe>
       </div>
     </div>
   </div>
