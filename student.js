@@ -29,9 +29,6 @@
   const notesCollection = db.collection('notes');
   const FieldValue = firebase.firestore.FieldValue;
 
-  /* =========================================================
-     LIVE TICKER MANAGER
-     ========================================================= */
   function initLiveTicker() {
     const tickerTrack = document.getElementById('tickerPreviewTrack') || document.querySelector('.ticker-track') || document.getElementById('runningTickerText');
     if (!tickerTrack) return;
@@ -48,9 +45,6 @@
     }).catch(() => {});
   }
 
-  /* =========================================================
-     REAL STUDENT NAME & SESSION SYNC (TOPPER FIXED)
-     ========================================================= */
   function initStudentSession() {
     const studentNameHeading = document.getElementById('studentName');
     const studentHeaderName = document.getElementById('studentHeaderName');
@@ -60,8 +54,6 @@
 
     const activeName = localStorage.getItem('notespoint_user_name');
     const activeEmail = localStorage.getItem('notespoint_user_email');
-
-    // Default Changed to "Topper"
     let finalName = "Topper";
 
     if (activeName) {
@@ -91,9 +83,6 @@
 
   initStudentSession();
 
-  /* =========================================================
-     LOCAL FEEDBACK / SUPPORT FORM HANDLER (DIRECT TO ADMIN)
-     ========================================================= */
   function initFeedbackInterceptor() {
     const supportForm = document.querySelector('#supportSection form') || document.querySelector('form[action*="formsubmit.co"]');
     if (!supportForm) return;
@@ -171,9 +160,6 @@
   const RECENT_KEY = 'notesPointRecentlyViewed';
   const RECENT_LIMIT = 12;
 
-  /* =========================================================
-     DARK MODE TOGGLE
-     ========================================================= */
   const themeToggleBtn = document.getElementById('themeToggleBtn');
   const sunIcon = themeToggleBtn?.querySelector('.theme-icon-sun');
   const moonIcon = themeToggleBtn?.querySelector('.theme-icon-moon');
@@ -194,9 +180,6 @@
     if (sunIcon) sunIcon.hidden = isDark;
     if (moonIcon) moonIcon.hidden = !isDark;
   });
-
-  const footerYear = document.getElementById('footerYear');
-  if (footerYear) footerYear.textContent = new Date().getFullYear();
 
   const logoutBtn = document.getElementById('logoutBtn');
   logoutBtn?.addEventListener('click', () => {
@@ -281,9 +264,6 @@
     });
   });
 
-  /* =========================================================
-     NAVIGATION & RENDERING (CLASS & SUBJECT BROWSING)
-     ========================================================= */
   const classRail = document.getElementById('classRail');
   const classHeaderArea = document.getElementById('classHeaderArea');
   const subjectContainerArea = document.getElementById('subjectContainerArea');
@@ -376,17 +356,6 @@
 
   backToClassesBtn?.addEventListener('click', goToClassStep);
 
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-class]');
-    if (btn && !btn.closest('#classRail')) {
-      const cls = btn.getAttribute('data-class');
-      if (cls) {
-        window.switchSection('classesSection');
-        goToSubjectStep(cls);
-      }
-    }
-  });
-
   function renderStreamPills(classValue, currentActiveStream) {
     if (!streamPills) return;
     streamPills.innerHTML = '';
@@ -406,14 +375,9 @@
     });
   }
 
-  /* =========================================================
-     SUBJECT CARD RENDERER (FIXED WITH 'images/' PATH)
-     ========================================================= */
   function renderSubjectGrid(subjects) {
     if (!subjectGrid) return;
     subjectGrid.innerHTML = '';
-
-    const currentClassCover = activeClass === 'competitive' ? 'images/compitative.jpg' : `images/class${activeClass || 9}.jpg`;
 
     subjects.forEach((subjectLabel) => {
       const cleanName = subjectLabel.replace(' (Optional)', '');
@@ -422,17 +386,29 @@
       const card = document.createElement('button');
       card.type = 'button';
       card.className = isExtra ? 'subject-card resource-extra-card' : 'subject-card';
+      card.style.cssText = `
+        background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%) !important;
+        border: 1px solid #CBD5E1 !important;
+        border-radius: 12px !important;
+        padding: 20px !important;
+        text-align: left !important;
+        cursor: pointer !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        min-height: 110px !important;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        transition: all 0.2s ease;
+      `;
       
       card.innerHTML = `
-        <div class="subject-card-banner">
-          <span class="free-ribbon-badge" style="background: #10B981; color: #fff;">100% FREE</span>
-          <div class="subject-img-wrap">
-            <img src="${currentClassCover}" alt="${cleanName}" class="subject-cover-img" onerror="this.src='images/class10.jpg'">
-          </div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; margin-bottom: 8px;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; color: #0F172A; margin: 0;">${cleanName}</h4>
+          <span style="background: #D1FAE5; color: #065F46; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 6px;">FREE</span>
         </div>
-        <div class="subject-card-info">
-          <h4 class="subject-card-title">${cleanName}</h4>
-          <span class="subject-card-cta">View Materials →</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+          <span style="font-size: 0.82rem; color: #2563EB; font-weight: 700;">View Materials →</span>
+          <i class="fa-solid fa-book" style="color: #94A3B8; font-size: 0.9rem;"></i>
         </div>
       `;
 
@@ -446,9 +422,6 @@
     });
   }
 
-  /* =========================================================
-     FLEXIBLE NOTES MODAL & SYNC
-     ========================================================= */
   const notesPanel = document.getElementById('notesPanel');
   const notesPanelClose = document.getElementById('notesPanelClose');
   const notesPanelOverlay = document.getElementById('notesPanelOverlay');
@@ -465,7 +438,6 @@
     notesCollection.doc(id).update({ [field]: FieldValue.increment(1) }).catch(() => {});
   }
 
-  // HELPER TO SAFELY OPEN BASE64 OR WEB PDF IN NEW CHROME TAB
   function openPdfInNewTab(url) {
     if (!url) {
       alert("PDF file URL not found.");
@@ -499,12 +471,11 @@
 
   function buildNoteCard(id, note) {
     const card = document.createElement('article');
-    card.className = 'note-card-row';
     card.style.cssText = `
       background: #FFFFFF;
       border: 1px solid #E2E8F0;
       border-radius: 8px;
-      padding: 8px 12px;
+      padding: 10px 14px;
       margin-bottom: 8px;
       display: flex;
       align-items: center;
@@ -513,19 +484,18 @@
       width: 100%;
       box-sizing: border-box;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-      transition: all 0.2s ease;
     `;
 
     const infoDiv = document.createElement('div');
     infoDiv.style.cssText = 'flex: 1; min-width: 0;';
 
     const title = document.createElement('h3');
-    title.style.cssText = 'font-size: 0.88rem; font-weight: 700; color: #0F172A; margin: 0 0 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-transform: uppercase;';
+    title.style.cssText = 'font-size: 0.88rem; font-weight: 700; color: #0F172A; margin: 0 0 2px 0; text-transform: uppercase;';
     title.textContent = note.chapter || note.title || 'Untitled Material';
 
     const subText = document.createElement('p');
     subText.style.cssText = 'font-size: 0.72rem; color: #10B981; margin: 0; font-weight: 600;';
-    subText.textContent = `${note.subject || ''} ${note.class ? '(Class ' + note.class + ')' : ''} • 100% Free`;
+    subText.textContent = `${note.subject || ''} • 100% Free`;
 
     infoDiv.append(title, subText);
 
@@ -535,22 +505,8 @@
     const saved = isBookmarked(id);
     const saveBtn = document.createElement('button');
     saveBtn.type = 'button';
-    saveBtn.title = saved ? 'Remove from Saved' : 'Save Note';
-    saveBtn.style.cssText = `
-      background: ${saved ? '#FEF3C7' : '#F8FAFC'};
-      color: ${saved ? '#D97706' : '#94A3B8'};
-      border: 1px solid ${saved ? '#FDE68A' : '#E2E8F0'};
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    `;
     saveBtn.innerHTML = saved ? '★' : '☆';
+    saveBtn.style.cssText = `background: ${saved ? '#FEF3C7' : '#F8FAFC'}; color: ${saved ? '#D97706' : '#94A3B8'}; border: 1px solid ${saved ? '#FDE68A' : '#E2E8F0'}; width: 32px; height: 32px; border-radius: 6px; cursor: pointer;`;
     
     saveBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -558,82 +514,34 @@
       saveBtn.innerHTML = isNowSaved ? '★' : '☆';
       saveBtn.style.background = isNowSaved ? '#FEF3C7' : '#F8FAFC';
       saveBtn.style.color = isNowSaved ? '#D97706' : '#94A3B8';
-      saveBtn.style.borderColor = isNowSaved ? '#FDE68A' : '#E2E8F0';
     });
 
     const viewBtn = document.createElement('button');
     viewBtn.type = 'button';
-    viewBtn.title = 'Read PDF Full Screen in Chrome';
-    viewBtn.style.cssText = `
-      background: #EFF6FF;
-      color: #2563EB;
-      border: 1px solid #BFDBFE;
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.95rem;
-      cursor: pointer;
-    `;
     viewBtn.innerHTML = '👁️';
+    viewBtn.style.cssText = 'background: #EFF6FF; color: #2563EB; border: 1px solid #BFDBFE; width: 32px; height: 32px; border-radius: 6px; cursor: pointer;';
     viewBtn.addEventListener('click', () => {
       incrementCount(id, 'viewCount');
       addRecentlyViewed(id, note);
       openPdfInNewTab(note.fileUrl);
     });
 
-    const downloadLink = document.createElement('button');
-    downloadLink.type = 'button';
-    downloadLink.title = 'Download PDF';
-    downloadLink.style.cssText = `
-      background: #F0FDF4;
-      color: #16A34A;
-      border: 1px solid #BBF7D0;
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.95rem;
-      cursor: pointer;
-    `;
-    downloadLink.innerHTML = '📥';
-    downloadLink.addEventListener('click', () => {
-      incrementCount(id, 'downloadCount');
-      addRecentlyViewed(id, note);
-      openPdfInNewTab(note.fileUrl);
-    });
-
-    actionsDiv.append(saveBtn, viewBtn, downloadLink);
+    actionsDiv.append(saveBtn, viewBtn);
     card.append(infoDiv, actionsDiv);
-
     return card;
   }
 
-  function renderNotesList(notesArray, titleName = '') {
+  function renderNotesList(notesArray) {
     if (!notesPanelGrid) return;
     notesPanelGrid.innerHTML = '';
     notesPanelGrid.style.cssText = 'display: flex; flex-direction: column; width: 100%;';
     
     if (notesArray.length === 0) {
-      if (notesPanelEmpty) {
-        notesPanelEmpty.hidden = false;
-        notesPanelEmpty.innerHTML = `
-          <div class="empty-state-card" style="text-align: center; padding: 25px 15px;">
-            <img src="images/empty-state.png" alt="No Notes Found" onerror="this.style.display='none'" style="width: 100%; max-width: 180px; height: auto; margin: 0 auto 10px auto; display: block;">
-            <h3 style="font-size: 1rem; font-weight: 700; color: #0F172A; margin-bottom: 4px;">No materials available yet</h3>
-            <p style="color: #64748B; font-size: 0.82rem; margin: 0;">This shelf is empty right now. Check back soon!</p>
-          </div>
-        `;
-      }
+      if (notesPanelEmpty) notesPanelEmpty.hidden = false;
       if (notesPanelStatus) notesPanelStatus.textContent = '';
     } else {
       if (notesPanelEmpty) notesPanelEmpty.hidden = true;
       if (notesPanelStatus) notesPanelStatus.textContent = `${notesArray.length} file(s) available`;
-      
       notesArray.forEach((note) => {
         notesPanelGrid.appendChild(buildNoteCard(note.id || Math.random(), note));
       });
@@ -643,69 +551,42 @@
   function openNotesPanel({ classValue, streamValue, subjectValue }) {
     if (notesPanelBreadcrumb) notesPanelBreadcrumb.textContent = streamValue ? `Class ${classValue} · ${streamValue}` : `Class ${classValue}`;
     if (notesPanelTitle) notesPanelTitle.textContent = subjectValue;
-
     if (notesPanel) notesPanel.hidden = false;
     if (notesPanelLoading) notesPanelLoading.hidden = false;
     if (notesPanelEmpty) notesPanelEmpty.hidden = true;
     if (notesPanelGrid) notesPanelGrid.innerHTML = '';
 
     const localNotes = readJSON(ENGINE_CONFIG.storageKeys.notes, []);
-    
     const targetClass = String(classValue).trim().toLowerCase();
     const targetSubject = String(subjectValue).trim().toLowerCase();
     const targetStream = streamValue ? String(streamValue).trim().toLowerCase() : '';
-
-    const isNCERTBookCard = targetSubject.includes('ncert book');
-    const isPYQCard = targetSubject.includes('previous year') || targetSubject.includes('pyq');
-    const isSampleCard = targetSubject.includes('sample paper');
-    const isFormulaCard = targetSubject.includes('formula');
 
     const filterNoteHelper = (n) => {
       const nClass = String(n.class || '').replace('Class', '').trim().toLowerCase();
       const nSub = String(n.subject || '').trim().toLowerCase();
       const nStream = String(n.stream || '').trim().toLowerCase();
-      const nTag = String(n.docType || n.typeTag || n.tag || '').trim().toLowerCase();
-
       const matchClass = nClass === targetClass || targetClass === 'competitive';
       const matchStream = !targetStream || nStream === targetStream || nStream === 'general' || nStream === 'all';
-
       if (!matchClass || !matchStream) return false;
-
-      if (isNCERTBookCard) {
-        return nTag.includes('ncert book') || nSub.includes('ncert book') || nTag.includes('ncert');
-      }
-      if (isFormulaCard) {
-        return nTag.includes('formula') || nTag.includes('derivation') || nSub.includes('formula');
-      }
-      if (isPYQCard) {
-        return nTag.includes('pyq') || nTag.includes('previous') || nSub.includes('pyq');
-      }
-      if (isSampleCard) {
-        return nTag.includes('sample') || nTag.includes('paper') || nSub.includes('sample');
-      }
-
       return nSub === targetSubject || nSub.includes(targetSubject) || targetSubject.includes(nSub);
     };
 
     const filteredLocal = localNotes.filter(filterNoteHelper);
     if (notesPanelLoading) notesPanelLoading.hidden = true;
-    renderNotesList(filteredLocal, subjectValue);
+    renderNotesList(filteredLocal);
 
     if (notesCollection) {
       notesCollection.get().then((snapshot) => {
         const firestoreNotes = [];
         snapshot.forEach((doc) => {
           const data = { id: doc.id, ...doc.data() };
-          if (filterNoteHelper(data)) {
-            firestoreNotes.push(data);
-          }
+          if (filterNoteHelper(data)) firestoreNotes.push(data);
         });
-
         const combinedMap = new Map();
         [...filteredLocal, ...firestoreNotes].forEach(item => {
           combinedMap.set(item.fileUrl || item.id || item.chapter, item);
         });
-        renderNotesList(Array.from(combinedMap.values()), subjectValue);
+        renderNotesList(Array.from(combinedMap.values()));
       }).catch(() => {});
     }
   }
@@ -715,39 +596,24 @@
     if (notesPanelTitle) notesPanelTitle.textContent = title;
     if (notesPanel) notesPanel.hidden = false;
     if (notesPanelLoading) notesPanelLoading.hidden = true;
-    renderNotesList(items, title);
+    renderNotesList(items);
     if (items.length === 0 && notesPanelEmptyMessage) {
       notesPanelEmptyMessage.textContent = emptyMessage;
     }
   }
 
-  function closeNotesPanel() {
-    if (notesPanel) notesPanel.hidden = true;
-  }
-
-  notesPanelClose?.addEventListener('click', closeNotesPanel);
-  notesPanelOverlay?.addEventListener('click', closeNotesPanel);
+  notesPanelClose?.addEventListener('click', () => { if (notesPanel) notesPanel.hidden = true; });
 
   initLiveTicker();
 
-  /* =========================================================
-     SIDEBAR SECTION SWITCHING (CLASS RAIL AUTOMATIC OPEN)
-     ========================================================= */
   const navItems = document.querySelectorAll('.sidebar-menu .nav-item');
   const sections = document.querySelectorAll('.workspace-section');
   const pageSectionTitle = document.getElementById('pageSectionTitle');
 
   window.switchSection = function(targetId) {
     sections.forEach(sec => {
-      if (sec.id === targetId) {
-        sec.classList.add('active');
-        sec.style.display = 'block';
-      } else {
-        sec.classList.remove('active');
-        sec.style.display = 'none';
-      }
+      sec.style.display = sec.id === targetId ? 'block' : 'none';
     });
-
     navItems.forEach(item => {
       if (item.getAttribute('data-target') === targetId) {
         item.classList.add('active');
@@ -755,15 +621,7 @@
         item.classList.remove('active');
       }
     });
-
-    const activeLink = document.querySelector(`.sidebar-menu .nav-item[data-target="${targetId}"]`);
-    if (activeLink && pageSectionTitle) {
-      pageSectionTitle.textContent = activeLink.querySelector('span')?.textContent || 'Dashboard';
-    }
-
-    if (targetId === 'classesSection') {
-      goToClassStep();
-    }
+    if (targetId === 'classesSection') goToClassStep();
   };
 
   navItems.forEach(item => {
@@ -774,37 +632,8 @@
     });
   });
 
-  function updateClock() {
-    const clockEl = document.getElementById('adminLiveClock');
-    const dateEl = document.getElementById('adminLiveDate');
-    const now = new Date();
-    
-    if (clockEl) clockEl.textContent = '⏰ ' + now.toLocaleTimeString();
-    if (dateEl) {
-      const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-      dateEl.textContent = '📅 ' + now.toLocaleDateString('en-US', options);
-    }
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
-
-  sections.forEach(sec => {
-    if (sec.classList.contains('active')) {
-      sec.style.display = 'block';
-    } else {
-      sec.style.display = 'none';
-    }
-  });
-
-  document.addEventListener('DOMContentLoaded', () => {
-    goToClassStep();
-  });
-
-  /* =========================================================
-     MOBILE SIDEBAR TOGGLE FIX
-     ========================================================= */
-  const mobileBtn = document.getElementById('toggleSidebarMobile') || document.querySelector('.sidebar-toggle-btn');
-  const sidebar = document.querySelector('.admin-sidebar') || document.querySelector('.sidebar-drawer');
+  const mobileBtn = document.getElementById('toggleSidebarMobile');
+  const sidebar = document.getElementById('appSidebar');
 
   if (mobileBtn && sidebar) {
     mobileBtn.addEventListener('click', () => {
@@ -812,31 +641,5 @@
     });
   }
 
-  navItems.forEach(item => {
-    item.addEventListener('click', () => {
-      if (window.innerWidth <= 992 && sidebar) {
-        sidebar.classList.remove('open');
-      }
-    });
-  });
-
-  /* =========================================================
-     FORCE OPEN CLASSES SECTION (QUICK FIX)
-     ========================================================= */
-  function forceOpenClasses() {
-    const section = document.getElementById('classesSection') || document.querySelector('.workspace-section');
-    const rail = document.getElementById('classRail');
-    
-    if (section) {
-      section.classList.add('active');
-      section.style.setProperty('display', 'block', 'important');
-    }
-    if (rail) {
-      rail.removeAttribute('hidden');
-      rail.style.setProperty('display', 'grid', 'important');
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', forceOpenClasses);
-  window.addEventListener('load', forceOpenClasses);
+  document.addEventListener('DOMContentLoaded', goToClassStep);
 })(window);
