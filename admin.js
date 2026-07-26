@@ -44,6 +44,14 @@
     audioEnabled: true
   };
 
+  const CURRICULUM_SUBJECTS = {
+    '9': ['Mathematics', 'Science', 'Social Science', 'English', 'Hindi', 'Sanskrit', 'NCERT Books 📚', 'Formula & Derivation Sheets', 'Previous Year Questions (PYQs)', 'Sample Papers'],
+    '10': ['Mathematics', 'Science', 'Social Science', 'English', 'Hindi', 'IT / Computer', 'NCERT Books 📚', 'Formula & Derivation Sheets', 'Previous Year Questions (PYQs)', 'Sample Papers'],
+    '11': ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'English', 'Computer Science', 'Accountancy', 'Business Studies', 'Economics', 'History', 'Political Science', 'Geography', 'Psychology', 'NCERT Books 📚', 'Formula & Derivation Sheets', 'Previous Year Questions (PYQs)', 'Sample Papers'],
+    '12': ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'English', 'Computer Science', 'Psychology', 'Accountancy', 'Business Studies', 'Economics', 'History', 'Political Science', 'Geography', 'NCERT Books 📚', 'Formula & Derivation Sheets', 'Previous Year Questions (PYQs)', 'Sample Papers'],
+    'competitive': ['JEE Main & Advanced', 'NEET-UG Biology & Physics', 'CUET General Test', 'NDA Entrance Exam', 'Formula Short Tricks', 'Entrance PYQs']
+  };
+
   /* ==========================================================================
      02. LOCAL STORAGE MANAGER
      ========================================================================== */
@@ -148,9 +156,7 @@
         gain.connect(this.ctx.destination);
         osc.start();
         osc.stop(this.ctx.currentTime + duration);
-      } catch (e) {
-        /* Ignore Audio Restrictions */
-      }
+      } catch (e) {}
     }
 
     static playSuccess() {
@@ -302,7 +308,7 @@
   }
 
   /* ==========================================================================
-     08. UPLOADER ENGINE (WITH SMART CLASS/STREAM DEPENDENCY)
+     08. UPLOADER ENGINE (WITH AUTO-SUBJECT MAPPING & FULL VALIDATION)
      ========================================================================== */
   class UploaderEngine {
     static init() {
@@ -312,19 +318,22 @@
       this.selectedList = document.getElementById('selectedFilesList');
       this.form = document.getElementById('pdfUploadForm');
       this.classSelect = document.getElementById('uploadClassSelect');
-      this.streamSelect = document.getElementById('uploadStreamSelect');
+      this.subjectInput = document.getElementById('uploadSubjectInput');
 
-      if (this.classSelect && this.streamSelect) {
+      if (this.subjectInput && this.subjectInput.tagName !== 'SELECT') {
+        const parent = this.subjectInput.parentNode;
+        const select = document.createElement('select');
+        select.id = 'uploadSubjectInput';
+        select.required = true;
+        select.className = this.subjectInput.className;
+        select.innerHTML = `<option value="" disabled selected>Select class first...</option>`;
+        parent.replaceChild(select, this.subjectInput);
+        this.subjectInput = select;
+      }
+
+      if (this.classSelect) {
         this.classSelect.addEventListener('change', () => {
-          const val = this.classSelect.value;
-          if (val === '11' || val === '12') {
-            this.streamSelect.disabled = false;
-            this.streamSelect.style.opacity = '1';
-          } else {
-            this.streamSelect.value = 'General';
-            this.streamSelect.disabled = true;
-            this.streamSelect.style.opacity = '0.6';
-          }
+          this.updateSubjectDropdown(this.classSelect.value);
         });
       }
 
@@ -360,6 +369,14 @@
       }
     }
 
+    static updateSubjectDropdown(classVal) {
+      const subInput = document.getElementById('uploadSubjectInput');
+      if (!subInput) return;
+      const subjects = CURRICULUM_SUBJECTS[classVal] || ['General Study Material'];
+      subInput.innerHTML = `<option value="" disabled selected>Select Subject</option>` + 
+        subjects.map(s => `<option value="${s}">${s}</option>`).join('');
+    }
+
     static handleFiles(files) {
       if (!files) return;
       AudioSynthesizer.playClick();
@@ -390,8 +407,8 @@
       }
 
       const classVal = document.getElementById('uploadClassSelect') ? document.getElementById('uploadClassSelect').value : '10';
-      const streamVal = document.getElementById('uploadStreamSelect') ? document.getElementById('uploadStreamSelect').value : 'General';
-      const subjectVal = document.getElementById('uploadSubjectInput') ? document.getElementById('uploadSubjectInput').value.trim() : 'General';
+      const streamVal = 'General';
+      const subjectVal = document.getElementById('uploadSubjectInput') ? document.getElementById('uploadSubjectInput').value : 'General';
       const chapterVal = document.getElementById('uploadChapterInput') ? document.getElementById('uploadChapterInput').value.trim() : 'Chapter Note';
       const docTypeVal = document.getElementById('uploadDocTypeSelect') ? document.getElementById('uploadDocTypeSelect').value : 'Chapter Note';
       const authorVal = document.getElementById('uploadAuthorInput') ? document.getElementById('uploadAuthorInput').value.trim() : 'NotesPoint Faculty';
@@ -438,9 +455,7 @@
         if (AdminState.firebaseActive && AdminState.db) {
           try {
             await AdminState.db.collection('notes').doc(fileId).set(noteDoc);
-          } catch (err) {
-            console.warn("Firestore sync stored locally:", err);
-          }
+          } catch (err) {}
         }
 
         const localNotes = LocalStorageManager.get(STORAGE_KEYS.notes, []);
@@ -465,7 +480,7 @@
   }
 
   /* ==========================================================================
-     09. DIRECTORY MANAGER (MOBILE BLOB VIEWER HANDLER)
+     09. DIRECTORY MANAGER (FULL FILTERING & BLOB HANDLER)
      ========================================================================== */
   class DirectoryManager {
     static init() {
@@ -546,13 +561,11 @@
     }
   }
 
-  // Mobile Safe Blob Opener Handler
   global.openPdfBlob = async (e, url) => {
     if (e) e.preventDefault();
     if (!url) return;
 
     try {
-      // Agar base64 data URL hai toh usko blob mein convert karo taaki mobile par khul sake
       if (url.startsWith('data:')) {
         const res = await fetch(url);
         const blob = await res.blob();
@@ -573,9 +586,7 @@
     if (AdminState.firebaseActive && AdminState.db) {
       try {
         await AdminState.db.collection('notes').doc(id).delete();
-      } catch (e) {
-        /* Local delete continues */
-      }
+      } catch (e) {}
     }
 
     let list = LocalStorageManager.get(STORAGE_KEYS.notes, []);
@@ -722,7 +733,7 @@
 
       const notesEl = document.getElementById('statTotalNotes');
       const usersEl = document.getElementById('statTotalUsers');
-      const storageEl = document.getElementById('statStorageUsed');
+      const storageEl = document.getElementById('storageUsage') || document.getElementById('statStorageUsed');
       const progressEl = document.getElementById('storageProgressBar');
       const reviewsEl = document.getElementById('statApprovedReviews') || document.getElementById('approvedFeedbackCount');
 
@@ -802,16 +813,11 @@
       AudioSynthesizer.playSuccess();
       const users = LocalStorageManager.get(STORAGE_KEYS.users, []);
 
-      if (users.length === 0) {
-        ToastEngine.show("No registered users found in storage yet!", "WARN");
-        return;
-      }
-
       let csvContent = "data:text/csv;charset=utf-8,";
-      csvContent += "Full Name,Email Address,Password,Role\r\n";
+      csvContent += "Full Name,Email Address,Role\r\n";
 
       users.forEach(user => {
-        const row = `"${user.name || ''}","${user.email || ''}","${user.password || ''}","${user.role || 'student'}"`;
+        const row = `"${user.name || ''}","${user.email || ''}","${user.role || 'student'}"`;
         csvContent += row + "\r\n";
       });
 
@@ -823,7 +829,6 @@
       link.click();
       link.remove();
 
-      LoggerEngine.success("Downloaded registered users list as Excel/CSV spreadsheet.", "EXPORT");
       ToastEngine.show("📥 Users Excel Sheet Downloaded Successfully!", "SUCCESS");
     }
 
@@ -831,23 +836,16 @@
       AudioSynthesizer.playSuccess();
       const reviews = LocalStorageManager.get(STORAGE_KEYS.reviews, []);
 
-      if (reviews.length === 0) {
-        ToastEngine.show("Abhi tak koi student feedback receive nahi hua hai!", "WARN");
-        return;
-      }
-
       let csvContent = "data:text/csv;charset=utf-8,";
-      csvContent += "Student Name,Class/Subject,Rating,Review Message,Date,Status\r\n";
+      csvContent += "Student Name,Rating,Review Message,Status\r\n";
 
       reviews.forEach(rev => {
         const name = (rev.name || rev.studentName || 'Student').replace(/"/g, '""');
-        const targetCls = (rev.className || rev.class || rev.subject || 'General').replace(/"/g, '""');
         const rating = rev.stars || rev.rating || '5';
         const msg = (rev.comment || rev.message || rev.text || '').replace(/"/g, '""').replace(/\n/g, ' ');
-        const dateStr = rev.date || rev.createdAt ? new Date(rev.createdAt).toLocaleDateString() : 'Today';
         const status = rev.status || 'approved';
 
-        csvContent += `"${name}","${targetCls}","${rating} Stars","${msg}","${dateStr}","${status}"\r\n`;
+        csvContent += `"${name}","${rating} Stars","${msg}","${status}"\r\n`;
       });
 
       const encodedUri = encodeURI(csvContent);
@@ -858,13 +856,9 @@
       link.click();
       link.remove();
 
-      LoggerEngine.success("Downloaded student feedbacks list as Excel/CSV spreadsheet.", "EXPORT");
       ToastEngine.show("📊 Student Feedbacks Excel Sheet Downloaded!", "SUCCESS");
     }
   }
-
-  global.downloadUsersExcel = () => UsersExcelExporter.exportUsersToCSV();
-  global.exportFeedbacksExcel = () => UsersExcelExporter.exportFeedbacksToCSV();
 
   /* ==========================================================================
      15. BACKUP CONTROLS
