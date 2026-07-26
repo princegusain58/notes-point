@@ -6,7 +6,6 @@
 <title>Notes Point — NCERT Study Notes, PYQs & Competitive Exam Preparation</title>
 <meta name="description" content="Notes Point is a free library of NCERT-aligned notes, PYQs, Topper Notes and Competitive Exam Material for Class 9 to 12.">
 <meta name="theme-color" content="#2563EB">
-
 <!-- NP Favicon Logo -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%232563EB%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22700%22 font-size=%2250%22 fill=%22%23ffffff%22>NP</text></svg>">
 
@@ -235,6 +234,28 @@
   .faq-icon { font-size: 1.2rem; transition: transform 0.2s ease; }
   .faq-item.active .faq-icon { transform: rotate(45deg); }
 
+  /* TOP ANNOUNCEMENT BAR CLEAN FIX */
+  .top-announcement-bar {
+    background: #0B132B;
+    color: #ffffff;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    overflow: hidden;
+  }
+  .top-bar-inner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  #runningTickerText {
+    margin: 0 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+  }
+
   /* ============ PROPER SIDE-SLIDE MOBILE DRAWER (WHITE BACKGROUND) ============ */
   @media (max-width: 992px) {
     .main-nav {
@@ -309,12 +330,10 @@
 
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- ============ TOP BAR (CLOCK REMOVED) ============ -->
+<!-- ============ TOP BAR ============ -->
 <div class="top-announcement-bar">
-  <div class="section-inner top-bar-inner" style="display: flex; justify-content: center; align-items: center; width: 100%;">
-    <div class="ticker-left-wrap" style="display: flex; align-items: center; gap: 10px; width: 100%; justify-content: center;">
-      <p id="runningTickerText" style="margin: 0;">🔥 Welcome to Notes Point — Class 9th to 12th CBSE & State Boards Free Material</p>
-    </div>
+  <div class="section-inner top-bar-inner">
+    <p id="runningTickerText">🔥 Welcome to Notes Point — Class 9th to 12th CBSE & State Boards Free Material</p>
   </div>
 </div>
 
@@ -786,6 +805,29 @@
   </div>
 </div>
 
+<!-- ============ AI CHATBOT POPUP MODAL ============ -->
+<div id="aiChatModal" style="position: fixed; bottom: 85px; right: 20px; width: 330px; background: #ffffff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid #E2E8F0; z-index: 99999; display: none; flex-direction: column; overflow: hidden; font-family: 'Inter', sans-serif;">
+  <div style="background: linear-gradient(135deg, #2563EB, #1D4ED8); color: #fff; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span style="font-size: 1.4rem;">🤖</span>
+      <div>
+        <strong style="display: block; font-size: 0.95rem; line-height: 1.2;">NotesPoint AI</strong>
+        <span style="font-size: 0.72rem; opacity: 0.9;">Online • Instant Study Help</span>
+      </div>
+    </div>
+    <button type="button" id="closeAiModalBtn" style="background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer; line-height: 1;">&times;</button>
+  </div>
+  <div id="aiChatMessages" style="height: 260px; padding: 14px; overflow-y: auto; background: #F8FAFC; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem;">
+    <div style="background: #EFF6FF; color: #1E3A8A; padding: 10px 12px; border-radius: 12px 12px 12px 2px; max-width: 85%; align-self: flex-start; border: 1px solid #BFDBFE;">
+      👋 Hello Scholar! Main NotesPoint AI Assistant hoon. Aapko kis class ya subject ke notes/PYQs chahiye?
+    </div>
+  </div>
+  <div style="padding: 10px; background: #ffffff; border-top: 1px solid #E2E8F0; display: flex; gap: 8px;">
+    <input type="text" id="aiUserInput" placeholder="Apna question likhein..." style="flex: 1; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.85rem; outline: none;">
+    <button type="button" id="aiSendMsgBtn" style="background: #2563EB; color: #fff; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer;">🚀</button>
+  </div>
+</div>
+
 <!-- ============ FOOTER (BALANCED ALIGNED 4 COLUMNS) ============ -->
 <footer class="site-footer">
   <div class="section-inner footer-inner">
@@ -889,22 +931,6 @@
       link.addEventListener('click', () => {
         mainNav.classList.remove('nav-open');
       });
-    });
-  }
-
-  // AI Chat Bot Click Handler (Redirects directly to Support & Feedback Form)
-  const aiChatTrigger = document.getElementById('aiChatTrigger');
-  if (aiChatTrigger) {
-    aiChatTrigger.addEventListener('click', () => {
-      const supportSection = document.getElementById('support');
-      if (supportSection) {
-        supportSection.scrollIntoView({ behavior: 'smooth' });
-        const msgBox = document.getElementById('fbStudentMsg');
-        if (msgBox) {
-          msgBox.focus();
-          msgBox.placeholder = "Ask your study query or request notes here...";
-        }
-      }
     });
   }
 </script>
