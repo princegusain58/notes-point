@@ -23,28 +23,49 @@
     flex-direction: column !important;
     justify-content: space-between !important;
     min-height: 220px !important;
-    background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%) !important;
-    border: 2px solid #BFDBFE !important;
     border-radius: 16px !important;
     padding: 24px !important;
     text-align: left !important;
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     cursor: pointer !important;
+    border: 2px solid transparent !important;
   }
   .class-card:hover {
     transform: translateY(-5px);
-    border-color: #2563EB !important;
-    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.18);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
   }
+  /* Colorful Unique Themes for Each Class Card */
+  .class-card-9 {
+    background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%) !important;
+    border-color: #BFDBFE !important;
+  }
+  .class-card-9:hover { border-color: #2563EB !important; }
+
+  .class-card-10 {
+    background: linear-gradient(135deg, #ECFDF5 0%, #FFFFFF 100%) !important;
+    border-color: #A7F3D0 !important;
+  }
+  .class-card-10:hover { border-color: #059669 !important; }
+
+  .class-card-11 {
+    background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%) !important;
+    border-color: #FDE68A !important;
+  }
+  .class-card-11:hover { border-color: #D97706 !important; }
+
+  .class-card-12 {
+    background: linear-gradient(135deg, #FEF2F2 0%, #FFFFFF 100%) !important;
+    border-color: #FECACA !important;
+  }
+  .class-card-12:hover { border-color: #DC2626 !important; }
+
   .class-card-competitive {
     background: linear-gradient(135deg, #F3E8FF 0%, #FFFFFF 100%) !important;
     border-color: #D8B4FE !important;
   }
-  .class-card-competitive:hover {
-    border-color: #7C3AED !important;
-    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.18);
-  }
+  .class-card-competitive:hover { border-color: #7C3AED !important; }
+
   .subject-card {
     background: #ffffff !important;
     border: 1px solid #CBD5E1 !important;
@@ -160,7 +181,8 @@
 
           <div class="class-rail" id="classRail" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;" role="list">
             
-            <button type="button" class="class-card" role="listitem" data-class="9">
+            <!-- CLASS 9 -->
+            <button type="button" class="class-card class-card-9" role="listitem" data-class="9">
               <div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                   <span class="class-index" style="background: #2563EB; color: #FFFFFF; font-weight: 800; padding: 6px 12px; border-radius: 8px; font-size: 0.9rem;">Class 9</span>
@@ -172,42 +194,46 @@
               <span style="font-size: 0.85rem; color: #2563EB; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
             </button>
          
-            <button type="button" class="class-card" role="listitem" data-class="10">
+            <!-- CLASS 10 -->
+            <button type="button" class="class-card class-card-10" role="listitem" data-class="10">
               <div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                  <span class="class-index" style="background: #2563EB; color: #FFFFFF; font-weight: 800; padding: 6px 12px; border-radius: 8px; font-size: 0.9rem;">Class 10</span>
-                  <i class="fa-solid fa-graduation-cap" style="font-size: 1.5rem; color: #2563EB;"></i>
+                  <span class="class-index" style="background: #059669; color: #FFFFFF; font-weight: 800; padding: 6px 12px; border-radius: 8px; font-size: 0.9rem;">Class 10</span>
+                  <i class="fa-solid fa-graduation-cap" style="font-size: 1.5rem; color: #059669;"></i>
                 </div>
                 <h3 style="font-size: 1.2rem; margin: 6px 0; color: #0F172A; font-weight: 700;">Class 10 Board Exam</h3>
                 <p style="font-size: 0.85rem; color: #475569; line-height: 1.4;">NCERT Books, Board Notes, PYQs</p>
               </div>
-              <span style="font-size: 0.85rem; color: #2563EB; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
+              <span style="font-size: 0.85rem; color: #059669; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
             </button>
 
-            <button type="button" class="class-card" role="listitem" data-class="11">
+            <!-- CLASS 11 -->
+            <button type="button" class="class-card class-card-11" role="listitem" data-class="11">
               <div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                  <span class="class-index" style="background: #2563EB; color: #FFFFFF; font-weight: 800; padding: 6px 12px; border-radius: 8px; font-size: 0.9rem;">Class 11</span>
-                  <i class="fa-solid fa-atom" style="font-size: 1.5rem; color: #2563EB;"></i>
+                  <span class="class-index" style="background: #D97706; color: #FFFFFF; font-weight: 800; padding: 6px 12px; border-radius: 8px; font-size: 0.9rem;">Class 11</span>
+                  <i class="fa-solid fa-atom" style="font-size: 1.5rem; color: #D97706;"></i>
                 </div>
                 <h3 style="font-size: 1.2rem; margin: 6px 0; color: #0F172A; font-weight: 700;">Class 11 Senior Sec.</h3>
                 <p style="font-size: 0.85rem; color: #475569; line-height: 1.4;">Science, Commerce, Arts Streams</p>
               </div>
-              <span style="font-size: 0.85rem; color: #2563EB; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
+              <span style="font-size: 0.85rem; color: #D97706; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
             </button>
 
-            <button type="button" class="class-card" role="listitem" data-class="12">
+            <!-- CLASS 12 -->
+            <button type="button" class="class-card class-card-12" role="listitem" data-class="12">
               <div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                  <span class="class-index" style="background: #2563EB; color: #FFFFFF; font-weight: 800; padding: 6px 12px; border-radius: 8px; font-size: 0.9rem;">Class 12</span>
-                  <i class="fa-solid fa-trophy" style="font-size: 1.5rem; color: #2563EB;"></i>
+                  <span class="class-index" style="background: #DC2626; color: #FFFFFF; font-weight: 800; padding: 6px 12px; border-radius: 8px; font-size: 0.9rem;">Class 12</span>
+                  <i class="fa-solid fa-trophy" style="font-size: 1.5rem; color: #DC2626;"></i>
                 </div>
                 <h3 style="font-size: 1.2rem; margin: 6px 0; color: #0F172A; font-weight: 700;">Class 12 Board Exams</h3>
                 <p style="font-size: 0.85rem; color: #475569; line-height: 1.4;">NCERT Books, Board Revision, PYQs</p>
               </div>
-              <span style="font-size: 0.85rem; color: #2563EB; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
+              <span style="font-size: 0.85rem; color: #DC2626; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
             </button>
 
+            <!-- COMPETITIVE EXAMS -->
             <button type="button" class="class-card class-card-competitive" role="listitem" data-class="competitive">
               <div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
