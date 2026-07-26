@@ -61,7 +61,7 @@
     const activeName = localStorage.getItem('notespoint_user_name');
     const activeEmail = localStorage.getItem('notespoint_user_email');
 
-    let finalName = "Student";
+    let finalName = "Topper";
 
     if (activeName) {
       finalName = activeName;
