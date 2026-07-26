@@ -38,7 +38,6 @@
     .class-rail, .subject-grid, .admin-grid-stats, .notes-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
     .admin-topbar { padding: 12px 16px !important; display: flex !important; justify-content: space-between !important; align-items: center !important; }
     .mobile-toggle-btn { display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 1.25rem !important; padding: 8px 12px !important; background: #F1F5F9 !important; border: 1px solid #CBD5E1 !important; border-radius: 8px !important; cursor: pointer !important; color: #0F172A !important; }
-    .topbar-clock-pill { font-size: 0.75rem !important; padding: 4px 8px !important; }
   }
 </style>
 </head>
@@ -104,7 +103,7 @@
   <!-- MAIN WORKSPACE AREA -->
   <div class="admin-main-wrapper">
     
-    <!-- TOP HEADER BAR -->
+    <!-- TOP HEADER BAR (TIMER REMOVED) -->
     <header class="admin-topbar">
       <div class="topbar-left" style="display: flex; align-items: center; gap: 12px;">
         <button type="button" class="mobile-toggle-btn" id="toggleSidebarMobile" aria-label="Toggle Sidebar">
@@ -114,11 +113,6 @@
       </div>
 
       <div class="topbar-right" style="display: flex; align-items: center; gap: 10px;">
-        <div class="topbar-clock-pill">
-          <span id="adminLiveDate">📅 Syncing...</span>
-          <span class="clock-divider">|</span>
-          <span id="adminLiveClock">⏰ 00:00:00</span>
-        </div>
         <button type="button" class="btn-topbar-action" id="themeToggleBtn" title="Toggle Theme">
           <i class="fa-solid fa-moon"></i>
         </button>
@@ -159,7 +153,7 @@
           </div>
         </div>
 
-        <!-- WELCOME BANNER CARD (CLEAN WHITE THEME FIX) -->
+        <!-- WELCOME BANNER CARD (SAFED CLEAN THEME FIX) -->
         <div class="admin-card mt-24" style="background: #ffffff; color: #0F172A; padding: 28px; border-radius: 16px; margin-top: 20px; border: 1px solid #E2E8F0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);">
           <h2 style="font-size: 1.6rem; margin-bottom: 8px; color: #0F172A;">Welcome back, <span id="studentName" style="color: #2563EB;">Student</span>! 👋</h2>
           <p style="font-size: 0.95rem; max-width: 600px; margin-bottom: 20px; color: #64748B;">
