@@ -26,32 +26,71 @@
     flex-direction: column !important;
     justify-content: space-between !important;
     min-height: 250px !important;
-    background: #ffffff !important;
-    border: 1px solid #CBD5E1 !important;
-    border-radius: 12px !important;
-    padding: 20px !important;
+    border-radius: 16px !important;
+    padding: 24px !important;
     text-align: left !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+    cursor: pointer !important;
+    border: 2px solid transparent !important;
   }
   .class-card:hover {
-    transform: translateY(-3px);
-    border-color: #2563EB !important;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   }
+
+  /* COLOR SHADED THEMES MATCHING BADGES */
+  .card-theme-9 {
+    background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%) !important;
+    border-color: #BFDBFE !important;
+  }
+  .card-theme-9:hover { border-color: #2563EB !important; }
+
+  .card-theme-10 {
+    background: linear-gradient(135deg, #ECFDF5 0%, #FFFFFF 100%) !important;
+    border-color: #A7F3D0 !important;
+  }
+  .card-theme-10:hover { border-color: #059669 !important; }
+
+  .card-theme-11 {
+    background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%) !important;
+    border-color: #FDE68A !important;
+  }
+  .card-theme-11:hover { border-color: #D97706 !important; }
+
+  .card-theme-12 {
+    background: linear-gradient(135deg, #FEF2F2 0%, #FFFFFF 100%) !important;
+    border-color: #FECACA !important;
+  }
+  .card-theme-12:hover { border-color: #DC2626 !important; }
+
+  .card-theme-comp {
+    background: linear-gradient(135deg, #F3E8FF 0%, #FFFFFF 100%) !important;
+    border-color: #D8B4FE !important;
+  }
+  .card-theme-comp:hover { border-color: #7C3AED !important; }
+
   .subject-card {
     background: #ffffff !important;
     border: 1px solid #CBD5E1 !important;
-    border-radius: 10px !important;
-    padding: 16px !important;
+    border-radius: 12px !important;
+    padding: 18px !important;
     text-align: left !important;
     cursor: pointer !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
-    min-height: 110px !important;
+    min-height: 120px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    transition: all 0.2s ease;
+  }
+  .subject-card:hover {
+    border-color: #2563EB !important;
+    background: #F8FAFC !important;
+    transform: translateY(-2px);
   }
 
-  /* PROFESSIONAL DARK FOOTER STYLING FOR STUDENT PANEL */
+  /* PROFESSIONAL DARK FOOTER */
   .student-footer-dark {
     background-color: #0A1128;
     color: #94A3B8;
@@ -141,6 +180,14 @@
     .class-rail, .subject-grid, .admin-grid-stats, .notes-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
     .admin-topbar { padding: 12px 16px !important; display: flex !important; justify-content: space-between !important; align-items: center !important; }
     .mobile-toggle-btn { display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 1.25rem !important; padding: 8px 12px !important; background: #F1F5F9 !important; border: 1px solid #CBD5E1 !important; border-radius: 8px !important; cursor: pointer !important; color: #0F172A !important; }
+    
+    /* Center align welcome banner on mobile */
+    .welcome-banner-content {
+      text-align: center !important;
+      align-items: center !important;
+      display: flex;
+      flex-direction: column;
+    }
   }
 </style>
 </head>
@@ -256,10 +303,10 @@
           </div>
         </div>
 
-        <!-- WELCOME BANNER CARD -->
+        <!-- WELCOME BANNER CARD (CENTER ALIGNED & RESPONSIVE) -->
         <div class="admin-card mt-24" style="background: #ffffff !important; color: #0F172A !important; padding: 32px !important; border-radius: 16px !important; margin-top: 20px !important; border: 1px solid #E2E8F0 !important; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03) !important;">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-            <div>
+          <div class="welcome-banner-content" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; text-align: left;">
+            <div style="flex: 1; min-width: 260px;">
               <span style="background: #EFF6FF; color: #2563EB; font-size: 0.78rem; font-weight: 700; padding: 5px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #BFDBFE;">Scholar Workspace</span>
               <h2 style="font-size: 1.75rem !important; font-weight: 800 !important; margin: 10px 0 8px 0 !important; color: #0F172A !important;">
                 Welcome back, <span id="studentName" style="color: #2563EB !important; text-decoration: underline decoration-2 decoration-blue-500;">Topper</span>! 📘
@@ -269,7 +316,7 @@
               </p>
             </div>
             
-            <button type="button" class="admin-btn-primary" onclick="window.switchSection('classesSection');" style="background: #2563EB !important; color: #FFFFFF !important; font-weight: 700 !important; border: none !important; padding: 14px 28px !important; border-radius: 10px !important; cursor: pointer !important; font-size: 0.95rem !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25) !important; transition: all 0.2s ease !important;">
+            <button type="button" class="admin-btn-primary" onclick="window.switchSection('classesSection');" style="background: #2563EB !important; color: #FFFFFF !important; font-weight: 700 !important; border: none !important; padding: 14px 28px !important; border-radius: 10px !important; cursor: pointer !important; font-size: 0.95rem !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25) !important; transition: all 0.2s ease !important; white-space: nowrap;">
               Open Notes →
             </button>
           </div>
@@ -285,57 +332,57 @@
             <p style="color: #64748B; font-size: 0.9rem; text-align: center !important;">100% Free Chapter Notes, NCERT Books, PYQs &amp; Entrance Material.</p>
           </div>
 
-          <!-- Class Selection Cards Rail with Vibrant Colors -->
-          <div class="class-rail" id="classRail" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;" role="list">
+          <!-- Class Selection Cards Rail with Matching Color Shades -->
+          <div class="class-rail" id="classRail" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 24px;" role="list">
             
-            <!-- CLASS 9 -->
-            <button type="button" class="class-card" role="listitem" data-class="9" style="background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%); border-color: #BFDBFE;">
+            <!-- CLASS 9 (BLUE SHADE) -->
+            <button type="button" class="class-card card-theme-9" role="listitem" data-class="9">
               <div>
-                <span class="class-index" style="background: #2563EB; color: #FFFFFF; font-weight: 800; padding: 4px 10px; border-radius: 6px; font-size: 0.9rem;">01</span>
-                <h3 style="font-size: 1.15rem; margin: 10px 0 6px 0; color: #0F172A; font-weight: 700;">Class 9</h3>
-                <p style="font-size: 0.82rem; color: #475569;">NCERT Books, Science, Maths, PYQs</p>
+                <span class="class-index" style="background: #2563EB; color: #FFFFFF; font-weight: 800; padding: 5px 12px; border-radius: 8px; font-size: 0.9rem;">01</span>
+                <h3 style="font-size: 1.25rem; margin: 12px 0 6px 0; color: #1E3A8A; font-weight: 800;">Class 9</h3>
+                <p style="font-size: 0.88rem; color: #475569; line-height: 1.4;">NCERT Books, Science, Maths, PYQs</p>
               </div>
-              <span style="font-size: 0.85rem; color: #2563EB; font-weight: 700; margin-top: 8px;">Explore Notes →</span>
+              <span style="font-size: 0.9rem; color: #2563EB; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
             </button>
          
-            <!-- CLASS 10 -->
-            <button type="button" class="class-card" role="listitem" data-class="10" style="background: linear-gradient(135deg, #ECFDF5 0%, #FFFFFF 100%); border-color: #A7F3D0;">
+            <!-- CLASS 10 (GREEN SHADE) -->
+            <button type="button" class="class-card card-theme-10" role="listitem" data-class="10">
               <div>
-                <span class="class-index" style="background: #059669; color: #FFFFFF; font-weight: 800; padding: 4px 10px; border-radius: 6px; font-size: 0.9rem;">02</span>
-                <h3 style="font-size: 1.15rem; margin: 10px 0 6px 0; color: #0F172A; font-weight: 700;">Class 10</h3>
-                <p style="font-size: 0.82rem; color: #475569;">NCERT Books, Board Notes, PYQs</p>
+                <span class="class-index" style="background: #059669; color: #FFFFFF; font-weight: 800; padding: 5px 12px; border-radius: 8px; font-size: 0.9rem;">02</span>
+                <h3 style="font-size: 1.25rem; margin: 12px 0 6px 0; color: #064E3B; font-weight: 800;">Class 10</h3>
+                <p style="font-size: 0.88rem; color: #475569; line-height: 1.4;">NCERT Books, Board Notes, PYQs</p>
               </div>
-              <span style="font-size: 0.85rem; color: #059669; font-weight: 700; margin-top: 8px;">Explore Notes →</span>
+              <span style="font-size: 0.9rem; color: #059669; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
             </button>
 
-            <!-- CLASS 11 -->
-            <button type="button" class="class-card" role="listitem" data-class="11" style="background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%); border-color: #FDE68A;">
+            <!-- CLASS 11 (ORANGE/AMBER SHADE) -->
+            <button type="button" class="class-card card-theme-11" role="listitem" data-class="11">
               <div>
-                <span class="class-index" style="background: #D97706; color: #FFFFFF; font-weight: 800; padding: 4px 10px; border-radius: 6px; font-size: 0.9rem;">03</span>
-                <h3 style="font-size: 1.15rem; margin: 10px 0 6px 0; color: #0F172A; font-weight: 700;">Class 11</h3>
-                <p style="font-size: 0.82rem; color: #475569;">NCERT Books, Science, Commerce, Arts</p>
+                <span class="class-index" style="background: #D97706; color: #FFFFFF; font-weight: 800; padding: 5px 12px; border-radius: 8px; font-size: 0.9rem;">03</span>
+                <h3 style="font-size: 1.25rem; margin: 12px 0 6px 0; color: #78350F; font-weight: 800;">Class 11</h3>
+                <p style="font-size: 0.88rem; color: #475569; line-height: 1.4;">NCERT Books, Science, Commerce, Arts</p>
               </div>
-              <span style="font-size: 0.85rem; color: #D97706; font-weight: 700; margin-top: 8px;">Explore Notes →</span>
+              <span style="font-size: 0.9rem; color: #D97706; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
             </button>
 
-            <!-- CLASS 12 -->
-            <button type="button" class="class-card" role="listitem" data-class="12" style="background: linear-gradient(135deg, #FEF2F2 0%, #FFFFFF 100%); border-color: #FECACA;">
+            <!-- CLASS 12 (RED SHADE) -->
+            <button type="button" class="class-card card-theme-12" role="listitem" data-class="12">
               <div>
-                <span class="class-index" style="background: #DC2626; color: #FFFFFF; font-weight: 800; padding: 4px 10px; border-radius: 6px; font-size: 0.9rem;">04</span>
-                <h3 style="font-size: 1.15rem; margin: 10px 0 6px 0; color: #0F172A; font-weight: 700;">Class 12</h3>
-                <p style="font-size: 0.82rem; color: #475569;">NCERT Books, Board Revision, PYQs</p>
+                <span class="class-index" style="background: #DC2626; color: #FFFFFF; font-weight: 800; padding: 5px 12px; border-radius: 8px; font-size: 0.9rem;">04</span>
+                <h3 style="font-size: 1.25rem; margin: 12px 0 6px 0; color: #7F1D1D; font-weight: 800;">Class 12</h3>
+                <p style="font-size: 0.88rem; color: #475569; line-height: 1.4;">NCERT Books, Board Revision, PYQs</p>
               </div>
-              <span style="font-size: 0.85rem; color: #DC2626; font-weight: 700; margin-top: 8px;">Explore Notes →</span>
+              <span style="font-size: 0.9rem; color: #DC2626; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
             </button>
 
-            <!-- COMPETITIVE EXAMS -->
-            <button type="button" class="class-card" role="listitem" data-class="competitive" style="border-color: #D8B4FE; background: linear-gradient(135deg, #F3E8FF 0%, #FFFFFF 100%);">
+            <!-- COMPETITIVE EXAMS (PURPLE/VIOLET SHADE) -->
+            <button type="button" class="class-card card-theme-comp" role="listitem" data-class="competitive">
               <div>
-                <span class="class-index" style="background: #7C3AED; color: #FFFFFF; font-weight: 800; padding: 4px 10px; border-radius: 6px; font-size: 0.9rem;">🔥</span>
-                <h3 style="font-size: 1.15rem; margin: 10px 0 6px 0; color: #6D28D9; font-weight: 700;">Competitive Exams</h3>
-                <p style="font-size: 0.82rem; color: #5B21B6;">JEE Main/Adv, NEET-UG, CUET, NDA</p>
+                <span class="class-index" style="background: #7C3AED; color: #FFFFFF; font-weight: 800; padding: 5px 12px; border-radius: 8px; font-size: 0.9rem;">🔥</span>
+                <h3 style="font-size: 1.25rem; margin: 12px 0 6px 0; color: #4C1D95; font-weight: 800;">Competitive Exams</h3>
+                <p style="font-size: 0.88rem; color: #5B21B6; line-height: 1.4;">JEE Main/Adv, NEET-UG, CUET, NDA</p>
               </div>
-              <span style="font-size: 0.85rem; color: #7C3AED; font-weight: 700; margin-top: 8px;">Explore Notes →</span>
+              <span style="font-size: 0.9rem; color: #7C3AED; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
             </button>
 
           </div>
@@ -402,7 +449,7 @@
 
     </main>
 
-    <!-- PROFESSIONAL DARK FOOTER MATCHING HOME PAGE -->
+    <!-- PROFESSIONAL DARK FOOTER -->
     <footer class="student-footer-dark">
       <div class="student-footer-grid">
         <div class="student-footer-col">
