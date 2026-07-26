@@ -49,7 +49,7 @@
   }
 
   /* =========================================================
-     REAL STUDENT NAME & SESSION SYNC
+     REAL STUDENT NAME & SESSION SYNC (TOPPER FIXED)
      ========================================================= */
   function initStudentSession() {
     const studentNameHeading = document.getElementById('studentName');
@@ -61,6 +61,7 @@
     const activeName = localStorage.getItem('notespoint_user_name');
     const activeEmail = localStorage.getItem('notespoint_user_email');
 
+    // Default Changed to "Topper"
     let finalName = "Topper";
 
     if (activeName) {
@@ -106,7 +107,7 @@
 
       const reviewObj = {
         id: 'rev_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
-        name: nameInput ? nameInput.value.trim() : 'Student',
+        name: nameInput ? nameInput.value.trim() : 'Topper',
         email: emailInput ? emailInput.value.trim() : '',
         comment: msgInput ? msgInput.value.trim() : '',
         stars: 5,
@@ -560,7 +561,6 @@
       saveBtn.style.borderColor = isNowSaved ? '#FDE68A' : '#E2E8F0';
     });
 
-    // EYE BUTTON: SAFELY OPEN PDF IN LAPTOP & MOBILE CHROME
     const viewBtn = document.createElement('button');
     viewBtn.type = 'button';
     viewBtn.title = 'Read PDF Full Screen in Chrome';
@@ -731,7 +731,7 @@
   initLiveTicker();
 
   /* =========================================================
-     SIDEBAR SECTION SWITCHING
+     SIDEBAR SECTION SWITCHING (CLASS RAIL AUTOMATIC OPEN)
      ========================================================= */
   const navItems = document.querySelectorAll('.sidebar-menu .nav-item');
   const sections = document.querySelectorAll('.workspace-section');
@@ -761,6 +761,7 @@
       pageSectionTitle.textContent = activeLink.querySelector('span')?.textContent || 'Dashboard';
     }
 
+    // Force Open Classes Rail whenever 'classesSection' is clicked!
     if (targetId === 'classesSection') {
       goToClassStep();
     }
@@ -794,6 +795,11 @@
     } else {
       sec.style.display = 'none';
     }
+  });
+
+  // Ensure Class Rail displays on direct load
+  document.addEventListener('DOMContentLoaded', () => {
+    goToClassStep();
   });
 
   /* =========================================================
