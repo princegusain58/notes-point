@@ -25,9 +25,6 @@
     firebase.initializeApp(firebaseConfig);
   }
   const db = firebase.firestore();
-  
-  // Clean initialization without deprecation warnings
-  db.settings({ cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED });
 
   const notesCollection = db.collection('notes');
   const FieldValue = firebase.firestore.FieldValue;
@@ -119,12 +116,10 @@
         createdAt: new Date().toISOString()
       };
 
-      // Save to LocalStorage
       const reviews = JSON.parse(localStorage.getItem(ENGINE_CONFIG.storageKeys.reviews) || '[]');
       reviews.unshift(reviewObj);
       localStorage.setItem(ENGINE_CONFIG.storageKeys.reviews, JSON.stringify(reviews));
 
-      // Save to Firebase Firestore if online
       if (db) {
         try {
           await db.collection('reviews').doc(reviewObj.id).set(reviewObj);
@@ -141,7 +136,6 @@
 
   document.addEventListener('DOMContentLoaded', initFeedbackInterceptor);
 
-  // FREE CURRICULUM WITH NCERT BOOKS & COMPETITIVE EXAMS
   const RESOURCE_EXTRAS = [
     'NCERT Books 📚',
     'Formula & Derivation Sheets', 
@@ -412,13 +406,12 @@
   }
 
   /* =========================================================
-     SUBJECT CARD RENDERER (100% FREE MATERIALS - PATH FIXED)
+     SUBJECT CARD RENDERER (DIRECT IMAGE NAME - NO 404)
      ========================================================= */
   function renderSubjectGrid(subjects) {
     if (!subjectGrid) return;
     subjectGrid.innerHTML = '';
 
-    // Direct Image Name without "images/" subfolder to prevent 404
     const currentClassCover = activeClass === 'competitive' ? 'compitative.jpg' : `class${activeClass || 9}.jpg`;
 
     subjects.forEach((subjectLabel) => {
@@ -535,10 +528,10 @@
       saveBtn.style.borderColor = isNowSaved ? '#FDE68A' : '#E2E8F0';
     });
 
-    // EYE BUTTON: DIRECT CHROME NEW TAB REDIRECTION (SUPER FAST & FULLSCREEN)
+    // EYE BUTTON: DIRECT CHROME NEW TAB OPEN
     const viewBtn = document.createElement('button');
     viewBtn.type = 'button';
-    viewBtn.title = 'Read Full Screen in Chrome';
+    viewBtn.title = 'Read PDF Full Screen in Chrome';
     viewBtn.style.cssText = `
       background: #EFF6FF;
       color: #2563EB;
@@ -559,7 +552,7 @@
       if (note.fileUrl) {
         window.open(note.fileUrl, '_blank');
       } else {
-        alert("PDF link unavailable.");
+        alert("PDF file URL not found.");
       }
     });
 
