@@ -29,9 +29,6 @@
   const notesCollection = db.collection('notes');
   const FieldValue = firebase.firestore.FieldValue;
 
-  /* =========================================================
-     LIVE TICKER MANAGER
-     ========================================================= */
   function initLiveTicker() {
     const tickerTrack = document.getElementById('tickerPreviewTrack') || document.querySelector('.ticker-track') || document.getElementById('runningTickerText');
     if (!tickerTrack) return;
@@ -48,9 +45,6 @@
     }).catch(() => {});
   }
 
-  /* =========================================================
-     REAL STUDENT NAME & SESSION SYNC (TOPPER FIXED)
-     ========================================================= */
   function initStudentSession() {
     const studentNameHeading = document.getElementById('studentName');
     const studentHeaderName = document.getElementById('studentHeaderName');
@@ -60,7 +54,6 @@
 
     const activeName = localStorage.getItem('notespoint_user_name');
     const activeEmail = localStorage.getItem('notespoint_user_email');
-
     let finalName = "Topper";
 
     if (activeName) {
@@ -90,9 +83,6 @@
 
   initStudentSession();
 
-  /* =========================================================
-     LOCAL FEEDBACK / SUPPORT FORM HANDLER (DIRECT TO ADMIN)
-     ========================================================= */
   function initFeedbackInterceptor() {
     const supportForm = document.querySelector('#supportSection form') || document.querySelector('form[action*="formsubmit.co"]');
     if (!supportForm) return;
@@ -170,9 +160,6 @@
   const RECENT_KEY = 'notesPointRecentlyViewed';
   const RECENT_LIMIT = 12;
 
-  /* =========================================================
-     DARK MODE TOGGLE
-     ========================================================= */
   const themeToggleBtn = document.getElementById('themeToggleBtn');
   const sunIcon = themeToggleBtn?.querySelector('.theme-icon-sun');
   const moonIcon = themeToggleBtn?.querySelector('.theme-icon-moon');
@@ -280,9 +267,6 @@
     });
   });
 
-  /* =========================================================
-     NAVIGATION & RENDERING (CLASS & SUBJECT BROWSING)
-     ========================================================= */
   const classRail = document.getElementById('classRail');
   const classHeaderArea = document.getElementById('classHeaderArea');
   const subjectContainerArea = document.getElementById('subjectContainerArea');
@@ -405,9 +389,6 @@
     });
   }
 
-  /* =========================================================
-     SUBJECT CARD RENDERER (WITH 100% FREE TAGS & COLORFUL DESIGN)
-     ========================================================= */
   function renderSubjectGrid(subjects) {
     if (!subjectGrid) return;
     subjectGrid.innerHTML = '';
@@ -455,9 +436,6 @@
     });
   }
 
-  /* =========================================================
-     FLEXIBLE NOTES MODAL & SYNC
-     ========================================================= */
   const notesPanel = document.getElementById('notesPanel');
   const notesPanelClose = document.getElementById('notesPanelClose');
   const notesPanelOverlay = document.getElementById('notesPanelOverlay');
@@ -566,7 +544,7 @@
       saveBtn.innerHTML = isNowSaved ? '★' : '☆';
       saveBtn.style.background = isNowSaved ? '#FEF3C7' : '#F8FAFC';
       saveBtn.style.color = isNowSaved ? '#D97706' : '#94A3B8';
-      saveBtn.style.borderColor = isNowSaved ? '#FDE68A' : '#E2E8F0';
+      saveBtn.style.borderColor = isNowSaved ? '#FDE68A' : '#FDE68A';
     });
 
     const viewBtn = document.createElement('button');
@@ -675,7 +653,16 @@
       const nTag = String(n.docType || n.typeTag || n.tag || '').trim().toLowerCase();
 
       const matchClass = nClass === targetClass || targetClass === 'competitive';
-      const matchStream = !targetStream || nStream === targetStream || nStream === 'general' || nStream === 'all';
+
+      // SMART STREAM MATCHING (Handles "Science PCM", "PCM", "Science PCB", "PCB", etc.)
+      let matchStream = true;
+      if (targetStream) {
+        if (nStream) {
+          const cleanTarget = targetStream.replace('science', '').trim();
+          const cleanNoteStream = nStream.replace('science', '').trim();
+          matchStream = nStream.includes(targetStream) || targetStream.includes(nStream) || (cleanTarget && cleanNoteStream && cleanTarget === cleanNoteStream) || nStream === 'general' || nStream === 'all';
+        }
+      }
 
       if (!matchClass || !matchStream) return false;
 
@@ -738,9 +725,6 @@
 
   initLiveTicker();
 
-  /* =========================================================
-     SIDEBAR SECTION SWITCHING (CLASS RAIL AUTOMATIC OPEN)
-     ========================================================= */
   const navItems = document.querySelectorAll('.sidebar-menu .nav-item');
   const sections = document.querySelectorAll('.workspace-section');
   const pageSectionTitle = document.getElementById('pageSectionTitle');
@@ -808,9 +792,6 @@
     goToClassStep();
   });
 
-  /* =========================================================
-     MOBILE SIDEBAR TOGGLE FIX
-     ========================================================= */
   const mobileBtn = document.getElementById('toggleSidebarMobile') || document.querySelector('.sidebar-toggle-btn');
   const sidebar = document.querySelector('.admin-sidebar') || document.querySelector('.sidebar-drawer');
 
@@ -828,9 +809,6 @@
     });
   });
 
-  /* =========================================================
-     FORCE OPEN CLASSES SECTION (QUICK FIX)
-     ========================================================= */
   function forceOpenClasses() {
     const section = document.getElementById('classesSection') || document.querySelector('.workspace-section');
     const rail = document.getElementById('classRail');
