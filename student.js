@@ -29,6 +29,9 @@
   const notesCollection = db.collection('notes');
   const FieldValue = firebase.firestore.FieldValue;
 
+  /* =========================================================
+     LIVE TICKER MANAGER
+     ========================================================= */
   function initLiveTicker() {
     const tickerTrack = document.getElementById('tickerPreviewTrack') || document.querySelector('.ticker-track') || document.getElementById('runningTickerText');
     if (!tickerTrack) return;
@@ -45,6 +48,9 @@
     }).catch(() => {});
   }
 
+  /* =========================================================
+     REAL STUDENT NAME & SESSION SYNC (TOPPER FIXED)
+     ========================================================= */
   function initStudentSession() {
     const studentNameHeading = document.getElementById('studentName');
     const studentHeaderName = document.getElementById('studentHeaderName');
@@ -83,6 +89,9 @@
 
   initStudentSession();
 
+  /* =========================================================
+     LOCAL FEEDBACK / SUPPORT FORM HANDLER (DIRECT TO ADMIN)
+     ========================================================= */
   function initFeedbackInterceptor() {
     const supportForm = document.querySelector('#supportSection form') || document.querySelector('form[action*="formsubmit.co"]');
     if (!supportForm) return;
@@ -160,6 +169,9 @@
   const RECENT_KEY = 'notesPointRecentlyViewed';
   const RECENT_LIMIT = 12;
 
+  /* =========================================================
+     DARK MODE TOGGLE
+     ========================================================= */
   const themeToggleBtn = document.getElementById('themeToggleBtn');
   const sunIcon = themeToggleBtn?.querySelector('.theme-icon-sun');
   const moonIcon = themeToggleBtn?.querySelector('.theme-icon-moon');
@@ -267,6 +279,9 @@
     });
   });
 
+  /* =========================================================
+     NAVIGATION & RENDERING (CLASS & SUBJECT BROWSING)
+     ========================================================= */
   const classRail = document.getElementById('classRail');
   const classHeaderArea = document.getElementById('classHeaderArea');
   const subjectContainerArea = document.getElementById('subjectContainerArea');
@@ -290,7 +305,7 @@
     }
     if (classHeaderArea) {
       classHeaderArea.removeAttribute('hidden');
-      classHeaderArea.style.cssText = 'display: block !important;';
+      classHeaderArea.style.cssText = 'text-align: center !important; margin-left: auto !important; margin-right: auto !important; max-width: 650px !important; display: block !important;';
     }
     if (subjectContainerArea) {
       subjectContainerArea.setAttribute('hidden', 'true');
@@ -353,16 +368,11 @@
       const targetClass = card.getAttribute('data-class') || card.dataset.class;
       if (targetClass) {
         goToSubjectStep(targetClass);
-        // Push state so phone back button goes back to classes view instead of exiting
-        history.pushState({ view: 'subjects', class: targetClass }, '');
       }
     }
   });
 
-  backToClassesBtn?.addEventListener('click', () => {
-    goToClassStep();
-    history.pushState({ view: 'classes' }, '');
-  });
+  backToClassesBtn?.addEventListener('click', goToClassStep);
 
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-class]');
@@ -371,7 +381,6 @@
       if (cls) {
         window.switchSection('classesSection');
         goToSubjectStep(cls);
-        history.pushState({ view: 'subjects', class: cls }, '');
       }
     }
   });
@@ -395,6 +404,9 @@
     });
   }
 
+  /* =========================================================
+     SUBJECT CARD RENDERER (PERFECT BADGE & TITLE ALIGNMENT)
+     ========================================================= */
   function renderSubjectGrid(subjects) {
     if (!subjectGrid) return;
     subjectGrid.innerHTML = '';
@@ -406,11 +418,12 @@
       const card = document.createElement('button');
       card.type = 'button';
       card.className = isExtra ? 'subject-card resource-extra-card' : 'subject-card';
+      
       card.style.cssText = `
         background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%) !important;
         border: 1px solid #CBD5E1 !important;
         border-radius: 12px !important;
-        padding: 20px !important;
+        padding: 18px !important;
         text-align: left !important;
         cursor: pointer !important;
         display: flex !important;
@@ -422,11 +435,11 @@
       `;
       
       card.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; margin-bottom: 8px;">
-          <h4 style="font-size: 1.05rem; font-weight: 700; color: #0F172A; margin: 0;">${cleanName}</h4>
-          <span style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #fff; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);">100% FREE</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 8px; gap: 8px;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; color: #0F172A; margin: 0; line-height: 1.3;">${cleanName}</h4>
+          <span style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #fff; font-size: 0.7rem; font-weight: 800; padding: 4px 8px; border-radius: 6px; white-space: nowrap; box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);">100% FREE</span>
         </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: auto;">
           <span style="font-size: 0.85rem; color: #2563EB; font-weight: 700;">View Materials →</span>
           <i class="fa-solid fa-book-bookmark" style="color: #2563EB; font-size: 1rem;"></i>
         </div>
@@ -442,6 +455,9 @@
     });
   }
 
+  /* =========================================================
+     FLEXIBLE NOTES MODAL & SMART STREAM MATCHING
+     ========================================================= */
   const notesPanel = document.getElementById('notesPanel');
   const notesPanelClose = document.getElementById('notesPanelClose');
   const notesPanelOverlay = document.getElementById('notesPanelOverlay');
@@ -730,6 +746,9 @@
 
   initLiveTicker();
 
+  /* =========================================================
+     SIDEBAR & SECTION SWITCHING
+     ========================================================= */
   const navItems = document.querySelectorAll('.sidebar-menu .nav-item');
   const sections = document.querySelectorAll('.workspace-section');
   const pageSectionTitle = document.getElementById('pageSectionTitle');
@@ -761,9 +780,6 @@
     if (targetId === 'classesSection') {
       goToClassStep();
     }
-    
-    // Push state for proper back button handling across sections
-    history.pushState({ section: targetId }, '');
   };
 
   navItems.forEach(item => {
@@ -772,19 +788,6 @@
       const target = item.getAttribute('data-target');
       if (target) window.switchSection(target);
     });
-  });
-
-  // Handle phone back button events gracefully
-  window.addEventListener('popstate', (e) => {
-    if (notesPanel && !notesPanel.hidden) {
-      closeNotesPanel();
-      return;
-    }
-    if (activeClass) {
-      goToClassStep();
-      return;
-    }
-    window.switchSection('overviewSection');
   });
 
   function updateClock() {
