@@ -61,7 +61,6 @@
     const activeName = localStorage.getItem('notespoint_user_name');
     const activeEmail = localStorage.getItem('notespoint_user_email');
 
-    // Default Changed to "Topper"
     let finalName = "Topper";
 
     if (activeName) {
@@ -407,7 +406,7 @@
   }
 
   /* =========================================================
-     SUBJECT CARD RENDERER (CLEAN COLORFUL DESIGN WITHOUT IMAGES)
+     SUBJECT CARD RENDERER (WITH 100% FREE TAGS & COLORFUL DESIGN)
      ========================================================= */
   function renderSubjectGrid(subjects) {
     if (!subjectGrid) return;
@@ -438,11 +437,11 @@
       card.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; margin-bottom: 8px;">
           <h4 style="font-size: 1.05rem; font-weight: 700; color: #0F172A; margin: 0;">${cleanName}</h4>
-          <span style="background: #D1FAE5; color: #065F46; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 6px;">FREE</span>
+          <span style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #fff; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);">100% FREE</span>
         </div>
         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-          <span style="font-size: 0.82rem; color: #2563EB; font-weight: 700;">View Materials →</span>
-          <i class="fa-solid fa-book" style="color: #94A3B8; font-size: 0.9rem;"></i>
+          <span style="font-size: 0.85rem; color: #2563EB; font-weight: 700;">View Materials →</span>
+          <i class="fa-solid fa-book-bookmark" style="color: #2563EB; font-size: 1rem;"></i>
         </div>
       `;
 
@@ -513,7 +512,7 @@
       background: #FFFFFF;
       border: 1px solid #E2E8F0;
       border-radius: 8px;
-      padding: 8px 12px;
+      padding: 10px 14px;
       margin-bottom: 8px;
       display: flex;
       align-items: center;
@@ -533,8 +532,8 @@
     title.textContent = note.chapter || note.title || 'Untitled Material';
 
     const subText = document.createElement('p');
-    subText.style.cssText = 'font-size: 0.72rem; color: #10B981; margin: 0; font-weight: 600;';
-    subText.textContent = `${note.subject || ''} ${note.class ? '(Class ' + note.class + ')' : ''} • 100% Free`;
+    subText.style.cssText = 'font-size: 0.72rem; color: #10B981; margin: 0; font-weight: 700;';
+    subText.textContent = `${note.subject || ''} ${note.class ? '(Class ' + note.class + ')' : ''} • 100% FREE`;
 
     infoDiv.append(title, subText);
 
