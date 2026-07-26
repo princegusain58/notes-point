@@ -18,6 +18,35 @@
 <link rel="stylesheet" href="student.css">
 
 <style>
+  /* Responsive Layout Fixes */
+  body.admin-body-wrap {
+    overflow-x: hidden !important;
+  }
+  .admin-main-wrapper {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .admin-content-body {
+    padding: 20px !important;
+    box-sizing: border-box !important;
+  }
+  @media (max-width: 992px) {
+    .admin-sidebar {
+      position: fixed !important;
+      left: -280px !important;
+      top: 0 !important;
+      height: 100vh !important;
+      z-index: 9999 !important;
+      background: #ffffff !important;
+      width: 260px !important;
+      transition: left 0.3s ease !important;
+    }
+    .admin-sidebar.open { left: 0 !important; }
+    .admin-main-wrapper { margin-left: 0 !important; width: 100% !important; }
+    .admin-content-body { padding: 12px !important; }
+  }
+
+  /* Colorful Class Cards */
   .class-card {
     display: flex !important;
     flex-direction: column !important;
@@ -30,12 +59,12 @@
     transition: all 0.3s ease;
     cursor: pointer !important;
     border: 2px solid transparent !important;
+    box-sizing: border-box !important;
   }
   .class-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
   }
-  /* Colorful Unique Themes for Each Class Card */
   .class-card-9 {
     background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%) !important;
     border-color: #BFDBFE !important;
@@ -85,18 +114,6 @@
     background: #F8FAFC !important;
     transform: translateY(-2px);
   }
-  @media (max-width: 992px) {
-    .admin-sidebar {
-      position: fixed !important;
-      left: -100% !important;
-      top: 0 !important;
-      height: 100vh !important;
-      z-index: 9999 !important;
-      background: #ffffff !important;
-      width: 260px !important;
-    }
-    .admin-sidebar.open { left: 0 !important; }
-  }
 </style>
 </head>
 <body class="admin-body-wrap">
@@ -143,7 +160,7 @@
 
     <main class="admin-content-body">
       <section class="workspace-section active" id="overviewSection">
-        <div class="admin-grid-stats">
+        <div class="admin-grid-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
           <div class="stat-card">
             <div class="stat-icon blue"><i class="fa-solid fa-book-bookmark"></i></div>
             <div class="stat-details"><span>Available Classes</span><h3>Class 9–12 &amp; Entrance</h3><p class="stat-trend success"><span>100% Free Materials</span></p></div>
@@ -158,16 +175,17 @@
           </div>
         </div>
 
-        <div class="admin-card mt-24" style="background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%) !important; color: #FFFFFF !important; padding: 32px !important; border-radius: 16px !important; margin-top: 20px !important; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3) !important;">
+        <!-- Colorful Welcome Banner -->
+        <div class="admin-card mt-24" style="background: linear-gradient(135deg, #7C3AED 0%, #2563EB 100%) !important; color: #FFFFFF !important; padding: 28px !important; border-radius: 16px !important; margin-top: 20px !important; box-shadow: 0 10px 25px rgba(124, 58, 237, 0.25) !important; box-sizing: border-box !important;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
             <div>
-              <span style="background: rgba(255,255,255,0.2); color: #FFFFFF; font-size: 0.78rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">SCHOLAR WORKSPACE</span>
-              <h2 style="font-size: 1.75rem !important; font-weight: 800 !important; margin: 10px 0 8px 0 !important; color: #FFFFFF !important;">
+              <span style="background: rgba(255,255,255,0.25); color: #FFFFFF; font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">SCHOLAR WORKSPACE</span>
+              <h2 style="font-size: 1.6rem !important; font-weight: 800 !important; margin: 10px 0 6px 0 !important; color: #FFFFFF !important;">
                 Welcome back, <span id="studentName" style="color: #FDE047 !important;">Topper</span>! 📘
               </h2>
-              <p style="font-size: 0.95rem !important; color: #E2E8F0 !important;">All study notes, NCERT books, and competitive exam materials are now 100% free.</p>
+              <p style="font-size: 0.9rem !important; color: #F1F5F9 !important; margin: 0;">All study notes, NCERT books, and competitive exam materials are now 100% free.</p>
             </div>
-            <button type="button" class="admin-btn-primary" onclick="window.switchSection('classesSection');" style="background: #FFFFFF !important; color: #2563EB !important; font-weight: 700 !important; padding: 14px 28px !important; border-radius: 10px !important; cursor: pointer !important; border: none !important;">Open Notes →</button>
+            <button type="button" class="admin-btn-primary" onclick="window.switchSection('classesSection');" style="background: #FFFFFF !important; color: #7C3AED !important; font-weight: 700 !important; padding: 12px 24px !important; border-radius: 10px !important; cursor: pointer !important; border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Open Notes →</button>
           </div>
         </div>
       </section>
