@@ -270,7 +270,6 @@
   const classRail = document.getElementById('classRail');
   const classHeaderArea = document.getElementById('classHeaderArea');
   const subjectContainerArea = document.getElementById('subjectContainerArea');
-  const backToClassesBtn = document.getElementById('backToClassesBtn');
   const streamLevel = document.getElementById('streamLevel');
   const streamPills = document.getElementById('streamPills');
   const subjectGrid = document.getElementById('subjectGrid');
@@ -279,7 +278,7 @@
   let activeClass = '';
   let activeStream = '';
 
-  function goToClassStep() {
+  function goToClassStep(pushHistory = true) {
     if (classRail) {
       classRail.removeAttribute('hidden');
       classRail.style.cssText = 'display: grid !important;';
@@ -294,10 +293,14 @@
     }
     activeClass = '';
     activeStream = '';
+    
+    if (pushHistory) {
+      history.pushState({ step: 'classes' }, '');
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function goToSubjectStep(classValue) {
+  function goToSubjectStep(classValue, pushHistory = true) {
     activeClass = String(classValue);
     activeStream = '';
 
@@ -317,7 +320,6 @@
 
     const titleText = activeClass === 'competitive' ? 'Competitive Entrance Exams' : `Class ${activeClass} — Subjects & Resources`;
     if (selectedClassTitle) {
-      // CENTER ALIGNED TITLE WITHOUT EXTRA BACK BUTTON
       selectedClassTitle.innerHTML = `
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; margin-bottom: 20px; gap: 6px;">
           <h3 style="font-size: 1.35rem; color: #0F172A; font-weight: 800; margin: 0; text-align: center;">${titleText}</h3>
@@ -343,15 +345,30 @@
       }
     }
 
+    if (pushHistory) {
+      history.pushState({ step: 'subjects', class: classValue }, '');
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  // Handle browser back button step-by-step
+  window.addEventListener('popstate', (e) => {
+    if (notesPanel && !notesPanel.hidden) {
+      closeNotesPanel();
+      return;
+    }
+    if (activeClass) {
+      goToClassStep(false);
+      return;
+    }
+  });
 
   classRail?.addEventListener('click', (e) => {
     const card = e.target.closest('.class-card');
     if (card) {
       const targetClass = card.getAttribute('data-class') || card.dataset.class;
       if (targetClass) {
-        goToSubjectStep(targetClass);
+        goToSubjectStep(targetClass, true);
       }
     }
   });
@@ -362,7 +379,7 @@
       const cls = btn.getAttribute('data-class');
       if (cls) {
         window.switchSection('classesSection');
-        goToSubjectStep(cls);
+        goToSubjectStep(cls, true);
       }
     }
   });
@@ -541,7 +558,7 @@
       saveBtn.innerHTML = isNowSaved ? '★' : '☆';
       saveBtn.style.background = isNowSaved ? '#FEF3C7' : '#F8FAFC';
       saveBtn.style.color = isNowSaved ? '#D97706' : '#94A3B8';
-      saveBtn.style.borderColor = isNowSaved ? '#FDE68A' : '#E2E8F0';
+      saveBtn.style.borderColor = isNowSaved ? '#FDE68A' : '#FDE68A';
     });
 
     const viewBtn = document.createElement('button');
@@ -701,17 +718,6 @@
     }
   }
 
-  function openLocalListPanel({ items, breadcrumb, title, emptyMessage }) {
-    if (notesPanelBreadcrumb) notesPanelBreadcrumb.textContent = breadcrumb;
-    if (notesPanelTitle) notesPanelTitle.textContent = title;
-    if (notesPanel) notesPanel.hidden = false;
-    if (notesPanelLoading) notesPanelLoading.hidden = true;
-    renderNotesList(items);
-    if (items.length === 0 && notesPanelEmptyMessage) {
-      notesPanelEmptyMessage.textContent = emptyMessage;
-    }
-  }
-
   function closeNotesPanel() {
     if (notesPanel) notesPanel.hidden = true;
   }
@@ -750,7 +756,7 @@
     }
 
     if (targetId === 'classesSection') {
-      goToClassStep();
+      goToClassStep(true);
     }
   };
 
@@ -763,7 +769,7 @@
   });
 
   document.addEventListener('DOMContentLoaded', () => {
-    goToClassStep();
+    goToClassStep(true);
   });
 
   const mobileBtn = document.getElementById('toggleSidebarMobile') || document.querySelector('.sidebar-toggle-btn');
