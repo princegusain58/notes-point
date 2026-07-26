@@ -821,4 +821,23 @@
       }
     });
   });
+/* =========================================================
+     FORCE OPEN CLASSES SECTION (QUICK FIX)
+     ========================================================= */
+  function forceOpenClasses() {
+    const section = document.getElementById('classesSection') || document.querySelector('.workspace-section');
+    const rail = document.getElementById('classRail');
+    
+    if (section) {
+      section.classList.add('active');
+      section.style.setProperty('display', 'block', 'important');
+    }
+    if (rail) {
+      rail.removeAttribute('hidden');
+      rail.style.setProperty('display', 'grid', 'important');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', forceOpenClasses);
+  window.addEventListener('load', forceOpenClasses);
 })(window);
