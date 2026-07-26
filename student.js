@@ -353,11 +353,16 @@
       const targetClass = card.getAttribute('data-class') || card.dataset.class;
       if (targetClass) {
         goToSubjectStep(targetClass);
+        // Push state so phone back button goes back to classes view instead of exiting
+        history.pushState({ view: 'subjects', class: targetClass }, '');
       }
     }
   });
 
-  backToClassesBtn?.addEventListener('click', goToClassStep);
+  backToClassesBtn?.addEventListener('click', () => {
+    goToClassStep();
+    history.pushState({ view: 'classes' }, '');
+  });
 
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-class]');
@@ -366,6 +371,7 @@
       if (cls) {
         window.switchSection('classesSection');
         goToSubjectStep(cls);
+        history.pushState({ view: 'subjects', class: cls }, '');
       }
     }
   });
@@ -544,7 +550,7 @@
       saveBtn.innerHTML = isNowSaved ? '★' : '☆';
       saveBtn.style.background = isNowSaved ? '#FEF3C7' : '#F8FAFC';
       saveBtn.style.color = isNowSaved ? '#D97706' : '#94A3B8';
-      saveBtn.style.borderColor = isNowSaved ? '#FDE68A' : '#FDE68A';
+      saveBtn.style.borderColor = isNowSaved ? '#FDE68A' : '#E2E8F0';
     });
 
     const viewBtn = document.createElement('button');
@@ -654,7 +660,6 @@
 
       const matchClass = nClass === targetClass || targetClass === 'competitive';
 
-      // SMART STREAM MATCHING (Handles "Science PCM", "PCM", "Science PCB", "PCB", etc.)
       let matchStream = true;
       if (targetStream) {
         if (nStream) {
@@ -756,14 +761,30 @@
     if (targetId === 'classesSection') {
       goToClassStep();
     }
+    
+    // Push state for proper back button handling across sections
+    history.pushState({ section: targetId }, '');
   };
 
   navItems.forEach(item => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
       const target = item.getAttribute('data-target');
-      if (target) switchSection(target);
+      if (target) window.switchSection(target);
     });
+  });
+
+  // Handle phone back button events gracefully
+  window.addEventListener('popstate', (e) => {
+    if (notesPanel && !notesPanel.hidden) {
+      closeNotesPanel();
+      return;
+    }
+    if (activeClass) {
+      goToClassStep();
+      return;
+    }
+    window.switchSection('overviewSection');
   });
 
   function updateClock() {
