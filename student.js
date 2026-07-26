@@ -760,6 +760,10 @@
     if (activeLink && pageSectionTitle) {
       pageSectionTitle.textContent = activeLink.querySelector('span')?.textContent || 'Dashboard';
     }
+
+    if (targetId === 'classesSection') {
+      goToClassStep();
+    }
   };
 
   navItems.forEach(item => {
