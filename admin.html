@@ -3,28 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NotesPoint — Enterprise Admin Control Portal</title>
-  
-  <!-- Google Typography Fonts -->
+  <title>NotesPoint — Enterprise Super Admin Master Control Console</title>
+
+  <!-- Google Typography Fonts Engine -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <!-- SVG Favicon Logo for Notes Point Tab Bar -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Favicon Icon for Notes Point Admin Console -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
-  <!-- FontAwesome Icons Engine -->
+
+  <!-- FontAwesome Icons Engine v6.4.0 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Dedicated Admin System Stylesheet -->
+
+  <!-- Master Admin Control System Stylesheet -->
   <link rel="stylesheet" href="admin.css">
 </head>
 <body class="admin-body">
 
   <!-- ==========================================================================
-     DASHBOARD MAIN SHELL (DIRECT ACCESS PORTAL)
+     TOP SYSTEM ANNOUNCEMENT / MAINTENANCE BANNER (GLOBAL CONTROL)
+     ========================================================================== -->
+  <div id="systemTopNotificationBar" class="admin-system-banner" style="display: none;">
+    <div class="banner-content">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span><strong>SYSTEM ALERT:</strong> Live Synchronization Engine Active. Local Cache Synced with Firebase Cloud Storage.</span>
+    </div>
+    <button class="banner-close-btn" onclick="document.getElementById('systemTopNotificationBar').style.display='none'">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+
+  <!-- ==========================================================================
+     MAIN SHELL WRAPPER CONTAINER
      ========================================================================== -->
   <div id="adminDashboardShell" class="admin-shell">
 
-    <!-- Sidebar Navigation Drawer -->
+    <!-- ==========================================================================
+       SIDEBAR NAVIGATION DRAWER (LEFT COMMAND PANEL)
+       ========================================================================== -->
     <aside class="admin-sidebar">
       <div class="sidebar-brand">
         <div class="brand-logo-icon">
@@ -32,45 +50,74 @@
         </div>
         <div class="brand-info">
           <span class="brand-title">NotesPoint</span>
-          <span class="brand-subtitle">Admin Command Center</span>
+          <span class="brand-subtitle">Enterprise Command Center</span>
         </div>
       </div>
 
+      <!-- Quick Action Excel Buttons Drawer -->
+      <div class="sidebar-quick-export-box" style="padding: 12px 15px; border-bottom: 1px solid rgba(226, 232, 240, 0.8);">
+        <button type="button" id="downloadUsersExcelBtn" class="admin-btn-primary" style="background: #10B981; color: #ffffff; border: none; padding: 10px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);">
+          <i class="fa-solid fa-file-excel"></i>
+          <span>Visitors Traffic Excel (CSV)</span>
+        </button>
+        <button type="button" id="exportFeedbackExcelBtn" class="admin-btn-secondary" style="background: #2563EB; color: #ffffff; border: none; padding: 10px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 8px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);">
+          <i class="fa-solid fa-comments"></i>
+          <span>Export Feedback (CSV)</span>
+        </button>
+      </div>
+
+      <!-- Navigation Menu Item Links -->
       <nav class="sidebar-menu">
+        <div class="menu-category-label">CORE MANAGEMENT</div>
+
         <a href="#overview" class="nav-item active" data-target="overviewSection">
           <i class="fa-solid fa-chart-pie"></i>
           <span>Overview Analytics</span>
         </a>
-        <button type="button" id="exportFeedbackExcelBtn" class="admin-btn-secondary" style="background: #10B981; color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin: 10px 15px; width: calc(100% - 30px);">
-          📊 Export Feedbacks (Excel/CSV)
-        </button>
+
+        <a href="#visitors" class="nav-item" data-target="visitorsSection">
+          <i class="fa-solid fa-users-viewfinder"></i>
+          <span>Live Traffic Tracker</span>
+          <span id="visitorCountBadge" class="menu-count-badge green">LIVE</span>
+        </a>
+
         <a href="#uploader" class="nav-item" data-target="uploaderSection">
           <i class="fa-solid fa-cloud-arrow-up"></i>
           <span>Bulk PDF Uploader</span>
         </a>
+
         <a href="#directory" class="nav-item" data-target="directorySection">
           <i class="fa-solid fa-folder-tree"></i>
           <span>Content Directory</span>
         </a>
+
+        <div class="menu-category-label">BROADCAST & MODERATION</div>
+
         <a href="#ticker" class="nav-item" data-target="tickerSection">
           <i class="fa-solid fa-bullhorn"></i>
           <span>Ticker Announcements</span>
         </a>
+
         <a href="#reviews" class="nav-item" data-target="reviewsSection">
           <i class="fa-solid fa-comments"></i>
           <span>Review Moderation</span>
           <span id="pendingReviewsBadge" class="menu-count-badge">0</span>
         </a>
+
+        <div class="menu-category-label">SYSTEM CONFIGURATION</div>
+
         <a href="#maintenance" class="nav-item" data-target="maintenanceSection">
           <i class="fa-solid fa-sliders"></i>
-          <span>Maintenance & Control</span>
+          <span>Maintenance Controls</span>
         </a>
+
         <a href="#logs" class="nav-item" data-target="logsSection">
           <i class="fa-solid fa-clock-rotate-left"></i>
           <span>Audit Activity Logs</span>
         </a>
       </nav>
 
+      <!-- Sidebar System Status Footer -->
       <div class="sidebar-footer">
         <div class="admin-user-info">
           <div class="avatar-circle">
@@ -78,7 +125,7 @@
           </div>
           <div class="user-details">
             <span class="user-name">NotesPoint Admin</span>
-            <span class="user-role">System Manager</span>
+            <span class="user-role">System Master Manager</span>
           </div>
         </div>
         <a href="index.html" class="btn-icon-danger" title="Exit to Website">
@@ -88,31 +135,32 @@
     </aside>
 
 
-    <!-- Main Work Area Container -->
+    <!-- ==========================================================================
+       MAIN WORKSPACE AREA CONTAINER
+       ========================================================================== -->
     <main class="admin-main">
 
-      <!-- Top Dashboard Header Bar -->
+      <!-- Dashboard Top Header Toolbar -->
       <header class="admin-topbar">
         <div class="topbar-left">
-          <button id="toggleSidebarMobile" class="sidebar-toggle-btn">
+          <button id="toggleSidebarMobile" class="sidebar-toggle-btn" title="Toggle Menu">
             <i class="fa-solid fa-bars"></i>
           </button>
-          <h1 id="pageSectionTitle">Dashboard Overview & Analytics</h1>
+          <div>
+            <h1 id="pageSectionTitle">Dashboard Overview & Analytics</h1>
+            <p class="topbar-subtitle" style="font-size: 0.8rem; color: #64748B; margin: 0;">Real-time content management, multi-PDF upload & traffic tracking engine</p>
+          </div>
         </div>
-        
-        <button id="downloadUsersExcelBtn" class="admin-btn-primary" style="background: #10B981; color: #fff; padding: 10px 16px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
-          Download Users Excel (CSV)
-        </button>
 
         <div class="topbar-right">
           <!-- Live Date & Clock Badges -->
           <div class="topbar-clock-chip">
-            <span id="adminLiveDate">📅 Syncing...</span>
-            <span id="adminLiveClock" class="clock-accent">⏰ 00:00:00 AM</span>
+            <span id="adminLiveDate"><i class="fa-regular fa-calendar-days"></i> Syncing...</span>
+            <span id="adminLiveClock" class="clock-accent"><i class="fa-regular fa-clock"></i> 00:00:00 AM</span>
           </div>
 
-          <!-- Quick Actions -->
-          <button id="quickBackupBtn" class="btn-topbar-action" title="Export Backup">
+          <!-- Quick System Actions -->
+          <button id="quickBackupBtn" class="btn-topbar-action" title="Export Backup JSON">
             <i class="fa-solid fa-download"></i>
             <span>Backup Data</span>
           </button>
@@ -125,12 +173,15 @@
       </header>
 
 
-      <!-- Workspace Content Area -->
+      <!-- Workspace Content Area Shell -->
       <div class="admin-workspace">
 
-        <!-- SECTION 01: OVERVIEW ANALYTICS -->
+        <!-- ==========================================================================
+           SECTION 01: OVERVIEW ANALYTICS DASHBOARD
+           ========================================================================== -->
         <section id="overviewSection" class="workspace-section active">
-          <!-- Metric Stat Cards -->
+          
+          <!-- Metric Stat Cards Grid Row -->
           <div class="stats-cards-grid">
             <div class="stat-card">
               <div class="stat-icon blue"><i class="fa-solid fa-file-pdf"></i></div>
@@ -144,9 +195,9 @@
             <div class="stat-card">
               <div class="stat-icon purple"><i class="fa-solid fa-users"></i></div>
               <div class="stat-data">
-                <span class="stat-label">Active Student Users</span>
+                <span class="stat-label">Registered Members</span>
                 <h3 id="statTotalUsers">0</h3>
-                <span class="stat-trend positive"><i class="fa-solid fa-user-check"></i> Registered Members</span>
+                <span class="stat-trend positive"><i class="fa-solid fa-user-check"></i> Account Data</span>
               </div>
             </div>
 
@@ -154,7 +205,7 @@
               <div class="stat-icon green"><i class="fa-solid fa-database"></i></div>
               <div class="stat-data">
                 <span class="stat-label">Storage Usage</span>
-                <h3 id="statStorageUsed">0.0 MB / 5 GB</h3>
+                <h3 id="storageUsage">0.0 MB / 5 GB</h3>
                 <div class="progress-bar-wrap">
                   <div id="storageProgressBar" class="progress-bar-fill" style="width: 0%;"></div>
                 </div>
@@ -164,19 +215,21 @@
             <div class="stat-card">
               <div class="stat-icon orange"><i class="fa-solid fa-star"></i></div>
               <div class="stat-data">
-                <span class="stat-label">Approved Feedback</span>
+                <span class="stat-label">Approved Feedbacks</span>
                 <h3 id="statApprovedReviews">0</h3>
                 <span class="stat-trend neutral"><i class="fa-solid fa-comments"></i> Student Ratings</span>
               </div>
             </div>
           </div>
 
-          <!-- Charts & Distribution Row -->
-          <div class="analytics-panels-row">
+          <!-- Charts & Distribution Panels Row -->
+          <div class="analytics-panels-row" style="margin-top: 24px;">
             <div class="panel-card chart-panel">
               <div class="panel-header">
-                <h3><i class="fa-solid fa-chart-column"></i> Material Category Breakdown</h3>
-                <span class="panel-subtitle">By Stream & Class Level</span>
+                <div>
+                  <h3><i class="fa-solid fa-chart-column"></i> Material Category Breakdown</h3>
+                  <span class="panel-subtitle">Distribution across CBSE Classes & Streams</span>
+                </div>
               </div>
               <div class="chart-container">
                 <div class="custom-bar-chart">
@@ -205,13 +258,19 @@
                     <div class="bar-track"><div class="bar-fill cyan" style="height: 50%;"></div></div>
                     <span class="bar-label">Foundation</span>
                   </div>
+                  <div class="chart-bar-group">
+                    <span class="bar-value">Entrance</span>
+                    <div class="bar-track"><div class="bar-fill red" style="height: 75%;"></div></div>
+                    <span class="bar-label">JEE/NEET</span>
+                  </div>
                 </div>
               </div>
             </div>
 
+            <!-- Quick Controls Panel -->
             <div class="panel-card quick-actions-panel">
               <div class="panel-header">
-                <h3><i class="fa-solid fa-bolt"></i> Quick System Controls</h3>
+                <h3><i class="fa-solid fa-bolt"></i> Quick Command Actions</h3>
               </div>
               <div class="quick-buttons-stack">
                 <button class="btn-quick-action" onclick="switchSection('uploaderSection')">
@@ -223,6 +282,9 @@
                 <button class="btn-quick-action" onclick="switchSection('reviewsSection')">
                   <i class="fa-solid fa-user-check"></i> Review Student Feedback
                 </button>
+                <button class="btn-quick-action" onclick="switchSection('visitorsSection')">
+                  <i class="fa-solid fa-users-viewfinder"></i> Inspect Live Traffic
+                </button>
                 <button id="btnForceClearCache" class="btn-quick-action danger">
                   <i class="fa-solid fa-broom"></i> Flush Storage Cache
                 </button>
@@ -232,12 +294,81 @@
         </section>
 
 
-        <!-- SECTION 02: BULK PDF UPLOADER ENGINE -->
+        <!-- ==========================================================================
+           SECTION 02: LIVE TRAFFIC & VISITOR SOURCE TRACKER
+           ========================================================================== -->
+        <section id="visitorsSection" class="workspace-section">
+          <div class="panel-card">
+            <div class="panel-header-toolbar">
+              <div>
+                <h3><i class="fa-solid fa-users-viewfinder"></i> Live Visitor Traffic & Source Inspector</h3>
+                <p>Track visitors coming from WhatsApp, Instagram, Facebook & Google Search without login requirement</p>
+              </div>
+              <button type="button" onclick="window.downloadUsersExcel()" class="admin-btn-primary" style="background: #10B981; color:#fff; padding: 8px 16px; border:none; border-radius:8px; font-weight:600; cursor:pointer;">
+                <i class="fa-solid fa-file-excel"></i> Export Visitors Excel (CSV)
+              </button>
+            </div>
+
+            <!-- Traffic Sources Quick Summary Cards -->
+            <div class="form-grid-3" style="margin-bottom: 20px;">
+              <div style="background: #EFF6FF; border: 1px solid #BFDBFE; padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 12px;">
+                <i class="fa-brands fa-whatsapp" style="font-size: 2rem; color: #25D366;"></i>
+                <div>
+                  <h4 style="margin: 0; font-size: 0.9rem; color: #1E3A8A;">WhatsApp Traffic</h4>
+                  <span style="font-size: 0.8rem; color: #3B82F6; font-weight: 700;">Direct Shared Links</span>
+                </div>
+              </div>
+
+              <div style="background: #FDF2F8; border: 1px solid #FBCFE8; padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 12px;">
+                <i class="fa-brands fa-instagram" style="font-size: 2rem; color: #E1306C;"></i>
+                <div>
+                  <h4 style="margin: 0; font-size: 0.9rem; color: #831843;">Instagram Traffic</h4>
+                  <span style="font-size: 0.8rem; color: #EC4899; font-weight: 700;">Bio & Story Links</span>
+                </div>
+              </div>
+
+              <div style="background: #F0FDF4; border: 1px solid #BBF7D0; padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 12px;">
+                <i class="fa-brands fa-google" style="font-size: 2rem; color: #4285F4;"></i>
+                <div>
+                  <h4 style="margin: 0; font-size: 0.9rem; color: #14532D;">Google & Facebook</h4>
+                  <span style="font-size: 0.8rem; color: #10B981; font-weight: 700;">Organic & Social Search</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Visitors Log Table -->
+            <div class="table-responsive-wrapper">
+              <table class="admin-data-table">
+                <thead>
+                  <tr>
+                    <th>Visitor ID</th>
+                    <th>Traffic Source (Kahan se aaya)</th>
+                    <th>Visit Date</th>
+                    <th>Exact Time</th>
+                    <th>Session Status</th>
+                  </tr>
+                </thead>
+                <tbody id="visitorsTableBody">
+                  <tr>
+                    <td colspan="5" class="table-empty-state">
+                      <i class="fa-solid fa-spinner fa-spin"></i> Syncing live traffic logs...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ==========================================================================
+           SECTION 03: BULK PDF UPLOADER ENGINE (AUTO-CURRICULUM MAPPING)
+           ========================================================================== -->
         <section id="uploaderSection" class="workspace-section">
           <div class="panel-card">
             <div class="panel-header">
               <h3><i class="fa-solid fa-cloud-arrow-up"></i> Multi-PDF Storage Uploader Engine</h3>
-              <p>Upload NCERT Chapter Notes, Derivations, Formula Sheets & Solved Board PYQs</p>
+              <p>Upload NCERT Chapter Notes, Derivations, Formula Sheets & Solved Board PYQs with auto-subject dropdown mapping</p>
             </div>
 
             <form id="pdfUploadForm" class="uploader-form">
@@ -265,43 +396,34 @@
                     <option value="10">Class 10th Board</option>
                     <option value="11">Class 11th Higher Secondary</option>
                     <option value="12">Class 12th Board Special</option>
+                    <option value="competitive">Competitive Entrance Exams</option>
                   </select>
                 </div>
 
                 <div class="input-group">
-                  <label><i class="fa-solid fa-diagram-project"></i> Stream / Category *</label>
-                  <select id="uploadStreamSelect">
-                    <option value="General" selected>General / Common</option>
-                    <option value="Science">Science</option>
-                    <option value="Science (PCM)">Science (PCM)</option>
-                    <option value="Science (PCB)">Science (PCB)</option>
-                    <option value="Commerce">Commerce</option>
-                    <option value="Humanities">Humanities / Arts</option>
+                  <label><i class="fa-solid fa-book-bookmark"></i> Subject Title (Auto-Loaded) *</label>
+                  <select id="uploadSubjectInput" required>
+                    <option value="" disabled selected>Select class first...</option>
                   </select>
                 </div>
 
                 <div class="input-group">
-                  <label><i class="fa-solid fa-book-bookmark"></i> Subject Title *</label>
-                  <input type="text" id="uploadSubjectInput" placeholder="e.g. Physics, Mathematics, Economics" required>
+                  <label><i class="fa-solid fa-list-check"></i> Chapter Name & Number *</label>
+                  <input type="text" id="uploadChapterInput" placeholder="e.g. Chapter 3: Electrostatics" required>
                 </div>
               </div>
 
               <div class="form-grid-3">
                 <div class="input-group">
-                  <label><i class="fa-solid fa-list-check"></i> Chapter Name & Number *</label>
-                  <input type="text" id="uploadChapterInput" placeholder="e.g. Chapter 3: Electrostatics" required>
+                  <label><i class="fa-solid fa-tags"></i> Document Material Tag *</label>
+                  <select id="uploadDocTypeSelect" required>
+                    <option value="NCERT Book">NCERT Book 📚</option>
+                    <option value="Chapter Note" selected>Full Chapter NCERT Note</option>
+                    <option value="Formula Sheet">Formula & Derivation Sheet</option>
+                    <option value="PYQ">10-Year Solved Board PYQ</option>
+                    <option value="Sample Paper">Official Board Sample Paper</option>
+                  </select>
                 </div>
-
-                <div class="input-group">
-               <label><i class="fa-solid fa-tags"></i> Document Material Tag *</label>
-              <select id="uploadDocTypeSelect" required>
-              <option value="NCERT Book">NCERT Book 📚</option>
-              <option value="Chapter Note">Full Chapter NCERT Note</option>
-             <option value="Formula Sheet">Formula & Derivation Sheet </option>
-             <option value="PYQ">10-Year Solved Board PYQ</option>
-             <option value="Sample Paper">Official Board Sample Paper</option>
-              </select>
-               </div>
 
                 <div class="input-group">
                   <label><i class="fa-solid fa-pen-nib"></i> Author / Contributor</label>
@@ -333,7 +455,9 @@
         </section>
 
 
-        <!-- SECTION 03: CONTENT MANAGEMENT DIRECTORY -->
+        <!-- ==========================================================================
+           SECTION 04: CONTENT MANAGEMENT DIRECTORY
+           ========================================================================== -->
         <section id="directorySection" class="workspace-section">
           <div class="panel-card">
             <div class="panel-header-toolbar">
@@ -355,6 +479,7 @@
                   <option value="10">Class 10th</option>
                   <option value="11">Class 11th</option>
                   <option value="12">Class 12th</option>
+                  <option value="competitive">Competitive</option>
                 </select>
 
                 <select id="directoryTagFilter">
@@ -393,7 +518,9 @@
         </section>
 
 
-        <!-- SECTION 04: TICKER & ANNOUNCEMENT MANAGER -->
+        <!-- ==========================================================================
+           SECTION 05: TICKER & ANNOUNCEMENT MANAGER
+           ========================================================================== -->
         <section id="tickerSection" class="workspace-section">
           <div class="panel-card">
             <div class="panel-header">
@@ -424,12 +551,19 @@
         </section>
 
 
-        <!-- SECTION 05: REVIEW MODERATION SYSTEM -->
+        <!-- ==========================================================================
+           SECTION 06: REVIEW MODERATION SYSTEM
+           ========================================================================== -->
         <section id="reviewsSection" class="workspace-section">
           <div class="panel-card">
-            <div class="panel-header">
-              <h3><i class="fa-solid fa-comments"></i> Student Review & Feedback Moderation</h3>
-              <p>Approve or Reject Student Feedback before publishing live to Public Index Page</p>
+            <div class="panel-header-toolbar">
+              <div>
+                <h3><i class="fa-solid fa-comments"></i> Student Review & Feedback Moderation</h3>
+                <p>Approve or Reject Student Feedback before publishing live to Public Index Page</p>
+              </div>
+              <button type="button" onclick="window.exportFeedbacksExcel()" class="admin-btn-secondary" style="background:#2563EB; color:#fff; padding:8px 16px; border:none; border-radius:8px; font-weight:600; cursor:pointer;">
+                <i class="fa-solid fa-file-csv"></i> Download Feedback Excel (CSV)
+              </button>
             </div>
 
             <div id="adminReviewsList" class="reviews-moderation-grid">
@@ -442,7 +576,9 @@
         </section>
 
 
-        <!-- SECTION 06: MAINTENANCE & SYSTEM TOGGLE -->
+        <!-- ==========================================================================
+           SECTION 07: MAINTENANCE & SYSTEM CONTROLS
+           ========================================================================== -->
         <section id="maintenanceSection" class="workspace-section">
           <div class="panel-card">
             <div class="panel-header">
@@ -488,7 +624,9 @@
         </section>
 
 
-        <!-- SECTION 07: AUDIT LOGS & ACTIVITY TRACKER -->
+        <!-- ==========================================================================
+           SECTION 08: AUDIT LOGS & ACTIVITY TRACKER
+           ========================================================================== -->
         <section id="logsSection" class="workspace-section">
           <div class="panel-card">
             <div class="panel-header">
@@ -510,7 +648,7 @@
     </main>
   </div>
 
-  <!-- Firebase Core SDKs -->
+  <!-- Firebase Core SDKs v9.22.0 -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
