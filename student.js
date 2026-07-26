@@ -412,12 +412,13 @@
   }
 
   /* =========================================================
-     SUBJECT CARD RENDERER (100% FREE MATERIALS)
+     SUBJECT CARD RENDERER (100% FREE MATERIALS - PATH FIXED)
      ========================================================= */
   function renderSubjectGrid(subjects) {
     if (!subjectGrid) return;
     subjectGrid.innerHTML = '';
 
+    // Direct Image Name without "images/" subfolder to prevent 404
     const currentClassCover = activeClass === 'competitive' ? 'compitative.jpg' : `class${activeClass || 9}.jpg`;
 
     subjects.forEach((subjectLabel) => {
@@ -432,7 +433,7 @@
         <div class="subject-card-banner">
           <span class="free-ribbon-badge" style="background: #10B981; color: #fff;">100% FREE</span>
           <div class="subject-img-wrap">
-            <img src="images/${currentClassCover}" alt="${cleanName}" class="subject-cover-img" onerror="this.src='images/class10.jpg'">
+            <img src="${currentClassCover}" alt="${cleanName}" class="subject-cover-img" onerror="this.src='class10.jpg'">
           </div>
         </div>
         <div class="subject-card-info">
@@ -464,38 +465,6 @@
   const notesPanelLoading = document.getElementById('notesPanelLoading');
   const notesPanelEmpty = document.getElementById('notesPanelEmpty');
   const notesPanelEmptyMessage = document.getElementById('notesPanelEmptyMessage');
-
-  const pdfViewerModal = document.getElementById('pdfViewerModal');
-  const pdfModalOverlay = document.getElementById('pdfModalOverlay');
-  const pdfModalContainer = document.getElementById('pdfModalContainer');
-  const pdfModalCloseBtn = document.getElementById('pdfModalCloseBtn');
-  const pdfMaximizeBtn = document.getElementById('pdfMaximizeBtn');
-  const pdfMinimizeBtn = document.getElementById('pdfMinimizeBtn');
-  const pdfIframe = document.getElementById('pdfIframe');
-  const pdfModalDocumentTitle = document.getElementById('pdfModalDocumentTitle');
-  const pdfModalDownloadBtn = document.getElementById('pdfModalDownloadBtn');
-
-  function openPdfModal(url, titleStr) {
-    if (pdfViewerModal && pdfIframe) {
-      pdfIframe.src = url;
-      if (pdfModalDocumentTitle) pdfModalDocumentTitle.textContent = titleStr || 'Chapter Notes PDF';
-      if (pdfModalDownloadBtn) pdfModalDownloadBtn.href = url;
-      pdfViewerModal.hidden = false;
-    }
-  }
-
-  function closePdfModal() {
-    if (pdfViewerModal) pdfViewerModal.hidden = true;
-    if (pdfIframe) pdfIframe.src = '';
-    if (pdfModalContainer) pdfModalContainer.classList.remove('is-maximized');
-  }
-
-  pdfModalCloseBtn?.addEventListener('click', closePdfModal);
-  pdfModalOverlay?.addEventListener('click', closePdfModal);
-  pdfMinimizeBtn?.addEventListener('click', closePdfModal);
-  pdfMaximizeBtn?.addEventListener('click', () => {
-    pdfModalContainer?.classList.toggle('is-maximized');
-  });
 
   function incrementCount(id, field) {
     if (!id) return;
@@ -566,9 +535,10 @@
       saveBtn.style.borderColor = isNowSaved ? '#FDE68A' : '#E2E8F0';
     });
 
+    // EYE BUTTON: DIRECT CHROME NEW TAB REDIRECTION (SUPER FAST & FULLSCREEN)
     const viewBtn = document.createElement('button');
     viewBtn.type = 'button';
-    viewBtn.title = 'Read Online';
+    viewBtn.title = 'Read Full Screen in Chrome';
     viewBtn.style.cssText = `
       background: #EFF6FF;
       color: #2563EB;
@@ -586,7 +556,11 @@
     viewBtn.addEventListener('click', () => {
       incrementCount(id, 'viewCount');
       addRecentlyViewed(id, note);
-      openPdfModal(note.fileUrl, note.chapter || note.title);
+      if (note.fileUrl) {
+        window.open(note.fileUrl, '_blank');
+      } else {
+        alert("PDF link unavailable.");
+      }
     });
 
     const downloadLink = document.createElement('a');
@@ -630,7 +604,7 @@
         notesPanelEmpty.hidden = false;
         notesPanelEmpty.innerHTML = `
           <div class="empty-state-card" style="text-align: center; padding: 25px 15px;">
-            <img src="images/empty-state.png" alt="No Notes Found" style="width: 100%; max-width: 180px; height: auto; margin: 0 auto 10px auto; display: block;">
+            <img src="empty-state.png" alt="No Notes Found" style="width: 100%; max-width: 180px; height: auto; margin: 0 auto 10px auto; display: block;">
             <h3 style="font-size: 1rem; font-weight: 700; color: #0F172A; margin-bottom: 4px;">No materials available yet</h3>
             <p style="color: #64748B; font-size: 0.82rem; margin: 0;">This shelf is empty right now. Check back soon!</p>
           </div>
