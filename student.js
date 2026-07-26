@@ -407,13 +407,13 @@
   }
 
   /* =========================================================
-     SUBJECT CARD RENDERER (DIRECT IMAGE NAME - NO 404)
+     SUBJECT CARD RENDERER (FIXED WITH 'images/' PATH)
      ========================================================= */
   function renderSubjectGrid(subjects) {
     if (!subjectGrid) return;
     subjectGrid.innerHTML = '';
 
-    const currentClassCover = activeClass === 'competitive' ? 'compitative.jpg' : `class${activeClass || 9}.jpg`;
+    const currentClassCover = activeClass === 'competitive' ? 'images/compitative.jpg' : `images/class${activeClass || 9}.jpg`;
 
     subjects.forEach((subjectLabel) => {
       const cleanName = subjectLabel.replace(' (Optional)', '');
@@ -427,7 +427,7 @@
         <div class="subject-card-banner">
           <span class="free-ribbon-badge" style="background: #10B981; color: #fff;">100% FREE</span>
           <div class="subject-img-wrap">
-            <img src="${currentClassCover}" alt="${cleanName}" class="subject-cover-img" onerror="this.src='class10.jpg'">
+            <img src="${currentClassCover}" alt="${cleanName}" class="subject-cover-img" onerror="this.src='images/class10.jpg'">
           </div>
         </div>
         <div class="subject-card-info">
@@ -623,7 +623,7 @@
         notesPanelEmpty.hidden = false;
         notesPanelEmpty.innerHTML = `
           <div class="empty-state-card" style="text-align: center; padding: 25px 15px;">
-            <img src="empty-state.png" alt="No Notes Found" style="width: 100%; max-width: 180px; height: auto; margin: 0 auto 10px auto; display: block;">
+            <img src="images/empty-state.png" alt="No Notes Found" onerror="this.style.display='none'" style="width: 100%; max-width: 180px; height: auto; margin: 0 auto 10px auto; display: block;">
             <h3 style="font-size: 1rem; font-weight: 700; color: #0F172A; margin-bottom: 4px;">No materials available yet</h3>
             <p style="color: #64748B; font-size: 0.82rem; margin: 0;">This shelf is empty right now. Check back soon!</p>
           </div>
@@ -761,7 +761,6 @@
       pageSectionTitle.textContent = activeLink.querySelector('span')?.textContent || 'Dashboard';
     }
 
-    // Force Open Classes Rail whenever 'classesSection' is clicked!
     if (targetId === 'classesSection') {
       goToClassStep();
     }
@@ -797,7 +796,6 @@
     }
   });
 
-  // Ensure Class Rail displays on direct load
   document.addEventListener('DOMContentLoaded', () => {
     goToClassStep();
   });
@@ -821,7 +819,8 @@
       }
     });
   });
-/* =========================================================
+
+  /* =========================================================
      FORCE OPEN CLASSES SECTION (QUICK FIX)
      ========================================================= */
   function forceOpenClasses() {
