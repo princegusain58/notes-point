@@ -240,10 +240,10 @@
     .main-nav {
       position: fixed !important;
       top: 0 !important;
-      left: -100% !important; /* Shuru me screen ke bahar chup rahega */
+      left: -100% !important;
       width: 280px !important;
       height: 100vh !important;
-      background: #ffffff !important; /* Clean white background, no black box */
+      background: #ffffff !important;
       box-shadow: 15px 0 40px rgba(0, 0, 0, 0.2) !important;
       z-index: 999999 !important;
       padding: 70px 20px 30px 20px !important;
@@ -252,7 +252,6 @@
       display: block !important;
     }
 
-    /* Jab click ho tab left se slide hokar bahar aaye */
     .main-nav.nav-open {
       left: 0 !important;
     }
@@ -310,18 +309,13 @@
 
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- ============ TOP BAR ============ -->
+<!-- ============ TOP BAR (CLOCK REMOVED) ============ -->
 <div class="top-announcement-bar">
-  <div class="section-inner top-bar-inner">
-    <div class="ticker-left-wrap">
+  <div class="section-inner top-bar-inner" style="display: flex; justify-content: center; align-items: center; width: 100%;">
+    <div class="ticker-left-wrap" style="display: flex; align-items: center; gap: 10px; width: 100%; justify-content: center;">
       <img src="megaphone.png" alt="Megaphone Icon" class="top-bar-icon-img" onerror="this.style.display='none'">
       <span class="live-tag">LIVE UPDATES🔴</span>
-      <p id="runningTickerText">🔥 Loading latest announcements & uploaded notes...</p>
-    </div>
-    
-    <div class="clock-badge-wrap">
-      <span id="liveDateStr"> Syncing...</span>
-      <span id="liveClockStr"> 00:00:00</span>
+      <p id="runningTickerText" style="margin: 0;">🔥 Welcome to Notes Point — Class 9th to 12th CBSE & State Boards Free Material</p>
     </div>
   </div>
 </div>
@@ -777,7 +771,7 @@
 <!-- ============ FLOATING DOCK ============ -->
 <div class="vedantu-floating-dock">
   <div class="dock-item-wrap">
-    <button type="button" class="dock-circle-btn ai-dock-btn" id="aiChatTrigger" aria-label="Open AI Assistant">
+    <button type="button" class="dock-circle-btn ai-dock-btn" id="aiChatTrigger" aria-label="Open AI Assistant" style="cursor: pointer;">
       <span class="dock-icon">💬</span>
       <span class="dock-label-text">Ask NotesPoint AI</span>
     </button>
@@ -858,17 +852,6 @@
 </footer>
 
 <script>
-  function updateClock() {
-    const now = new Date();
-    const optionsDate = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
-    const dateEl = document.getElementById('liveDateStr');
-    if(dateEl) dateEl.innerHTML = `📅 ${now.toLocaleDateString('en-US', optionsDate)}`;
-    const clockEl = document.getElementById('liveClockStr');
-    if(clockEl) clockEl.innerHTML = `⏰ ${now.toLocaleTimeString('en-US', { hour12: true })}`;
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
-
   document.getElementById('footerYear').textContent = new Date().getFullYear();
 
   function toggleSyllabus(id, btn) {
@@ -908,6 +891,22 @@
       link.addEventListener('click', () => {
         mainNav.classList.remove('nav-open');
       });
+    });
+  }
+
+  // AI Chat Bot Click Handler (Redirects directly to Support & Feedback Form)
+  const aiChatTrigger = document.getElementById('aiChatTrigger');
+  if (aiChatTrigger) {
+    aiChatTrigger.addEventListener('click', () => {
+      const supportSection = document.getElementById('support');
+      if (supportSection) {
+        supportSection.scrollIntoView({ behavior: 'smooth' });
+        const msgBox = document.getElementById('fbStudentMsg');
+        if (msgBox) {
+          msgBox.focus();
+          msgBox.placeholder = "Ask your study query or request notes here...";
+        }
+      }
     });
   }
 </script>
