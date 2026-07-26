@@ -3055,3 +3055,67 @@ header.sticky-header {
   object-position: top center; /* Focus ladke ke face aur upper body par rahega */
   display: block;
 }
+
+/* =========================================================
+   NOTESPOINT — HOME PAGE ULTIMATE SMOOTHNESS & ANIMATION ENGINE
+   ========================================================= */
+
+/* 1. Global Smooth Scrolling */
+html {
+  scroll-behavior: smooth !important;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* 2. Hardware Accelerated Smooth Transitions for Everything */
+*, *::before, *::after {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 3. Smooth Body Background Switching */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease !important;
+}
+
+/* 4. Click & Tap Feedback (Micro-Bounce Effect on Buttons & Cards) */
+a, 
+button, 
+.feature-card, 
+.pricing-card, 
+.faq-item {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, box-shadow, background-color;
+}
+
+a:active, 
+button:active {
+  transform: scale(0.97) translateY(1px) !important;
+  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* 5. Elegant Hover Lift Effect */
+.feature-card:hover, .pricing-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 15px 35px rgba(37, 99, 235, 0.12) !important;
+}
+
+/* 6. Custom Smooth Scrollbars for Home Page */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
