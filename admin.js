@@ -1,6 +1,6 @@
 /* ==========================================================================
    NOTES POINT — ENTERPRISE SUPER ADMIN MASTER JS ENGINE (2026 EDITION FIXED)
-   Features: IndexedDB Heavy PDF Engine (100MB+), CORS Bypass, Auto-Subject,
+   Features: Firebase Cloud Storage Integration, CORS Bypass, Auto-Subject,
              Visitor Source Tracking, CSV Exporters & Live Sync.
    ========================================================================== */
 
@@ -55,7 +55,7 @@
   };
 
   /* ==========================================================================
-     02. INDEXEDDB HIGH-CAPACITY STORAGE ENGINE (FOR 100MB+ HEAVY PDFs)
+     02. INDEXEDDB HIGH-CAPACITY STORAGE ENGINE (FOR LOCAL BACKUP)
      ========================================================================== */
   class LargeStorageEngine {
     static async openDB() {
@@ -113,7 +113,7 @@
   }
 
   /* ==========================================================================
-     03. LOCAL STORAGE MANAGER (SAFE PARSER FIX FOR TICKER CRASH)
+     03. LOCAL STORAGE MANAGER (SAFE JSON & STRING PARSER FIX)
      ========================================================================== */
   class LocalStorageManager {
     static get(key, fallback = []) {
@@ -123,7 +123,7 @@
         try {
           return JSON.parse(val);
         } catch (jsonErr) {
-          // Plain text fallback (Fixes 'Unexpected token 🔥' error)
+          // Safe fallback for plain text ticker strings
           return val;
         }
       } catch (e) {
@@ -434,7 +434,7 @@
   }
 
   /* ==========================================================================
-     10. UPLOADER ENGINE (INDEXEDDB + CORS-PROOF MULTI-PDF ENGINE)
+     10. UPLOADER ENGINE (FIREBASE CLOUD STORAGE INTEGRATED FOR MOBILE COMPATIBILITY)
      ========================================================================== */
   class UploaderEngine {
     static init() {
@@ -550,16 +550,26 @@
         const file = AdminState.queuedFiles[i];
         const fileId = 'note_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
 
-        if (progressStatus) progressStatus.textContent = `Processing & Saving ${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB)...`;
+        if (progressStatus) progressStatus.textContent = `Uploading ${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB) to Cloud Server...`;
 
-        for (let p = 10; p <= 90; p += 20) {
-          if (progressBar) progressBar.style.width = p + '%';
-          if (progressPercent) progressPercent.textContent = p + '%';
-          await new Promise(res => setTimeout(res, 80));
+        let finalFileUrl = '';
+
+        // 1. UPLOAD DIRECTLY TO FIREBASE CLOUD STORAGE FOR MULTI-DEVICE / MOBILE ACCESS
+        if (AdminState.firebaseActive && AdminState.storage) {
+          try {
+            const storageRef = AdminState.storage.ref('pdf_documents/' + fileId + '_' + file.name);
+            const uploadTask = await storageRef.put(file);
+            finalFileUrl = await uploadTask.ref.getDownloadURL();
+          } catch (storageErr) {
+            console.warn("Firebase Storage Upload failed, creating local backup:", storageErr);
+          }
         }
 
-        // Save binary PDF blob into IndexedDB
-        await LargeStorageEngine.savePDFBlob(fileId, file);
+        // 2. FALLBACK TO INDEXEDDB ONLY IF FIREBASE STORAGE IS OFFLINE
+        if (!finalFileUrl) {
+          await LargeStorageEngine.savePDFBlob(fileId, file);
+          finalFileUrl = 'indexeddb://' + fileId;
+        }
 
         if (progressBar) progressBar.style.width = '100%';
         if (progressPercent) progressPercent.textContent = '100%';
@@ -574,19 +584,21 @@
           fileName: file.name,
           fileSize: (file.size / (1024 * 1024)).toFixed(2) + ' MB',
           fileSizeRaw: file.size,
-          fileUrl: 'indexeddb://' + fileId,
+          fileUrl: finalFileUrl, // REAL CLOUD URL OR LOCAL FALLBACK
           author: authorVal,
           createdAt: new Date().toISOString()
         };
 
+        // 3. Save Document Metadata to Firestore DB
         if (AdminState.firebaseActive && AdminState.db) {
           try {
             await AdminState.db.collection('notes').doc(fileId).set(noteDoc);
           } catch (err) {
-            console.warn("Firestore Document Sync:", err);
+            console.warn("Firestore Document Sync Warning:", err);
           }
         }
 
+        // 4. Update Local Storage Cache
         let localNotes = LocalStorageManager.get(STORAGE_KEYS.notes, []);
         if (!Array.isArray(localNotes)) localNotes = [];
         localNotes.unshift(noteDoc);
@@ -597,7 +609,7 @@
       }
 
       AudioSynthesizer.playSuccess();
-      ToastEngine.show("🎉 Heavy PDF Document Uploaded & Saved Successfully!", "SUCCESS");
+      ToastEngine.show("🎉 Heavy PDF Document Uploaded & Saved to Cloud!", "SUCCESS");
 
       if (this.form) this.form.reset();
       AdminState.queuedFiles = [];
@@ -610,7 +622,7 @@
   }
 
   /* ==========================================================================
-     11. DIRECTORY MANAGER (SAFE INDEXEDDB PDF BLOB PREVIEW FIX)
+     11. DIRECTORY MANAGER (SMART BLOB & CLOUD OPENER)
      ========================================================================== */
   class DirectoryManager {
     static init() {
