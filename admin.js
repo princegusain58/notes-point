@@ -113,7 +113,7 @@
   }
 
   /* ==========================================================================
-     03. LOCAL STORAGE MANAGER (FIXED SAFE PARSING)
+     03. LOCAL STORAGE MANAGER (SAFE JSON & STRING PARSER FIX)
      ========================================================================== */
   class LocalStorageManager {
     static get(key, fallback = []) {
@@ -123,7 +123,7 @@
         try {
           return JSON.parse(val);
         } catch (e) {
-          return val; // Plain string ticker fix
+          return val; // Safe string fallback for ticker
         }
       } catch (e) {
         return fallback;
@@ -433,7 +433,7 @@
   }
 
   /* ==========================================================================
-     10. UPLOADER ENGINE (FIREBASE CLOUD UPLOAD FOR MOBILE ACCESSIBILITY)
+     10. UPLOADER ENGINE (WITH GOOGLE DRIVE & CLOUD LINK SUPPORT)
      ========================================================================== */
   class UploaderEngine {
     static init() {
@@ -526,17 +526,61 @@
     static async onSubmit(e) {
       e.preventDefault();
 
-      if (AdminState.queuedFiles.length === 0) {
-        ToastEngine.show("Attach at least one PDF file before submitting!", "DANGER");
-        return;
-      }
-
       const classVal = document.getElementById('uploadClassSelect') ? document.getElementById('uploadClassSelect').value : '10';
       const streamVal = 'General';
       const subjectVal = document.getElementById('uploadSubjectInput') ? document.getElementById('uploadSubjectInput').value : 'General';
       const chapterVal = document.getElementById('uploadChapterInput') ? document.getElementById('uploadChapterInput').value.trim() : 'Chapter Note';
       const docTypeVal = document.getElementById('uploadDocTypeSelect') ? document.getElementById('uploadDocTypeSelect').value : 'Chapter Note';
       const authorVal = document.getElementById('uploadAuthorInput') ? document.getElementById('uploadAuthorInput').value.trim() : 'NotesPoint Faculty';
+
+      const directUrlEl = document.getElementById('uploadDirectUrlInput') || document.getElementById('pdfUrlInput');
+      let directUrl = directUrlEl ? directUrlEl.value.trim() : '';
+
+      // Check if user provided Google Drive Link
+      if (directUrl) {
+        if (directUrl.includes('drive.google.com')) {
+          directUrl = directUrl.replace('/view?usp=sharing', '/preview').replace('/view', '/preview');
+        }
+
+        const fileId = 'note_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+        const noteDoc = {
+          id: fileId,
+          title: chapterVal,
+          subject: subjectVal,
+          class: classVal,
+          stream: streamVal,
+          docType: docTypeVal,
+          fileName: chapterVal + '.pdf',
+          fileSize: 'Online PDF',
+          fileSizeRaw: 1048576,
+          fileUrl: directUrl,
+          author: authorVal,
+          createdAt: new Date().toISOString()
+        };
+
+        if (AdminState.firebaseActive && AdminState.db) {
+          try {
+            await AdminState.db.collection('notes').doc(fileId).set(noteDoc);
+          } catch (err) {}
+        }
+
+        let localNotes = LocalStorageManager.get(STORAGE_KEYS.notes, []);
+        if (!Array.isArray(localNotes)) localNotes = [];
+        localNotes.unshift(noteDoc);
+        LocalStorageManager.set(STORAGE_KEYS.notes, localNotes);
+
+        AudioSynthesizer.playSuccess();
+        ToastEngine.show("🎉 Google Drive PDF Added Successfully!", "SUCCESS");
+        if (this.form) this.form.reset();
+        DirectoryManager.render();
+        AnalyticsEngine.calculateMetrics();
+        return;
+      }
+
+      if (AdminState.queuedFiles.length === 0) {
+        ToastEngine.show("Attach a PDF file or paste a Google Drive Link!", "DANGER");
+        return;
+      }
 
       const progressBox = document.getElementById('uploadProgressContainer');
       const progressBar = document.getElementById('uploadProgressBarFill');
@@ -549,26 +593,9 @@
         const file = AdminState.queuedFiles[i];
         const fileId = 'note_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
 
-        if (progressStatus) progressStatus.textContent = `Uploading ${file.name} to Cloud Server...`;
+        if (progressStatus) progressStatus.textContent = `Processing & Saving ${file.name}...`;
 
-        let finalFileUrl = '';
-
-        // 1. Upload Direct to Firebase Cloud Storage (Generates Online HTTP URL for all mobile devices)
-        if (AdminState.firebaseActive && AdminState.storage) {
-          try {
-            const storageRef = AdminState.storage.ref('pdf_documents/' + fileId + '_' + file.name);
-            const uploadTask = await storageRef.put(file);
-            finalFileUrl = await uploadTask.ref.getDownloadURL();
-          } catch (storageErr) {
-            console.warn("Firebase Storage Upload failed, saving local IndexedDB backup:", storageErr);
-          }
-        }
-
-        // 2. Local Fallback if Storage offline
-        if (!finalFileUrl) {
-          await LargeStorageEngine.savePDFBlob(fileId, file);
-          finalFileUrl = 'indexeddb://' + fileId;
-        }
+        await LargeStorageEngine.savePDFBlob(fileId, file);
 
         if (progressBar) progressBar.style.width = '100%';
         if (progressPercent) progressPercent.textContent = '100%';
@@ -583,32 +610,26 @@
           fileName: file.name,
           fileSize: (file.size / (1024 * 1024)).toFixed(2) + ' MB',
           fileSizeRaw: file.size,
-          fileUrl: finalFileUrl, // ONLINE CLOUD URL OR LOCAL BLOB
+          fileUrl: 'indexeddb://' + fileId,
           author: authorVal,
           createdAt: new Date().toISOString()
         };
 
-        // 3. Save Document Metadata to Firestore
         if (AdminState.firebaseActive && AdminState.db) {
           try {
             await AdminState.db.collection('notes').doc(fileId).set(noteDoc);
-          } catch (err) {
-            console.warn("Firestore Document Sync:", err);
-          }
+          } catch (err) {}
         }
 
-        // 4. Save Metadata to Local Cache
         let localNotes = LocalStorageManager.get(STORAGE_KEYS.notes, []);
         if (!Array.isArray(localNotes)) localNotes = [];
         localNotes.unshift(noteDoc);
         LocalStorageManager.set(STORAGE_KEYS.notes, localNotes);
         AdminState.uploadedFilesCache = localNotes;
-
-        LoggerEngine.success(`Uploaded PDF Document: "${chapterVal}"`, "UPLOAD");
       }
 
       AudioSynthesizer.playSuccess();
-      ToastEngine.show("🎉 Heavy PDF Document Uploaded & Saved to Cloud!", "SUCCESS");
+      ToastEngine.show("🎉 Document Saved Successfully!", "SUCCESS");
 
       if (this.form) this.form.reset();
       AdminState.queuedFiles = [];
@@ -708,12 +729,10 @@
 
     try {
       if (url && url.startsWith('indexeddb://')) {
-        const actualId = url.replace('indexeddb://', '');
-        const blob = await LargeStorageEngine.getPDFBlob(actualId || id);
+        const blob = await LargeStorageEngine.getPDFBlob(id);
         if (blob) {
           const blobUrl = URL.createObjectURL(blob);
-          const win = window.open(blobUrl, '_blank');
-          if (!win) window.location.href = blobUrl;
+          window.open(blobUrl, '_blank');
           return;
         }
       }
@@ -722,7 +741,7 @@
         const res = await fetch(url);
         const blob = await res.blob();
         window.open(URL.createObjectURL(blob), '_blank');
-      } else if (url && !url.startsWith('indexeddb://')) {
+      } else if (url) {
         window.open(url, '_blank');
       } else {
         alert("PDF File not found in local storage.");
