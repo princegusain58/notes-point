@@ -1,6 +1,6 @@
 /* ==========================================================================
    NOTES POINT — ENTERPRISE SUPER ADMIN JavaScript ENGINE (2026 EDITION)
-   Architecture: Modular SaaS Master Core System (CORS & Mobile PDF Patched)
+   Architecture: Modular SaaS Master Core System (100MB+ Storage Upload Fixed)
    ========================================================================== */
 
 /* global firebase */
@@ -77,7 +77,7 @@
   }
 
   /* ==========================================================================
-     03. VISITOR TRAFFIC TRACKER (Bina Login ke Traffic & Source Track Karna)
+     03. VISITOR TRAFFIC TRACKER ENGINE
      ========================================================================== */
   class VisitorTrafficTracker {
     static init() {
@@ -106,6 +106,28 @@
       let visitors = LocalStorageManager.get(STORAGE_KEYS.visitors, []);
       visitors.unshift(visitorRecord);
       LocalStorageManager.set(STORAGE_KEYS.visitors, visitors.slice(0, 500));
+      this.renderVisitorsTable();
+    }
+
+    static renderVisitorsTable() {
+      const tbody = document.getElementById('visitorsTableBody');
+      if (!tbody) return;
+
+      const visitors = LocalStorageManager.get(STORAGE_KEYS.visitors, []);
+      if (visitors.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="table-empty-state">No traffic recorded yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = visitors.slice(0, 50).map(v => `
+        <tr>
+          <td><strong>${v.name}</strong></td>
+          <td><span class="badge-tag blue">${v.source}</span></td>
+          <td>${v.date}</td>
+          <td>${v.time}</td>
+          <td><span class="badge-tag green">ACTIVE</span></td>
+        </tr>
+      `).join('');
     }
   }
 
@@ -342,7 +364,7 @@
   }
 
   /* ==========================================================================
-     09. UPLOADER ENGINE (AUTO-SUBJECT MAPPING INCLUDED)
+     09. UPLOADER ENGINE (FIXED FOR 100MB+ FIREBASE STORAGE UPLOADS)
      ========================================================================== */
   class UploaderEngine {
     static init() {
@@ -458,18 +480,51 @@
         const file = AdminState.queuedFiles[i];
         const fileId = 'note_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
 
-        if (progressStatus) progressStatus.textContent = `Processing ${file.name}...`;
-        if (progressBar) progressBar.style.width = '60%';
-        if (progressPercent) progressPercent.textContent = '60%';
+        if (progressStatus) progressStatus.textContent = `Uploading ${file.name} (${(file.size / (1024 * 1024)).toFixed(1)} MB)...`;
 
-        const downloadURL = await new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onload = (ev) => resolve(ev.target.result);
-          reader.readAsDataURL(file);
-        });
+        let downloadURL = '';
 
-        if (progressBar) progressBar.style.width = '100%';
-        if (progressPercent) progressPercent.textContent = '100%';
+        // 1. Firebase Cloud Storage Engine (Heavy Files up to 100MB+)
+        if (AdminState.firebaseActive && AdminState.storage) {
+          try {
+            const storageRef = AdminState.storage.ref(`notes_pdfs/${fileId}_${file.name}`);
+            const uploadTask = storageRef.put(file);
+
+            await new Promise((resolve, reject) => {
+              uploadTask.on('state_changed', 
+                (snapshot) => {
+                  const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                  if (progressBar) progressBar.style.width = pct + '%';
+                  if (progressPercent) progressPercent.textContent = pct + '%';
+                }, 
+                (err) => {
+                  console.error("Storage upload error:", err);
+                  reject(err);
+                }, 
+                async () => {
+                  downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+                  resolve();
+                }
+              );
+            });
+          } catch (storageErr) {
+            console.warn("Storage upload failed, switching to fallback:", storageErr);
+          }
+        }
+
+        // 2. Base64 Fallback (Only for files < 2MB)
+        if (!downloadURL) {
+          if (file.size > 1024 * 1024 * 2) {
+            ToastEngine.show(`File "${file.name}" exceeds 2MB limits. Firebase Storage is required!`, "DANGER");
+            if (progressBox) progressBox.hidden = true;
+            return;
+          }
+          downloadURL = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (ev) => resolve(ev.target.result);
+            reader.readAsDataURL(file);
+          });
+        }
 
         const noteDoc = {
           id: fileId,
@@ -497,11 +552,11 @@
         LocalStorageManager.set(STORAGE_KEYS.notes, localNotes);
         AdminState.uploadedFilesCache = localNotes;
 
-        LoggerEngine.success(`Uploaded PDF: "${chapterVal}"`, "UPLOAD");
+        LoggerEngine.success(`Uploaded PDF: "${chapterVal}" (${noteDoc.fileSize})`, "UPLOAD");
       }
 
       AudioSynthesizer.playSuccess();
-      ToastEngine.show("🎉 Document(s) uploaded successfully to Live Platform!", "SUCCESS");
+      ToastEngine.show("🎉 PDF Document Uploaded Successfully!", "SUCCESS");
 
       if (this.form) this.form.reset();
       AdminState.queuedFiles = [];
@@ -828,7 +883,7 @@
   }
 
   /* ==========================================================================
-     15. VISITORS & FEEDBACK EXCEL / CSV DOWNLOAD ENGINE
+     15. EXCEL / CSV EXPORTER
      ========================================================================== */
   class UsersExcelExporter {
     static init() {
@@ -848,7 +903,7 @@
       const visitors = LocalStorageManager.get(STORAGE_KEYS.visitors, []);
 
       if (visitors.length === 0) {
-        ToastEngine.show("Abhi tak koi visitor data record nahi hua hai!", "WARN");
+        ToastEngine.show("No visitor traffic data recorded yet!", "WARN");
         return;
       }
 
