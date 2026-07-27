@@ -1,9 +1,15 @@
 /* =========================================================
-   Notes Point — Modern Student Panel Logic (100% Free & NCERT Books & Competitive)
+   Notes Point — Modern Student Panel Logic (2026 EDITION FIXED)
+   Features: IndexedDB Blob PDF Opener, CORS Prevention, Safe Ticker & Firebase Sync
    ========================================================= */
+/* global firebase */
+
 (() => {
   'use strict';
 
+  /* ==========================================================================
+     01. CONFIG & INDEXEDDB ENGINE (100MB+ PDF HANDLER)
+     ========================================================================== */
   const ENGINE_CONFIG = {
     storageKeys: {
       notes: 'notespoint_uploaded_notes_v7',
@@ -11,6 +17,31 @@
       reviews: 'notespoint_student_reviews_v7'
     }
   };
+
+  class LargeStorageEngine {
+    static async openDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open("NotesPointPDFDB", 1);
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = (e) => reject(e);
+      });
+    }
+
+    static async getPDFBlob(id) {
+      try {
+        const db = await this.openDB();
+        return new Promise((resolve) => {
+          const tx = db.transaction("pdf_files", "readonly");
+          const store = tx.objectStore("pdf_files");
+          const req = store.get(id);
+          req.onsuccess = () => resolve(req.result ? req.result.blob : null);
+          req.onerror = () => resolve(null);
+        });
+      } catch (err) {
+        return null;
+      }
+    }
+  }
 
   const firebaseConfig = {
     apiKey: "AIzaSyB8Q233ol5opi0Io8tEp498yDEmMesjmgE",
@@ -21,14 +52,16 @@
     appId: "1:945990871633:web:4cfd8339055182317fa670"
   };
 
-  if (!firebase.apps.length) {
+  if (typeof firebase !== 'undefined' && !firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   }
-  const db = firebase.firestore();
+  const db = (typeof firebase !== 'undefined') ? firebase.firestore() : null;
+  const notesCollection = db ? db.collection('notes') : null;
+  const FieldValue = (typeof firebase !== 'undefined' && firebase.firestore) ? firebase.firestore.FieldValue : null;
 
-  const notesCollection = db.collection('notes');
-  const FieldValue = firebase.firestore.FieldValue;
-
+  /* ==========================================================================
+     02. LIVE TICKER ENGINE
+     ========================================================================== */
   function initLiveTicker() {
     const tickerTrack = document.getElementById('tickerPreviewTrack') || document.querySelector('.ticker-track') || document.getElementById('runningTickerText');
     if (!tickerTrack) return;
@@ -38,13 +71,18 @@
       tickerTrack.textContent = savedTicker;
     }
 
-    db.collection('settings').doc('ticker').get().then((doc) => {
-      if (doc.exists && doc.data().text) {
-        tickerTrack.textContent = doc.data().text;
-      }
-    }).catch(() => {});
+    if (db) {
+      db.collection('settings').doc('ticker').get().then((doc) => {
+        if (doc.exists && doc.data().text) {
+          tickerTrack.textContent = doc.data().text;
+        }
+      }).catch(() => {});
+    }
   }
 
+  /* ==========================================================================
+     03. STUDENT SESSION MANAGEMENT
+     ========================================================================== */
   function initStudentSession() {
     const studentNameHeading = document.getElementById('studentName');
     const studentHeaderName = document.getElementById('studentHeaderName');
@@ -61,7 +99,7 @@
     } else if (activeEmail) {
       const rawName = activeEmail.split('@')[0];
       finalName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
-    } else if (firebase.auth && firebase.auth().currentUser) {
+    } else if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) {
       const user = firebase.auth().currentUser;
       if (user.displayName) {
         finalName = user.displayName;
@@ -83,6 +121,9 @@
 
   initStudentSession();
 
+  /* ==========================================================================
+     04. FEEDBACK & REVIEW INTERCEPTOR
+     ========================================================================== */
   function initFeedbackInterceptor() {
     const supportForm = document.querySelector('#supportSection form') || document.querySelector('form[action*="formsubmit.co"]');
     if (!supportForm) return;
@@ -126,6 +167,9 @@
 
   document.addEventListener('DOMContentLoaded', initFeedbackInterceptor);
 
+  /* ==========================================================================
+     05. CURRICULUM & DATA MAP
+     ========================================================================== */
   const RESOURCE_EXTRAS = [
     'NCERT Books 📚',
     'Formula & Derivation Sheets', 
@@ -192,17 +236,25 @@
   function readJSON(key, fallback) {
     try {
       const raw = localStorage.getItem(key);
-      return raw ? JSON.parse(raw) : fallback;
+      if (raw === null || raw === undefined) return fallback;
+      try {
+        return JSON.parse(raw);
+      } catch (e) {
+        return raw;
+      }
     } catch {
       return fallback;
     }
   }
 
   function writeJSON(key, value) {
-    try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+    try { localStorage.setItem(key, typeof value === 'string' ? value : JSON.stringify(value)); } catch {}
   }
 
-  function getBookmarks() { return readJSON(BOOKMARKS_KEY, {}); }
+  function getBookmarks() { 
+    const b = readJSON(BOOKMARKS_KEY, {}); 
+    return (typeof b === 'object' && b !== null) ? b : {}; 
+  }
 
   function toggleBookmark(id, note) {
     const bookmarks = getBookmarks();
@@ -231,7 +283,10 @@
     };
   }
 
-  function getRecentlyViewed() { return readJSON(RECENT_KEY, []); }
+  function getRecentlyViewed() { 
+    const r = readJSON(RECENT_KEY, []); 
+    return Array.isArray(r) ? r : []; 
+  }
 
   function addRecentlyViewed(id, note) {
     const noteObj = serializeNote(id, note);
@@ -278,7 +333,7 @@
   let activeClass = '';
   let activeStream = '';
 
-  function goToClassStep(pushHistory = true) {
+  function goToClassStep() {
     if (classRail) {
       classRail.removeAttribute('hidden');
       classRail.style.cssText = 'display: grid !important;';
@@ -293,14 +348,10 @@
     }
     activeClass = '';
     activeStream = '';
-    
-    if (pushHistory) {
-      history.pushState({ step: 'classes' }, '');
-    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function goToSubjectStep(classValue, pushHistory = true) {
+  function goToSubjectStep(classValue) {
     activeClass = String(classValue);
     activeStream = '';
 
@@ -345,30 +396,15 @@
       }
     }
 
-    if (pushHistory) {
-      history.pushState({ step: 'subjects', class: classValue }, '');
-    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
-  // Handle browser back button step-by-step
-  window.addEventListener('popstate', (e) => {
-    if (notesPanel && !notesPanel.hidden) {
-      closeNotesPanel();
-      return;
-    }
-    if (activeClass) {
-      goToClassStep(false);
-      return;
-    }
-  });
 
   classRail?.addEventListener('click', (e) => {
     const card = e.target.closest('.class-card');
     if (card) {
       const targetClass = card.getAttribute('data-class') || card.dataset.class;
       if (targetClass) {
-        goToSubjectStep(targetClass, true);
+        goToSubjectStep(targetClass);
       }
     }
   });
@@ -379,7 +415,7 @@
       const cls = btn.getAttribute('data-class');
       if (cls) {
         window.switchSection('classesSection');
-        goToSubjectStep(cls, true);
+        goToSubjectStep(cls);
       }
     }
   });
@@ -460,40 +496,53 @@
   const notesPanelGrid = document.getElementById('notesPanelGrid');
   const notesPanelLoading = document.getElementById('notesPanelLoading');
   const notesPanelEmpty = document.getElementById('notesPanelEmpty');
+  const notesPanelEmptyMessage = document.getElementById('notesPanelEmptyMessage');
 
   function incrementCount(id, field) {
-    if (!id) return;
+    if (!id || !notesCollection || !FieldValue) return;
     notesCollection.doc(id).update({ [field]: FieldValue.increment(1) }).catch(() => {});
   }
 
-  function openPdfInNewTab(url) {
+  /* ==========================================================================
+     06. SMART BLOB & INDEXEDDB PDF OPENER (FIXED SCHEME ERROR)
+     ========================================================================== */
+  async function openPdfInNewTab(url, id) {
     if (!url) {
       alert("PDF file URL not found.");
       return;
     }
 
-    if (url.startsWith('data:application/pdf')) {
-      try {
-        const base64Parts = url.split(',');
-        const base64Data = base64Parts[1] || base64Parts[0];
-        const byteCharacters = atob(base64Data);
-        const byteNumbers = new Array(byteCharacters.length);
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-        const blob = new Blob([byteArray], { type: 'application/pdf' });
-        const blobUrl = URL.createObjectURL(blob);
-        window.open(blobUrl, '_blank');
-      } catch (err) {
-        console.error("Blob conversion error:", err);
-        const win = window.open();
-        if (win) {
-          win.document.write(`<iframe src="${url}" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>`);
+    try {
+      // 1. IndexedDB Blob Link Handler Fix
+      if (url.startsWith('indexeddb://')) {
+        const actualId = url.replace('indexeddb://', '') || id;
+        const blob = await LargeStorageEngine.getPDFBlob(actualId);
+        if (blob) {
+          const blobUrl = URL.createObjectURL(blob);
+          const win = window.open(blobUrl, '_blank');
+          if (!win) window.location.href = blobUrl;
+          return;
         }
       }
-    } else {
-      window.open(url, '_blank');
+
+      // 2. Data URL Handler
+      if (url.startsWith('data:application/pdf') || url.startsWith('data:')) {
+        const res = await fetch(url);
+        const blob = await res.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        window.open(blobUrl, '_blank');
+        return;
+      }
+
+      // 3. Normal Direct Web Links
+      if (!url.startsWith('indexeddb://')) {
+        window.open(url, '_blank');
+      } else {
+        alert("PDF फ़ाइल Local Storage/IndexedDB में नहीं मिली। कृपया Admin Portal से PDF पुनः अपलोड करें।");
+      }
+    } catch (err) {
+      console.error("PDF Opening error:", err);
+      alert("PDF खोलने में त्रुटि हुई।");
     }
   }
 
@@ -558,7 +607,7 @@
       saveBtn.innerHTML = isNowSaved ? '★' : '☆';
       saveBtn.style.background = isNowSaved ? '#FEF3C7' : '#F8FAFC';
       saveBtn.style.color = isNowSaved ? '#D97706' : '#94A3B8';
-      saveBtn.style.borderColor = isNowSaved ? '#FDE68A' : '#FDE68A';
+      saveBtn.style.borderColor = isNowSaved ? '#FDE68A' : '#E2E8F0';
     });
 
     const viewBtn = document.createElement('button');
@@ -581,7 +630,7 @@
     viewBtn.addEventListener('click', () => {
       incrementCount(id, 'viewCount');
       addRecentlyViewed(id, note);
-      openPdfInNewTab(note.fileUrl);
+      openPdfInNewTab(note.fileUrl, id);
     });
 
     const downloadLink = document.createElement('button');
@@ -604,7 +653,7 @@
     downloadLink.addEventListener('click', () => {
       incrementCount(id, 'downloadCount');
       addRecentlyViewed(id, note);
-      openPdfInNewTab(note.fileUrl);
+      openPdfInNewTab(note.fileUrl, id);
     });
 
     actionsDiv.append(saveBtn, viewBtn, downloadLink);
@@ -618,7 +667,7 @@
     notesPanelGrid.innerHTML = '';
     notesPanelGrid.style.cssText = 'display: flex; flex-direction: column; width: 100%;';
     
-    if (notesArray.length === 0) {
+    if (!Array.isArray(notesArray) || notesArray.length === 0) {
       if (notesPanelEmpty) {
         notesPanelEmpty.hidden = false;
         notesPanelEmpty.innerHTML = `
@@ -649,7 +698,8 @@
     if (notesPanelEmpty) notesPanelEmpty.hidden = true;
     if (notesPanelGrid) notesPanelGrid.innerHTML = '';
 
-    const localNotes = readJSON(ENGINE_CONFIG.storageKeys.notes, []);
+    let localNotes = readJSON(ENGINE_CONFIG.storageKeys.notes, []);
+    if (!Array.isArray(localNotes)) localNotes = [];
     
     const targetClass = String(classValue).trim().toLowerCase();
     const targetSubject = String(subjectValue).trim().toLowerCase();
@@ -718,6 +768,17 @@
     }
   }
 
+  function openLocalListPanel({ items, breadcrumb, title, emptyMessage }) {
+    if (notesPanelBreadcrumb) notesPanelBreadcrumb.textContent = breadcrumb;
+    if (notesPanelTitle) notesPanelTitle.textContent = title;
+    if (notesPanel) notesPanel.hidden = false;
+    if (notesPanelLoading) notesPanelLoading.hidden = true;
+    renderNotesList(items);
+    if ((!items || items.length === 0) && notesPanelEmptyMessage) {
+      notesPanelEmptyMessage.textContent = emptyMessage;
+    }
+  }
+
   function closeNotesPanel() {
     if (notesPanel) notesPanel.hidden = true;
   }
@@ -756,7 +817,7 @@
     }
 
     if (targetId === 'classesSection') {
-      goToClassStep(true);
+      goToClassStep();
     }
   };
 
@@ -769,7 +830,7 @@
   });
 
   document.addEventListener('DOMContentLoaded', () => {
-    goToClassStep(true);
+    goToClassStep();
   });
 
   const mobileBtn = document.getElementById('toggleSidebarMobile') || document.querySelector('.sidebar-toggle-btn');
