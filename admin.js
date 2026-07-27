@@ -1,8 +1,7 @@
 /* ==========================================================================
-   NOTES POINT — ENTERPRISE SUPER ADMIN JavaScript ENGINE (2026 FULL EDITION)
-   Architecture: Modular SaaS Master Core System (Full 1200+ Extended Version)
-   Fixes: Native PDF Blob Viewer (Mobile Friendly), Safe JSON Storage Parser,
-          CORS Bypass Engine, Visitor Traffic Tracker, Curriculum Auto-Mapping
+   NOTES POINT — ENTERPRISE SUPER ADMIN MASTER JS ENGINE (2026 EDITION FIXED)
+   Features: IndexedDB Heavy PDF Engine (100MB+), CORS Bypass, Auto-Subject,
+             Visitor Source Tracking, CSV Exporters & Live Sync.
    ========================================================================== */
 
 /* global firebase */
@@ -11,10 +10,9 @@
   'use strict';
 
   /* ==========================================================================
-     01. GLOBAL SYSTEM CONSTANTS & APPLICATION STATE
+     01. GLOBAL CONSTANTS & STATE MANAGEMENT
      ========================================================================== */
-  const APP_VERSION = '2026.4.25-ENTERPRISE-FULL-MEGA';
-  
+  const APP_VERSION = '2026.4.15-ENTERPRISE-MEGA';
   const STORAGE_KEYS = {
     notes: 'notespoint_uploaded_notes_v7',
     ticker: 'notespoint_running_ticker_v7',
@@ -22,8 +20,7 @@
     logs: 'notespoint_admin_audit_logs_v7',
     config: 'notespoint_site_config_v7',
     users: 'notespoint_db_users',
-    visitors: 'notespoint_visitor_logs_v7',
-    analytics: 'notespoint_analytics_data_v7'
+    visitors: 'notespoint_visitor_logs_v7'
   };
 
   const DEFAULT_FIREBASE_CONFIG = {
@@ -46,91 +43,15 @@
     reviewsCache: [],
     auditLogs: [],
     filters: { search: '', classVal: 'ALL', tagVal: 'ALL' },
-    audioEnabled: true,
-    mobileOpen: false
+    audioEnabled: true
   };
 
   const CURRICULUM_SUBJECTS = {
-    '9': [
-      'Mathematics', 
-      'Science', 
-      'Social Science', 
-      'English Language & Lit.', 
-      'Hindi Course A', 
-      'Hindi Course B', 
-      'Sanskrit', 
-      'NCERT Books 📚', 
-      'Formula & Derivation Sheets', 
-      'Previous Year Questions (PYQs)', 
-      'Sample Papers'
-    ],
-    '10': [
-      'Mathematics Standard', 
-      'Mathematics Basic', 
-      'Science', 
-      'Social Science', 
-      'English Language & Lit.', 
-      'Hindi Course A', 
-      'Hindi Course B', 
-      'IT / Computer Applications (Code 402)', 
-      'NCERT Books 📚', 
-      'Formula & Derivation Sheets', 
-      'Previous Year Questions (PYQs)', 
-      'Sample Papers'
-    ],
-    '11': [
-      'Physics', 
-      'Chemistry', 
-      'Mathematics', 
-      'Biology', 
-      'English Core', 
-      'Computer Science (Python)', 
-      'Informatics Practices', 
-      'Accountancy', 
-      'Business Studies', 
-      'Economics', 
-      'History', 
-      'Political Science', 
-      'Geography', 
-      'Psychology', 
-      'Sociology', 
-      'NCERT Books 📚', 
-      'Formula & Derivation Sheets', 
-      'Previous Year Questions (PYQs)', 
-      'Sample Papers'
-    ],
-    '12': [
-      'Physics', 
-      'Chemistry', 
-      'Mathematics', 
-      'Biology', 
-      'English Core', 
-      'Computer Science (Python)', 
-      'Informatics Practices', 
-      'Psychology', 
-      'Accountancy', 
-      'Business Studies', 
-      'Economics', 
-      'History', 
-      'Political Science', 
-      'Geography', 
-      'Sociology', 
-      'NCERT Books 📚', 
-      'Formula & Derivation Sheets', 
-      'Previous Year Questions (PYQs)', 
-      'Sample Papers'
-    ],
-    'competitive': [
-      'JEE Main & Advanced Physics Special', 
-      'JEE Main & Advanced Chemistry Special', 
-      'JEE Main & Advanced Mathematics Special', 
-      'NEET-UG Biology Complete Notes', 
-      'NEET-UG Physics & Chemistry Formulas', 
-      'CUET General Test Preparation Material', 
-      'NDA Entrance Exam Preparation Material', 
-      'Formula Short Tricks & Quick Sheets', 
-      'Entrance Exam PYQs Solved'
-    ]
+    '9': ['Mathematics', 'Science', 'Social Science', 'English', 'Hindi', 'Sanskrit', 'NCERT Books 📚', 'Formula & Derivation Sheets', 'Previous Year Questions (PYQs)', 'Sample Papers'],
+    '10': ['Mathematics', 'Science', 'Social Science', 'English', 'Hindi', 'IT / Computer', 'NCERT Books 📚', 'Formula & Derivation Sheets', 'Previous Year Questions (PYQs)', 'Sample Papers'],
+    '11': ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'English', 'Computer Science', 'Accountancy', 'Business Studies', 'Economics', 'History', 'Political Science', 'Geography', 'Psychology', 'NCERT Books 📚', 'Formula & Derivation Sheets', 'Previous Year Questions (PYQs)', 'Sample Papers'],
+    '12': ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'English', 'Computer Science', 'Psychology', 'Accountancy', 'Business Studies', 'Economics', 'History', 'Political Science', 'Geography', 'NCERT Books 📚', 'Formula & Derivation Sheets', 'Previous Year Questions (PYQs)', 'Sample Papers'],
+    'competitive': ['JEE Main & Advanced', 'NEET-UG Biology & Physics', 'CUET General Test', 'NDA Entrance Exam', 'Formula Short Tricks', 'Entrance PYQs']
   };
 
   /* ==========================================================================
@@ -139,11 +60,11 @@
   class LargeStorageEngine {
     static async openDB() {
       return new Promise((resolve, reject) => {
-        const request = indexedDB.open("NotesPointPDFDatabase", 2);
+        const request = indexedDB.open("NotesPointPDFDB", 1);
         request.onupgradeneeded = (e) => {
           const db = e.target.result;
-          if (!db.objectStoreNames.contains("pdf_store")) {
-            db.createObjectStore("pdf_store", { keyPath: "id" });
+          if (!db.objectStoreNames.contains("pdf_files")) {
+            db.createObjectStore("pdf_files", { keyPath: "id" });
           }
         };
         request.onsuccess = () => resolve(request.result);
@@ -151,22 +72,18 @@
       });
     }
 
-    static async savePDFBlob(id, fileData) {
+    static async savePDFBlob(id, fileBlob) {
       try {
         const db = await this.openDB();
         return new Promise((resolve, reject) => {
-          const transaction = db.transaction("pdf_store", "readwrite");
-          const store = transaction.objectStore("pdf_store");
-          store.put({
-            id: id,
-            data: fileData,
-            timestamp: new Date().toISOString()
-          });
-          transaction.oncomplete = () => resolve(true);
-          transaction.onerror = (e) => reject(e);
+          const tx = db.transaction("pdf_files", "readwrite");
+          const store = tx.objectStore("pdf_files");
+          store.put({ id: id, blob: fileBlob, date: new Date().toISOString() });
+          tx.oncomplete = () => resolve(true);
+          tx.onerror = (e) => reject(e);
         });
       } catch (err) {
-        console.warn("IndexedDB Write Fail, Fallback Active:", err);
+        console.warn("IndexedDB Save Failed:", err);
         return false;
       }
     }
@@ -175,11 +92,11 @@
       try {
         const db = await this.openDB();
         return new Promise((resolve) => {
-          const transaction = db.transaction("pdf_store", "readonly");
-          const store = transaction.objectStore("pdf_store");
-          const request = store.get(id);
-          request.onsuccess = () => resolve(request.result ? request.result.data : null);
-          request.onerror = () => resolve(null);
+          const tx = db.transaction("pdf_files", "readonly");
+          const store = tx.objectStore("pdf_files");
+          const req = store.get(id);
+          req.onsuccess = () => resolve(req.result ? req.result.blob : null);
+          req.onerror = () => resolve(null);
         });
       } catch (err) {
         return null;
@@ -189,58 +106,35 @@
     static async deletePDFBlob(id) {
       try {
         const db = await this.openDB();
-        const transaction = db.transaction("pdf_store", "readwrite");
-        const store = transaction.objectStore("pdf_store");
-        store.delete(id);
-      } catch (err) {
-        console.warn("IndexedDB Delete Fail:", err);
-      }
+        const tx = db.transaction("pdf_files", "readwrite");
+        tx.objectStore("pdf_files").delete(id);
+      } catch (err) {}
     }
   }
 
   /* ==========================================================================
-     03. SAFE LOCAL STORAGE & JSON PARSER ENGINE (PREVENTS SYNTAX ERRORS)
+     03. LOCAL STORAGE MANAGER (SAFE PARSER FIX FOR TICKER CRASH)
      ========================================================================== */
   class LocalStorageManager {
     static get(key, fallback = []) {
       try {
-        const item = localStorage.getItem(key);
-        if (item === null || item === undefined) return fallback;
+        const val = localStorage.getItem(key);
+        if (val === null || val === undefined) return fallback;
         try {
-          return JSON.parse(item);
+          return JSON.parse(val);
         } catch (jsonErr) {
-          // Plain text string fallback to avoid SyntaxError
-          return item;
+          // Plain text fallback (Fixes 'Unexpected token 🔥' error)
+          return val;
         }
       } catch (e) {
-        console.error(`[LocalStorageManager] Read exception on ${key}:`, e);
         return fallback;
       }
     }
 
     static set(key, value) {
       try {
-        const payload = typeof value === 'string' ? value : JSON.stringify(value);
-        localStorage.setItem(key, payload);
-        return true;
-      } catch (e) {
-        console.error(`[LocalStorageManager] Write exception on ${key}:`, e);
-        return false;
-      }
-    }
-
-    static remove(key) {
-      try {
-        localStorage.removeItem(key);
-        return true;
-      } catch (e) {
-        return false;
-      }
-    }
-
-    static clearAll() {
-      try {
-        localStorage.clear();
+        const dataToSave = typeof value === 'string' ? value : JSON.stringify(value);
+        localStorage.setItem(key, dataToSave);
         return true;
       } catch (e) {
         return false;
@@ -249,7 +143,7 @@
   }
 
   /* ==========================================================================
-     04. VISITOR TRAFFIC TRACKER & SOURCE INSPECTOR ENGINE
+     04. VISITOR TRAFFIC TRACKER ENGINE
      ========================================================================== */
   class VisitorTrafficTracker {
     static init() {
@@ -258,17 +152,16 @@
 
       if (!sourceRef) {
         const referrer = document.referrer.toLowerCase();
-        if (referrer.includes('instagram')) sourceRef = 'Instagram Bio/Story';
-        else if (referrer.includes('whatsapp')) sourceRef = 'WhatsApp Link Share';
-        else if (referrer.includes('facebook') || referrer.includes('fb')) sourceRef = 'Facebook Feed';
-        else if (referrer.includes('google')) sourceRef = 'Google Organic Search';
-        else if (referrer.includes('t.co') || referrer.includes('twitter')) sourceRef = 'Twitter / X';
-        else sourceRef = 'Direct Website Link';
+        if (referrer.includes('instagram')) sourceRef = 'Instagram';
+        else if (referrer.includes('whatsapp')) sourceRef = 'WhatsApp';
+        else if (referrer.includes('facebook') || referrer.includes('fb')) sourceRef = 'Facebook';
+        else if (referrer.includes('google')) sourceRef = 'Google Search';
+        else sourceRef = 'Direct Link / Bookmark';
       }
 
       const now = new Date();
       const visitorRecord = {
-        id: 'vis_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+        id: 'vis_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
         name: 'Visitor_' + Math.floor(Math.random() * 89999 + 10000),
         source: sourceRef,
         date: now.toLocaleDateString(),
@@ -278,7 +171,6 @@
 
       let visitors = LocalStorageManager.get(STORAGE_KEYS.visitors, []);
       if (!Array.isArray(visitors)) visitors = [];
-      
       visitors.unshift(visitorRecord);
       LocalStorageManager.set(STORAGE_KEYS.visitors, visitors.slice(0, 500));
       this.renderVisitorsTable();
@@ -286,23 +178,13 @@
 
     static renderVisitorsTable() {
       const tbody = document.getElementById('visitorsTableBody');
-      const badge = document.getElementById('visitorCountBadge');
+      if (!tbody) return;
 
       let visitors = LocalStorageManager.get(STORAGE_KEYS.visitors, []);
       if (!Array.isArray(visitors)) visitors = [];
 
-      if (badge) badge.textContent = visitors.length + ' LIVE';
-
-      if (!tbody) return;
-
       if (visitors.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="5" class="table-empty-state">
-              👥 No visitor traffic recorded yet. Links with <code>?ref=whatsapp</code> will show live traffic here.
-            </td>
-          </tr>
-        `;
+        tbody.innerHTML = `<tr><td colspan="5" class="table-empty-state">No traffic recorded yet.</td></tr>`;
         return;
       }
 
@@ -312,31 +194,28 @@
           <td><span class="badge-tag blue">${v.source}</span></td>
           <td>${v.date}</td>
           <td>${v.time}</td>
-          <td><span class="badge-tag green">ACTIVE SESSION</span></td>
+          <td><span class="badge-tag green">ACTIVE</span></td>
         </tr>
       `).join('');
     }
   }
 
   /* ==========================================================================
-     05. SYSTEM LOGGER ENGINE & ACTIVITY TRAIL
+     05. SYSTEM LOGGER ENGINE
      ========================================================================== */
   class LoggerEngine {
     static info(msg, context = 'GENERAL') {
       console.log(`%c[INFO][${context}] ${msg}`, 'color: #2563EB; font-weight: bold;');
       LoggerEngine._pushToState(msg, 'INFO');
     }
-
     static success(msg, context = 'GENERAL') {
       console.log(`%c[SUCCESS][${context}] ${msg}`, 'color: #10B981; font-weight: bold;');
       LoggerEngine._pushToState(msg, 'SUCCESS');
     }
-
     static warn(msg, context = 'GENERAL') {
       console.warn(`[WARN][${context}] ${msg}`);
       LoggerEngine._pushToState(msg, 'WARN');
     }
-
     static error(msg, err = null, context = 'GENERAL') {
       console.error(`[ERROR][${context}] ${msg}`, err);
       LoggerEngine._pushToState(`${msg} ${err ? '(' + err.message + ')' : ''}`, 'DANGER');
@@ -345,7 +224,6 @@
     static _pushToState(text, tag) {
       let logs = LocalStorageManager.get(STORAGE_KEYS.logs, []);
       if (!Array.isArray(logs)) logs = [];
-
       const newEntry = {
         id: 'log_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
         time: new Date().toLocaleTimeString('en-US', { hour12: false }),
@@ -365,13 +243,7 @@
 
     let logs = LocalStorageManager.get(STORAGE_KEYS.logs, []);
     if (!Array.isArray(logs) || logs.length === 0) {
-      container.innerHTML = `
-        <div class="log-item">
-          <span class="log-time">Now</span>
-          <span class="log-tag info">SYSTEM</span>
-          <span>Admin Command Center Ready. System Active.</span>
-        </div>
-      `;
+      container.innerHTML = `<div class="log-item"><span class="log-time">Now</span><span class="log-tag info">SYSTEM</span><span>Admin portal active.</span></div>`;
       return;
     }
 
@@ -385,7 +257,7 @@
   }
 
   /* ==========================================================================
-     06. AUDIO FEEDBACK SYNTHESIZER ENGINE
+     06. WEB AUDIO SYNTHESIZER
      ========================================================================== */
   class AudioSynthesizer {
     static init() {
@@ -428,7 +300,7 @@
   }
 
   /* ==========================================================================
-     07. FIREBASE CORE & FIRESTORE SYNCHRONIZER
+     07. FIREBASE CONTROLLER
      ========================================================================== */
   class FirebaseController {
     static init() {
@@ -438,11 +310,12 @@
             firebase.initializeApp(DEFAULT_FIREBASE_CONFIG);
           }
           AdminState.db = firebase.firestore();
+          AdminState.storage = firebase.storage();
           AdminState.firebaseActive = true;
-          LoggerEngine.success("Firebase Core & Firestore Master Connected.", "FIREBASE");
+          LoggerEngine.success("Firebase Core & Firestore Connected.", "FIREBASE");
           this.setupListeners();
         } else {
-          LoggerEngine.warn("Firebase SDK unavailable, local fallback active.", "FIREBASE");
+          LoggerEngine.warn("Running in local fallback mode.", "FIREBASE");
         }
       } catch (err) {
         LoggerEngine.error("Firebase initialization failed.", err, "FIREBASE");
@@ -462,7 +335,7 @@
           AnalyticsEngine.calculateMetrics();
         }
       }, err => {
-        LoggerEngine.warn("Firestore Notes Snapshot restricted. Local DB active.", "FIRESTORE");
+        LoggerEngine.warn("Firestore Notes Snapshot restricted. Using local backup.", "FIRESTORE");
       });
 
       AdminState.db.collection('reviews').onSnapshot(snapshot => {
@@ -475,13 +348,13 @@
           AnalyticsEngine.calculateMetrics();
         }
       }, err => {
-        LoggerEngine.warn("Firestore Reviews Snapshot restricted.", "FIRESTORE");
+        LoggerEngine.warn("Firestore Reviews Snapshot restricted. Using local backup.", "FIRESTORE");
       });
     }
   }
 
   /* ==========================================================================
-     08. ROUTER & MOBILE SIDEBAR NAVIGATION
+     08. NAVIGATION ROUTER
      ========================================================================== */
   class NavigationRouter {
     static init() {
@@ -538,7 +411,7 @@
   global.switchSection = (id) => NavigationRouter.switchSection(id);
 
   /* ==========================================================================
-     09. REALTIME CLOCK & DATE ENGINE
+     09. CLOCK ENGINE
      ========================================================================== */
   class ClockEngine {
     static start() {
@@ -561,7 +434,7 @@
   }
 
   /* ==========================================================================
-     10. MULTI-PDF UPLOADER ENGINE (CORS-FREE + INDEXEDDB DUAL ENGINE)
+     10. UPLOADER ENGINE (INDEXEDDB + CORS-PROOF MULTI-PDF ENGINE)
      ========================================================================== */
   class UploaderEngine {
     static init() {
@@ -599,8 +472,8 @@
         ['dragenter', 'dragover'].forEach(eName => {
           this.dropZone.addEventListener(eName, (e) => {
             e.preventDefault();
-            this.dropZone.style.borderColor = 'var(--admin-primary, #2563EB)';
-            this.dropZone.style.background = '#EFF6FF';
+            this.dropZone.style.borderColor = 'var(--admin-primary)';
+            this.dropZone.style.background = 'var(--admin-primary-light)';
           });
         });
 
@@ -608,7 +481,7 @@
           this.dropZone.addEventListener(eName, (e) => {
             e.preventDefault();
             this.dropZone.style.borderColor = '#CBD5E1';
-            this.dropZone.style.background = '#F8FAFC';
+            this.dropZone.style.background = 'var(--admin-bg-subtle)';
           });
         });
 
@@ -659,11 +532,12 @@
         return;
       }
 
-      const classVal = document.getElementById('uploadClassSelect').value;
-      const subjectVal = document.getElementById('uploadSubjectInput').value;
-      const chapterVal = document.getElementById('uploadChapterInput').value.trim();
-      const docTypeVal = document.getElementById('uploadDocTypeSelect').value;
-      const authorVal = document.getElementById('uploadAuthorInput').value.trim() || 'NotesPoint Faculty';
+      const classVal = document.getElementById('uploadClassSelect') ? document.getElementById('uploadClassSelect').value : '10';
+      const streamVal = 'General';
+      const subjectVal = document.getElementById('uploadSubjectInput') ? document.getElementById('uploadSubjectInput').value : 'General';
+      const chapterVal = document.getElementById('uploadChapterInput') ? document.getElementById('uploadChapterInput').value.trim() : 'Chapter Note';
+      const docTypeVal = document.getElementById('uploadDocTypeSelect') ? document.getElementById('uploadDocTypeSelect').value : 'Chapter Note';
+      const authorVal = document.getElementById('uploadAuthorInput') ? document.getElementById('uploadAuthorInput').value.trim() : 'NotesPoint Faculty';
 
       const progressBox = document.getElementById('uploadProgressContainer');
       const progressBar = document.getElementById('uploadProgressBarFill');
@@ -678,22 +552,14 @@
 
         if (progressStatus) progressStatus.textContent = `Processing & Saving ${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB)...`;
 
-        // Smooth Progress Animation
-        for (let p = 10; p <= 80; p += 20) {
+        for (let p = 10; p <= 90; p += 20) {
           if (progressBar) progressBar.style.width = p + '%';
           if (progressPercent) progressPercent.textContent = p + '%';
-          await new Promise(res => setTimeout(res, 50));
+          await new Promise(res => setTimeout(res, 80));
         }
 
-        // Save binary PDF blob into IndexedDB (For Heavy Files)
+        // Save binary PDF blob into IndexedDB
         await LargeStorageEngine.savePDFBlob(fileId, file);
-
-        // Also convert to Base64 for instant preview fallback
-        const pdfDataUrl = await new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onload = (ev) => resolve(ev.target.result);
-          reader.readAsDataURL(file);
-        });
 
         if (progressBar) progressBar.style.width = '100%';
         if (progressPercent) progressPercent.textContent = '100%';
@@ -703,36 +569,35 @@
           title: chapterVal,
           subject: subjectVal,
           class: classVal,
+          stream: streamVal,
           docType: docTypeVal,
           fileName: file.name,
           fileSize: (file.size / (1024 * 1024)).toFixed(2) + ' MB',
           fileSizeRaw: file.size,
-          fileUrl: pdfDataUrl,
+          fileUrl: 'indexeddb://' + fileId,
           author: authorVal,
           createdAt: new Date().toISOString()
         };
 
-        // Save in LocalStorage Cache
+        if (AdminState.firebaseActive && AdminState.db) {
+          try {
+            await AdminState.db.collection('notes').doc(fileId).set(noteDoc);
+          } catch (err) {
+            console.warn("Firestore Document Sync:", err);
+          }
+        }
+
         let localNotes = LocalStorageManager.get(STORAGE_KEYS.notes, []);
         if (!Array.isArray(localNotes)) localNotes = [];
         localNotes.unshift(noteDoc);
         LocalStorageManager.set(STORAGE_KEYS.notes, localNotes);
+        AdminState.uploadedFilesCache = localNotes;
 
-        // Sync Metadata to Firestore
-        if (AdminState.firebaseActive && AdminState.db) {
-          try {
-            await AdminState.db.collection('notes').doc(fileId).set({
-              ...noteDoc,
-              fileUrl: pdfDataUrl.length < 500000 ? pdfDataUrl : 'indexeddb://' + fileId
-            });
-          } catch (err) {}
-        }
-
-        LoggerEngine.success(`Uploaded PDF: "${chapterVal}"`, "UPLOAD");
+        LoggerEngine.success(`Uploaded PDF Document: "${chapterVal}"`, "UPLOAD");
       }
 
       AudioSynthesizer.playSuccess();
-      ToastEngine.show("🎉 Document(s) Uploaded Successfully!", "SUCCESS");
+      ToastEngine.show("🎉 Heavy PDF Document Uploaded & Saved Successfully!", "SUCCESS");
 
       if (this.form) this.form.reset();
       AdminState.queuedFiles = [];
@@ -745,7 +610,7 @@
   }
 
   /* ==========================================================================
-     11. CONTENT DIRECTORY MANAGER (UNIVERSAL MOBILE PDF VIEWER)
+     11. DIRECTORY MANAGER (SAFE INDEXEDDB PDF BLOB PREVIEW FIX)
      ========================================================================== */
   class DirectoryManager {
     static init() {
@@ -781,7 +646,6 @@
 
       let list = LocalStorageManager.get(STORAGE_KEYS.notes, []);
       if (!Array.isArray(list)) list = [];
-
       AdminState.uploadedFilesCache = list;
 
       const search = AdminState.filters.search.toLowerCase().trim();
@@ -811,7 +675,7 @@
           <td><span class="badge-tag blue">Class ${item.class}</span></td>
           <td>
             <strong>${item.subject}</strong><br>
-            <span style="font-size:0.75rem; color:#64748B;">Academic Note</span>
+            <span style="font-size:0.75rem; color:#64748B;">${item.stream || 'General'}</span>
           </td>
           <td>
             <strong>${item.title}</strong><br>
@@ -820,57 +684,40 @@
           <td><span class="badge-tag green">${item.docType}</span></td>
           <td style="font-size:0.8rem; color:#64748B;">${item.createdAt ? item.createdAt.split('T')[0] : 'Today'}</td>
           <td>
-            <button type="button" onclick="window.openPdfUniversal('${item.id}')" style="color:#2563EB; border:none; background:none; font-weight:700; margin-right:12px; cursor:pointer;" title="Preview PDF"><i class="fa-solid fa-eye"></i> View</button>
-            <button type="button" onclick="window.deleteNoteItem('${item.id}')" style="color:#EF4444; border:none; background:none; font-weight:700; cursor:pointer;" title="Delete PDF"><i class="fa-solid fa-trash-can"></i> Delete</button>
+            <a href="#" onclick="window.openPdfBlob(event, '${item.id}', '${item.fileUrl}')" style="color:#2563EB; font-weight:700; margin-right:12px;" title="Preview"><i class="fa-solid fa-eye"></i></a>
+            <button type="button" onclick="window.deleteNoteItem('${item.id}')" style="background:none; border:none; color:#EF4444; font-weight:700; cursor:pointer;" title="Delete"><i class="fa-solid fa-trash-can"></i></button>
           </td>
         </tr>
       `).join('');
     }
   }
 
-  // Smart Universal PDF Reader Method (Fixes "indexeddb://" Mobile View Issue)
-  global.openPdfUniversal = async (id) => {
-    let list = LocalStorageManager.get(STORAGE_KEYS.notes, []);
-    if (!Array.isArray(list)) list = [];
+  global.openPdfBlob = async (e, id, url) => {
+    if (e) e.preventDefault();
 
-    const item = list.find(n => n.id === id);
-    
-    // 1. First try loading file from IndexedDB
     try {
-      const indexedFile = await LargeStorageEngine.getPDFBlob(id);
-      if (indexedFile) {
-        const blobUrl = URL.createObjectURL(indexedFile);
-        const win = window.open(blobUrl, '_blank');
-        if (!win) window.location.href = blobUrl;
-        return;
-      }
-    } catch (dbErr) {}
-
-    // 2. Fallback to Local Base64 URL
-    if (item && item.fileUrl && item.fileUrl.startsWith('data:')) {
-      try {
-        const parts = item.fileUrl.split(';base64,');
-        const contentType = parts[0].split(':')[1];
-        const raw = window.atob(parts[1]);
-        const uInt8Array = new Uint8Array(raw.length);
-
-        for (let i = 0; i < raw.length; ++i) {
-          uInt8Array[i] = raw.charCodeAt(i);
+      if (url && url.startsWith('indexeddb://')) {
+        const actualId = url.replace('indexeddb://', '');
+        const blob = await LargeStorageEngine.getPDFBlob(actualId || id);
+        if (blob) {
+          const blobUrl = URL.createObjectURL(blob);
+          const win = window.open(blobUrl, '_blank');
+          if (!win) window.location.href = blobUrl;
+          return;
         }
+      }
 
-        const blob = new Blob([uInt8Array], { type: contentType });
-        const blobUrl = URL.createObjectURL(blob);
-
-        const win = window.open(blobUrl, '_blank');
-        if (!win) window.location.href = blobUrl;
-        return;
-      } catch (err) {}
-    }
-
-    if (item && item.fileUrl && !item.fileUrl.startsWith('indexeddb://')) {
-      window.open(item.fileUrl, '_blank');
-    } else {
-      alert("PDF file data not found on this device.");
+      if (url && url.startsWith('data:')) {
+        const res = await fetch(url);
+        const blob = await res.blob();
+        window.open(URL.createObjectURL(blob), '_blank');
+      } else if (url && !url.startsWith('indexeddb://')) {
+        window.open(url, '_blank');
+      } else {
+        alert("PDF File not found in local storage.");
+      }
+    } catch (err) {
+      alert("Error opening PDF file.");
     }
   };
 
@@ -880,16 +727,20 @@
 
     await LargeStorageEngine.deletePDFBlob(id);
 
+    if (AdminState.firebaseActive && AdminState.db) {
+      try {
+        await AdminState.db.collection('notes').doc(id).delete();
+      } catch (e) {}
+    }
+
     let list = LocalStorageManager.get(STORAGE_KEYS.notes, []);
     if (!Array.isArray(list)) list = [];
     list = list.filter(item => item.id !== id);
     LocalStorageManager.set(STORAGE_KEYS.notes, list);
 
-    if (AdminState.firebaseActive && AdminState.db) {
-      AdminState.db.collection('notes').doc(id).delete().catch(() => {});
-    }
+    LoggerEngine.warn(`Deleted PDF document ID: ${id}`, "DIRECTORY");
+    ToastEngine.show("Document permanently removed.", "INFO");
 
-    ToastEngine.show("Document removed.", "INFO");
     DirectoryManager.render();
     AnalyticsEngine.calculateMetrics();
   };
@@ -927,7 +778,8 @@
           }
 
           AudioSynthesizer.playSuccess();
-          ToastEngine.show("📢 Ticker Announcement Published!", "SUCCESS");
+          LoggerEngine.info("Published new running ticker notice.", "TICKER");
+          ToastEngine.show("📢 Ticker Notice Published Live to Index page!", "SUCCESS");
         });
       }
 
@@ -940,7 +792,7 @@
   }
 
   /* ==========================================================================
-     13. REVIEW MODERATOR SYSTEM
+     13. REVIEW MODERATOR
      ========================================================================== */
   class ReviewModerator {
     static render() {
@@ -952,6 +804,7 @@
       if (!Array.isArray(reviews)) reviews = [];
 
       AdminState.reviewsCache = reviews;
+
       const pending = reviews.filter(r => !r.status || r.status === 'pending');
       if (badge) badge.textContent = pending.length;
 
@@ -994,7 +847,8 @@
       }
 
       AudioSynthesizer.playSuccess();
-      ToastEngine.show("Review approved live!", "SUCCESS");
+      LoggerEngine.success(`Approved review from: ${target.name || 'Student'}`, "REVIEW");
+      ToastEngine.show("Review approved and live on website!", "SUCCESS");
       ReviewModerator.render();
       AnalyticsEngine.calculateMetrics();
     }
@@ -1011,13 +865,14 @@
     }
 
     AudioSynthesizer.playDanger();
+    LoggerEngine.warn(`Rejected review ID: ${id}`, "REVIEW");
     ToastEngine.show("Review rejected.", "INFO");
     ReviewModerator.render();
     AnalyticsEngine.calculateMetrics();
   };
 
   /* ==========================================================================
-     14. METRICS & ANALYTICS CALCULATION ENGINE
+     14. ANALYTICS ENGINE
      ========================================================================== */
   class AnalyticsEngine {
     static calculateMetrics() {
@@ -1054,7 +909,7 @@
   }
 
   /* ==========================================================================
-     15. TOAST NOTIFICATION ENGINE
+     15. TOAST ENGINE
      ========================================================================== */
   class ToastEngine {
     static show(message, type = 'INFO') {
@@ -1092,7 +947,7 @@
   }
 
   /* ==========================================================================
-     16. EXCEL & CSV DATA EXPORTERS
+     16. EXCEL / CSV EXPORTER
      ========================================================================== */
   class UsersExcelExporter {
     static init() {
@@ -1130,14 +985,14 @@
       link.click();
       link.remove();
 
-      ToastEngine.show("📥 Visitors Traffic Excel Sheet Downloaded!", "SUCCESS");
+      ToastEngine.show("📥 Visitors Traffic Excel Sheet Downloaded Successfully!", "SUCCESS");
     }
 
     static exportFeedbacksToCSV() {
       AudioSynthesizer.playSuccess();
       let reviews = LocalStorageManager.get(STORAGE_KEYS.reviews, []);
       if (!Array.isArray(reviews) || reviews.length === 0) {
-        ToastEngine.show("No student reviews recorded yet!", "WARN");
+        ToastEngine.show("No feedback data available to export!", "WARN");
         return;
       }
 
@@ -1165,11 +1020,8 @@
     }
   }
 
-  global.downloadUsersExcel = () => UsersExcelExporter.exportVisitorsToCSV();
-  global.exportFeedbacksExcel = () => UsersExcelExporter.exportFeedbacksToCSV();
-
   /* ==========================================================================
-     17. SYSTEM BACKUP & CACHE RESET CONTROLS
+     17. BACKUP CONTROLS
      ========================================================================== */
   function setupBackupControls() {
     const backupBtn = document.getElementById('quickBackupBtn');
@@ -1199,8 +1051,8 @@
     const clearCacheBtn = document.getElementById('btnForceClearCache');
     if (clearCacheBtn) {
       clearCacheBtn.addEventListener('click', () => {
-        if (confirm("Flush local cache? (Cloud database remains safe)")) {
-          LocalStorageManager.clearAll();
+        if (confirm("Flush local cache? (Cloud data remains secure)")) {
+          localStorage.clear();
           ToastEngine.show("Cache flushed successfully!", "INFO");
           setTimeout(() => location.reload(), 500);
         }
@@ -1209,7 +1061,7 @@
   }
 
   /* ==========================================================================
-     18. SYSTEM BOOTSTRAP INITIALIZER
+     18. BOOTSTRAPPER
      ========================================================================== */
   document.addEventListener('DOMContentLoaded', () => {
     VisitorTrafficTracker.init();
@@ -1226,4 +1078,4 @@
     UsersExcelExporter.init();
   });
 
-})(window); 
+})(window);
