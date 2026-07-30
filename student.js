@@ -1,7 +1,7 @@
-/* =========================================================
-   Notes Point — Modern Student Panel Logic (2026 FULLY FIXED)
+/* ==========================================================================
+   NOTES POINT — Modern Student Panel Logic (2026 FULLY FIXED & OPTIMIZED)
    Features: IndexedDB Blob PDF Opener, CORS Prevention, Safe Ticker & Firebase Sync
-   ========================================================= */
+   ========================================================================== */
 /* global firebase */
 
 (() => {
@@ -513,7 +513,6 @@
     }
 
     try {
-      // 1. IndexedDB Blob Link Handler Fix (For Local Blobs)
       if (url.startsWith('indexeddb://')) {
         const actualId = url.replace('indexeddb://', '') || id;
         const blob = await LargeStorageEngine.getPDFBlob(actualId);
@@ -525,7 +524,6 @@
         }
       }
 
-      // 2. Data URL Handler
       if (url.startsWith('data:application/pdf') || url.startsWith('data:')) {
         const res = await fetch(url);
         const blob = await res.blob();
@@ -534,13 +532,11 @@
         return;
       }
 
-      // 3. Normal Direct Cloud / Web Links (Firebase Storage, Google Drive, Direct HTTPS)
       if (!url.startsWith('indexeddb://')) {
         window.open(url, '_blank');
         return;
       }
 
-      // Fallback Alert for local desktop files accessed on mobile
       alert("यह PDF आपके लैपटॉप से लोकल स्टोरेज में सेव थी। मोबाइल पर देखने के लिए एडमिन पैनल से ऑनलाइन सर्वर URL उपयोग करें।");
     } catch (err) {
       console.error("PDF Opening error:", err);
