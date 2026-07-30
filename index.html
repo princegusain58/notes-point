@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Notes Point — NCERT Study Notes, PYQs & Competitive Prep</title>
 <meta name="description" content="Free NCERT Notes, Board PYQs, Formula Sheets & Competitive Exam Material for Class 9 to 12.">
 <meta name="theme-color" content="#2563EB">
@@ -46,7 +46,12 @@
     padding: 0;
   }
 
-  html {
+  html, body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    height: auto !important;
     scroll-behavior: smooth !important;
   }
 
@@ -54,11 +59,8 @@
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
     background: radial-gradient(1200px 800px at 50% -10%, rgba(37, 99, 235, 0.08), transparent 70%), var(--slate-100) !important;
     color: var(--slate-900);
-    margin: 0;
-    padding: 0;
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
   }
 
   /* ---------------- Top Announcement Ticker ---------------- */
@@ -1253,17 +1255,19 @@
       <p>&copy; 2026 Notes Point. Built with ❤️ for students.</p>
     </div>
   </footer>
-// Page load hote hi hamesha top par le jaane ke liye
-if (history.scrollRestoration) {
-  history.scrollRestoration = 'manual';
-}
-window.scrollTo(0, 0);
 
-window.onload = function() {
-  window.scrollTo(0, 0);
-};
   <!-- JAVASCRIPT HANDLERS -->
   <script>
+    // Page load hote hi hamesha top par rakhne ke liye
+    if (history.scrollRestoration) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
+    window.onload = function() {
+      window.scrollTo(0, 0);
+    };
+
     function toggleMobileNav() {
       const nav = document.getElementById('mainNav');
       nav.classList.toggle('nav-open');
