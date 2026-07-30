@@ -18,62 +18,189 @@
 <link rel="stylesheet" href="student.css">
 
 <style>
-  html {
-    scroll-behavior: smooth !important;
+  /* ===== GLOBAL ENHANCEMENTS ===== */
+  html { scroll-behavior: smooth !important; }
+
+  body.admin-body-wrap {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+    background:
+      radial-gradient(1000px 600px at -10% -10%, rgba(37,99,235,0.10), transparent 60%),
+      radial-gradient(900px 500px at 110% 10%, rgba(124,58,237,0.10), transparent 60%),
+      radial-gradient(700px 500px at 50% 120%, rgba(5,150,105,0.08), transparent 60%),
+      #F6F8FC !important;
+    min-height: 100vh;
   }
+
+  /* Floating decorative blobs */
+  body.admin-body-wrap::before,
+  body.admin-body-wrap::after {
+    content: "";
+    position: fixed;
+    z-index: 0;
+    filter: blur(80px);
+    opacity: 0.55;
+    pointer-events: none;
+    border-radius: 50%;
+  }
+  body.admin-body-wrap::before {
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, #93C5FD 0%, transparent 70%);
+    top: -120px; right: -80px;
+    animation: floatBlob 14s ease-in-out infinite;
+  }
+  body.admin-body-wrap::after {
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, #C4B5FD 0%, transparent 70%);
+    bottom: -140px; left: -100px;
+    animation: floatBlob 18s ease-in-out infinite reverse;
+  }
+  @keyframes floatBlob {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50%     { transform: translate(30px,-40px) scale(1.08); }
+  }
+
+  .admin-main-wrapper { position: relative; z-index: 1; }
+
+  /* ===== GLASS TOPBAR ===== */
+  .admin-topbar {
+    background: rgba(255,255,255,0.75) !important;
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid rgba(226,232,240,0.8) !important;
+    position: sticky; top: 0; z-index: 50;
+  }
+  #pageSectionTitle {
+    background: linear-gradient(90deg,#0F172A,#2563EB);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .btn-topbar-action {
+    background: #F1F5F9 !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 10px !important;
+    width: 40px; height: 40px;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all .25s ease;
+    color: #0F172A;
+  }
+  .btn-topbar-action:hover { background: #E0E7FF !important; color: #2563EB; transform: rotate(-8deg); }
+
+  /* ===== SIDEBAR POLISH ===== */
+  .admin-sidebar {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFF 100%) !important;
+    border-right: 1px solid #E2E8F0 !important;
+  }
+  .sidebar-menu .nav-item {
+    position: relative;
+    border-radius: 10px;
+    transition: all .2s ease;
+  }
+  .sidebar-menu .nav-item:hover {
+    background: #EFF6FF !important;
+    color: #2563EB !important;
+    transform: translateX(4px);
+  }
+  .sidebar-menu .nav-item.active {
+    background: linear-gradient(135deg,#2563EB,#4F46E5) !important;
+    color: #fff !important;
+    box-shadow: 0 8px 20px -6px rgba(37,99,235,0.5);
+  }
+  .sidebar-menu .nav-item.active::before {
+    content:""; position:absolute; left:-4px; top:20%; bottom:20%;
+    width:4px; background:#FBBF24; border-radius:4px;
+  }
+  .brand-icon-box {
+    background: linear-gradient(135deg,#2563EB,#7C3AED) !important;
+    color:#fff !important;
+    box-shadow: 0 6px 18px -6px rgba(37,99,235,0.6);
+  }
+
+  /* ===== STAT CARDS ===== */
+  .stat-card {
+    background: #ffffff !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
+    display: flex; gap: 14px; align-items: flex-start;
+    position: relative; overflow: hidden;
+    transition: all .3s ease;
+    box-shadow: 0 4px 20px -8px rgba(15,23,42,0.08);
+  }
+  .stat-card::after {
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(135deg, transparent 60%, rgba(37,99,235,0.06));
+    opacity:0; transition: opacity .3s;
+  }
+  .stat-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px -12px rgba(37,99,235,0.25); }
+  .stat-card:hover::after { opacity: 1; }
+  .stat-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: grid; place-items: center;
+    font-size: 1.35rem; color: #fff; flex-shrink: 0;
+    box-shadow: 0 8px 18px -6px rgba(0,0,0,0.2);
+  }
+  .stat-icon.blue   { background: linear-gradient(135deg,#3B82F6,#1D4ED8); }
+  .stat-icon.purple { background: linear-gradient(135deg,#8B5CF6,#6D28D9); }
+  .stat-icon.green  { background: linear-gradient(135deg,#10B981,#047857); }
+  .stat-details span { font-size:.8rem; color:#64748B; font-weight:600; text-transform:uppercase; letter-spacing:.4px; }
+  .stat-details h3 { font-size:1.15rem; font-weight:800; color:#0F172A; margin:4px 0; }
+  .stat-trend { font-size:.78rem; font-weight:600; }
+  .stat-trend.success { color:#059669; }
+  .stat-trend.info    { color:#2563EB; }
+
+  /* ===== CLASS CARDS ===== */
   .class-card {
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
     min-height: 250px !important;
-    border-radius: 16px !important;
+    border-radius: 20px !important;
     padding: 24px !important;
     text-align: left !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(15,23,42,0.06);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s, border-color .35s;
     cursor: pointer !important;
     border: 2px solid transparent !important;
+    position: relative; overflow: hidden;
   }
+  .class-card::before {
+    content:""; position:absolute; top:-50%; left:-50%;
+    width:200%; height:200%;
+    background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.35), transparent 30%);
+    opacity: 0; transition: opacity .4s;
+    animation: spin 6s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .class-card:hover::before { opacity: 1; }
+  .class-card > * { position: relative; z-index: 1; }
   .class-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 22px 45px -18px rgba(37,99,235,0.35);
   }
 
-  /* COLOR SHADED THEMES MATCHING BADGES */
-  .card-theme-9 {
-    background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%) !important;
-    border-color: #BFDBFE !important;
-  }
-  .card-theme-9:hover { border-color: #2563EB !important; }
+  .card-theme-9  { background: linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%) !important; border-color:#BFDBFE !important; }
+  .card-theme-9:hover  { border-color:#2563EB !important; }
+  .card-theme-10 { background: linear-gradient(135deg,#ECFDF5 0%,#D1FAE5 100%) !important; border-color:#A7F3D0 !important; }
+  .card-theme-10:hover { border-color:#059669 !important; }
+  .card-theme-11 { background: linear-gradient(135deg,#FFFBEB 0%,#FEF3C7 100%) !important; border-color:#FDE68A !important; }
+  .card-theme-11:hover { border-color:#D97706 !important; }
+  .card-theme-12 { background: linear-gradient(135deg,#FEF2F2 0%,#FEE2E2 100%) !important; border-color:#FECACA !important; }
+  .card-theme-12:hover { border-color:#DC2626 !important; }
+  .card-theme-comp { background: linear-gradient(135deg,#F3E8FF 0%,#EDE9FE 100%) !important; border-color:#D8B4FE !important; }
+  .card-theme-comp:hover { border-color:#7C3AED !important; }
 
-  .card-theme-10 {
-    background: linear-gradient(135deg, #ECFDF5 0%, #FFFFFF 100%) !important;
-    border-color: #A7F3D0 !important;
+  .class-index {
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width: 40px; height: 32px;
+    box-shadow: 0 6px 14px -4px rgba(0,0,0,0.25);
   }
-  .card-theme-10:hover { border-color: #059669 !important; }
 
-  .card-theme-11 {
-    background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%) !important;
-    border-color: #FDE68A !important;
-  }
-  .card-theme-11:hover { border-color: #D97706 !important; }
-
-  .card-theme-12 {
-    background: linear-gradient(135deg, #FEF2F2 0%, #FFFFFF 100%) !important;
-    border-color: #FECACA !important;
-  }
-  .card-theme-12:hover { border-color: #DC2626 !important; }
-
-  .card-theme-comp {
-    background: linear-gradient(135deg, #F3E8FF 0%, #FFFFFF 100%) !important;
-    border-color: #D8B4FE !important;
-  }
-  .card-theme-comp:hover { border-color: #7C3AED !important; }
-
+  /* ===== SUBJECT CARDS ===== */
   .subject-card {
     background: #ffffff !important;
-    border: 1px solid #CBD5E1 !important;
-    border-radius: 12px !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 14px !important;
     padding: 18px !important;
     text-align: left !important;
     cursor: pointer !important;
@@ -81,87 +208,167 @@
     flex-direction: column !important;
     justify-content: space-between !important;
     min-height: 120px !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-    transition: all 0.2s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    transition: all .25s ease;
+    position: relative; overflow: hidden;
   }
+  .subject-card::before {
+    content:""; position:absolute; left:0; top:0; bottom:0; width:4px;
+    background: linear-gradient(180deg,#2563EB,#7C3AED);
+    transform: scaleY(0); transform-origin: top;
+    transition: transform .3s ease;
+  }
+  .subject-card:hover::before { transform: scaleY(1); }
   .subject-card:hover {
-    border-color: #2563EB !important;
-    background: #F8FAFC !important;
-    transform: translateY(-2px);
+    border-color: #93C5FD !important;
+    background: #F8FBFF !important;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px -12px rgba(37,99,235,0.3);
   }
 
-  /* PROFESSIONAL DARK FOOTER */
+  /* ===== 100% FREE BADGES ===== */
+  .free-badge-red {
+    background: #EF4444 !important;
+    color: #FFFFFF !important;
+    font-size: 0.70rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.35);
+  }
+
+  .free-badge-blue {
+    background: #2563EB !important;
+    color: #FFFFFF !important;
+    font-size: 0.70rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
+  }
+
+  /* ===== ADMIN CARD ===== */
+  .admin-card {
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: 0 6px 24px -12px rgba(15,23,42,0.1);
+  }
+
+  /* ===== WELCOME BANNER SHINE ===== */
+  .welcome-banner-content {
+    position: relative;
+    overflow: hidden;
+  }
+  .welcome-banner-content::after {
+    content:""; position:absolute; top:0; left:-60%;
+    width:40%; height:100%;
+    background: linear-gradient(90deg, transparent, rgba(37,99,235,0.08), transparent);
+    animation: shine 5s ease-in-out infinite;
+  }
+  @keyframes shine {
+    0% { left:-60%; } 60%,100% { left:120%; }
+  }
+
+  /* Primary button */
+  .admin-btn-primary {
+    background: linear-gradient(135deg,#2563EB,#4F46E5) !important;
+    transition: all .25s ease;
+  }
+  .admin-btn-primary:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 24px -8px rgba(37,99,235,0.45) !important;
+    filter: brightness(1.05);
+  }
+
+  /* Section entrance animation */
+  .workspace-section.active {
+    animation: fadeUp .5s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(12px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+
+  /* Quote strip (new decorative addition) */
+  .np-quote-strip {
+    margin-top: 20px;
+    padding: 16px 22px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%);
+    color: #E0E7FF;
+    display: flex; align-items:center; gap: 14px;
+    box-shadow: 0 10px 30px -12px rgba(15,23,42,0.4);
+    font-size: .95rem;
+    position: relative; overflow: hidden;
+  }
+  .np-quote-strip i.fa-quote-left {
+    font-size: 1.4rem; color:#FBBF24; flex-shrink:0;
+  }
+  .np-quote-strip strong { color:#FBBF24; }
+
+  /* Notes modal enhancements */
+  .notes-panel-modal { animation: fadeIn .25s ease; backdrop-filter: blur(4px); }
+  .notes-modal-container { animation: popIn .3s cubic-bezier(.2,.9,.3,1.3); box-shadow: 0 30px 60px -20px rgba(0,0,0,0.4); }
+  @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+  @keyframes popIn { from { opacity:0; transform: scale(.92) } to { opacity:1; transform: scale(1) } }
+
+  /* FOOTER (unchanged classes) */
   .student-footer-dark {
-    background-color: #0A1128;
-    color: #94A3B8;
-    padding: 50px 30px 20px 30px;
-    margin-top: 40px;
-    border-top: 1px solid #1E293B;
+    background:
+      radial-gradient(600px 300px at 20% 0%, rgba(37,99,235,0.25), transparent 70%),
+      radial-gradient(500px 300px at 80% 100%, rgba(124,58,237,0.2), transparent 70%),
+      #0A1128;
+    color:#94A3B8;
+    padding:60px 30px 24px 30px;
+    margin-top:50px;
+    border-top:1px solid #1E293B;
   }
-  .student-footer-grid {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
-    margin-bottom: 40px;
-  }
-  .student-footer-col h3, .student-footer-col h4 {
-    color: #FFFFFF;
-    margin-bottom: 14px;
-  }
-  .student-footer-col p {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: #94A3B8;
-  }
-  .student-footer-col ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .student-footer-col ul li {
-    margin-bottom: 8px;
-  }
-  .student-footer-col ul li a {
-    color: #94A3B8;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s;
-  }
-  .student-footer-col ul li a:hover {
-    color: #3B82F6;
-  }
-  .student-footer-socials {
-    display: flex;
-    gap: 10px;
-    margin-top: 12px;
-  }
+  .student-footer-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:30px; margin-bottom:40px; }
+  .student-footer-col h3, .student-footer-col h4 { color:#FFFFFF; margin-bottom:14px; }
+  .student-footer-col p { font-size:.9rem; line-height:1.55; color:#94A3B8; }
+  .student-footer-col ul { list-style:none; padding:0; margin:0; }
+  .student-footer-col ul li { margin-bottom:8px; }
+  .student-footer-col ul li a { color:#94A3B8; text-decoration:none; font-size:.9rem; transition:color .2s, padding-left .2s; display:inline-block; }
+  .student-footer-col ul li a:hover { color:#60A5FA; padding-left:6px; }
+  .student-footer-socials { display:flex; gap:10px; margin-top:12px; }
   .student-footer-social-icon {
-    width: 38px;
-    height: 38px;
-    background: #1E293B;
-    color: #FFFFFF;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: background 0.2s;
+    width:40px; height:40px;
+    background:rgba(30,41,59,0.7);
+    color:#FFFFFF; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    text-decoration:none; transition:all .25s ease;
+    border:1px solid rgba(148,163,184,0.15);
   }
   .student-footer-social-icon:hover {
-    background: #2563EB;
+    background:linear-gradient(135deg,#2563EB,#7C3AED);
+    transform: translateY(-3px) rotate(-6deg);
+    box-shadow: 0 10px 20px -8px rgba(37,99,235,0.6);
   }
-  .student-footer-bottom {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid #1E293B;
-    font-size: 0.85rem;
-    color: #64748B;
+  .student-footer-bottom { max-width:1200px; margin:0 auto; text-align:center; padding-top:20px; border-top:1px solid #1E293B; font-size:.85rem; color:#64748B; }
+
+  /* Support form input focus */
+  .admin-input:focus {
+    outline: none !important;
+    border-color: #2563EB !important;
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.15) !important;
   }
 
+  /* Logout button */
+  .btn-sidebar-logout {
+    background:#FEF2F2; color:#DC2626;
+    border:1px solid #FECACA; border-radius:8px;
+    width:34px; height:34px; cursor:pointer;
+    transition: all .2s ease;
+  }
+  .btn-sidebar-logout:hover { background:#DC2626; color:#fff; transform: rotate(-8deg); }
+
+  /* ===== MOBILE ===== */
   @media (max-width: 992px) {
     .admin-sidebar {
       position: fixed !important;
@@ -169,8 +376,7 @@
       top: 0 !important;
       height: 100vh !important;
       z-index: 9999 !important;
-      transition: left 0.3s ease-in-out !important;
-      background: #ffffff !important;
+      transition: left .3s ease-in-out !important;
       box-shadow: 4px 0 20px rgba(0,0,0,0.15) !important;
       width: 260px !important;
     }
@@ -178,17 +384,101 @@
     .admin-main-wrapper { margin-left: 0 !important; width: 100% !important; padding: 0 !important; }
     .admin-content-body { padding: 12px !important; }
     .class-rail, .subject-grid, .admin-grid-stats, .notes-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
-    .admin-topbar { padding: 12px 16px !important; display: flex !important; justify-content: space-between !important; align-items: center !important; }
-    .mobile-toggle-btn { display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 1.25rem !important; padding: 8px 12px !important; background: #F1F5F9 !important; border: 1px solid #CBD5E1 !important; border-radius: 8px !important; cursor: pointer !important; color: #0F172A !important; }
-    
-    /* Center align welcome banner on mobile */
+    .admin-topbar { padding: 12px 16px !important; display:flex !important; justify-content:space-between !important; align-items:center !important; }
+    .mobile-toggle-btn {
+      display:inline-flex !important; align-items:center !important; justify-content:center !important;
+      font-size:1.15rem !important; padding:8px 12px !important;
+      background:#F1F5F9 !important; border:1px solid #CBD5E1 !important;
+      border-radius:10px !important; cursor:pointer !important; color:#0F172A !important;
+    }
     .welcome-banner-content {
-      text-align: center !important;
-      align-items: center !important;
-      display: flex;
-      flex-direction: column;
+      text-align:center !important; align-items:center !important;
+      display:flex; flex-direction:column;
     }
   }
+
+  /* ============ DARK MODE THEME ============ */
+  body.dark-mode {
+    background:
+      radial-gradient(1000px 600px at -10% -10%, rgba(59,130,246,0.18), transparent 60%),
+      radial-gradient(900px 500px at 110% 10%, rgba(139,92,246,0.18), transparent 60%),
+      radial-gradient(700px 500px at 50% 120%, rgba(16,185,129,0.10), transparent 60%),
+      #0B1220 !important;
+    color: #E2E8F0;
+  }
+  body.dark-mode::before { background: radial-gradient(circle,#1E40AF 0%,transparent 70%); opacity:.4; }
+  body.dark-mode::after  { background: radial-gradient(circle,#6D28D9 0%,transparent 70%); opacity:.4; }
+
+  body.dark-mode .admin-topbar {
+    background: rgba(15,23,42,0.75) !important;
+    border-bottom: 1px solid rgba(51,65,85,0.6) !important;
+  }
+  body.dark-mode #pageSectionTitle {
+    background: linear-gradient(90deg,#E2E8F0,#60A5FA);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  body.dark-mode .btn-topbar-action {
+    background: #1E293B !important; border-color: #334155 !important; color: #E2E8F0;
+  }
+  body.dark-mode .btn-topbar-action:hover { background: #312E81 !important; color: #A5B4FC; }
+
+  body.dark-mode .admin-sidebar {
+    background: linear-gradient(180deg,#0F172A 0%,#111827 100%) !important;
+    border-right: 1px solid #1E293B !important;
+    color:#E2E8F0;
+  }
+  body.dark-mode .sidebar-brand h2 { color:#F8FAFC; }
+  body.dark-mode .sidebar-brand span,
+  body.dark-mode .admin-user-info span { color:#94A3B8; }
+  body.dark-mode .admin-user-info strong { color:#F8FAFC; }
+  body.dark-mode .sidebar-menu .nav-item { color:#CBD5E1; }
+  body.dark-mode .sidebar-menu .nav-item:hover { background:#1E3A8A !important; color:#BFDBFE !important; }
+
+  body.dark-mode .admin-card {
+    background: #111827 !important;
+    border-color: #1F2937 !important;
+    color: #E2E8F0;
+    box-shadow: 0 8px 30px -12px rgba(0,0,0,0.5);
+  }
+  body.dark-mode .stat-card {
+    background:#111827 !important;
+    border-color:#1F2937 !important;
+    color:#E2E8F0;
+  }
+  body.dark-mode .stat-details h3 { color:#F8FAFC; }
+  body.dark-mode .stat-details span { color:#94A3B8; }
+
+  body.dark-mode .welcome-banner-content h2 { color:#F8FAFC !important; }
+  body.dark-mode .welcome-banner-content p  { color:#94A3B8 !important; }
+  body.dark-mode #classHeaderArea h2 { color:#F8FAFC !important; }
+  body.dark-mode #classHeaderArea p  { color:#94A3B8 !important; }
+
+  body.dark-mode .card-theme-9  { background: linear-gradient(135deg,#0B1E3F 0%,#111827 100%) !important; border-color:#1E3A8A !important; }
+  body.dark-mode .card-theme-10 { background: linear-gradient(135deg,#052E23 0%,#111827 100%) !important; border-color:#065F46 !important; }
+  body.dark-mode .card-theme-11 { background: linear-gradient(135deg,#3A2A08 0%,#111827 100%) !important; border-color:#78350F !important; }
+  body.dark-mode .card-theme-12 { background: linear-gradient(135deg,#3F1212 0%,#111827 100%) !important; border-color:#7F1D1D !important; }
+  body.dark-mode .card-theme-comp { background: linear-gradient(135deg,#2A1758 0%,#111827 100%) !important; border-color:#4C1D95 !important; }
+  body.dark-mode .class-card h3 { color:#F8FAFC !important; }
+  body.dark-mode .class-card p  { color:#CBD5E1 !important; }
+
+  body.dark-mode .subject-card {
+    background:#111827 !important; border-color:#1F2937 !important; color:#E2E8F0;
+  }
+  body.dark-mode .subject-card:hover { background:#0F1E3A !important; border-color:#1E3A8A !important; }
+
+  body.dark-mode .admin-input {
+    background:#0F172A !important; border-color:#334155 !important; color:#E2E8F0 !important;
+  }
+  body.dark-mode .admin-input::placeholder { color:#64748B; }
+  body.dark-mode label { color:#CBD5E1 !important; }
+
+  body.dark-mode .notes-modal-container { background:#111827 !important; color:#E2E8F0; }
+  body.dark-mode .notes-modal-header {
+    background: linear-gradient(135deg,#0F172A,#1E293B) !important;
+    border-bottom:1px solid #1F2937 !important;
+  }
+  body.dark-mode #notesPanelTitle { color:#F8FAFC; }
+
 </style>
 </head>
 <body class="admin-body-wrap">
@@ -259,7 +549,7 @@
         <button type="button" class="mobile-toggle-btn" id="toggleSidebarMobile" aria-label="Toggle Sidebar">
           <i class="fa-solid fa-bars"></i>
         </button>
-        <h1 id="pageSectionTitle" style="font-size: 1.2rem; font-weight: 700; color: #0F172A; margin: 0;">Dashboard Overview</h1>
+        <h1 id="pageSectionTitle" style="font-size: 1.25rem; font-weight: 800; margin: 0;">Dashboard Overview</h1>
       </div>
 
       <div class="topbar-right" style="display: flex; align-items: center; gap: 10px;">
@@ -274,7 +564,7 @@
 
       <!-- SECTION 1: OVERVIEW DASHBOARD -->
       <section class="workspace-section active" id="overviewSection">
-        <div class="admin-grid-stats">
+        <div class="admin-grid-stats" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px;">
           <div class="stat-card">
             <div class="stat-icon blue"><i class="fa-solid fa-book-bookmark"></i></div>
             <div class="stat-details">
@@ -289,7 +579,7 @@
             <div class="stat-details">
               <span>Study Materials</span>
               <h3 id="statTotalNotes">Ready</h3>
-              <p class="stat-trend info"><span>NCERT Books & PYQs</span></p>
+              <p class="stat-trend info"><span>NCERT Books &amp; PYQs</span></p>
             </div>
           </div>
 
@@ -303,22 +593,30 @@
           </div>
         </div>
 
-        <!-- WELCOME BANNER CARD (CENTER ALIGNED & RESPONSIVE) -->
-        <div class="admin-card mt-24" style="background: #ffffff !important; color: #0F172A !important; padding: 32px !important; border-radius: 16px !important; margin-top: 20px !important; border: 1px solid #E2E8F0 !important; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03) !important;">
-          <div class="welcome-banner-content" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; text-align: left;">
-            <div style="flex: 1; min-width: 260px;">
-              <span style="background: #EFF6FF; color: #2563EB; font-size: 0.78rem; font-weight: 700; padding: 5px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #BFDBFE;">Scholar Workspace</span>
-              <h2 style="font-size: 1.75rem !important; font-weight: 800 !important; margin: 10px 0 8px 0 !important; color: #0F172A !important;">
-                Welcome back, <span id="studentName" style="color: #2563EB !important; text-decoration: underline decoration-2 decoration-blue-500;">Topper</span>! 📘
+        <!-- WELCOME BANNER CARD -->
+        <div class="admin-card mt-24" style="margin-top:20px; padding:32px;">
+          <div class="welcome-banner-content" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; text-align:left;">
+            <div style="flex:1; min-width:260px; position:relative; z-index:2;">
+              <span style="background:#EFF6FF; color:#2563EB; font-size:.78rem; font-weight:700; padding:5px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:.5px; border:1px solid #BFDBFE;">Scholar Workspace</span>
+              <h2 style="font-size:1.8rem; font-weight:800; margin:12px 0 8px 0; color:#0F172A;">
+                Welcome back, <span id="studentName" style="background:linear-gradient(90deg,#2563EB,#7C3AED); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">Topper</span>! 📘
               </h2>
-              <p style="font-size: 0.95rem !important; max-width: 620px !important; margin-bottom: 0 !important; color: #475569 !important; line-height: 1.6 !important;">
+              <p style="font-size:.95rem; max-width:620px; margin-bottom:0; color:#475569; line-height:1.6;">
                 All study notes, NCERT books, and competitive exam materials are now 100% free. Choose your grade below to get started.
               </p>
             </div>
-            
-            <button type="button" class="admin-btn-primary" onclick="window.switchSection('classesSection');" style="background: #2563EB !important; color: #FFFFFF !important; font-weight: 700 !important; border: none !important; padding: 14px 28px !important; border-radius: 10px !important; cursor: pointer !important; font-size: 0.95rem !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25) !important; transition: all 0.2s ease !important; white-space: nowrap;">
-              Open Notes →
+
+            <button type="button" class="admin-btn-primary" onclick="window.switchSection('classesSection');" style="color:#FFFFFF; font-weight:700; border:none; padding:14px 28px; border-radius:12px; cursor:pointer; font-size:.95rem; box-shadow:0 10px 24px -8px rgba(37,99,235,0.5); white-space:nowrap; position:relative; z-index:2;">
+              <i class="fa-solid fa-book-open" style="margin-right:8px;"></i> Open Notes →
             </button>
+          </div>
+        </div>
+
+        <!-- MOTIVATIONAL QUOTE STRIP (new) -->
+        <div class="np-quote-strip">
+          <i class="fa-solid fa-quote-left"></i>
+          <div>
+            <strong>Aaj ka thought:</strong> Consistency beats intensity — thoda daily padho, boards aur entrance dono easy ho jayenge.
           </div>
         </div>
       </section>
@@ -326,77 +624,72 @@
       <!-- SECTION 2: BROWSE CLASSES & SUBJECTS -->
       <section class="workspace-section" id="classesSection" style="display: none;">
         <div class="admin-card">
-          <!-- Centered Heading Area -->
-          <div class="section-head mb-20" id="classHeaderArea" style="text-align: center !important; margin-left: auto !important; margin-right: auto !important; max-width: 650px !important;">
-            <h2 style="font-size: 1.3rem; font-weight: 700; text-align: center !important;">Select Your Class, NCERT Books or Competitive Exam</h2>
-            <p style="color: #64748B; font-size: 0.9rem; text-align: center !important;">100% Free Chapter Notes, NCERT Books, PYQs &amp; Entrance Material.</p>
+          <div class="section-head mb-20" id="classHeaderArea" style="text-align:center; margin:0 auto 20px; max-width:650px;">
+            <span style="display:inline-block; background:#EEF2FF; color:#4F46E5; font-size:.72rem; font-weight:700; padding:4px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:.6px; margin-bottom:10px;">Study Library</span>
+            <h2 style="font-size:1.5rem; font-weight:800; text-align:center; color:#0F172A;">Select Your Class, NCERT Books or Competitive Exam</h2>
+            <p style="color:#64748B; font-size:.92rem; text-align:center; margin-top:6px;">100% Free Chapter Notes, NCERT Books, PYQs &amp; Entrance Material.</p>
           </div>
 
-          <!-- Class Selection Cards Rail with Matching Color Shades -->
-          <div class="class-rail" id="classRail" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 24px;" role="list">
+          <!-- Class Selection Cards Rail -->
+          <div class="class-rail" id="classRail" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; margin-bottom:24px;" role="list">
             
-            <!-- CLASS 9 (BLUE SHADE) -->
             <button type="button" class="class-card card-theme-9" role="listitem" data-class="9">
               <div>
-                <span class="class-index" style="background: #2563EB; color: #FFFFFF; font-weight: 800; padding: 5px 12px; border-radius: 8px; font-size: 0.9rem;">01</span>
-                <h3 style="font-size: 1.25rem; margin: 12px 0 6px 0; color: #1E3A8A; font-weight: 800;">Class 9</h3>
-                <p style="font-size: 0.88rem; color: #475569; line-height: 1.4;">NCERT Books, Science, Maths, PYQs</p>
+                <span class="class-index" style="background:#2563EB; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:8px; font-size:.9rem;">01</span>
+                <h3 style="font-size:1.3rem; margin:14px 0 6px 0; color:#1E3A8A; font-weight:800;">Class 9</h3>
+                <p style="font-size:.88rem; color:#475569; line-height:1.5;">NCERT Books, Science, Maths, PYQs</p>
               </div>
-              <span style="font-size: 0.9rem; color: #2563EB; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
+              <span style="font-size:.9rem; color:#2563EB; font-weight:700; margin-top:12px; display:inline-flex; align-items:center; gap:6px;">Explore Notes <i class="fa-solid fa-arrow-right"></i></span>
             </button>
          
-            <!-- CLASS 10 (GREEN SHADE) -->
             <button type="button" class="class-card card-theme-10" role="listitem" data-class="10">
               <div>
-                <span class="class-index" style="background: #059669; color: #FFFFFF; font-weight: 800; padding: 5px 12px; border-radius: 8px; font-size: 0.9rem;">02</span>
-                <h3 style="font-size: 1.25rem; margin: 12px 0 6px 0; color: #064E3B; font-weight: 800;">Class 10</h3>
-                <p style="font-size: 0.88rem; color: #475569; line-height: 1.4;">NCERT Books, Board Notes, PYQs</p>
+                <span class="class-index" style="background:#059669; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:8px; font-size:.9rem;">02</span>
+                <h3 style="font-size:1.3rem; margin:14px 0 6px 0; color:#064E3B; font-weight:800;">Class 10</h3>
+                <p style="font-size:.88rem; color:#475569; line-height:1.5;">NCERT Books, Board Notes, PYQs</p>
               </div>
-              <span style="font-size: 0.9rem; color: #059669; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
+              <span style="font-size:.9rem; color:#059669; font-weight:700; margin-top:12px; display:inline-flex; align-items:center; gap:6px;">Explore Notes <i class="fa-solid fa-arrow-right"></i></span>
             </button>
 
-            <!-- CLASS 11 (ORANGE/AMBER SHADE) -->
             <button type="button" class="class-card card-theme-11" role="listitem" data-class="11">
               <div>
-                <span class="class-index" style="background: #D97706; color: #FFFFFF; font-weight: 800; padding: 5px 12px; border-radius: 8px; font-size: 0.9rem;">03</span>
-                <h3 style="font-size: 1.25rem; margin: 12px 0 6px 0; color: #78350F; font-weight: 800;">Class 11</h3>
-                <p style="font-size: 0.88rem; color: #475569; line-height: 1.4;">NCERT Books, Science, Commerce, Arts</p>
+                <span class="class-index" style="background:#D97706; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:8px; font-size:.9rem;">03</span>
+                <h3 style="font-size:1.3rem; margin:14px 0 6px 0; color:#78350F; font-weight:800;">Class 11</h3>
+                <p style="font-size:.88rem; color:#475569; line-height:1.5;">NCERT Books, Science, Commerce, Arts</p>
               </div>
-              <span style="font-size: 0.9rem; color: #D97706; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
+              <span style="font-size:.9rem; color:#D97706; font-weight:700; margin-top:12px; display:inline-flex; align-items:center; gap:6px;">Explore Notes <i class="fa-solid fa-arrow-right"></i></span>
             </button>
 
-            <!-- CLASS 12 (RED SHADE) -->
             <button type="button" class="class-card card-theme-12" role="listitem" data-class="12">
               <div>
-                <span class="class-index" style="background: #DC2626; color: #FFFFFF; font-weight: 800; padding: 5px 12px; border-radius: 8px; font-size: 0.9rem;">04</span>
-                <h3 style="font-size: 1.25rem; margin: 12px 0 6px 0; color: #7F1D1D; font-weight: 800;">Class 12</h3>
-                <p style="font-size: 0.88rem; color: #475569; line-height: 1.4;">NCERT Books, Board Revision, PYQs</p>
+                <span class="class-index" style="background:#DC2626; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:8px; font-size:.9rem;">04</span>
+                <h3 style="font-size:1.3rem; margin:14px 0 6px 0; color:#7F1D1D; font-weight:800;">Class 12</h3>
+                <p style="font-size:.88rem; color:#475569; line-height:1.5;">NCERT Books, Board Revision, PYQs</p>
               </div>
-              <span style="font-size: 0.9rem; color: #DC2626; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
+              <span style="font-size:.9rem; color:#DC2626; font-weight:700; margin-top:12px; display:inline-flex; align-items:center; gap:6px;">Explore Notes <i class="fa-solid fa-arrow-right"></i></span>
             </button>
 
-            <!-- COMPETITIVE EXAMS (PURPLE/VIOLET SHADE) -->
             <button type="button" class="class-card card-theme-comp" role="listitem" data-class="competitive">
               <div>
-                <span class="class-index" style="background: #7C3AED; color: #FFFFFF; font-weight: 800; padding: 5px 12px; border-radius: 8px; font-size: 0.9rem;">🔥</span>
-                <h3 style="font-size: 1.25rem; margin: 12px 0 6px 0; color: #4C1D95; font-weight: 800;">Competitive Exams</h3>
-                <p style="font-size: 0.88rem; color: #5B21B6; line-height: 1.4;">JEE Main/Adv, NEET-UG, CUET, NDA</p>
+                <span class="class-index" style="background:#7C3AED; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:8px; font-size:.9rem;">🔥</span>
+                <h3 style="font-size:1.3rem; margin:14px 0 6px 0; color:#4C1D95; font-weight:800;">Competitive Exams</h3>
+                <p style="font-size:.88rem; color:#5B21B6; line-height:1.5;">JEE Main/Adv, NEET-UG, CUET, NDA</p>
               </div>
-              <span style="font-size: 0.9rem; color: #7C3AED; font-weight: 700; margin-top: 12px;">Explore Notes →</span>
+              <span style="font-size:.9rem; color:#7C3AED; font-weight:700; margin-top:12px; display:inline-flex; align-items:center; gap:6px;">Explore Notes <i class="fa-solid fa-arrow-right"></i></span>
             </button>
 
           </div>
 
           <!-- Dynamic Subject Grid Container -->
-          <div id="subjectContainerArea" style="margin-top: 10px;" hidden>
-            <div id="selectedClassTitle" style="text-align: center; margin-bottom: 20px;"></div>
+          <div id="subjectContainerArea" style="margin-top:10px;" hidden>
+            <div id="selectedClassTitle" style="text-align:center; margin-bottom:20px;"></div>
             
-            <div class="nav-level mb-16" id="streamLevel" hidden style="margin-bottom: 16px;">
-              <h4 style="font-size: 0.95rem; margin-bottom: 8px; color: #334155; text-align: center;">Select Stream:</h4>
-              <div class="nav-pills" id="streamPills" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;"></div>
+            <div class="nav-level mb-16" id="streamLevel" hidden style="margin-bottom:16px;">
+              <h4 style="font-size:.95rem; margin-bottom:8px; color:#334155; text-align:center;">Select Stream:</h4>
+              <div class="nav-pills" id="streamPills" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;"></div>
             </div>
 
-            <div class="subject-grid" id="subjectGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;"></div>
+            <div class="subject-grid" id="subjectGrid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;"></div>
           </div>
         </div>
       </section>
@@ -404,43 +697,48 @@
       <!-- SECTION 3: SAVED NOTES -->
       <section class="workspace-section" id="savedSection" style="display: none;">
         <div class="admin-card">
-          <h2>⭐ Saved Notes</h2>
-          <p style="color: #64748B; margin-bottom: 20px;">Quick access to your bookmarked study materials.</p>
-          <div id="savedNotesListContainer" class="notes-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;"></div>
+          <h2 style="font-size:1.4rem; font-weight:800; color:#0F172A;"><i class="fa-solid fa-bookmark" style="color:#F59E0B; margin-right:8px;"></i>Saved Notes</h2>
+          <p style="color:#64748B; margin:6px 0 20px;">Quick access to your bookmarked study materials.</p>
+          <div id="savedNotesListContainer" class="notes-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px;"></div>
         </div>
       </section>
 
       <!-- SECTION 4: RECENTLY VIEWED -->
       <section class="workspace-section" id="recentSection" style="display: none;">
         <div class="admin-card">
-          <h2>🕒 Recently Viewed Notes</h2>
-          <p style="color: #64748B; margin-bottom: 20px;">Materials you checked recently.</p>
-          <div id="recentNotesListContainer" class="notes-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;"></div>
+          <h2 style="font-size:1.4rem; font-weight:800; color:#0F172A;"><i class="fa-solid fa-clock-rotate-left" style="color:#2563EB; margin-right:8px;"></i>Recently Viewed Notes</h2>
+          <p style="color:#64748B; margin:6px 0 20px;">Materials you checked recently.</p>
+          <div id="recentNotesListContainer" class="notes-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px;"></div>
         </div>
       </section>
 
       <!-- SECTION 5: SUPPORT & FEEDBACK -->
       <section class="workspace-section" id="supportSection" style="display: none;">
-        <div class="admin-card" style="max-width: 900px; margin: 0 auto;">
-          <div class="support-card-container" style="display: grid; grid-template-columns: 1fr; max-width: 600px; margin: 0 auto;">
+        <div class="admin-card" style="max-width:900px; margin:0 auto;">
+          <div class="support-card-container" style="display:grid; grid-template-columns:1fr; max-width:600px; margin:0 auto;">
             <div class="support-form-box">
-              <h2 style="font-size: 1.4rem; font-weight: 700; color: #0F172A; margin-bottom: 6px; text-align: center;">💬 Student Support &amp; Feedback</h2>
-              <p style="color: #64748B; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5; text-align: center;">Have a question or want to request missing notes? Send us a message directly.</p>
+              <div style="text-align:center; margin-bottom:20px;">
+                <div style="width:60px; height:60px; border-radius:16px; background:linear-gradient(135deg,#2563EB,#7C3AED); display:inline-grid; place-items:center; color:#fff; font-size:1.5rem; box-shadow:0 12px 24px -8px rgba(37,99,235,0.5); margin-bottom:10px;">
+                  <i class="fa-solid fa-headset"></i>
+                </div>
+                <h2 style="font-size:1.5rem; font-weight:800; color:#0F172A; margin:0;">Student Support &amp; Feedback</h2>
+                <p style="color:#64748B; font-size:.92rem; margin-top:6px; line-height:1.5;">Have a question or want to request missing notes? Send us a message directly.</p>
+              </div>
 
-              <form style="display: flex; flex-direction: column; gap: 14px;">
+              <form style="display:flex; flex-direction:column; gap:14px;">
                 <div>
-                  <label style="display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.88rem;">Your Name</label>
-                  <input type="text" name="name" id="supportNameInput" class="admin-input" placeholder="Rahul Sharma" required style="width: 100%; padding: 10px 14px; border: 1px solid #CBD5E1; border-radius: 8px;">
+                  <label style="display:block; font-weight:600; margin-bottom:6px; font-size:.88rem; color:#334155;">Your Name</label>
+                  <input type="text" name="name" id="supportNameInput" class="admin-input" placeholder="Rahul Sharma" required style="width:100%; padding:12px 14px; border:1px solid #CBD5E1; border-radius:10px; font-family:inherit;">
                 </div>
                 <div>
-                  <label style="display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.88rem;">Your Email</label>
-                  <input type="email" name="email" id="supportEmailInput" class="admin-input" placeholder="you@example.com" required style="width: 100%; padding: 10px 14px; border: 1px solid #CBD5E1; border-radius: 8px;">
+                  <label style="display:block; font-weight:600; margin-bottom:6px; font-size:.88rem; color:#334155;">Your Email</label>
+                  <input type="email" name="email" id="supportEmailInput" class="admin-input" placeholder="you@example.com" required style="width:100%; padding:12px 14px; border:1px solid #CBD5E1; border-radius:10px; font-family:inherit;">
                 </div>
                 <div>
-                  <label style="display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.88rem;">Message / Request</label>
-                  <textarea name="message" rows="4" class="admin-input" placeholder="Write your message here..." required style="width: 100%; padding: 10px 14px; border: 1px solid #CBD5E1; border-radius: 8px; resize: vertical;"></textarea>
+                  <label style="display:block; font-weight:600; margin-bottom:6px; font-size:.88rem; color:#334155;">Message / Request</label>
+                  <textarea name="message" rows="4" class="admin-input" placeholder="Write your message here..." required style="width:100%; padding:12px 14px; border:1px solid #CBD5E1; border-radius:10px; resize:vertical; font-family:inherit;"></textarea>
                 </div>
-                <button type="submit" class="admin-btn-primary" style="background: #2563EB; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer;">Send Message 🚀</button>
+                <button type="submit" class="admin-btn-primary" style="color:#fff; border:none; padding:14px 24px; border-radius:12px; font-weight:700; cursor:pointer; font-size:.95rem;">Send Message <i class="fa-solid fa-paper-plane" style="margin-left:6px;"></i></button>
               </form>
             </div>
           </div>
@@ -453,7 +751,7 @@
     <footer class="student-footer-dark">
       <div class="student-footer-grid">
         <div class="student-footer-col">
-          <h3 style="color: #3B82F6; font-size: 1.3rem; font-weight: 800; margin-bottom: 12px;">NotesPoint</h3>
+          <h3 style="background:linear-gradient(90deg,#60A5FA,#A78BFA); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; font-size:1.4rem; font-weight:800; margin-bottom:12px;">NotesPoint</h3>
           <p>Free NCERT and Board study material for Class 9–12 &amp; Competitive Exams.</p>
         </div>
         <div class="student-footer-col">
@@ -477,7 +775,7 @@
         </div>
         <div class="student-footer-col">
           <h4>Contact Us</h4>
-          <p style="margin-bottom: 10px;">Join official channels for PDFs &amp; updates:</p>
+          <p style="margin-bottom:10px;">Join official channels for PDFs &amp; updates:</p>
           <div class="student-footer-socials">
             <a href="#" class="student-footer-social-icon"><i class="fa-brands fa-telegram"></i></a>
             <a href="#" class="student-footer-social-icon"><i class="fa-brands fa-instagram"></i></a>
@@ -486,28 +784,31 @@
         </div>
       </div>
       <div class="student-footer-bottom">
-        <p>&copy; 2026 Notes Point. Built for students.</p>
+        <p>&copy; 2026 Notes Point. Built with ❤️ for students.</p>
       </div>
     </footer>
   </div>
 
   <!-- NOTES MODAL -->
-  <div class="notes-panel-modal" id="notesPanel" hidden style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; align-items: center; justify-content: center;">
-    <div class="notes-modal-container" style="background: #fff; width: 92%; max-width: 850px; max-height: 85vh; border-radius: 14px; display: flex; flex-direction: column; overflow: hidden;">
-      <div class="notes-modal-header" style="padding: 16px 20px; background: #F8FAFC; border-bottom: 1px solid #CBD5E1; display: flex; justify-content: space-between; align-items: center;">
+  <div class="notes-panel-modal" id="notesPanel" hidden style="position:fixed; inset:0; background:rgba(15,23,42,0.55); z-index:1000; display:flex; align-items:center; justify-content:center;">
+    <div class="notes-modal-container" style="background:#fff; width:92%; max-width:850px; max-height:85vh; border-radius:18px; display:flex; flex-direction:column; overflow:hidden;">
+      <div class="notes-modal-header" style="padding:18px 22px; background:linear-gradient(135deg,#F8FAFC,#EFF6FF); border-bottom:1px solid #E2E8F0; display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <p class="eyebrow" id="notesPanelBreadcrumb" style="font-size: 0.75rem; color: #2563EB; font-weight: 700; text-transform: uppercase;"></p>
-          <h2 id="notesPanelTitle" style="font-size: 1.2rem; color: #0F172A;"></h2>
+          <p class="eyebrow" id="notesPanelBreadcrumb" style="font-size:.72rem; color:#2563EB; font-weight:700; text-transform:uppercase; letter-spacing:.5px;"></p>
+          <h2 id="notesPanelTitle" style="font-size:1.25rem; color:#0F172A; font-weight:800; margin:2px 0 0;"></h2>
         </div>
-        <button type="button" id="notesPanelClose" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #EF4444;"><i class="fa-solid fa-xmark"></i></button>
+        <button type="button" id="notesPanelClose" style="background:#FEF2F2; border:1px solid #FECACA; width:36px; height:36px; border-radius:10px; font-size:1rem; cursor:pointer; color:#EF4444; transition:all .2s;"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="notes-modal-body" style="padding: 20px; overflow-y: auto; flex: 1;">
-        <p class="browse-status" id="notesPanelStatus" style="font-size: 0.85rem; color: #64748B; margin-bottom: 14px;"></p>
-        <div class="notes-grid" id="notesPanelGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;"></div>
+      <div class="notes-modal-body" style="padding:22px; overflow-y:auto; flex:1;">
+        <p class="browse-status" id="notesPanelStatus" style="font-size:.85rem; color:#64748B; margin-bottom:14px;"></p>
+        <div class="notes-grid" id="notesPanelGrid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;"></div>
         
-        <div class="notes-state" id="notesPanelEmpty" hidden style="text-align: center; padding: 25px 15px;">
-          <h3 style="font-size: 1.15rem; font-weight: 700; color: #0F172A; margin-bottom: 6px;">No materials available yet</h3>
-          <p id="notesPanelEmptyMessage" style="color: #64748B; font-size: 0.9rem;">This shelf is empty right now. We are uploading notes for this subject soon!</p>
+        <div class="notes-state" id="notesPanelEmpty" hidden style="text-align:center; padding:30px 15px;">
+          <div style="width:70px; height:70px; border-radius:20px; background:linear-gradient(135deg,#EFF6FF,#F3E8FF); display:inline-grid; place-items:center; color:#7C3AED; font-size:1.75rem; margin-bottom:12px;">
+            <i class="fa-solid fa-folder-open"></i>
+          </div>
+          <h3 style="font-size:1.2rem; font-weight:800; color:#0F172A; margin-bottom:6px;">No materials available yet</h3>
+          <p id="notesPanelEmptyMessage" style="color:#64748B; font-size:.92rem;">This shelf is empty right now. We are uploading notes for this subject soon!</p>
         </div>
       </div>
     </div>
@@ -515,8 +816,277 @@
 
   <!-- Firebase SDKs & Script -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
- <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
- <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
   <script src="student.js" defer></script>
+
+  <!-- ================= STUDENT PANEL UI WIRING ================= -->
+  <script>
+  (function () {
+    'use strict';
+    const THEME_KEY = 'notespoint_theme_v1';
+
+    /* ---------- THEME (Light/Dark) with localStorage ---------- */
+    const themeBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = themeBtn ? themeBtn.querySelector('i') : null;
+
+    function applyTheme(mode) {
+      const isDark = mode === 'dark';
+      document.body.classList.toggle('dark-mode', isDark);
+      if (themeIcon) {
+        themeIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      }
+      if (themeBtn) {
+        themeBtn.setAttribute('title', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+      }
+    }
+
+    // Load saved theme (or system preference on first visit)
+    let savedTheme = null;
+    try { savedTheme = localStorage.getItem(THEME_KEY); } catch (e) {}
+    if (!savedTheme) {
+      savedTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    applyTheme(savedTheme);
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', function () {
+        const next = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+        applyTheme(next);
+        try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+      });
+    }
+
+    /* ---------- SECTION SWITCHING ---------- */
+    const sections = document.querySelectorAll('.workspace-section');
+    const navItems = document.querySelectorAll('.sidebar-menu .nav-item');
+    const pageTitle = document.getElementById('pageSectionTitle');
+
+    function switchSection(id) {
+      sections.forEach(s => {
+        const active = s.id === id;
+        s.classList.toggle('active', active);
+        s.style.display = active ? '' : 'none';
+      });
+      navItems.forEach(n => {
+        n.classList.toggle('active', n.getAttribute('data-target') === id);
+      });
+      if (pageTitle) {
+        const map = {
+          overviewSection: 'Dashboard Overview',
+          classesSection: 'Browse Classes & Notes',
+          savedSection: 'Saved Notes',
+          recentSection: 'Recently Viewed',
+          supportSection: 'Support & Feedback'
+        };
+        pageTitle.textContent = map[id] || 'Dashboard';
+      }
+      // close mobile sidebar
+      const sb = document.getElementById('appSidebar');
+      if (sb) sb.classList.remove('open');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    window.switchSection = switchSection;
+
+    navItems.forEach(n => {
+      n.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = this.getAttribute('data-target');
+        if (target) switchSection(target);
+      });
+    });
+
+    /* ---------- MOBILE SIDEBAR TOGGLE ---------- */
+    const sidebar = document.getElementById('appSidebar');
+    const toggleBtn = document.getElementById('toggleSidebarMobile');
+    if (toggleBtn && sidebar) {
+      toggleBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        sidebar.classList.toggle('open');
+      });
+      document.addEventListener('click', function (e) {
+        if (window.innerWidth <= 992 && sidebar.classList.contains('open')
+            && !sidebar.contains(e.target) && e.target !== toggleBtn) {
+          sidebar.classList.remove('open');
+        }
+      });
+    }
+
+    /* ---------- CLASS CARD → SUBJECTS ---------- */
+    const CURRICULUM = {
+      '9':  ['Mathematics','Science','Social Science','English','Hindi','Sanskrit','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)','Sample Papers'],
+      '10': ['Mathematics','Science','Social Science','English','Hindi','IT / Computer','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)','Sample Papers'],
+      '11': ['Physics','Chemistry','Mathematics','Biology','English','Computer Science','Accountancy','Business Studies','Economics','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)','Sample Papers'],
+      '12': ['Physics','Chemistry','Mathematics','Biology','English','Computer Science','Accountancy','Business Studies','Economics','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)','Sample Papers'],
+      'competitive': ['JEE Main & Advanced','NEET-UG Biology & Physics','CUET General Test','NDA Entrance Exam','Formula Short Tricks','Entrance PYQs']
+    };
+    const CLASS_LABEL = { '9':'Class 9','10':'Class 10','11':'Class 11','12':'Class 12','competitive':'Competitive Exams' };
+
+    const subjectContainer = document.getElementById('subjectContainerArea');
+    const selectedClassTitle = document.getElementById('selectedClassTitle');
+    const subjectGrid = document.getElementById('subjectGrid');
+
+    document.querySelectorAll('.class-card').forEach(card => {
+      card.addEventListener('click', function () {
+        const cls = this.getAttribute('data-class');
+        const subs = CURRICULUM[cls] || [];
+        if (selectedClassTitle) {
+          selectedClassTitle.innerHTML =
+            '<span style="display:inline-block;background:#EEF2FF;color:#4F46E5;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Selected</span>' +
+            '<h3 style="font-size:1.35rem;font-weight:800;margin:6px 0 0;">' + (CLASS_LABEL[cls] || cls) + ' — Subjects</h3>';
+        }
+        if (subjectGrid) {
+          subjectGrid.innerHTML = subs.map(s => (
+            '<button type="button" class="subject-card" data-subject="' + s.replace(/"/g,'&quot;') + '" data-class="' + cls + '">' +
+              '<div>' +
+                '<div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#2563EB,#7C3AED);color:#fff;display:grid;place-items:center;margin-bottom:10px;"><i class="fa-solid fa-book"></i></div>' +
+                '<strong style="font-size:1rem;color:inherit;">' + s + '</strong>' +
+              '</div>' +
+              '<span style="font-size:.82rem;color:#2563EB;font-weight:700;margin-top:10px;display:inline-flex;align-items:center;gap:6px;">Open <i class="fa-solid fa-arrow-right"></i></span>' +
+            '</button>'
+          )).join('');
+
+          subjectGrid.querySelectorAll('.subject-card').forEach(sc => {
+            sc.addEventListener('click', function () {
+              openNotesPanel(this.getAttribute('data-class'), this.getAttribute('data-subject'));
+            });
+          });
+        }
+        if (subjectContainer) {
+          subjectContainer.hidden = false;
+          subjectContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    /* ---------- NOTES MODAL (WITH RED 100% FREE BADGE) ---------- */
+    const notesPanel = document.getElementById('notesPanel');
+    const notesClose = document.getElementById('notesPanelClose');
+    const notesTitle = document.getElementById('notesPanelTitle');
+    const notesCrumb = document.getElementById('notesPanelBreadcrumb');
+    const notesStatus = document.getElementById('notesPanelStatus');
+    const notesGrid = document.getElementById('notesPanelGrid');
+    const notesEmpty = document.getElementById('notesPanelEmpty');
+
+    function openNotesPanel(cls, subject) {
+      if (!notesPanel) return;
+      if (notesCrumb) notesCrumb.textContent = (CLASS_LABEL[cls] || cls) + ' • Notes';
+      if (notesTitle) notesTitle.textContent = subject;
+      if (notesStatus) notesStatus.textContent = 'Loading materials...';
+      if (notesGrid) notesGrid.innerHTML = '';
+
+      // Render Notes Card Function with RED "100% FREE" Badge
+      function renderNotes(items) {
+        if (!items || items.length === 0) {
+          if (notesEmpty) notesEmpty.hidden = false;
+          if (notesStatus) notesStatus.textContent = '';
+          if (notesGrid) notesGrid.innerHTML = '';
+        } else {
+          if (notesEmpty) notesEmpty.hidden = true;
+          if (notesStatus) notesStatus.textContent = items.length + ' material(s) available';
+          if (notesGrid) {
+            notesGrid.innerHTML = items.map(n => {
+              const fileLink = n.fileUrl || n.cloudUrl || n.url || '#';
+              const docTitle = n.title || n.chapter || n.fileName || 'Study Note';
+              const docCategory = n.docType || 'Chapter Note';
+              
+              return `
+                <a href="${fileLink}" target="_blank" rel="noopener" class="subject-card" style="text-decoration:none; position:relative;">
+                  <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                      <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#DC2626,#B91C1C);color:#fff;display:grid;place-items:center;">
+                        <i class="fa-solid fa-file-pdf"></i>
+                      </div>
+                      <!-- 🔴 RED 100% FREE BADGE HERE -->
+                      <span class="free-badge-red">🔥 100% FREE</span>
+                    </div>
+                    <strong style="font-size:.98rem; color:#0F172A;">${docTitle}</strong>
+                    <p style="font-size:.78rem;color:#64748B;margin:4px 0 0;">${docCategory}</p>
+                  </div>
+                  <span style="font-size:.82rem;color:#2563EB;font-weight:700;margin-top:12px;display:inline-flex;align-items:center;gap:4px;">Download / View <i class="fa-solid fa-download"></i></span>
+                </a>
+              `;
+            }).join('');
+          }
+        }
+      }
+
+      // 1. LocalStorage Search
+      let notes = [];
+      try { 
+        notes = JSON.parse(localStorage.getItem('notespoint_uploaded_notes_v7') || '[]'); 
+      } catch (e) {}
+
+      const cleanSubject = String(subject).trim().toLowerCase();
+
+      let filtered = notes.filter(n => {
+        const noteClass = String(n.class || n.classVal || '').trim();
+        const noteSubject = String(n.subject || '').trim().toLowerCase();
+        return noteClass === String(cls).trim() && 
+               (noteSubject === cleanSubject || noteSubject.includes(cleanSubject) || cleanSubject.includes(noteSubject));
+      });
+
+      renderNotes(filtered);
+
+      // 2. Firestore Sync
+      if (typeof firebase !== 'undefined' && firebase.apps && firebase.apps.length) {
+        try {
+          const db = firebase.firestore();
+          db.collection('notes')
+            .where('class', '==', String(cls))
+            .get()
+            .then(snapshot => {
+              if (!snapshot.empty) {
+                const cloudNotes = [];
+                snapshot.forEach(doc => cloudNotes.push(doc.data()));
+
+                const cloudFiltered = cloudNotes.filter(n => {
+                  const noteSub = String(n.subject || '').trim().toLowerCase();
+                  return noteSub === cleanSubject || noteSub.includes(cleanSubject) || cleanSubject.includes(noteSub);
+                });
+
+                if (cloudFiltered.length > 0) {
+                  renderNotes(cloudFiltered);
+                  localStorage.setItem('notespoint_uploaded_notes_v7', JSON.stringify(cloudNotes));
+                }
+              }
+            })
+            .catch(err => console.warn("Firestore Sync Warning:", err));
+        } catch (err) {
+          console.warn("Firebase Init Check Warning:", err);
+        }
+      }
+
+      notesPanel.hidden = false;
+    }
+
+    if (notesClose) notesClose.addEventListener('click', function () { notesPanel.hidden = true; });
+    if (notesPanel) notesPanel.addEventListener('click', function (e) {
+      if (e.target === notesPanel) notesPanel.hidden = true;
+    });
+
+    /* ---------- LOGOUT ---------- */
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', function () {
+        if (confirm('Logout from Student Workspace?')) {
+          try { sessionStorage.clear(); } catch (e) {}
+          location.reload();
+        }
+      });
+    }
+
+    /* ---------- SUPPORT FORM ---------- */
+    const supportForm = document.querySelector('#supportSection form');
+    if (supportForm) {
+      supportForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert('Thanks! Your message has been recorded. We will get back to you soon.');
+        supportForm.reset();
+      });
+    }
+  })();
+  </script>
+
 </body>
 </html>
