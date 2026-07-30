@@ -3,940 +3,1399 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Notes Point — NCERT Study Notes, PYQs & Competitive Exam Preparation</title>
-<meta name="description" content="Notes Point is a free library of NCERT-aligned notes, PYQs, Topper Notes and Competitive Exam Material for Class 9 to 12.">
+<title>Notes Point — NCERT Study Notes, PYQs & Competitive Prep</title>
+<meta name="description" content="Free NCERT Notes, Board PYQs, Formula Sheets & Competitive Exam Material for Class 9 to 12.">
 <meta name="theme-color" content="#2563EB">
+
 <!-- NP Favicon Logo -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%232563EB%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22700%22 font-size=%2250%22 fill=%22%23ffffff%22>NP</text></svg>">
 
+<!-- Fonts & FontAwesome -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+<!-- ==================== COMPLETE PRODUCTION STYLESHEET ==================== -->
 <style>
-  /* Base Typography Adjustments */
-  body { font-size: 15px; }
+  /* ---------------- Base Reset & Core CSS Variables ---------------- */
+  :root {
+    --primary: #2563EB;
+    --primary-dark: #1D4ED8;
+    --accent-purple: #7C3AED;
+    --whatsapp-green: #25D366;
+    --dark-navy: #0B132B;
+    --slate-900: #0F172A;
+    --slate-800: #1E293B;
+    --slate-700: #334155;
+    --slate-600: #475569;
+    --slate-500: #64748B;
+    --slate-200: #E2E8F0;
+    --slate-100: #F8FAFC;
+    --border-color: #E2E8F0;
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 8px;
+    --shadow-sm: 0 4px 15px rgba(0,0,0,0.03);
+    --shadow-md: 0 10px 25px rgba(37,99,235,0.08);
+    --shadow-lg: 0 20px 45px rgba(37,99,235,0.22);
+  }
 
-  /* Hero Title Matched Sizing */
-  .hero-copy h1 {
-    font-size: 2.8rem !important;
-    font-weight: 800 !important;
-    line-height: 1.2 !important;
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth !important;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    background: radial-gradient(1200px 800px at 50% -10%, rgba(37, 99, 235, 0.08), transparent 70%), var(--slate-100) !important;
+    color: var(--slate-900);
+    margin: 0;
+    padding: 0;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ---------------- Top Announcement Ticker ---------------- */
+  .top-announcement-bar {
+    background: var(--dark-navy);
+    color: #38BDF8;
+    padding: 10px 16px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* ---------------- Site Header & Navbar ---------------- */
+  .site-header {
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 14px 24px;
+  }
+
+  .header-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .nav-toggle-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    color: var(--slate-900);
+    cursor: pointer;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .brand-logo-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    font-size: 1.25rem;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+  }
+
+  .brand-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--slate-900);
+  }
+
+  .brand-accent {
+    color: var(--primary);
+  }
+
+  .main-nav ul {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .main-nav a {
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--slate-700);
+    transition: color 0.2s ease;
+  }
+
+  .main-nav a:hover {
+    color: var(--primary);
+  }
+
+  .btn-nav-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #ffffff !important;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 10px 22px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.3);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-nav-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.45);
+  }
+
+  /* ---------------- Hero Section ---------------- */
+  .hero-section {
+    max-width: 1240px;
+    margin: 40px auto 30px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .free-badge-glow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FEF2F2;
+    color: #DC2626;
+    border: 1px solid #FECACA;
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 6px 18px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 20px;
+  }
+
+  .hero-title {
+    font-size: 3.1rem;
+    font-weight: 800;
+    color: var(--slate-900);
+    margin: 0 0 18px 0;
+    line-height: 1.15;
     letter-spacing: -0.02em;
   }
-  .hero-copy h1 .text-gradient {
-    font-size: 2.8rem !important;
-    font-weight: 800 !important;
-    background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%);
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
+
+  /* FIXED TITLE GRADIENT TEXT NO-BOX ISSUE */
+  .hero-title span.text-purple-highlight {
+    color: #7C3AED;
+    display: inline;
+    background: none;
   }
 
-  /* Navigation Bar Alignment */
-  .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
-  .main-nav ul { display: flex; align-items: center; gap: 20px; list-style: none; margin: 0; padding: 0; white-space: nowrap; }
-  .main-nav a { font-size: 0.95rem !important; font-weight: 500; text-decoration: none; color: #1E293B; }
-  .btn { font-size: 0.9rem !important; padding: 10px 18px !important; border-radius: 8px; font-weight: 600; }
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: var(--slate-600);
+    margin: 0 0 30px 0;
+    line-height: 1.6;
+  }
 
-  /* HERO IMAGE VISUAL FIX */
-  .hero-visual-modern {
+  .hero-ctas {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+    gap: 14px;
+    flex-wrap: wrap;
   }
 
-  .hero-image-card {
+  /* HERO GLASS CARD */
+  .hero-glass-card {
+    background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);
+    border-radius: var(--radius-lg);
+    padding: 32px 26px;
+    color: #ffffff;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
-    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 12px 35px rgba(37, 99, 235, 0.12);
-    border: 1px solid #E2E8F0;
+  }
+
+  .glass-badge {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  .hero-features-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .h-feat-item {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    text-align: center;
+  }
+
+  .h-feat-item i {
+    font-size: 1.5rem;
+    color: #38BDF8;
+    margin-bottom: 6px;
+  }
+
+  .h-feat-item strong {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+  }
+
+  .h-feat-item span {
+    font-size: 0.75rem;
+    opacity: 0.85;
+  }
+
+  /* ---------------- Infinite Marquee Ticker ---------------- */
+  .ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: var(--dark-navy);
+    color: #E0E7FF;
+    padding: 14px 0;
+    margin: 40px 0 50px 0;
+    border-top: 1px solid var(--slate-800);
+    border-bottom: 1px solid var(--slate-800);
+  }
+
+  .ticker-move {
+    display: flex;
+    gap: 40px;
+    width: max-content;
+    animation: ticker 22s linear infinite;
+  }
+
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  .ticker-item i {
+    color: #FBBF24;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ---------------- 1-Click Class Rail Grid ---------------- */
+  .section-head {
+    text-align: center;
+    margin-bottom: 35px;
+  }
+
+  .section-head h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--slate-900);
+    margin: 0 0 8px 0;
+  }
+
+  .section-head p {
+    color: var(--slate-500);
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .class-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+    max-width: 1240px;
+    margin: 0 auto 60px auto;
+    padding: 0 20px;
+  }
+
+  .home-class-card {
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    padding: 26px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 220px;
+    transition: all 0.3s cubic-bezier(.2,.8,.2,1);
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .home-class-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+    background: rgba(255,255,255,0.85);
+  }
+
+  .hc-9  { background: linear-gradient(135deg,#EFF6FF,#DBEAFE); border-color:#BFDBFE; color:#1E3A8A; }
+  .hc-10 { background: linear-gradient(135deg,#ECFDF5,#D1FAE5); border-color:#A7F3D0; color:#064E3B; }
+  .hc-11 { background: linear-gradient(135deg,#FFFBEB,#FEF3C7); border-color:#FDE68A; color:#78350F; }
+  .hc-12 { background: linear-gradient(135deg,#FEF2F2,#FEE2E2); border-color:#FECACA; color:#7F1D1D; }
+  .hc-comp { background: linear-gradient(135deg,#F3E8FF,#EDE9FE); border-color:#D8B4FE; color:#4C1D95; }
+
+  .badge-free-mini {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: #EF4444;
+    color: #ffffff;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+  }
+
+  /* ---------------- Features Grid ---------------- */
+  .features-section {
+    padding: 60px 20px;
     background: #ffffff;
-    width: 100%;
-    max-width: 380px;
-    height: 420px;
-    transition: transform 0.3s ease;
   }
 
-  .hero-image-card:hover {
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .feature-card {
+    background: var(--slate-100);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    transition: all 0.25s ease;
+  }
+
+  .feature-card:hover {
     transform: translateY(-4px);
+    border-color: #93C5FD;
+    box-shadow: var(--shadow-md);
+    background: #ffffff;
   }
 
-  .hero-main-3d-img {
+  .feature-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 1.3rem;
+    color: #ffffff;
+    margin-bottom: 16px;
+  }
+
+  /* ---------------- Live Trust Stats Banner ---------------- */
+  .stats-banner {
+    background: linear-gradient(135deg, var(--slate-900) 0%, #1E3A8A 100%);
+    color: #ffffff;
+    padding: 45px 20px;
+    text-align: center;
+    margin: 40px 0 60px 0;
+  }
+
+  .stats-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 30px;
+  }
+
+  .stat-item h3 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0;
+    color: #FBBF24;
+  }
+
+  .stat-item p {
+    margin: 6px 0 0 0;
+    color: #CBD5E1;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  /* ---------------- 7 Complete FAQs ---------------- */
+  .faq-section {
+    padding: 60px 20px;
+    background: #ffffff;
+  }
+
+  .faq-container {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .faq-item {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--slate-100);
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+
+  .faq-question {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+  }
+
+  .faq-answer {
+    padding: 0 22px 18px 22px;
+    font-size: 0.94rem;
+    color: var(--slate-600);
+    line-height: 1.65;
+    display: none;
+  }
+
+  .faq-item.active {
+    border-color: var(--primary);
+    background: #FFFFFF;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.08);
+  }
+
+  .faq-item.active .faq-answer {
     display: block;
   }
 
-  /* Grid Layout for Cards */
-  .class-rail {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 24px;
-    margin-top: 30px;
+  .faq-icon {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--primary);
+    transition: transform 0.2s;
   }
 
-  .class-card {
+  .faq-item.active .faq-icon {
+    transform: rotate(45deg);
+  }
+
+  /* ---------------- Real Student Reviews ---------------- */
+  .reviews-section {
+    padding: 60px 20px;
+    background: var(--slate-100);
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .review-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .review-stars {
+    font-size: 1rem;
+    color: #F59E0B;
+    margin-bottom: 12px;
+  }
+
+  .review-text {
+    font-size: 0.93rem;
+    color: var(--slate-700);
+    line-height: 1.6;
+    margin-bottom: 18px;
+    font-style: italic;
+  }
+
+  .review-author strong {
+    display: block;
+    color: var(--slate-900);
+    font-size: 0.95rem;
+  }
+
+  .review-author span {
+    font-size: 0.8rem;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  /* ---------------- SUPPORT & FEEDBACK SECTION (RESTORED) ---------------- */
+  .support-section {
+    padding: 60px 20px;
     background: #ffffff;
-    border: 1px solid #E2E8F0;
-    border-radius: 16px;
-    padding: 22px;
+  }
+
+  .support-card-box {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 35px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .support-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    align-items: center;
+  }
+
+  .support-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    position: relative;
+    gap: 14px;
   }
 
-  .class-card:hover {
-    transform: translateY(-5px);
-    border-color: #2563EB;
-    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.12);
-  }
-
-  .book-cover-wrap {
+  .support-form input,
+  .support-form textarea {
     width: 100%;
-    max-width: 175px;
-    height: 215px;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    padding: 12px 16px;
+    border: 1px solid #CBD5E1;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.92rem;
+    outline: none;
+    transition: border-color 0.2s;
   }
 
-  .ncert-book-img {
+  .support-form input:focus,
+  .support-form textarea:focus {
+    border-color: var(--primary);
+  }
+
+  /* ---------------- Floating Dock ---------------- */
+  .vedantu-floating-dock {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dock-circle-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+    border: none;
+    text-decoration: none;
+    transition: transform 0.25s ease;
+    font-size: 1.35rem;
+    cursor: pointer;
+  }
+
+  .dock-circle-btn:hover {
+    transform: scale(1.12);
+  }
+
+  .ai-dock-btn { background: linear-gradient(135deg, #2563EB, #7C3AED); }
+  .app-dock-btn { background: linear-gradient(135deg, #10B981, #059669); }
+  .whatsapp-dock-btn { background: linear-gradient(135deg, #25D366, #128C7E); }
+  .insta-dock-btn { background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCB045); }
+  .telegram-dock-btn { background: linear-gradient(135deg, #0088cc, #2AABEE); }
+
+  .telegram-dock-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: #ffffff;
+  }
+
+  /* ---------------- AI Chatbot Popup Modal ---------------- */
+  #aiChatModal {
+    position: fixed;
+    bottom: 85px;
+    right: 24px;
+    width: 340px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    border: 1px solid var(--border-color);
+    z-index: 99999;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ---------------- App Download Popup Modal ---------------- */
+  .app-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(6px);
+    z-index: 999999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
   }
 
-  .free-ribbon-badge {
+  .app-modal-card {
+    background: #ffffff;
+    border-radius: 24px;
+    max-width: 420px;
+    width: 100%;
+    padding: 32px 24px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    border: 1px solid var(--border-color);
+    animation: popupAnim 0.3s cubic-bezier(.2,.8,.2,1);
+  }
+
+  @keyframes popupAnim {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .close-popup-btn {
     position: absolute;
-    top: 14px;
-    left: 14px;
-    background: #2563EB;
-    color: #FFFFFF;
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    top: 16px;
+    right: 18px;
+    background: #F1F5F9;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--slate-500);
   }
 
-  .comp-ribbon-badge {
-    background: linear-gradient(135deg, #7C3AED, #2563EB) !important;
-  }
-
-  /* COLORFUL CUSTOM BOXES FOR EACH CLASS SECTION */
-  .subject-box-class9 {
-    background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%) !important;
-    border: 1px solid #BFDBFE !important;
-    color: #1E3A8A !important;
-  }
-  .subject-box-class10 {
-    background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%) !important;
-    border: 1px solid #A7F3D0 !important;
-    color: #064E3B !important;
-  }
-  .subject-box-class11 {
-    background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%) !important;
-    border: 1px solid #FDE68A !important;
-    color: #78350F !important;
-  }
-  .subject-box-class12 {
-    background: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%) !important;
-    border: 1px solid #FECDD3 !important;
-    color: #881337 !important;
-  }
-  .subject-box-comp {
-    background: linear-gradient(135deg, #F3E8FF 0%, #E9D5FF 100%) !important;
-    border: 1px solid #DDD6FE !important;
-    color: #581C87 !important;
-  }
-
-  /* FULL-WIDTH RESPONSIVE 4-COLUMN FOOTER */
+  /* ---------------- 4-Column Footer ---------------- */
   .site-footer {
-    background: #0B132B;
+    background: var(--dark-navy);
     color: #ffffff;
-    padding: 50px 0 25px 0;
+    padding: 50px 20px 25px 20px;
   }
 
   .footer-inner {
-    display: grid !important;
-    grid-template-columns: 1.2fr 1fr 1fr 1.1fr !important;
-    gap: 30px !important;
-    width: 100% !important;
-    max-width: 1280px !important;
-    margin: 0 auto !important;
-    padding: 0 25px !important;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr 1.1fr;
+    gap: 35px;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .footer-brand h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 10px 0;
+  }
+
+  .footer-brand p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin: 0;
   }
 
   .footer-col h3 {
-    font-size: 1.05rem !important;
-    font-weight: 700 !important;
-    color: #ffffff !important;
-    margin-bottom: 14px !important;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 14px;
   }
 
   .footer-col ul {
-    list-style: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 8px !important;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .footer-col ul a {
-    color: rgba(255,255,255,0.75) !important;
-    text-decoration: none !important;
-    font-size: 0.88rem !important;
-    transition: color 0.2s ease !important;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.2s;
   }
 
   .footer-col ul a:hover {
-    color: #38BDF8 !important;
+    color: #38BDF8;
   }
 
-  .social-icon-btn {
-    width: 42px;
-    height: 42px;
+  .footer-social-icons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 12px;
+  }
+
+  .f-social-btn {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    display: inline-flex;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.12);
-    color: #ffffff;
-    transition: all 0.2s ease;
     text-decoration: none;
-  }
-  .social-icon-btn:hover {
-    background: #2563EB;
-    transform: scale(1.1);
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
   }
 
-  /* FAQ Accordion Styling */
-  .faq-section { padding: 60px 0; background: #ffffff; }
-  .faq-container { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
-  .faq-item { border: 1px solid #E2E8F0; border-radius: 12px; background: #F8FAFC; overflow: hidden; transition: all 0.2s ease; }
-  .faq-question { width: 100%; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; background: none; border: none; font-size: 1rem; font-weight: 600; color: #0F172A; cursor: pointer; text-align: left; }
-  .faq-answer { padding: 0 20px 16px 20px; font-size: 0.92rem; color: #475569; line-height: 1.6; display: none; }
-  .faq-item.active { border-color: #2563EB; background: #FFFFFF; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08); }
-  .faq-item.active .faq-answer { display: block; }
-  .faq-icon { font-size: 1.2rem; transition: transform 0.2s ease; }
-  .faq-item.active .faq-icon { transform: rotate(45deg); }
+  .f-social-btn:hover {
+    background: var(--primary);
+    transform: translateY(-3px);
+  }
 
-  /* TOP ANNOUNCEMENT BAR CLEAN FIX */
-  .top-announcement-bar {
-    background: #0B132B;
-    color: #ffffff;
-    padding: 8px 16px;
-    font-size: 0.85rem;
-    overflow: hidden;
-  }
-  .top-bar-inner {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-  }
-  #runningTickerText {
-    margin: 0 !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .footer-bottom-copy {
     text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 35px;
+    padding-top: 20px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
   }
 
-  /* ============ PROPER SIDE-SLIDE MOBILE DRAWER (WHITE BACKGROUND) ============ */
+  /* ---------------- MOBILE RESPONSIVE RULES ---------------- */
   @media (max-width: 992px) {
+    .nav-toggle-btn { display: block; }
     .main-nav {
-      position: fixed !important;
-      top: 0 !important;
-      left: -100% !important;
-      width: 280px !important;
-      height: 100vh !important;
-      background: #ffffff !important;
-      box-shadow: 15px 0 40px rgba(0, 0, 0, 0.2) !important;
-      z-index: 999999 !important;
-      padding: 70px 20px 30px 20px !important;
-      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      overflow-y: auto !important;
-      display: block !important;
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 280px;
+      height: 100vh;
+      background: #ffffff;
+      box-shadow: 15px 0 40px rgba(0,0,0,0.2);
+      z-index: 999999;
+      padding: 80px 24px 30px 24px;
+      transition: left 0.3s ease;
     }
-
-    .main-nav.nav-open {
-      left: 0 !important;
-    }
-
-    .main-nav ul {
-      flex-direction: column !important;
-      align-items: flex-start !important;
-      gap: 16px !important;
-      white-space: normal !important;
-    }
-
-    .main-nav a {
-      font-size: 1.1rem !important;
-      font-weight: 600 !important;
-      color: #0F172A !important;
-      display: block !important;
-      width: 100% !important;
-      padding: 10px 14px !important;
-      border-radius: 8px !important;
-    }
-
-    .main-nav a:hover {
-      background: #EFF6FF !important;
-      color: #2563EB !important;
-    }
-
-    .hero-inner {
-      grid-template-columns: 1fr !important;
-      text-align: center !important;
-      gap: 32px !important;
-    }
-
-    .hero-copy h1 {
-      font-size: 2.2rem !important;
-    }
-
-    .hero-image-card {
-      max-width: 100% !important;
-      height: 340px !important;
-      margin: 0 auto !important;
-    }
-
-    .hero-ctas, .hero-stats {
-      justify-content: center !important;
-    }
-
-    .footer-inner {
-      grid-template-columns: 1fr !important;
-      gap: 25px !important;
-    }
+    .main-nav.nav-open { left: 0; }
+    .main-nav ul { flex-direction: column; align-items: flex-start; gap: 18px; }
+    .main-nav a { font-size: 1.1rem; }
+    
+    .hero-section { grid-template-columns: 1fr; text-align: center; }
+    .hero-title { font-size: 2.2rem; }
+    .hero-ctas { justify-content: center; }
+    .footer-inner { grid-template-columns: 1fr; text-align: left; }
   }
 </style>
 </head>
 <body>
 
-<a class="skip-link" href="#main">Skip to content</a>
-
-<!-- ============ TOP BAR ============ -->
-<div class="top-announcement-bar">
-  <div class="section-inner top-bar-inner">
-    <p id="runningTickerText">🔥 Welcome to Notes Point — Class 9th to 12th CBSE & State Boards Free Material</p>
+  <!-- TOP TICKER -->
+  <div class="top-announcement-bar">
+    ⚡ Welcome to NotesPoint — 100% Free NCERT Study Material & Board Exam PYQs
   </div>
-</div>
 
-<!-- ============ HEADER ============ -->
-<header class="site-header" id="siteHeader">
-  <div class="header-inner">
-    
-    <div class="header-left">
-      <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mainNav" aria-label="Toggle menu">
-        <span></span><span></span><span></span>  
-      </button>
+  <!-- HEADER NAVBAR -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <button type="button" class="nav-toggle-btn" onclick="toggleMobileNav()"><i class="fa-solid fa-bars"></i></button>
+        <a href="index.html" class="brand">
+          <div class="brand-logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <span class="brand-name">Notes<span class="brand-accent">Point</span></span>
+        </a>
+      </div>
 
-      <a href="#top" class="brand" aria-label="Notes Point home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="5" y="3" width="19" height="26" rx="3" fill="url(#brandGrad)"/>
-            <rect x="9" y="9" width="11" height="1.6" rx="0.8" fill="white" opacity="0.95"/>
-            <rect x="9" y="13.5" width="11" height="1.6" rx="0.8" fill="white" opacity="0.85"/>
-            <rect x="9" y="18" width="7" height="1.6" rx="0.8" fill="white" opacity="0.75"/>
-            <defs>
-              <linearGradient id="brandGrad" x1="5" y1="3" x2="24" y2="29" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2563EB"/>
-                <stop offset="1" stop-color="#3B82F6"/>
-              </linearGradient>
-            </defs>
-          </svg>
-        </span>
-        <span class="brand-name">Notes<span class="brand-accent">Point</span></span>
-      </a>
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="student.html">Student Panel</a></li>
+          <li><a href="#classes">Classes</a></li>
+          <li><a href="#features">Why Us?</a></li>
+          <li><a href="#faq">FAQs</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#support">Support</a></li>
+        </ul>
+      </nav>
+
+      <div style="display:flex; gap:10px;">
+        <button type="button" class="btn-nav-primary" onclick="openAppModal()" style="background: linear-gradient(135deg,#10B981,#059669);"><i class="fa-brands fa-android"></i> App APK</button>
+        <a href="student.html" class="btn-nav-primary"><i class="fa-solid fa-book-open"></i> Notes Panel</a>
+      </div>
     </div>
+  </header>
 
-    <!-- Navigation -->
-    <nav class="main-nav" id="mainNav" aria-label="Primary">
-      <ul>
-        <li><a href="student.html">Student Panel</a></li>
-        <li><a href="#features">Why Us?</a></li>
-        <li><a href="#faq">FAQs</a></li>
-        <li><a href="#reviews">Reviews</a></li>
-        <li><a href="#support">Support</a></li>
-        <li><a href="#about">About</a></li>
-      </ul>
-    </nav>
-
-    <!-- Header Action Button -->
-    <div class="header-actions">
-      <a href="student.html" class="btn btn-primary">Notes Panel</a>
-    </div>
-
-  </div>
-</header>
-
-<main id="main">
-
-  <!-- ============ HERO ============ -->
-  <section class="hero" id="top" aria-labelledby="hero-heading">
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="hero-inner">
-      <div class="hero-copy">
-        <p class="eyebrow">🚀 ALL STATE BOARDS &amp; NCERT • CLASS 9–12 &amp; COMPETITIVE</p>
-        <h1 id="hero-heading">
-          Study smarter. <span class="text-gradient">Score higher.</span>
+  <main>
+    <!-- HERO BANNER SECTION -->
+    <section class="hero-section">
+      <div>
+        <div class="free-badge-glow">
+          <i class="fa-solid fa-fire"></i> 100% Free Access • No Registration Required
+        </div>
+        <h1 class="hero-title">
+          High Quality Study Notes <br><span class="text-purple-highlight">For Board &amp; Entrance Exams</span>
         </h1>
-        <p class="hero-sub">
-          A modern, structured library of high-yield study notes, chapter summaries, formula sheets, PYQs, and sample papers designed for Class 9th to 12th & Competitive Exam aspirants.
+        <p class="hero-subtitle">
+          Download 100% free chapterwise handwritten notes, NCERT Books &amp; Solutions, Board Revision Sheets and Previous Year Solved Question Papers for Class 9 to 12.
         </p>
 
         <div class="hero-ctas">
-          <a href="student.html" class="btn btn-primary btn-lg">Open Student Dashboard 🎓</a>
-          <a href="#features" class="btn btn-outline btn-lg">Explore Features</a>
-        </div>
-
-        <dl class="hero-stats" id="heroStats" aria-label="Platform stats">
-          <div>
-            <dt>Classes covered</dt>
-            <dd data-stat="classes">9th - 12th + Entrance</dd>
-          </div>
-          <div>
-            <dt>Database</dt>
-            <dd data-stat="notes-count">NCERT Notes & PYQs</dd>
-          </div>
-          <div>
-            <dt>Access</dt>
-            <dd>100% Free & Direct</dd>
-          </div>
-        </dl>
-      </div>
-
-      <!-- HERO VISUAL: CLEAN PORTRAIT BANNER -->
-      <div class="hero-visual-modern" aria-hidden="true">
-        <div class="hero-image-card">
-          <img src="hero-visual.jpg" alt="Notes Point Smart Study Dashboard" class="hero-main-3d-img">
+          <a href="student.html" class="btn-nav-primary" style="font-size: 1.05rem; padding: 14px 32px;"><i class="fa-solid fa-rocket"></i> Jump To Student Workspace</a>
+          <button type="button" class="btn-nav-primary" onclick="openAppModal()" style="background:#ffffff; color:#0F172A !important; border:1px solid #CBD5E1; box-shadow:none;"><i class="fa-brands fa-android" style="color:#10B981;"></i> Download APK</button>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ============ MERGED STUDENT PANEL CARDS ============ -->
-  <section class="classes" id="classes" aria-labelledby="classes-heading">
-    <div class="section-inner">
-      <div class="section-head text-center">
-        <p class="eyebrow">STUDENT DASHBOARD</p>
-        <h2 id="classes-heading">Select Your Grade or Competitive Exam</h2>
-        <p class="section-sub">Free Chapter Notes, Detailed Subject Breakdown & Solved Question Papers.</p>
+      <!-- HIGH-TECH HERO GLASS CARD -->
+      <div>
+        <div class="hero-glass-card">
+          <div class="glass-badge"><i class="fa-solid fa-shield-halved"></i> Verified Topper Materials</div>
+          <h3 style="font-size:1.5rem; margin:0 0 6px 0; font-weight:800;">NotesPoint Smart Dashboard</h3>
+          <p style="font-size:0.88rem; opacity:0.9; margin:0;">Complete 100% Free Access for Class 9th, 10th, 11th, 12th &amp; Entrance Aspirants.</p>
+
+          <div class="hero-features-list">
+            <div class="h-feat-item">
+              <i class="fa-solid fa-file-pdf"></i>
+              <strong>500+ PDFs</strong>
+              <span>Free Download</span>
+            </div>
+            <div class="h-feat-item">
+              <i class="fa-solid fa-book-open"></i>
+              <strong>NCERT Sets</strong>
+              <span>100% Solved</span>
+            </div>
+            <div class="h-feat-item">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <strong>10-Yr PYQs</strong>
+              <span>Board Special</span>
+            </div>
+            <div class="h-feat-item">
+              <i class="fa-solid fa-star"></i>
+              <strong>4.9 ★ Rated</strong>
+              <span>By Students</span>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="class-rail" id="classRail" role="list">
-        
-        <!-- CLASS 9 PANEL -->
-        <div class="class-card" role="listitem">
-          <span class="free-ribbon-badge">FOUNDATION</span>
-          <div class="book-cover-wrap">
-            <img src="class9.jpg" alt="Class 9 Notes Cover" class="ncert-book-img">
-          </div>
-          <span class="class-index" style="font-size: 0.8rem; color: #2563EB; font-weight: 700;">CLASS 09</span>
-          <h3 class="class-num" style="font-size: 1.25rem; margin: 4px 0;">Class 9 Panel</h3>
-          <p class="class-desc" style="font-size: 0.88rem; color: #64748B; margin-bottom: 12px;">
-            Complete NCERT Foundation Notes, Chapter Summaries &amp; Formula Sheets.
-          </p>
-
-          <div class="syllabus-details-content subject-box-class9" id="syl-class-9" hidden style="text-align: left; padding: 14px; border-radius: 10px; margin-bottom: 12px; font-size: 0.85rem;">
-            <strong>📚 Covered Subjects &amp; Topics:</strong>
-            <ul style="padding-left: 18px; margin-top: 6px;">
-              <li><strong>Science:</strong> Physics, Chemistry &amp; Biology NCERT Notes</li>
-              <li><strong>Mathematics:</strong> Number Systems, Polynomials &amp; Geometry</li>
-              <li><strong>Social Science:</strong> History, Geography, Civics, Economics</li>
-              <li><strong>Languages:</strong> English &amp; Hindi Grammar Guides</li>
-            </ul>
-          </div>
-
-          <button type="button" class="btn btn-outline btn-sm" onclick="toggleSyllabus('syl-class-9', this)" style="margin-bottom: 8px; width: 100%;">
-            Explore Subject Topics 📖
-          </button>
-          <a href="student.html" class="btn btn-primary btn-sm" style="width: 100%;">Open Class 9 Panel →</a>
-        </div>
-
-        <!-- CLASS 10 PANEL -->
-        <div class="class-card" role="listitem">
-          <span class="free-ribbon-badge">BOARD SPECIAL</span>
-          <div class="book-cover-wrap">
-            <img src="class10.jpg" alt="Class 10 Notes Cover" class="ncert-book-img">
-          </div>
-          <span class="class-index" style="font-size: 0.8rem; color: #2563EB; font-weight: 700;">CLASS 10</span>
-          <h3 class="class-num" style="font-size: 1.25rem; margin: 4px 0;">Class 10 Panel</h3>
-          <p class="class-desc" style="font-size: 0.88rem; color: #64748B; margin-bottom: 12px;">
-            Board Exam Special Revision Notes, Formula Sheets &amp; 10-Yr Solved PYQs.
-          </p>
-
-          <div class="syllabus-details-content subject-box-class10" id="syl-class-10" hidden style="text-align: left; padding: 14px; border-radius: 10px; margin-bottom: 12px; font-size: 0.85rem;">
-            <strong>📚 Covered Subjects &amp; Topics:</strong>
-            <ul style="padding-left: 18px; margin-top: 6px;">
-              <li><strong>Science:</strong> Reactions, Light, Electricity &amp; Life Processes</li>
-              <li><strong>Maths:</strong> Trigonometry, Circles, Quadratic Equations</li>
-              <li><strong>Social Science:</strong> History, Civics, Geography Question Sets</li>
-              <li><strong>Board Extras:</strong> 10-Year Board PYQs &amp; Model Papers</li>
-            </ul>
-          </div>
-
-          <button type="button" class="btn btn-outline btn-sm" onclick="toggleSyllabus('syl-class-10', this)" style="margin-bottom: 8px; width: 100%;">
-            Explore Subject Topics 📖
-          </button>
-          <a href="student.html" class="btn btn-primary btn-sm" style="width: 100%;">Open Class 10 Panel →</a>
-        </div>
-
-        <!-- CLASS 11 PANEL -->
-        <div class="class-card" role="listitem">
-          <span class="free-ribbon-badge">STREAMS SPECIAL</span>
-          <div class="book-cover-wrap">
-            <img src="class11.jpg" alt="Class 11 Notes Cover" class="ncert-book-img">
-          </div>
-          <span class="class-index" style="font-size: 0.8rem; color: #2563EB; font-weight: 700;">CLASS 11</span>
-          <h3 class="class-num" style="font-size: 1.25rem; margin: 4px 0;">Class 11 Panel</h3>
-          <p class="class-desc" style="font-size: 0.88rem; color: #64748B; margin-bottom: 12px;">
-            Science, Commerce &amp; Arts Stream Notes + Physics/Chemistry Derivations.
-          </p>
-
-          <div class="syllabus-details-content subject-box-class11" id="syl-class-11" hidden style="text-align: left; padding: 14px; border-radius: 10px; margin-bottom: 12px; font-size: 0.85rem;">
-            <strong>📚 Covered Streams &amp; Topics:</strong>
-            <ul style="padding-left: 18px; margin-top: 6px;">
-              <li><strong>Science:</strong> Physics Kinematics, Chemistry Organic &amp; Biology</li>
-              <li><strong>Commerce:</strong> Accountancy, Business Studies &amp; Economics</li>
-              <li><strong>Arts/Humanities:</strong> History, Political Science &amp; Geography</li>
-            </ul>
-          </div>
-
-          <button type="button" class="btn btn-outline btn-sm" onclick="toggleSyllabus('syl-class-11', this)" style="margin-bottom: 8px; width: 100%;">
-            Explore Subject Topics 📖
-          </button>
-          <a href="student.html" class="btn btn-primary btn-sm" style="width: 100%;">Open Class 11 Panel →</a>
-        </div>
-
-        <!-- CLASS 12 PANEL -->
-        <div class="class-card" role="listitem">
-          <span class="free-ribbon-badge">FINAL BOARDS</span>
-          <div class="book-cover-wrap">
-            <img src="class12.jpg" alt="Class 12 Notes Cover" class="ncert-book-img">
-          </div>
-          <span class="class-index" style="font-size: 0.8rem; color: #2563EB; font-weight: 700;">CLASS 12</span>
-          <h3 class="class-num" style="font-size: 1.25rem; margin: 4px 0;">Class 12 Panel</h3>
-          <p class="class-desc" style="font-size: 0.88rem; color: #64748B; margin-bottom: 12px;">
-            Final Board Exam Revision Notes, Formula Sheets &amp; High-Yield Question Sets.
-          </p>
-
-          <div class="syllabus-details-content subject-box-class12" id="syl-class-12" hidden style="text-align: left; padding: 14px; border-radius: 10px; margin-bottom: 12px; font-size: 0.85rem;">
-            <strong>📚 Covered Subjects &amp; Topics:</strong>
-            <ul style="padding-left: 18px; margin-top: 6px;">
-              <li><strong>Physics:</strong> Electrostatics, Optics &amp; Derivations</li>
-              <li><strong>Chemistry:</strong> Organic Reaction Mechanisms &amp; Electrochemistry</li>
-              <li><strong>Maths:</strong> Calculus, Vectors, 3D &amp; Matrices</li>
-              <li><strong>Commerce/Arts:</strong> Partnership Accounts, Economics &amp; Pol Sci</li>
-            </ul>
-          </div>
-
-          <button type="button" class="btn btn-outline btn-sm" onclick="toggleSyllabus('syl-class-12', this)" style="margin-bottom: 8px; width: 100%;">
-            Explore Subject Topics 📖
-          </button>
-          <a href="student.html" class="btn btn-primary btn-sm" style="width: 100%;">Open Class 12 Panel →</a>
-        </div>
-
-        <!-- COMPETITIVE EXAMS PANEL -->
-        <div class="class-card" role="listitem" style="border-color: #7C3AED;">
-          <span class="free-ribbon-badge comp-ribbon-badge">JEE • NEET • CUET</span>
-          <div class="book-cover-wrap">
-            <img src="compitative.jpg" alt="Competitive Exams Notes Cover" class="ncert-book-img" onerror="this.src='class12.jpg'">
-          </div>
-          <span class="class-index" style="font-size: 0.8rem; color: #7C3AED; font-weight: 700;">ENTRANCE SPECIAL</span>
-          <h3 class="class-num" style="font-size: 1.25rem; margin: 4px 0;">Competitive Panel</h3>
-          <p class="class-desc" style="font-size: 0.88rem; color: #64748B; margin-bottom: 12px;">
-            JEE Main/Advanced, NEET-UG, CUET &amp; NDA Formula Books, Short Tricks &amp; PYQs.
-          </p>
-
-          <div class="syllabus-details-content subject-box-comp" id="syl-comp" hidden style="text-align: left; padding: 14px; border-radius: 10px; margin-bottom: 12px; font-size: 0.85rem;">
-            <strong>🔥 Covered Competitive Exams:</strong>
-            <ul style="padding-left: 18px; margin-top: 6px;">
-              <li><strong>JEE Main/Adv:</strong> Physics &amp; Chem Reaction Formula Sheets</li>
-              <li><strong>NEET-UG:</strong> Biology NCERT Line-by-Line Extracts &amp; Mindmaps</li>
-              <li><strong>CUET:</strong> General Test &amp; Domain Specific Question Banks</li>
-            </ul>
-          </div>
-
-          <button type="button" class="btn btn-outline btn-sm" onclick="toggleSyllabus('syl-comp', this)" style="margin-bottom: 8px; width: 100%;">
-            Explore Subject Topics 📖
-          </button>
-          <a href="student.html" class="btn btn-primary btn-sm" style="width: 100%; background: linear-gradient(135deg, #7C3AED, #2563EB); border: none;">Open Competitive Panel →</a>
-        </div>
-
+    <!-- MOVING LOGO TICKER -->
+    <div class="ticker-wrap">
+      <div class="ticker-move">
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> NCERT Chapter Notes</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Board PYQs &amp; Solutions</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> JEE Main Formula Sheets</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> NEET Biology Mindmaps</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Class 9 to 12 All Subjects</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Direct Free PDF Downloads</div>
       </div>
     </div>
-  </section>
 
-  <!-- ============ FEATURES ============ -->
-  <section class="features" id="features" aria-labelledby="features-heading">
-    <div class="section-inner">
-      <div class="section-head text-center">
-        <p class="eyebrow">Why Choose Notes Point</p>
-        <h2 id="features-heading">Designed for Effortless Study</h2>
-        <p class="section-sub">Built to replace messy notebooks with structured, high-quality digital material.</p>
+    <!-- 1-CLICK CLASS CARDS SECTION -->
+    <section id="classes">
+      <div class="section-head">
+        <h2>Select Your Class &amp; Start Studying</h2>
+        <p>Click on your class card below to open notes instantly</p>
       </div>
 
-      <div class="features-grid">
-        <article class="feature-card">
-          <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none"><path d="M6 4h11l5 5v15H6V4Z" stroke="url(#f1)" stroke-width="1.8"/><path d="M17 4v5h5" stroke="url(#f1)" stroke-width="1.8"/><defs><linearGradient id="f1" x1="6" y1="4" x2="22" y2="24" gradientUnits="userSpaceOnUse"><stop stop-color="#2563EB"/><stop offset="1" stop-color="#3B82F6"/></linearGradient></defs></svg></div>
-          <h3>Smart Organisation</h3>
-          <p>High-quality notes structured strictly by exam patterns, classes, and subjects.</p>
-        </article>
+      <div class="class-selection-grid">
+        <!-- Class 9 -->
+        <a href="student.html" class="home-class-card hc-9">
+          <span class="badge-free-mini">FREE</span>
+          <div>
+            <div class="card-icon-box"><i class="fa-solid fa-seedling"></i></div>
+            <h3 style="font-size:1.4rem; margin:0 0 6px 0; font-weight:800;">Class 9</h3>
+            <p style="font-size:.88rem; opacity:0.85; margin:0;">Science, Maths, Social Science &amp; Languages</p>
+          </div>
+          <span style="font-weight:800; font-size:.9rem; margin-top:20px;">Open Class 9 Notes →</span>
+        </a>
 
-        <article class="feature-card">
-          <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="url(#f2)" stroke-width="1.8"/><path d="M14 8v6l4 2.4" stroke="url(#f2)" stroke-width="1.8"/><defs><linearGradient id="f2" x1="4" y1="4" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop stop-color="#2563EB"/><stop offset="1" stop-color="#3B82F6"/></linearGradient></defs></svg></div>
-          <h3>Built for Quick Revision</h3>
-          <p>Concise summaries &amp; formula sheets made to skim through the night before tests to maximize recall.</p>
-        </article>
+        <!-- Class 10 -->
+        <a href="student.html" class="home-class-card hc-10">
+          <span class="badge-free-mini">FREE</span>
+          <div>
+            <div class="card-icon-box"><i class="fa-solid fa-award"></i></div>
+            <h3 style="font-size:1.4rem; margin:0 0 6px 0; font-weight:800;">Class 10</h3>
+            <p style="font-size:.88rem; opacity:0.85; margin:0;">Board Special Notes, Formulas &amp; 10-Yr PYQs</p>
+          </div>
+          <span style="font-weight:800; font-size:.9rem; margin-top:20px;">Open Class 10 Notes →</span>
+        </a>
 
-        <article class="feature-card">
-          <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none"><path d="M14 3 4 8v6c0 6 4.3 9.7 10 11 5.7-1.3 10-5 10-11V8L14 3Z" stroke="url(#f3)" stroke-width="1.8"/><defs><linearGradient id="f3" x1="4" y1="3" x2="24" y2="25" gradientUnits="userSpaceOnUse"><stop stop-color="#2563EB"/><stop offset="1" stop-color="#3B82F6"/></linearGradient></defs></svg></div>
-          <h3>100% Free &amp; Direct Access</h3>
-          <p>All core NCERT notes and revision material are accessible directly without any barriers.</p>
-        </article>
+        <!-- Class 11 -->
+        <a href="student.html" class="home-class-card hc-11">
+          <span class="badge-free-mini">FREE</span>
+          <div>
+            <div class="card-icon-box"><i class="fa-solid fa-microscope"></i></div>
+            <h3 style="font-size:1.4rem; margin:0 0 6px 0; font-weight:800;">Class 11</h3>
+            <p style="font-size:.88rem; opacity:0.85; margin:0;">Science, Commerce &amp; Arts (Humanities)</p>
+          </div>
+          <span style="font-weight:800; font-size:.9rem; margin-top:20px;">Open Class 11 Notes →</span>
+        </a>
 
-        <article class="feature-card">
-          <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none"><path d="M14 4v20M6 10l8-6 8 6M6 10v11h16V10" stroke="url(#f4)" stroke-width="1.8"/><defs><linearGradient id="f4" x1="6" y1="4" x2="22" y2="24" gradientUnits="userSpaceOnUse"><stop stop-color="#2563EB"/><stop offset="1" stop-color="#3B82F6"/></linearGradient></defs></svg></div>
-          <h3>By Students, For Students</h3>
-          <p>Curated and reviewed by high-performing students who understand exam requirements.</p>
-        </article>
+        <!-- Class 12 -->
+        <a href="student.html" class="home-class-card hc-12">
+          <span class="badge-free-mini">FREE</span>
+          <div>
+            <div class="card-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
+            <h3 style="font-size:1.4rem; margin:0 0 6px 0; font-weight:800;">Class 12</h3>
+            <p style="font-size:.88rem; opacity:0.85; margin:0;">Board Revision, Derivations, Science &amp; Commerce</p>
+          </div>
+          <span style="font-weight:800; font-size:.9rem; margin-top:20px;">Open Class 12 Notes →</span>
+        </a>
+
+        <!-- Entrance -->
+        <a href="student.html" class="home-class-card hc-comp">
+          <span class="badge-free-mini">SPECIAL</span>
+          <div>
+            <div class="card-icon-box"><i class="fa-solid fa-bolt"></i></div>
+            <h3 style="font-size:1.4rem; margin:0 0 6px 0; font-weight:800;">Entrance Exams</h3>
+            <p style="font-size:.88rem; opacity:0.85; margin:0;">JEE Main, NEET-UG, CUET &amp; NDA Formula Books</p>
+          </div>
+          <span style="font-weight:800; font-size:.9rem; margin-top:20px;">Open Entrance Notes →</span>
+        </a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ FAQ SECTION (EXACTLY 7 QUESTIONS) ============ -->
-  <section class="faq-section" id="faq">
-    <div class="section-inner">
-      <div class="section-head text-center">
-        <p class="eyebrow">FREQUENTLY ASKED QUESTIONS</p>
-        <h2>Need Answers? Find Them Here... 💡</h2>
-        <p class="section-sub">Common questions from students regarding notes, competitive material &amp; downloads.</p>
+    <!-- LIVE TRUST STATS BANNER -->
+    <section class="stats-banner">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <h3>10,000+</h3>
+          <p>Active Scholars</p>
+        </div>
+        <div class="stat-item">
+          <h3>500+</h3>
+          <p>Free Study PDFs</p>
+        </div>
+        <div class="stat-item">
+          <h3>100%</h3>
+          <p>Free Material</p>
+        </div>
+        <div class="stat-item">
+          <h3>4.9 ★</h3>
+          <p>Student Rating</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 COMPLETE FAQS -->
+    <section class="faq-section" id="faq">
+      <div class="section-head">
+        <h2>Frequently Asked Questions 💡</h2>
+        <p>Everything you need to know about NotesPoint</p>
       </div>
 
       <div class="faq-container">
+        <div class="faq-item">
+          <button type="button" class="faq-question">
+            <span>1. Are all study notes and PDFs on NotesPoint completely free?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Yes, 100%! All chapter notes, NCERT textbook solutions, formula sheets, and board revision PDFs are completely free to view and download with zero hidden charges.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question">
+            <span>2. Do I need to create an account or sign up to access notes?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            No registration required! You can freely browse any class or subject and directly download or view PDF study material with a single click.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question">
+            <span>3. Which classes and subjects are covered on NotesPoint?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            We cover Class 9th, 10th, 11th, and 12th for Physics, Chemistry, Mathematics, Biology, Social Science, Accountancy, Business Studies, Economics, and English.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question">
+            <span>4. Are these notes helpful for CBSE and State Board exams?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            CRITICAL! All our revision notes and PYQs are strictly aligned with the latest NCERT curriculum, making them 100% effective for CBSE, UP Board, Bihar Board, MP Board, and other state boards.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question">
+            <span>5. Do you provide competitive exam preparation material?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Yes! Our Competitive Panel includes JEE Main/Advanced formula books, NEET Biology NCERT extracts & mindmaps, CUET domain practice sets, and short-trick sheets.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question">
+            <span>6. How can I download notes on my mobile phone?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Simply select your class, pick a subject, and click on any chapter note card. You can view the document in our fast reader or click the download button to save it directly to your device.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question">
+            <span>7. What should I do if I can't find notes for a specific chapter?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            If a specific chapter is missing, you can submit a message via our Telegram channel or support form. Our team regularly uploads requested notes.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS SECTION -->
+    <section class="reviews-section" id="reviews">
+      <div class="section-head">
+        <h2>What Students Say About NotesPoint</h2>
+        <p>Real feedback from board and competitive exam toppers</p>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Class 10 Science PYQs and formula sheets helped me score 94% in my board exams! NotesPoint is a lifesaver for fast revision."</p>
+          <div class="review-author"><strong>Rohan Sharma</strong><span>Class 10 Student</span></div>
+        </div>
         
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <span>1. Kya NotesPoint par NCERT notes bilkul free hain?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Haan, bilkul! Class 9th se 12th tak ke basic NCERT revision notes, formula sheets aur chapter summaries 100% free hain.
-          </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Class 12 Physics derivations and Organic Chemistry reaction mechanisms are super clean and easy to understand. Best site for boards."</p>
+          <div class="review-author"><strong>Priya Verma</strong><span>Class 12 Science</span></div>
         </div>
 
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <span>2. NotesPoint par konse subjects cover hote hain?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Hum Physics, Chemistry, Biology, Mathematics, Social Science, Accountancy, Business Studies, Economics, English aur Competitive Exam Reaction/Formula sheets cover karte hain.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <span>3. Class 9th, 10th, 11th, 12th aur JEE/NEET ke Notes kahan milenge?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Aap 'Student Dashboard' mein apni Class ya Competitive Exam select karke direct saare notes aur study sets browse kar sakte hain.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <span>4. Kya main notes PDF format mein download kar sakta hoon?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Haan! Aap website par hi fast viewer ke zariye notes padh sakte hain aur single-click mein PDF apne mobile ya laptop par save kar sakte hain.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <span>5. Kya yeh notes CBSE aur State Boards ke liye valid hain?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Bilkul! Yeh notes strictly NCERT curriculum par based hain, jo CBSE, UP Board, Bihar Board, MP Board aur baki sabhi State Boards ke liye 100% helpful hain.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <span>6. Competitive Exams (JEE/NEET/CUET) ke notes me kya milega?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Competitive section me aapko formula books, Physics/Chemistry short tricks, NEET Biology NCERT extracts aur Entrance PYQs milenge.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <span>7. Agar mujhe koi specific note na mile toh main kya karoon?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Aap Support & Feedback section se hume direct message bhej sakte hain ya Telegram group mein request daal sakte hain. Humari team jaldi upload kar degi.
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ STUDENT REVIEWS ============ -->
-  <section class="reviews-section" id="reviews">
-    <div class="section-inner">
-      <div class="section-head text-center">
-        <p class="eyebrow">STUDENT FEEDBACK</p>
-        <h2>What Students Say About Us</h2>
-        <p class="section-sub">Real feedback from Class 9th to 12th board & competitive aspirants using NotesPoint.</p>
-      </div>
-
-      <div class="reviews-scroll-container">
-        <div class="reviews-grid" id="reviewsGrid">
-          <div class="review-card">
-            <div class="review-stars">⭐⭐⭐⭐⭐</div>
-            <p class="review-text">"Class 10 Science PYQs and formula sheets helped me score 94% in my board exams! Notes Point is a lifesaver."</p>
-            <div class="review-author"><strong>Rohan Sharma</strong><span>Class 10 Student</span></div>
-          </div>
-          <div class="review-card">
-            <div class="review-stars">⭐⭐⭐⭐⭐</div>
-            <p class="review-text">"Class 12 Physics derivations and Chemistry short notes are super clean. Last minute revision ke liye best site hai."</p>
-            <div class="review-author"><strong>Priya Verma</strong><span>Class 12 Science</span></div>
-          </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"NEET Biology NCERT extracts and mindmaps saved me so much time. Direct PDF downloads without annoying ads make it 10/10."</p>
+          <div class="review-author"><strong>Aman Gupta</strong><span>NEET Aspirant</span></div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ SUPPORT & FEEDBACK ============ -->
-  <section class="support-section-home" id="support" style="padding: 50px 0; background: #F8FAFC;">
-    <div class="section-inner">
-      <div class="support-card-modern" style="background: #ffffff; border: 1px solid #E2E8F0; border-radius: 16px; padding: 30px; box-shadow: 0 8px 24px rgba(0,0,0,0.04);">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; align-items: center;">
-          
-          <div class="support-banner-wrap" style="text-align: center;">
-            <img src="support-banner.jpg" alt="NotesPoint Support & Feedback" style="width: 100%; max-width: 320px; border-radius: 14px;">
+    <!-- SUPPORT & FEEDBACK SECTION (RESTORED WITH SEND MESSAGE) -->
+    <section class="support-section" id="support">
+      <div class="support-card-box">
+        <div class="support-grid">
+          <div style="text-align: center;">
+            <div style="width: 100px; height: 100px; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 50%; display: grid; place-items: center; margin: 0 auto; color: #2563EB; font-size: 2.5rem;">
+              <i class="fa-solid fa-headset"></i>
+            </div>
+            <h3 style="margin-top: 14px; font-weight: 800; color: #0F172A;">24/7 Student Help</h3>
           </div>
 
-          <div class="support-form-wrap">
-            <span class="eyebrow" style="color: #2563EB; font-weight: 700;">GET IN TOUCH</span>
-            <h2 style="font-weight: 700; color: #0F172A; margin: 4px 0 8px 0;">Have a Question or Feedback? 💬</h2>
-            <p style="color: #64748B; margin-bottom: 18px; line-height: 1.5;">
-              Kisi subject ke notes chahiye ya platform ke liye koi suggestion hai? Message bhejein!
+          <div>
+            <span class="free-badge-glow" style="margin-bottom:8px;">GET IN TOUCH</span>
+            <h2 style="font-weight: 800; color: #0F172A; margin: 4px 0 8px 0; font-size: 1.6rem;">Have a Question or Feedback? 💬</h2>
+            <p style="color: #64748B; margin-bottom: 18px; font-size: 0.95rem;">
+              Need specific study materials or have suggestions for NotesPoint? Send us a direct message!
             </p>
 
-            <form id="homeFeedbackForm" style="display: flex; flex-direction: column; gap: 12px;">
-              <input type="text" id="fbStudentName" placeholder="Your Full Name" required style="width: 100%; padding: 10px 14px; border: 1px solid #CBD5E1; border-radius: 8px; outline: none;">
-              <input type="email" id="fbStudentEmail" placeholder="Your Email Address" required style="width: 100%; padding: 10px 14px; border: 1px solid #CBD5E1; border-radius: 8px; outline: none;">
-              <textarea id="fbStudentMsg" rows="3" placeholder="Write your message here..." required style="width: 100%; padding: 10px 14px; border: 1px solid #CBD5E1; border-radius: 8px; outline: none; resize: vertical;"></textarea>
-              <button type="submit" class="btn btn-primary" style="align-self: flex-start;">Send Message 🚀</button>
+            <form class="support-form" id="homeFeedbackForm" onsubmit="handleSupportSubmit(event)">
+              <input type="text" placeholder="Your Full Name" required>
+              <input type="email" placeholder="Your Email Address" required>
+              <textarea rows="3" placeholder="Write your message or requested chapter notes here..." required></textarea>
+              <button type="submit" class="btn-nav-primary" style="align-self: flex-start;">Send Message 🚀</button>
             </form>
           </div>
-
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- ============ ABOUT US ============ -->
-  <section class="about" id="about">
-    <div class="section-inner">
-      <div class="about-card-modern">
-        <div class="about-header-text text-center">
-          <span class="about-pill">STUDENT-FIRST PLATFORM</span>
-          <h2 class="about-title-modern">Empowering <span>Board Aspirants</span> Across India</h2>
-          <p class="about-subtitle">
-            Notes Point is built with a simple mission — to eliminate bulky textbooks and paywalled study apps. We provide clean, high-yield, NCERT-aligned digital notes designed for last-minute exam prep.
-          </p>
-        </div>
-
-        <div class="about-grid-modern">
-          <div class="about-grid-card"><div class="about-icon-circle">📚</div><h4>NCERT Aligned</h4><p>Strictly syllabus-focused content covering CBSE and State Boards.</p></div>
-          <div class="about-grid-card"><div class="about-icon-circle">🎯</div><h4>Exam Focused</h4><p>Chapter summaries, formula sheets, and solved PYQs for fast revision.</p></div>
-          <div class="about-grid-card"><div class="about-icon-circle">⚡</div><h4>Fast Reader</h4><p>Read notes smoothly without filling up mobile storage.</p></div>
-          <div class="about-grid-card"><div class="about-icon-circle">💎</div><h4>High Quality</h4><p>Curated by toppers for guaranteed exam success.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- ============ FLOATING DOCK ============ -->
-<div class="vedantu-floating-dock">
-  <div class="dock-item-wrap">
-    <button type="button" class="dock-circle-btn ai-dock-btn" id="aiChatTrigger" aria-label="Open AI Assistant" style="cursor: pointer;">
-      <span class="dock-icon">💬</span>
-      <span class="dock-label-text">Ask NotesPoint AI</span>
+  <!-- FLOATING DOCK -->
+  <div class="vedantu-floating-dock">
+    <button type="button" class="dock-circle-btn ai-dock-btn" onclick="toggleAiModal()" title="Ask NotesPoint AI Chatbot">
+      🤖
     </button>
-  </div>
-  <div class="dock-item-wrap">
-    <a href="https://www.instagram.com/notespoint9to12?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener" class="dock-circle-btn insta-dock-btn" title="Follow on Instagram">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+  
+    <a href="https://whatsapp.com/channel/0029VbDBkW7DuMRXnoY2Th11" target="_blank" rel="noopener" class="dock-circle-btn whatsapp-dock-btn" title="Join WhatsApp Channel">
+      <i class="fa-brands fa-whatsapp"></i>
     </a>
-  </div>
-  <div class="dock-item-wrap">
+    <a href="https://www.instagram.com/notespoint9to12" target="_blank" rel="noopener" class="dock-circle-btn insta-dock-btn" title="Follow on Instagram">
+      <i class="fa-brands fa-instagram"></i>
+    </a>
     <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener" class="dock-circle-btn telegram-dock-btn" title="Join Telegram Channel">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2L2 9.5l7 3 3 7 9.5-17.5z"></path></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
     </a>
   </div>
-</div>
 
-<!-- ============ AI CHATBOT POPUP MODAL ============ -->
-<div id="aiChatModal" style="position: fixed; bottom: 85px; right: 20px; width: 330px; background: #ffffff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid #E2E8F0; z-index: 99999; display: none; flex-direction: column; overflow: hidden; font-family: 'Inter', sans-serif;">
-  <div style="background: linear-gradient(135deg, #2563EB, #1D4ED8); color: #fff; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;">
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <span style="font-size: 1.4rem;">🤖</span>
-      <div>
-        <strong style="display: block; font-size: 0.95rem; line-height: 1.2;">NotesPoint AI</strong>
-        <span style="font-size: 0.72rem; opacity: 0.9;">Online • Instant Study Help</span>
+  <!-- AI CHATBOT POPUP MODAL -->
+  <div id="aiChatModal">
+    <div style="background: linear-gradient(135deg, #2563EB, #1D4ED8); color: #ffffff; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.3rem;">🤖</span>
+        <div>
+          <strong style="display: block; font-size: 0.92rem;">NotesPoint AI</strong>
+          <span style="font-size: 0.72rem; opacity: 0.9;">Online • Instant Study Help</span>
+        </div>
+      </div>
+      <button type="button" onclick="toggleAiModal()" style="background: none; border: none; color: #ffffff; font-size: 1.4rem; cursor: pointer;">&times;</button>
+    </div>
+    
+    <div id="aiChatMessages" style="height: 250px; padding: 14px; overflow-y: auto; background: #F8FAFC; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem;">
+      <div style="background: #EFF6FF; color: #1E3A8A; padding: 10px 12px; border-radius: 12px 12px 12px 2px; max-width: 85%; align-self: flex-start; border: 1px solid #BFDBFE;">
+        👋 Hello Scholar! Main NotesPoint AI Assistant hoon. Aapko kis class ya subject ke notes chahiye?
       </div>
     </div>
-    <button type="button" id="closeAiModalBtn" style="background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer; line-height: 1;">&times;</button>
-  </div>
-  <div id="aiChatMessages" style="height: 260px; padding: 14px; overflow-y: auto; background: #F8FAFC; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem;">
-    <div style="background: #EFF6FF; color: #1E3A8A; padding: 10px 12px; border-radius: 12px 12px 12px 2px; max-width: 85%; align-self: flex-start; border: 1px solid #BFDBFE;">
-      👋 Hello Scholar! Main NotesPoint AI Assistant hoon. Aapko kis class ya subject ke notes/PYQs chahiye?
-    </div>
-  </div>
-  <div style="padding: 10px; background: #ffffff; border-top: 1px solid #E2E8F0; display: flex; gap: 8px;">
-    <input type="text" id="aiUserInput" placeholder="Apna question likhein..." style="flex: 1; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.85rem; outline: none;">
-    <button type="button" id="aiSendMsgBtn" style="background: #2563EB; color: #fff; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer;">🚀</button>
-  </div>
-</div>
-
-<!-- ============ FOOTER (BALANCED ALIGNED 4 COLUMNS) ============ -->
-<footer class="site-footer">
-  <div class="section-inner footer-inner">
     
-    <!-- BRAND COLUMN -->
-    <div class="footer-brand">
-      <a href="#top" class="brand" aria-label="Notes Point home"><span class="brand-name">Notes<span class="brand-accent">Point</span></span></a>
-      <p style="margin-top: 10px; line-height: 1.6; color: rgba(255,255,255,0.75);">Free NCERT and Board study material for Class 9–12 &amp; Competitive Exams.</p>
+    <div style="padding: 10px; background: #ffffff; border-top: 1px solid #E2E8F0; display: flex; gap: 8px;">
+      <input type="text" id="aiUserInput" placeholder="Ask anything (e.g. Class 10 Notes)..." style="flex: 1; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.85rem; outline: none;" onkeypress="handleKeyPress(event)">
+      <button type="button" onclick="sendAiMessage()" style="background: #2563EB; color: #ffffff; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer;">🚀</button>
     </div>
-    
-    <!-- QUICK LINKS COLUMN -->
-    <div class="footer-col">
-      <h3>Quick Links</h3>
-      <ul>
-        <li><a href="student.html">Student Panel</a></li>
-        <li><a href="#features">Why NotesPoint?</a></li>
-        <li><a href="#faq">Frequently Asked Questions</a></li>
-        <li><a href="#support">Support &amp; Feedback</a></li>
-      </ul>
-    </div>
+  </div>
 
-    <!-- CLASSES COLUMN -->
-    <div class="footer-col">
-      <h3>Classes &amp; Exams</h3>
-      <ul>
-        <li><a href="student.html">Class 9 Foundation</a></li>
-        <li><a href="student.html">Class 10 Boards</a></li>
-        <li><a href="student.html">Class 11 Streams</a></li>
-        <li><a href="student.html">Class 12 Boards</a></li>
-        <li><a href="student.html">JEE / NEET Entrance</a></li>
-      </ul>
-    </div>
-
-    <!-- CONTACT US COLUMN -->
-    <div class="footer-col">
-      <h3 style="margin-bottom: 12px;">Contact Us</h3>
-      <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-bottom: 14px;">Join official channels for PDFs &amp; updates:</p>
+  <!-- APP DOWNLOAD POPUP MODAL -->
+  <div class="app-modal-overlay" id="appModalOverlay">
+    <div class="app-modal-card">
+      <button type="button" class="close-popup-btn" onclick="closeAppModal()">&times;</button>
       
-      <div style="display: flex; gap: 12px; align-items: center; justify-content: flex-start;">
-        
-        <!-- Telegram Logo Only -->
-        <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener" class="social-icon-btn" title="Join Telegram Channel">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2L2 9.5l7 3 3 7 9.5-17.5z"></path></svg>
-        </a>
+      <div style="width:64px; height:64px; background:#ECFDF5; color:#10B981; border-radius:20px; display:grid; place-items:center; font-size:2.2rem; margin:0 auto 16px auto;">
+        <i class="fa-brands fa-android"></i>
+      </div>
+      
+      <h3 style="font-size:1.45rem; font-weight:800; color:#0F172A; margin:0 0 8px 0;">NotesPoint Official App</h3>
+      <p style="font-size:0.9rem; color:#64748B; margin:0 0 20px 0; line-height:1.5;">Get fast 1-click PDF downloads, offline notes reading, and board exam revision alerts on your phone.</p>
+      
+      <a href="student.html" class="btn-nav-primary" style="width:100%; justify-content:center; padding:14px; font-size:1rem; background:linear-gradient(135deg,#10B981,#059669);">
+        <i class="fa-solid fa-download"></i> Download Android APK (Free)
+      </a>
+      <p style="font-size:0.75rem; color:#94A3B8; margin-top:12px;">v2.4 • Direct Download • 100% Free</p>
+    </div>
+  </div>
 
-        <!-- Instagram Logo Only -->
-        <a href="https://www.instagram.com/notespoint9to12?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener" class="social-icon-btn" title="Follow on Instagram">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-        </a>
+  <!-- ORIGINAL 4-COLUMN FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <!-- COLUMN 1: BRAND -->
+      <div class="footer-brand">
+        <h2>NotesPoint</h2>
+        <p>Free NCERT and Board study material for Class 9–12 &amp; Competitive Exams.</p>
+      </div>
 
-        <!-- Email Icon Only -->
-        <a href="mailto:notespoint2026@gmail.com" class="social-icon-btn" title="Email Support">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-        </a>
+      <!-- COLUMN 2: QUICK LINKS -->
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="student.html">Student Panel</a></li>
+          <li><a href="#features">Why NotesPoint?</a></li>
+          <li><a href="#faq">Frequently Asked Questions</a></li>
+          <li><a href="#support">Support &amp; Feedback</a></li>
+        </ul>
+      </div>
 
+      <!-- COLUMN 3: CLASSES & EXAMS -->
+      <div class="footer-col">
+        <h3>Classes &amp; Exams</h3>
+        <ul>
+          <li><a href="student.html">Class 9 Foundation</a></li>
+          <li><a href="student.html">Class 10 Boards</a></li>
+          <li><a href="student.html">Class 11 Streams</a></li>
+          <li><a href="student.html">Class 12 Boards</a></li>
+          <li><a href="student.html">JEE / NEET Entrance</a></li>
+        </ul>
+      </div>
+
+      <!-- COLUMN 4: CONTACT US WITH SOCIAL ICONS -->
+      <div class="footer-col">
+        <h3>Contact Us</h3>
+        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-bottom: 12px;">Join official channels for PDFs &amp; updates:</p>
+        <div class="footer-social-icons">
+          <a href="https://t.me/notespointfreenotes" target="_blank" class="f-social-btn" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+          <a href="https://www.instagram.com/notespoint9to12" target="_blank" class="f-social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="mailto:notespoint2026@gmail.com" class="f-social-btn" title="Email Us"><i class="fa-solid fa-envelope"></i></a>
+        </div>
       </div>
     </div>
 
-  </div>
+    <div class="footer-bottom-copy">
+      <p>&copy; 2026 Notes Point. Built with ❤️ for students.</p>
+    </div>
+  </footer>
 
-  <div class="footer-bottom" style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 35px; padding-top: 20px;"><p>&copy; <span id="footerYear"></span> Notes Point. Built for students.</p></div>
-</footer>
-
-<script>
-  document.getElementById('footerYear').textContent = new Date().getFullYear();
-
-  function toggleSyllabus(id, btn) {
-    const content = document.getElementById(id);
-    if (!content) return;
-    if (content.hidden) {
-      content.hidden = false;
-      if (btn) btn.innerHTML = 'Hide Topics ✖';
-    } else {
-      content.hidden = true;
-      if (btn) btn.innerHTML = 'Explore Subject Topics 📖';
+  <!-- ==================== WORKING JAVASCRIPT HANDLERS ==================== -->
+  <script>
+    // Mobile Navigation Drawer Toggle
+    function toggleMobileNav() {
+      const nav = document.getElementById('mainNav');
+      nav.classList.toggle('nav-open');
     }
-  }
 
-  // FAQ Accordion Handler (Exactly 7 FAQs)
-  document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
-      const faqItem = button.parentElement;
-      const isActive = faqItem.classList.contains('active');
-      document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
-      if (!isActive) faqItem.classList.add('active');
-    });
-  });
-
-  // Mobile Drawer Toggle Handler
-  const navToggle = document.getElementById('navToggle');
-  const mainNav = document.getElementById('mainNav');
-
-  if (navToggle && mainNav) {
-    navToggle.addEventListener('click', () => {
-      mainNav.classList.toggle('nav-open');
-      const expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
-      navToggle.setAttribute('aria-expanded', !expanded);
-    });
-
-    document.querySelectorAll('.main-nav a').forEach(link => {
-      link.addEventListener('click', () => {
-        mainNav.classList.remove('nav-open');
+    // FAQ Accordion Handler
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const faqItem = button.parentElement;
+        const isActive = faqItem.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+        if (!isActive) faqItem.classList.add('active');
       });
     });
-  }
-</script>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="script.js"></script>
+    // Support Form Handler
+    function handleSupportSubmit(e) {
+      e.preventDefault();
+      alert('Thank you! Your feedback or requested notes message has been sent successfully.');
+      e.target.reset();
+    }
+
+    // AI Chatbot Controls
+    function toggleAiModal() {
+      const modal = document.getElementById('aiChatModal');
+      modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === 'Enter') {
+        sendAiMessage();
+      }
+    }
+
+    function sendAiMessage() {
+      const input = document.getElementById('aiUserInput');
+      const messagesContainer = document.getElementById('aiChatMessages');
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      const userMsg = document.createElement('div');
+      userMsg.style.cssText = 'background:#2563EB; color:#ffffff; padding:10px 12px; border-radius:12px 12px 2px 12px; max-width:85%; align-self:flex-end; font-size:0.85rem;';
+      userMsg.textContent = text;
+      messagesContainer.appendChild(userMsg);
+
+      input.value = '';
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+      setTimeout(() => {
+        const aiMsg = document.createElement('div');
+        aiMsg.style.cssText = 'background:#EFF6FF; color:#1E3A8A; padding:10px 12px; border-radius:12px 12px 12px 2px; max-width:85%; align-self:flex-start; border:1px solid #BFDBFE; font-size:0.85rem;';
+        
+        const query = text.toLowerCase();
+        if (query.includes('9')) {
+          aiMsg.innerHTML = '📚 Class 9 ke saare NCERT notes, Science & Maths handwritten PDFs mil jayenge. <br><a href="student.html" style="color:#2563EB; font-weight:700;">Open Class 9 Panel →</a>';
+        } else if (query.includes('10')) {
+          aiMsg.innerHTML = '🎯 Class 10 Board Special Notes, Formula Sheets & 10-Year PYQs ready hain. <br><a href="student.html" style="color:#2563EB; font-weight:700;">Open Class 10 Panel →</a>';
+        } else if (query.includes('11')) {
+          aiMsg.innerHTML = '🔬 Class 11 Science, Commerce aur Arts ke saare stream notes उपलब्ध hain. <br><a href="student.html" style="color:#2563EB; font-weight:700;">Open Class 11 Panel →</a>';
+        } else if (query.includes('12')) {
+          aiMsg.innerHTML = '🎓 Class 12 Final Board Exam Revision Notes & Derivations yahan hain. <br><a href="student.html" style="color:#2563EB; font-weight:700;">Open Class 12 Panel →</a>';
+        } else if (query.includes('app') || query.includes('apk')) {
+          aiMsg.innerHTML = '📱 Aap hamारा Official Android App download kar sakte hain! <br><button onclick="openAppModal()" style="background:#10B981; color:#fff; border:none; padding:4px 10px; border-radius:6px; margin-top:4px; cursor:pointer;">Download App APK</button>';
+        } else if (query.includes('hi') || query.includes('hello') || query.includes('hey')) {
+          aiMsg.innerHTML = '👋 Hello Scholar! Aapko kis class ya competitive exam (JEE/NEET) ke notes chahiye? BATAEIN!';
+        } else {
+          aiMsg.innerHTML = '✨ Aap Student Workspace me jaakar direct Class & Subject chunte hue free PDF padh ya download kar sakte hain. <br><a href="student.html" style="color:#2563EB; font-weight:700;">Open Student Workspace →</a>';
+        }
+
+        messagesContainer.appendChild(aiMsg);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }, 600);
+    }
+
+    // App Download Popup Control
+    function openAppModal() {
+      document.getElementById('appModalOverlay').style.display = 'flex';
+    }
+    function closeAppModal() {
+      document.getElementById('appModalOverlay').style.display = 'none';
+    }
+
+    // Auto open popup after 5 seconds
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        openAppModal();
+      }, 5000);
+    });
+  </script>
+
 </body>
 </html>
