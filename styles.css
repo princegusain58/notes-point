@@ -3119,3 +3119,36 @@ button:active {
 ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
+@media (max-width: 992px) {
+  .site-header {
+    padding: 10px 12px !important;
+  }
+  .header-inner {
+    gap: 6px !important;
+  }
+  .header-left {
+    gap: 8px !important;
+  }
+  .brand-logo-icon {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 0.9rem !important;
+    border-radius: 8px !important;
+  }
+  .brand-name {
+    font-size: 1.1rem !important;
+  }
+  .nav-toggle-btn {
+    font-size: 1.2rem !important;
+    padding: 2px !important;
+  }
+  .header-inner > div:last-child {
+    gap: 4px !important;
+  }
+  .btn-nav-primary {
+    padding: 6px 10px !important;
+    font-size: 0.72rem !important;
+    border-radius: 6px !important;
+    gap: 4px !important;
+  }
+}
