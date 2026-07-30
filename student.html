@@ -86,10 +86,13 @@
   }
   .btn-topbar-action:hover { background: #E0E7FF !important; color: #2563EB; transform: rotate(-8deg); }
 
-  /* ===== SIDEBAR POLISH ===== */
+  /* ===== SIDEBAR POLISH & HOME LINK ===== */
   .admin-sidebar {
     background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFF 100%) !important;
     border-right: 1px solid #E2E8F0 !important;
+  }
+  .sidebar-brand {
+    cursor: pointer;
   }
   .sidebar-menu .nav-item {
     position: relative;
@@ -478,7 +481,7 @@
 
   <!-- SIDEBAR NAVIGATION -->
   <aside class="admin-sidebar" id="appSidebar">
-    <div class="sidebar-brand">
+    <div class="sidebar-brand" onclick="window.location.href='index.html'" title="Go to Homepage">
       <div class="brand-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
       <div class="brand-text">
         <h2>NotesPoint</h2>
@@ -526,7 +529,7 @@
           <strong id="studentHeaderName">Topper</strong>
           <span>Active Scholar</span>
         </div>
-        <button type="button" class="btn-sidebar-logout" id="logoutBtn" title="Logout">
+        <button type="button" class="btn-sidebar-logout" id="logoutBtn" title="Logout / Home">
           <i class="fa-solid fa-right-from-bracket"></i>
         </button>
       </div>
@@ -546,6 +549,9 @@
       </div>
 
       <div class="topbar-right" style="display: flex; align-items: center; gap: 10px;">
+        <a href="index.html" class="btn-topbar-action" title="Back to Home" style="text-decoration:none;">
+          <i class="fa-solid fa-house"></i>
+        </a>
         <button type="button" class="btn-topbar-action" id="themeToggleBtn" title="Toggle Theme">
           <i class="fa-solid fa-moon"></i>
         </button>
@@ -752,7 +758,7 @@
           <h4>Quick Links</h4>
           <ul>
             <li><a href="student.html">Student Panel</a></li>
-            <li><a href="index.html#whyUs">Why NotesPoint?</a></li>
+            <li><a href="index.html">Home Page</a></li>
             <li><a href="index.html#faqs">Frequently Asked Questions</a></li>
             <li><a href="student.html">Support &amp; Feedback</a></li>
           </ul>
@@ -771,9 +777,9 @@
           <h4>Contact Us</h4>
           <p style="margin-bottom:10px;">Join official channels for PDFs &amp; updates:</p>
           <div class="student-footer-socials">
-            <a href="#" class="student-footer-social-icon"><i class="fa-brands fa-telegram"></i></a>
-            <a href="#" class="student-footer-social-icon"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" class="student-footer-social-icon"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://t.me/notespointfreenotes" target="_blank" class="student-footer-social-icon"><i class="fa-brands fa-telegram"></i></a>
+            <a href="https://www.instagram.com/notespoint9to12" target="_blank" class="student-footer-social-icon"><i class="fa-brands fa-instagram"></i></a>
+            <a href="mailto:notespoint2026@gmail.com" class="student-footer-social-icon"><i class="fa-solid fa-envelope"></i></a>
           </div>
         </div>
       </div>
@@ -1111,9 +1117,8 @@
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
       logoutBtn.addEventListener('click', function () {
-        if (confirm('Logout from Student Workspace?')) {
-          try { sessionStorage.clear(); } catch (e) {}
-          location.reload();
+        if (confirm('Return to Home Page?')) {
+          window.location.href = 'index.html';
         }
       });
     }
