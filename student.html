@@ -820,6 +820,15 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
   <script src="student.js" defer></script>
 
+// Page load hote hi hamesha top par le jaane ke liye
+if (history.scrollRestoration) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
+window.onload = function() {
+  window.scrollTo(0, 0);
+};
   <!-- ================= STUDENT PANEL UI WIRING ================= -->
   <script>
   (function () {
