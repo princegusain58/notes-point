@@ -1587,3 +1587,30 @@ button:active,
 ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
+
+
+/* =========================================================
+   MOBILE SECTION CLICK & SIDEBAR OVERLAY FIX
+   ========================================================= */
+@media (max-width: 992px) {
+  /* जब मोबाइल में साइडबार बंद हो, तो वह क्लिक्स को रोके नहीं */
+  .admin-sidebar {
+    pointer-events: none !important;
+  }
+  
+  /* लेकिन जब साइडबार क्लास 'open' हो, तब उसपर क्लिक काम करे */
+  .admin-sidebar.open {
+    pointer-events: auto !important;
+  }
+
+  /* मुख्य कंटेंट और बटन्स हमेशा क्लिकेबल रहें */
+  .admin-main-wrapper, 
+  .workspace-section, 
+  .admin-card, 
+  .class-card, 
+  .subject-card {
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 10;
+  }
+}
