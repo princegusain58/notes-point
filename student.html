@@ -196,7 +196,7 @@
     box-shadow: 0 6px 14px -4px rgba(0,0,0,0.25);
   }
 
-  /* ===== SUBJECT & NOTES CARDS ===== */
+  /* ===== SUBJECT CARDS & STREAM BUTTONS ===== */
   .subject-card {
     background: #ffffff !important;
     border: 1px solid #E2E8F0 !important;
@@ -215,6 +215,25 @@
   .subject-card:hover {
     transform: translateY(-4px) scale(1.02);
     box-shadow: 0 14px 30px -10px rgba(0,0,0,0.12);
+  }
+
+  .stream-pill-btn {
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 0.90rem;
+    cursor: pointer;
+    border: 1px solid #CBD5E1;
+    background: #FFFFFF;
+    color: #475569;
+    transition: all .25s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .stream-pill-btn.active {
+    background: linear-gradient(135deg,#2563EB,#4F46E5) !important;
+    color: #FFFFFF !important;
+    border-color: #2563EB !important;
+    box-shadow: 0 6px 16px rgba(37,99,235,0.35) !important;
   }
 
   /* ===== 100% FREE BADGES ===== */
@@ -658,9 +677,10 @@
           <div id="subjectContainerArea" style="margin-top:10px;" hidden>
             <div id="selectedClassTitle" style="text-align:center; margin-bottom:20px;"></div>
             
-            <div class="nav-level mb-16" id="streamLevel" hidden style="margin-bottom:16px;">
-              <h4 style="font-size:.95rem; margin-bottom:8px; color:#334155; text-align:center;">Select Stream:</h4>
-              <div class="nav-pills" id="streamPills" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;"></div>
+            <!-- STREAM LEVEL BUTTONS (For Class 11 & 12) -->
+            <div class="nav-level mb-16" id="streamLevel" hidden style="margin-bottom:20px;">
+              <h4 style="font-size:.95rem; margin-bottom:10px; color:#334155; text-align:center; font-weight:700;">Select Your Stream:</h4>
+              <div class="nav-pills" id="streamPills" style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;"></div>
             </div>
 
             <div class="subject-grid" id="subjectGrid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;"></div>
@@ -807,12 +827,8 @@
     function applyTheme(mode) {
       const isDark = mode === 'dark';
       document.body.classList.toggle('dark-mode', isDark);
-      if (themeIcon) {
-        themeIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-      }
-      if (themeBtn) {
-        themeBtn.setAttribute('title', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
-      }
+      if (themeIcon) themeIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      if (themeBtn) themeBtn.setAttribute('title', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
     }
 
     let savedTheme = null;
@@ -884,17 +900,25 @@
       });
     }
 
-    /* ---------- CLASS CARD → SUBJECTS & FULL MATCHING THEMES ---------- */
+    /* ---------- CURRICULUM WITH SCIENCE, COMMERCE & ARTS STREAMS ---------- */
     const CURRICULUM = {
-      '9':  ['Mathematics','Science','Social Science','English','Hindi','Sanskrit','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)','Sample Papers'],
-      '10': ['Mathematics','Science','Social Science','English','Hindi','IT / Computer','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)','Sample Papers'],
-      '11': ['Physics','Chemistry','Mathematics','Biology','English','Computer Science','Accountancy','Business Studies','Economics','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)','Sample Papers'],
-      '12': ['Physics','Chemistry','Mathematics','Biology','English','Computer Science','Accountancy','Business Studies','Economics','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)','Sample Papers'],
-      'competitive': ['JEE Main & Advanced','NEET-UG Biology & Physics','CUET General Test','NDA Entrance Exam','Formula Short Tricks','Entrance PYQs']
+      '9': { 'All': ['Mathematics','Science','Social Science','English','Hindi','Sanskrit','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)','Sample Papers'] },
+      '10': { 'All': ['Mathematics','Science','Social Science','English','Hindi','IT / Computer','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)','Sample Papers'] },
+      '11': {
+        'Science': ['Physics','Chemistry','Mathematics','Biology','English','Computer Science','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)'],
+        'Commerce': ['Accountancy','Business Studies','Economics','Mathematics','English','Informatics Practices','NCERT Books 📚','PYQs'],
+        'Arts / Humanities': ['History','Political Science','Geography','Economics','Psychology','Sociology','English','Hindi','NCERT Books 📚']
+      },
+      '12': {
+        'Science': ['Physics','Chemistry','Mathematics','Biology','English','Computer Science','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)'],
+        'Commerce': ['Accountancy','Business Studies','Economics','Mathematics','English','Informatics Practices','NCERT Books 📚','PYQs'],
+        'Arts / Humanities': ['History','Political Science','Geography','Economics','Psychology','Sociology','English','Hindi','NCERT Books 📚']
+      },
+      'competitive': { 'All': ['JEE Main & Advanced','NEET-UG Biology & Physics','CUET General Test','NDA Entrance Exam','Formula Short Tricks','Entrance PYQs'] }
     };
+
     const CLASS_LABEL = { '9':'Class 9','10':'Class 10','11':'Class 11','12':'Class 12','competitive':'Competitive Exams' };
 
-    // MASTER CLASS COLOR SCHEMES
     const CLASS_THEMES = {
       '9':  { bg: 'linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%)', border: '#BFDBFE', iconBg: 'linear-gradient(135deg, #2563EB, #1D4ED8)', text: '#1E3A8A', accent: '#2563EB' },
       '10': { bg: 'linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)', border: '#A7F3D0', iconBg: 'linear-gradient(135deg, #059669, #047857)', text: '#064E3B', accent: '#059669' },
@@ -905,13 +929,47 @@
 
     const subjectContainer = document.getElementById('subjectContainerArea');
     const selectedClassTitle = document.getElementById('selectedClassTitle');
+    const streamLevel = document.getElementById('streamLevel');
+    const streamPills = document.getElementById('streamPills');
     const subjectGrid = document.getElementById('subjectGrid');
+
+    let activeClass = '10';
+    let activeStream = 'Science';
+
+    function renderSubjectGrid(cls, stream) {
+      const streamsData = CURRICULUM[cls] || {};
+      const subs = streamsData[stream] || streamsData['All'] || [];
+      const theme = CLASS_THEMES[cls] || CLASS_THEMES['9'];
+
+      if (subjectGrid) {
+        subjectGrid.innerHTML = subs.map(s => (
+          `<button type="button" class="subject-card" data-subject="${s.replace(/"/g,'&quot;')}" data-class="${cls}" style="background:${theme.bg} !important; border-color:${theme.border} !important; position:relative;">` +
+            `<div>` +
+              `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">` +
+                `<div style="width:42px;height:42px;border-radius:12px;background:${theme.iconBg};color:#fff;display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);"><i class="fa-solid fa-book-open"></i></div>` +
+                `<span class="free-badge-tag">🔥 100% FREE</span>` +
+              `</div>` +
+              `<strong style="font-size:1.05rem;color:${theme.text};">${s}</strong>` +
+            `</div>` +
+            `<span style="font-size:.85rem;color:${theme.accent};font-weight:700;margin-top:14px;display:inline-flex;align-items:center;gap:6px;">Open <i class="fa-solid fa-arrow-right"></i></span>` +
+          `</button>`
+        )).join('');
+
+        subjectGrid.querySelectorAll('.subject-card').forEach(sc => {
+          sc.addEventListener('click', function () {
+            openNotesPanel(this.getAttribute('data-class'), this.getAttribute('data-subject'));
+          });
+        });
+      }
+    }
 
     document.querySelectorAll('.class-card').forEach(card => {
       card.addEventListener('click', function () {
         const cls = this.getAttribute('data-class');
-        const subs = CURRICULUM[cls] || [];
+        activeClass = cls;
         const theme = CLASS_THEMES[cls] || CLASS_THEMES['9'];
+        const streamsObj = CURRICULUM[cls] || {};
+        const availableStreams = Object.keys(streamsObj);
 
         if (selectedClassTitle) {
           selectedClassTitle.innerHTML =
@@ -919,27 +977,27 @@
             `<h3 style="font-size:1.35rem;font-weight:800;margin:6px 0 0;color:${theme.text};">${(CLASS_LABEL[cls] || cls)} — Subjects</h3>`;
         }
 
-        /* 🔴 SUBJECT CARDS WITH 100% FREE BADGE & MATCHING COLORS */
-        if (subjectGrid) {
-          subjectGrid.innerHTML = subs.map(s => (
-            `<button type="button" class="subject-card" data-subject="${s.replace(/"/g,'&quot;')}" data-class="${cls}" style="background:${theme.bg} !important; border-color:${theme.border} !important; position:relative;">` +
-              `<div>` +
-                `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">` +
-                  `<div style="width:42px;height:42px;border-radius:12px;background:${theme.iconBg};color:#fff;display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);"><i class="fa-solid fa-book-open"></i></div>` +
-                  `<span class="free-badge-tag">🔥 100% FREE</span>` +
-                `</div>` +
-                `<strong style="font-size:1.05rem;color:${theme.text};">${s}</strong>` +
-              `</div>` +
-              `<span style="font-size:.85rem;color:${theme.accent};font-weight:700;margin-top:14px;display:inline-flex;align-items:center;gap:6px;">Open <i class="fa-solid fa-arrow-right"></i></span>` +
-            `</button>`
-          )).join('');
+        if (availableStreams.length > 1 && availableStreams[0] !== 'All') {
+          streamLevel.hidden = false;
+          activeStream = availableStreams[0];
+          streamPills.innerHTML = availableStreams.map(st => `
+            <button type="button" class="stream-pill-btn ${st === activeStream ? 'active' : ''}" data-stream="${st}">${st}</button>
+          `).join('');
 
-          subjectGrid.querySelectorAll('.subject-card').forEach(sc => {
-            sc.addEventListener('click', function () {
-              openNotesPanel(this.getAttribute('data-class'), this.getAttribute('data-subject'));
+          streamPills.querySelectorAll('.stream-pill-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+              streamPills.querySelectorAll('.stream-pill-btn').forEach(b => b.classList.remove('active'));
+              this.classList.add('active');
+              activeStream = this.getAttribute('data-stream');
+              renderSubjectGrid(activeClass, activeStream);
             });
           });
+        } else {
+          streamLevel.hidden = true;
+          activeStream = 'All';
         }
+
+        renderSubjectGrid(activeClass, activeStream);
 
         if (subjectContainer) {
           subjectContainer.hidden = false;
@@ -948,7 +1006,7 @@
       });
     });
 
-    /* ---------- NOTES MODAL (FULL COLOR MATCH INSIDE WITH 100% FREE BADGE) ---------- */
+    /* ---------- NOTES MODAL ---------- */
     const notesPanel = document.getElementById('notesPanel');
     const notesClose = document.getElementById('notesPanelClose');
     const notesTitle = document.getElementById('notesPanelTitle');
@@ -969,7 +1027,6 @@
       if (notesStatus) notesStatus.textContent = 'Loading materials...';
       if (notesGrid) notesGrid.innerHTML = '';
 
-      // Render Notes Inside Modal
       function renderNotes(items) {
         if (!items || items.length === 0) {
           if (notesEmpty) notesEmpty.hidden = false;
@@ -1004,14 +1061,10 @@
         }
       }
 
-      // 1. LocalStorage
       let notes = [];
-      try { 
-        notes = JSON.parse(localStorage.getItem('notespoint_uploaded_notes_v7') || '[]'); 
-      } catch (e) {}
+      try { notes = JSON.parse(localStorage.getItem('notespoint_uploaded_notes_v7') || '[]'); } catch (e) {}
 
       const cleanSubject = String(subject).trim().toLowerCase();
-
       let filtered = notes.filter(n => {
         const noteClass = String(n.class || n.classVal || '').trim();
         const noteSubject = String(n.subject || '').trim().toLowerCase();
@@ -1021,7 +1074,6 @@
 
       renderNotes(filtered);
 
-      // 2. Firestore Sync
       if (typeof firebase !== 'undefined' && firebase.apps && firebase.apps.length) {
         try {
           const db = firebase.firestore();
@@ -1045,9 +1097,7 @@
               }
             })
             .catch(err => console.warn("Firestore Sync Warning:", err));
-        } catch (err) {
-          console.warn("Firebase Init Check Warning:", err);
-        }
+        } catch (err) { console.warn("Firebase Warning:", err); }
       }
 
       notesPanel.hidden = false;
@@ -1058,7 +1108,6 @@
       if (e.target === notesPanel) notesPanel.hidden = true;
     });
 
-    /* ---------- LOGOUT ---------- */
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
       logoutBtn.addEventListener('click', function () {
@@ -1069,7 +1118,6 @@
       });
     }
 
-    /* ---------- SUPPORT FORM ---------- */
     const supportForm = document.querySelector('#supportSection form');
     if (supportForm) {
       supportForm.addEventListener('submit', function (e) {
