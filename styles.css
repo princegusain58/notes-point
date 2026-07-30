@@ -3282,3 +3282,65 @@ html, body {
     text-align: left !important;
   }
 }
+
+/* =======================================================
+   MOBILE RESPONSIVE FIXES (PASTE AT THE VERY BOTTOM)
+   ======================================================= */
+@media (max-width: 768px) {
+  /* 1. स्क्रीन से बाहर जा रहे हिस्से को अंदर फिक्स करना */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  /* 2. ऊपर हेडर के बटन जो कट रहे हैं, उन्हें छोटा और सेट करना */
+  .header-inner {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    padding: 10px !important;
+  }
+  
+  .header-inner a, 
+  .header-inner button,
+  .btn-nav-primary {
+    font-size: 0.75rem !important;
+    padding: 6px 10px !important;
+    white-space: nowrap !important;
+  }
+
+  /* 3. हीरो सेक्शन और मेन टेक्स्ट को फोन के हिसाब से छोटा करना */
+  .hero-section {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    padding: 10px 15px !important;
+    margin-top: 10px !important;
+  }
+
+  .hero-title {
+    font-size: 1.8rem !important;
+    line-height: 1.25 !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.9rem !important;
+    padding: 0 10px !important;
+  }
+
+  /* 4. ब्लू कार्ड का टेक्स्ट जो राइट साइड के आइकन्स से छुप रहा है, उसे साइड करना */
+  .hero-glass-card {
+    padding: 20px !important;
+    padding-right: 55px !important; /* यह टेक्स्ट को राइट साइड के आइकन्स से दूर रखेगा */
+    margin-bottom: 20px !important;
+  }
+
+  /* 5. राइट साइड के फ्लोटिंग आइकन्स को थोड़ा छोटा करना ताकि स्क्रीन न भरें */
+  .floating-icons, 
+  .social-float, 
+  [style*="position: fixed"][style*="right"] {
+    transform: scale(0.85) !important;
+    transform-origin: right center !important;
+    right: 2px !important;
+    z-index: 9999 !important;
+  }
+}
