@@ -1605,6 +1605,29 @@ button:active,
 
   /* मुख्य कंटेंट और बटन्स हमेशा क्लिकेबल रहें */
   .admin-main-wrapper, 
+
+
+   /* =========================================================
+   MOBILE HEADER 3 BUTTONS CLICK FIX
+   ========================================================= */
+@media (max-width: 992px) {
+  /* हेडर और उसके अंदर के सारे बटन्स को सबसे ऊपर क्लिकेबल करना */
+  .admin-topbar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 99999 !important;
+    pointer-events: auto !important;
+  }
+
+  .topbar-left, 
+  .topbar-right, 
+  .btn-topbar-action, 
+  .mobile-toggle-btn {
+    pointer-events: auto !important;
+    z-index: 100000 !important;
+    position: relative !important;
+  }
+}
   .workspace-section, 
   .admin-card, 
   .class-card, 
