@@ -196,59 +196,38 @@
     box-shadow: 0 6px 14px -4px rgba(0,0,0,0.25);
   }
 
-  /* ===== SUBJECT CARDS ===== */
+  /* ===== SUBJECT & NOTES CARDS ===== */
   .subject-card {
     background: #ffffff !important;
     border: 1px solid #E2E8F0 !important;
-    border-radius: 14px !important;
-    padding: 18px !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
     text-align: left !important;
     cursor: pointer !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
-    min-height: 120px !important;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-    transition: all .25s ease;
+    min-height: 130px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    transition: all .28s cubic-bezier(.2,.8,.2,1);
     position: relative; overflow: hidden;
   }
-  .subject-card::before {
-    content:""; position:absolute; left:0; top:0; bottom:0; width:4px;
-    background: linear-gradient(180deg,#2563EB,#7C3AED);
-    transform: scaleY(0); transform-origin: top;
-    transition: transform .3s ease;
-  }
-  .subject-card:hover::before { transform: scaleY(1); }
   .subject-card:hover {
-    border-color: #93C5FD !important;
-    background: #F8FBFF !important;
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px -12px rgba(37,99,235,0.3);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 14px 30px -10px rgba(0,0,0,0.12);
   }
 
   /* ===== 100% FREE BADGES ===== */
-  .free-badge-red {
+  .free-badge-tag {
     background: #EF4444 !important;
     color: #FFFFFF !important;
     font-size: 0.70rem;
     font-weight: 800;
-    padding: 3px 8px;
+    padding: 4px 9px;
     border-radius: 6px;
     letter-spacing: 0.4px;
     text-transform: uppercase;
     box-shadow: 0 2px 8px rgba(239, 68, 68, 0.35);
-  }
-
-  .free-badge-blue {
-    background: #2563EB !important;
-    color: #FFFFFF !important;
-    font-size: 0.70rem;
-    font-weight: 800;
-    padding: 3px 8px;
-    border-radius: 6px;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
   }
 
   /* ===== ADMIN CARD ===== */
@@ -295,7 +274,7 @@
     to   { opacity:1; transform: translateY(0); }
   }
 
-  /* Quote strip (new decorative addition) */
+  /* Quote strip */
   .np-quote-strip {
     margin-top: 20px;
     padding: 16px 22px;
@@ -318,7 +297,7 @@
   @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
   @keyframes popIn { from { opacity:0; transform: scale(.92) } to { opacity:1; transform: scale(1) } }
 
-  /* FOOTER (unchanged classes) */
+  /* FOOTER */
   .student-footer-dark {
     background:
       radial-gradient(600px 300px at 20% 0%, rgba(37,99,235,0.25), transparent 70%),
@@ -460,11 +439,6 @@
   body.dark-mode .card-theme-comp { background: linear-gradient(135deg,#2A1758 0%,#111827 100%) !important; border-color:#4C1D95 !important; }
   body.dark-mode .class-card h3 { color:#F8FAFC !important; }
   body.dark-mode .class-card p  { color:#CBD5E1 !important; }
-
-  body.dark-mode .subject-card {
-    background:#111827 !important; border-color:#1F2937 !important; color:#E2E8F0;
-  }
-  body.dark-mode .subject-card:hover { background:#0F1E3A !important; border-color:#1E3A8A !important; }
 
   body.dark-mode .admin-input {
     background:#0F172A !important; border-color:#334155 !important; color:#E2E8F0 !important;
@@ -612,7 +586,7 @@
           </div>
         </div>
 
-        <!-- MOTIVATIONAL QUOTE STRIP (new) -->
+        <!-- MOTIVATIONAL QUOTE STRIP -->
         <div class="np-quote-strip">
           <i class="fa-solid fa-quote-left"></i>
           <div>
@@ -826,7 +800,7 @@
     'use strict';
     const THEME_KEY = 'notespoint_theme_v1';
 
-    /* ---------- THEME (Light/Dark) with localStorage ---------- */
+    /* ---------- THEME (Light/Dark) ---------- */
     const themeBtn = document.getElementById('themeToggleBtn');
     const themeIcon = themeBtn ? themeBtn.querySelector('i') : null;
 
@@ -841,7 +815,6 @@
       }
     }
 
-    // Load saved theme (or system preference on first visit)
     let savedTheme = null;
     try { savedTheme = localStorage.getItem(THEME_KEY); } catch (e) {}
     if (!savedTheme) {
@@ -881,7 +854,6 @@
         };
         pageTitle.textContent = map[id] || 'Dashboard';
       }
-      // close mobile sidebar
       const sb = document.getElementById('appSidebar');
       if (sb) sb.classList.remove('open');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -912,7 +884,7 @@
       });
     }
 
-    /* ---------- CLASS CARD → SUBJECTS ---------- */
+    /* ---------- CLASS CARD → SUBJECTS & FULL MATCHING THEMES ---------- */
     const CURRICULUM = {
       '9':  ['Mathematics','Science','Social Science','English','Hindi','Sanskrit','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)','Sample Papers'],
       '10': ['Mathematics','Science','Social Science','English','Hindi','IT / Computer','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)','Sample Papers'],
@@ -922,6 +894,15 @@
     };
     const CLASS_LABEL = { '9':'Class 9','10':'Class 10','11':'Class 11','12':'Class 12','competitive':'Competitive Exams' };
 
+    // MASTER CLASS COLOR SCHEMES
+    const CLASS_THEMES = {
+      '9':  { bg: 'linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%)', border: '#BFDBFE', iconBg: 'linear-gradient(135deg, #2563EB, #1D4ED8)', text: '#1E3A8A', accent: '#2563EB' },
+      '10': { bg: 'linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)', border: '#A7F3D0', iconBg: 'linear-gradient(135deg, #059669, #047857)', text: '#064E3B', accent: '#059669' },
+      '11': { bg: 'linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%)', border: '#FDE68A', iconBg: 'linear-gradient(135deg, #D97706, #B45309)', text: '#78350F', accent: '#D97706' },
+      '12': { bg: 'linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%)', border: '#FECACA', iconBg: 'linear-gradient(135deg, #DC2626, #B91C1C)', text: '#7F1D1D', accent: '#DC2626' },
+      'competitive': { bg: 'linear-gradient(135deg, #F3E8FF 0%, #EDE9FE 100%)', border: '#D8B4FE', iconBg: 'linear-gradient(135deg, #7C3AED, #6D28D9)', text: '#4C1D95', accent: '#7C3AED' }
+    };
+
     const subjectContainer = document.getElementById('subjectContainerArea');
     const selectedClassTitle = document.getElementById('selectedClassTitle');
     const subjectGrid = document.getElementById('subjectGrid');
@@ -930,20 +911,23 @@
       card.addEventListener('click', function () {
         const cls = this.getAttribute('data-class');
         const subs = CURRICULUM[cls] || [];
+        const theme = CLASS_THEMES[cls] || CLASS_THEMES['9'];
+
         if (selectedClassTitle) {
           selectedClassTitle.innerHTML =
-            '<span style="display:inline-block;background:#EEF2FF;color:#4F46E5;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Selected</span>' +
-            '<h3 style="font-size:1.35rem;font-weight:800;margin:6px 0 0;">' + (CLASS_LABEL[cls] || cls) + ' — Subjects</h3>';
+            `<span style="display:inline-block;background:${theme.bg};color:${theme.text};font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;border:1px solid ${theme.border};">Selected</span>` +
+            `<h3 style="font-size:1.35rem;font-weight:800;margin:6px 0 0;color:${theme.text};">${(CLASS_LABEL[cls] || cls)} — Subjects</h3>`;
         }
+
         if (subjectGrid) {
           subjectGrid.innerHTML = subs.map(s => (
-            '<button type="button" class="subject-card" data-subject="' + s.replace(/"/g,'&quot;') + '" data-class="' + cls + '">' +
-              '<div>' +
-                '<div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#2563EB,#7C3AED);color:#fff;display:grid;place-items:center;margin-bottom:10px;"><i class="fa-solid fa-book"></i></div>' +
-                '<strong style="font-size:1rem;color:inherit;">' + s + '</strong>' +
-              '</div>' +
-              '<span style="font-size:.82rem;color:#2563EB;font-weight:700;margin-top:10px;display:inline-flex;align-items:center;gap:6px;">Open <i class="fa-solid fa-arrow-right"></i></span>' +
-            '</button>'
+            `<button type="button" class="subject-card" data-subject="${s.replace(/"/g,'&quot;')}" data-class="${cls}" style="background:${theme.bg} !important; border-color:${theme.border} !important;">` +
+              `<div>` +
+                `<div style="width:42px;height:42px;border-radius:12px;background:${theme.iconBg};color:#fff;display:grid;place-items:center;margin-bottom:12px;box-shadow:0 4px 12px rgba(0,0,0,0.15);"><i class="fa-solid fa-book-open"></i></div>` +
+                `<strong style="font-size:1.05rem;color:${theme.text};">${s}</strong>` +
+              `</div>` +
+              `<span style="font-size:.85rem;color:${theme.accent};font-weight:700;margin-top:12px;display:inline-flex;align-items:center;gap:6px;">Open <i class="fa-solid fa-arrow-right"></i></span>` +
+            `</button>`
           )).join('');
 
           subjectGrid.querySelectorAll('.subject-card').forEach(sc => {
@@ -952,6 +936,7 @@
             });
           });
         }
+
         if (subjectContainer) {
           subjectContainer.hidden = false;
           subjectContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -959,7 +944,7 @@
       });
     });
 
-    /* ---------- NOTES MODAL (WITH RED 100% FREE BADGE) ---------- */
+    /* ---------- NOTES MODAL (FULL COLOR MATCH INSIDE) ---------- */
     const notesPanel = document.getElementById('notesPanel');
     const notesClose = document.getElementById('notesPanelClose');
     const notesTitle = document.getElementById('notesPanelTitle');
@@ -970,12 +955,17 @@
 
     function openNotesPanel(cls, subject) {
       if (!notesPanel) return;
-      if (notesCrumb) notesCrumb.textContent = (CLASS_LABEL[cls] || cls) + ' • Notes';
+      const theme = CLASS_THEMES[cls] || CLASS_THEMES['9'];
+
+      if (notesCrumb) {
+        notesCrumb.textContent = (CLASS_LABEL[cls] || cls) + ' • Notes';
+        notesCrumb.style.color = theme.accent;
+      }
       if (notesTitle) notesTitle.textContent = subject;
       if (notesStatus) notesStatus.textContent = 'Loading materials...';
       if (notesGrid) notesGrid.innerHTML = '';
 
-      // Render Notes Card Function with RED "100% FREE" Badge
+      // Render Notes Inside Modal Matching the Selected Class Colors
       function renderNotes(items) {
         if (!items || items.length === 0) {
           if (notesEmpty) notesEmpty.hidden = false;
@@ -991,19 +981,18 @@
               const docCategory = n.docType || 'Chapter Note';
               
               return `
-                <a href="${fileLink}" target="_blank" rel="noopener" class="subject-card" style="text-decoration:none; position:relative;">
+                <a href="${fileLink}" target="_blank" rel="noopener" class="subject-card" style="text-decoration:none; position:relative; background:${theme.bg} !important; border-color:${theme.border} !important;">
                   <div>
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                      <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#DC2626,#B91C1C);color:#fff;display:grid;place-items:center;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                      <div style="width:42px;height:42px;border-radius:12px;background:${theme.iconBg};color:#fff;display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);">
                         <i class="fa-solid fa-file-pdf"></i>
                       </div>
-                      <!-- 🔴 RED 100% FREE BADGE HERE -->
-                      <span class="free-badge-red">🔥 100% FREE</span>
+                      <span class="free-badge-tag">🔥 100% FREE</span>
                     </div>
-                    <strong style="font-size:.98rem; color:#0F172A;">${docTitle}</strong>
+                    <strong style="font-size:1.02rem; color:${theme.text};">${docTitle}</strong>
                     <p style="font-size:.78rem;color:#64748B;margin:4px 0 0;">${docCategory}</p>
                   </div>
-                  <span style="font-size:.82rem;color:#2563EB;font-weight:700;margin-top:12px;display:inline-flex;align-items:center;gap:4px;">Download / View <i class="fa-solid fa-download"></i></span>
+                  <span style="font-size:.85rem;color:${theme.accent};font-weight:700;margin-top:14px;display:inline-flex;align-items:center;gap:6px;">Download / View <i class="fa-solid fa-download"></i></span>
                 </a>
               `;
             }).join('');
@@ -1011,7 +1000,7 @@
         }
       }
 
-      // 1. LocalStorage Search
+      // 1. LocalStorage
       let notes = [];
       try { 
         notes = JSON.parse(localStorage.getItem('notespoint_uploaded_notes_v7') || '[]'); 
