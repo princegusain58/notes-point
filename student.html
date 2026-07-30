@@ -919,14 +919,18 @@
             `<h3 style="font-size:1.35rem;font-weight:800;margin:6px 0 0;color:${theme.text};">${(CLASS_LABEL[cls] || cls)} — Subjects</h3>`;
         }
 
+        /* 🔴 SUBJECT CARDS WITH 100% FREE BADGE & MATCHING COLORS */
         if (subjectGrid) {
           subjectGrid.innerHTML = subs.map(s => (
-            `<button type="button" class="subject-card" data-subject="${s.replace(/"/g,'&quot;')}" data-class="${cls}" style="background:${theme.bg} !important; border-color:${theme.border} !important;">` +
+            `<button type="button" class="subject-card" data-subject="${s.replace(/"/g,'&quot;')}" data-class="${cls}" style="background:${theme.bg} !important; border-color:${theme.border} !important; position:relative;">` +
               `<div>` +
-                `<div style="width:42px;height:42px;border-radius:12px;background:${theme.iconBg};color:#fff;display:grid;place-items:center;margin-bottom:12px;box-shadow:0 4px 12px rgba(0,0,0,0.15);"><i class="fa-solid fa-book-open"></i></div>` +
+                `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">` +
+                  `<div style="width:42px;height:42px;border-radius:12px;background:${theme.iconBg};color:#fff;display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);"><i class="fa-solid fa-book-open"></i></div>` +
+                  `<span class="free-badge-tag">🔥 100% FREE</span>` +
+                `</div>` +
                 `<strong style="font-size:1.05rem;color:${theme.text};">${s}</strong>` +
               `</div>` +
-              `<span style="font-size:.85rem;color:${theme.accent};font-weight:700;margin-top:12px;display:inline-flex;align-items:center;gap:6px;">Open <i class="fa-solid fa-arrow-right"></i></span>` +
+              `<span style="font-size:.85rem;color:${theme.accent};font-weight:700;margin-top:14px;display:inline-flex;align-items:center;gap:6px;">Open <i class="fa-solid fa-arrow-right"></i></span>` +
             `</button>`
           )).join('');
 
@@ -944,7 +948,7 @@
       });
     });
 
-    /* ---------- NOTES MODAL (FULL COLOR MATCH INSIDE) ---------- */
+    /* ---------- NOTES MODAL (FULL COLOR MATCH INSIDE WITH 100% FREE BADGE) ---------- */
     const notesPanel = document.getElementById('notesPanel');
     const notesClose = document.getElementById('notesPanelClose');
     const notesTitle = document.getElementById('notesPanelTitle');
@@ -965,7 +969,7 @@
       if (notesStatus) notesStatus.textContent = 'Loading materials...';
       if (notesGrid) notesGrid.innerHTML = '';
 
-      // Render Notes Inside Modal Matching the Selected Class Colors
+      // Render Notes Inside Modal
       function renderNotes(items) {
         if (!items || items.length === 0) {
           if (notesEmpty) notesEmpty.hidden = false;
