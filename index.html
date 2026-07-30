@@ -1253,7 +1253,16 @@
       <p>&copy; 2026 Notes Point. Built with ❤️ for students.</p>
     </div>
   </footer>
-<!-- JAVASCRIPT HANDLERS -->
+// Page load hote hi hamesha top par le jaane ke liye
+if (history.scrollRestoration) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
+window.onload = function() {
+  window.scrollTo(0, 0);
+};
+  <!-- JAVASCRIPT HANDLERS -->
   <script>
     function toggleMobileNav() {
       const nav = document.getElementById('mainNav');
