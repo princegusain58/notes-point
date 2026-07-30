@@ -879,6 +879,7 @@ body.dark-theme .user-pill-wrap {
   .ticker-content { flex-direction: column; gap: 6px; }
   .win-controls-wrap { gap: 8px; }
 }
+
 /* =========================================================
    FIX FOR ADMIN STYLE SIDEBAR & MAIN WRAPPER LAYOUT
    ========================================================= */
@@ -945,6 +946,7 @@ body.admin-body-wrap {
 .workspace-section.active {
   display: block !important;
 }
+
 /* =========================================================
    UI FIXES: SOFT BLUE BANNER & PREMIUM ACTIVE SCHOLAR BOX
    ========================================================= */
@@ -1032,20 +1034,23 @@ body.admin-body-wrap {
   background: #DC2626 !important;
   color: #FFFFFF !important;
 }
+
 .board-label {
-    display: block;
-    margin-top: 6px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #64748b;
+  display: block;
+  margin-top: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #64748b;
 }
-.class-image{
-    width:100%;
-    height:170px;
-    object-fit:cover;
-    border-radius:10px;
-    margin-bottom:15px;
+
+.class-image {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
 }
+
 /* =========================================================
    STUDENT PANEL CLASS CARD IMAGE STYLING
    ========================================================= */
@@ -1073,6 +1078,7 @@ body.admin-body-wrap {
   transform: translateY(-6px) scale(1.03);
   box-shadow: 0 16px 30px rgba(37, 99, 235, 0.35);
 }
+
 /* =========================================================
    CLICK PASS-THROUGH FIX FOR CLASS CARDS
    ========================================================= */
@@ -1085,6 +1091,7 @@ body.admin-body-wrap {
 .class-card {
   pointer-events: auto !important;
 }
+
 /* =========================================================
    COMMERCIAL MENTOR STYLE SUBJECT CARDS (LIGHT UI)
    ========================================================= */
@@ -1116,7 +1123,6 @@ body.admin-body-wrap {
   border-color: #3B82F6 !important;
 }
 
-/* Light Blue Image Container */
 .subject-card-banner {
   background: linear-gradient(180deg, #EFF6FF 0%, #DBEAFE 100%) !important;
   padding: 24px 16px 16px 16px !important;
@@ -1126,7 +1132,6 @@ body.admin-body-wrap {
   align-items: center !important;
 }
 
-/* Top-Left Red 100% FREE Ribbon */
 .free-ribbon-badge {
   position: absolute !important;
   top: 12px !important;
@@ -1142,7 +1147,6 @@ body.admin-body-wrap {
   z-index: 2 !important;
 }
 
-/* 3:4 Book Cover Wrap inside Card */
 .subject-img-wrap {
   width: 100% !important;
   max-width: 120px !important;
@@ -1159,7 +1163,6 @@ body.admin-body-wrap {
   display: block !important;
 }
 
-/* Bottom Card Details */
 .subject-card-info {
   padding: 16px !important;
   display: flex !important;
@@ -1181,10 +1184,10 @@ body.admin-body-wrap {
   font-weight: 700 !important;
   color: #2563EB !important;
 }
+
 /* =========================================================
    ROBOT EMPTY STATE & SUPPORT BANNER STYLING
    ========================================================= */
-/* Robot Empty State Modal Styling */
 .empty-state-card {
   text-align: center !important;
   padding: 30px 15px !important;
@@ -1213,7 +1216,6 @@ body.admin-body-wrap {
   margin: 0 !important;
 }
 
-/* Support Section 2-Column Layout */
 .support-card-container {
   background: #ffffff !important;
   border: 1px solid #CBD5E1 !important;
@@ -1274,17 +1276,15 @@ body.admin-body-wrap {
 .support-form-box textarea:focus {
   border-color: #2563EB !important;
 }
+
 /* =========================================================
    MAKKAN SMOOTH UI & HARDWARE ACCELERATED ANIMATIONS
    ========================================================= */
-
-/* 1. Global GPU Acceleration for Smooth Rendering */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 2. Modal Overlay Smooth Fade In/Out */
 #notesPanel, 
 #pdfViewerModal {
   transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
@@ -1292,7 +1292,6 @@ body.admin-body-wrap {
   will-change: opacity, transform;
 }
 
-/* Modal Open Animation (Scale & Slide Smooth Transition) */
 #notesPanel:not([hidden]), 
 #pdfViewerModal:not([hidden]) {
   animation: modalPopIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -1309,7 +1308,6 @@ body.admin-body-wrap {
   }
 }
 
-/* 3. Makkan Smooth Cards & Row Hover Effects */
 .subject-card, 
 .class-card, 
 .note-card-row {
@@ -1320,7 +1318,6 @@ body.admin-body-wrap {
   will-change: transform, box-shadow;
 }
 
-/* Subtle Hover Elevation */
 .subject-card:hover, 
 .class-card:hover {
   transform: translateY(-4px) scale(1.01);
@@ -1333,7 +1330,6 @@ body.admin-body-wrap {
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08) !important;
 }
 
-/* 4. Action Buttons Micro-Interactions (Eye, Download, Save) */
 .note-card-row button, 
 .note-card-row a {
   transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), 
@@ -1351,7 +1347,6 @@ body.admin-body-wrap {
   transform: scale(0.92);
 }
 
-/* 5. Sidebar Navigation Switching Smoothness */
 .sidebar-menu .nav-item {
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
@@ -1360,7 +1355,6 @@ body.admin-body-wrap {
   transform: translateX(4px);
 }
 
-/* 6. Smooth Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -1378,240 +1372,19 @@ body.admin-body-wrap {
 ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
-/* =========================================================
-   NOTESPOINT — ULTRA HIGH-SMOOTHNESS & 60FPS ANIMATIONS
-   ========================================================= */
-
-/* 1. Global Hardware Acceleration & Butter Smooth Scroll */
-html {
-  scroll-behavior: smooth !important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-body {
-  overflow-x: hidden;
-  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* 2. GPU Layer Promotion for Fast Rendering */
-header, 
-nav, 
-.hero-section, 
-.card, 
-.modal, 
-.btn, 
-button {
-  will-change: transform, opacity;
-  transform: translateZ(0); /* Forces GPU Acceleration */
-}
-
-/* 3. High-Performance Card & Container Hover Effects */
-.card, 
-.feature-card, 
-.class-card, 
-.subject-card, 
-.course-card {
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
-              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-              border-color 0.25s ease !important;
-}
-
-.card:hover, 
-.feature-card:hover, 
-.class-card:hover, 
-.subject-card:hover {
-  transform: translateY(-6px) scale(1.015);
-  box-shadow: 0 16px 32px -8px rgba(79, 70, 229, 0.18) !important;
-}
-
-/* 4. Super Smooth Micro-Interactions on Buttons & Links */
-button, 
-.btn, 
-a.cta-btn, 
-.nav-link {
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
-              background-color 0.2s ease, 
-              color 0.2s ease, 
-              box-shadow 0.2s ease !important;
-}
-
-/* Button Hover Pop & Click Press Effects */
-button:hover, 
-.btn:hover, 
-a.cta-btn:hover {
-  transform: translateY(-2px) scale(1.04);
-}
-
-button:active, 
-.btn:active, 
-a.cta-btn:active {
-  transform: translateY(1px) scale(0.96);
-}
-
-/* 5. Smooth Spring Modal & Popup Pop-in Effect */
-.modal, 
-.popup-dialog, 
-#notesPanel, 
-#pdfViewerModal {
-  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
-              visibility 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.modal:not([hidden]), 
-.popup-dialog:not([hidden]), 
-#notesPanel:not([hidden]), 
-#pdfViewerModal:not([hidden]) {
-  animation: ultraSmoothModalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes ultraSmoothModalIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.94) translateY(16px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-/* 6. Smooth Navbar & Sticky Header Transitions */
-header.sticky-header {
-  transition: background-color 0.3s ease, 
-              backdrop-filter 0.3s ease, 
-              box-shadow 0.3s ease, 
-              padding 0.3s ease !important;
-}
-
-/* 7. Modern Silky Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(241, 245, 249, 0.6);
-}
-
-::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 99px;
-  border: 2px solid rgba(241, 245, 249, 0.6);
-  transition: background-color 0.2s ease;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #4F46E5;
-}
 
 /* =========================================================
-   NOTESPOINT — ULTIMATE BUTTERY SMOOTHNESS & ANIMATION ENGINE
-   ========================================================= */
-
-/* 1. Global Smooth Scrolling */
-html {
-  scroll-behavior: smooth !important;
-  -webkit-text-size-adjust: 100%;
-}
-
-/* 2. Hardware Accelerated Smooth Transitions for Everything */
-*, *::before, *::after {
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* 3. Disable unwanted transitions on layout heavy properties */
-body, main, .admin-main-wrapper, .admin-content-body {
-  transition: background-color 0.3s ease, color 0.3s ease !important;
-}
-
-/* 4. Click & Tap Feedback (Micro-Bounce Effect) */
-button, 
-.class-card, 
-.subject-card, 
-.nav-item, 
-.admin-btn-primary, 
-.admin-btn-secondary {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  will-change: transform, box-shadow, background-color;
-}
-
-button:active, 
-.class-card:active, 
-.subject-card:active {
-  transform: scale(0.97) translateY(1px) !important;
-  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-/* 5. Hover Lift Effect for Cards */
-.class-card:hover, .subject-card:hover {
-  transform: translateY(-4px) !important;
-  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.1) !important;
-}
-
-/* 6. Modal & Overlay Fade-In Animation */
-.notes-panel-modal {
-  animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
-}
-
-@keyframes modalFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* 7. Custom Smooth Scrollbars */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #F1F5F9;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
-}
-
-
-/* =========================================================
-   MOBILE SECTION CLICK & SIDEBAR OVERLAY FIX
+   MOBILE SECTION CLICK & SIDEBAR OVERLAY FIX (CLEAN & CORRECTED)
    ========================================================= */
 @media (max-width: 992px) {
-  /* जब मोबाइल में साइडबार बंद हो, तो वह क्लिक्स को रोके नहीं */
   .admin-sidebar {
     pointer-events: none !important;
   }
   
-  /* लेकिन जब साइडबार क्लास 'open' हो, तब उसपर क्लिक काम करे */
   .admin-sidebar.open {
     pointer-events: auto !important;
   }
 
-  /* मुख्य कंटेंट और बटन्स हमेशा क्लिकेबल रहें */
-  .admin-main-wrapper, 
-
-
-   /* =========================================================
-   MOBILE HEADER 3 BUTTONS CLICK FIX
-   ========================================================= */
-@media (max-width: 992px) {
-  /* हेडर और उसके अंदर के सारे बटन्स को सबसे ऊपर क्लिकेबल करना */
   .admin-topbar {
     position: sticky !important;
     top: 0 !important;
@@ -1627,7 +1400,8 @@ button:active,
     z-index: 100000 !important;
     position: relative !important;
   }
-}
+
+  .admin-main-wrapper, 
   .workspace-section, 
   .admin-card, 
   .class-card, 
