@@ -3253,3 +3253,32 @@ html, body {
   margin: 0 !important;
   padding: 0 !important;
 }
+
+/* ==================== FINAL MOBILE RESPONSIVE FIX ==================== */
+@media screen and (max-width: 992px) {
+  body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+  
+  .hero-section {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    padding: 0 16px !important;
+  }
+
+  .hero-title {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .class-selection-grid {
+    grid-template-columns: 1fr !important;
+    padding: 0 16px !important;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr !important;
+    text-align: left !important;
+  }
+}
