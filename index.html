@@ -374,6 +374,7 @@
     overflow: hidden;
     border: 2px solid transparent;
     box-shadow: var(--shadow-sm);
+    background: #ffffff;
   }
 
   .home-class-card:hover {
@@ -603,7 +604,7 @@
     border-color: var(--primary);
   }
 
-  /* ---------------- Floating Dock (App button removed as requested) ---------------- */
+  /* ---------------- Floating Dock ---------------- */
   .vedantu-floating-dock {
     position: fixed;
     bottom: 24px;
@@ -687,12 +688,6 @@
     position: relative;
     box-shadow: 0 20px 50px rgba(0,0,0,0.3);
     border: 1px solid var(--border-color);
-    animation: popupAnim 0.3s cubic-bezier(.2,.8,.2,1);
-  }
-
-  @keyframes popupAnim {
-    0% { transform: scale(0.8); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
   }
 
   .close-popup-btn {
@@ -801,7 +796,6 @@
     color: rgba(255, 255, 255, 0.6);
   }
 
-  /* ---------------- MOBILE RESPONSIVE RULES (FIXED) ---------------- */
   @media (max-width: 992px) {
     .nav-toggle-btn { display: block; }
     .main-nav {
@@ -824,27 +818,6 @@
     .hero-title { font-size: 2.1rem; }
     .hero-ctas { justify-content: center; }
     .footer-inner { grid-template-columns: 1fr; text-align: left; }
-
-    /* Mobile header spacing fix */
-    .header-inner {
-      gap: 8px;
-    }
-    .header-left {
-      gap: 8px;
-    }
-    .brand-name {
-      font-size: 1.15rem;
-    }
-    .brand-logo-icon {
-      width: 34px;
-      height: 34px;
-      font-size: 0.95rem;
-    }
-    .btn-nav-primary {
-      padding: 7px 12px !important;
-      font-size: 0.75rem !important;
-      border-radius: 8px !important;
-    }
   }
 </style>
 </head>
@@ -877,7 +850,7 @@
       </nav>
 
       <div style="display:flex; gap:6px; align-items:center;">
-        <a href="https://your-apk-link.com/app.apk" class="btn-nav-primary" style="background: linear-gradient(135deg,#10B981,#059669);"><i class="fa-brands fa-android"></i> App APK</a>
+        <button type="button" class="btn-nav-primary" onclick="openAppModal()" style="background: linear-gradient(135deg,#10B981,#059669);"><i class="fa-brands fa-android"></i> App APK</button>
         <a href="student.html" class="btn-nav-primary"><i class="fa-solid fa-book-open"></i> Notes</a>
       </div>
     </div>
@@ -899,7 +872,7 @@
 
         <div class="hero-ctas">
           <a href="student.html" class="btn-nav-primary" style="font-size: 1.05rem; padding: 14px 32px;"><i class="fa-solid fa-rocket"></i> Jump To Student Workspace</a>
-          <a href="https://your-apk-link.com/app.apk" class="btn-nav-primary" style="background:#ffffff; color:#0F172A !important; border:1px solid #CBD5E1; box-shadow:none;"><i class="fa-brands fa-android" style="color:#10B981;"></i> Download APK</a>
+          <button type="button" class="btn-nav-primary" onclick="openAppModal()" style="background:#ffffff; color:#0F172A !important; border:1px solid #CBD5E1; box-shadow:none;"><i class="fa-brands fa-android" style="color:#10B981;"></i> Download App APK</button>
         </div>
       </div>
 
@@ -1079,7 +1052,7 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            CRITICAL! All our revision notes and PYQs are strictly aligned with the latest NCERT curriculum, making them 100% effective for CBSE, UP Board, Bihar Board, MP Board, and other state boards.
+            All our revision notes and PYQs are strictly aligned with the latest NCERT curriculum, making them 100% effective for CBSE, UP Board, Bihar Board, MP Board, and other state boards.
           </div>
         </div>
 
@@ -1173,16 +1146,18 @@
     </section>
   </main>
 
-  <!-- FLOATING DOCK (Cleaned up: App APK button removed from side dock) -->
+  <!-- FLOATING DOCK -->
   <div class="vedantu-floating-dock">
-    <button type="button" class="dock-circle-btn ai-dock-btn" onclick="toggleAiModal()" title="Ask NotesPoint AI Chatbot">
+    <button type="button" class="dock-circle-btn ai-dock-btn" onclick="openAppModal()" title="Download Android App">
+      <i class="fa-brands fa-android"></i>
+    </button>
+    <button type="button" class="dock-circle-btn ai-dock-btn" onclick="toggleAiModal()" title="Ask NotesPoint AI Chatbot" style="background: linear-gradient(135deg, #2563EB, #7C3AED);">
       🤖
     </button>
-  
-    <a href="https://whatsapp.com/channel/0029VbDBkW7DuMRXnoY2Th11" target="_blank" rel="noopener" class="dock-circle-btn whatsapp-dock-btn" title="Join WhatsApp Channel">
+    <a href="https://wa.me/?text=Check%20out%20NotesPoint%20for%20free%20NCERT%20notes!" target="_blank" rel="noopener" class="dock-circle-btn whatsapp-dock-btn" title="Join WhatsApp Channel">
       <i class="fa-brands fa-whatsapp"></i>
     </a>
-    <a href="https://www.instagram.com/notespoint9to12" target="_blank" rel="noopener" class="dock-circle-btn insta-dock-btn" title="Follow on Instagram">
+    <a href="https://instagram.com" target="_blank" rel="noopener" class="dock-circle-btn insta-dock-btn" title="Follow on Instagram">
       <i class="fa-brands fa-instagram"></i>
     </a>
     <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener" class="dock-circle-btn telegram-dock-btn" title="Join Telegram Channel">
@@ -1210,7 +1185,7 @@
     </div>
     
     <div style="padding: 10px; background: #ffffff; border-top: 1px solid #E2E8F0; display: flex; gap: 8px;">
-      <input type="text" id="aiUserInput" placeholder="Ask anything (e.g. Class 10 Notes)..." style="flex: 1; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.85rem; outline: none;" onkeypress="handleKeyPress(event)">
+      <input type="text" id="aiUserInput" placeholder="Ask anything..." style="flex: 1; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.85rem; outline: none;" onkeypress="handleKeyPress(event)">
       <button type="button" onclick="sendAiMessage()" style="background: #2563EB; color: #ffffff; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer;">🚀</button>
     </div>
   </div>
@@ -1227,23 +1202,21 @@
       <h3 style="font-size:1.45rem; font-weight:800; color:#0F172A; margin:0 0 8px 0;">NotesPoint Official App</h3>
       <p style="font-size:0.9rem; color:#64748B; margin:0 0 20px 0; line-height:1.5;">Get fast 1-click PDF downloads, offline notes reading, and board exam revision alerts on your phone.</p>
       
-      <a href="https://your-apk-link.com/app.apk" class="btn-nav-primary" style="width:100%; justify-content:center; padding:14px; font-size:1rem; background:linear-gradient(135deg,#10B981,#059669);">
+      <a href="app.apk" download class="btn-nav-primary" style="width:100%; justify-content:center; padding:14px; font-size:1rem; background:linear-gradient(135deg,#10B981,#059669);">
         <i class="fa-solid fa-download"></i> Download Android APK (Free)
       </a>
       <p style="font-size:0.75rem; color:#94A3B8; margin-top:12px;">v2.4 • Direct Download • 100% Free</p>
     </div>
   </div>
 
-  <!-- ORIGINAL 4-COLUMN FOOTER -->
+  <!-- 4-COLUMN FOOTER -->
   <footer class="site-footer">
     <div class="footer-inner">
-      <!-- COLUMN 1: BRAND -->
       <div class="footer-brand">
         <h2>NotesPoint</h2>
         <p>Free NCERT and Board study material for Class 9–12 &amp; Competitive Exams.</p>
       </div>
 
-      <!-- COLUMN 2: QUICK LINKS -->
       <div class="footer-col">
         <h3>Quick Links</h3>
         <ul>
@@ -1254,7 +1227,6 @@
         </ul>
       </div>
 
-      <!-- COLUMN 3: CLASSES & EXAMS -->
       <div class="footer-col">
         <h3>Classes &amp; Exams</h3>
         <ul>
@@ -1266,13 +1238,12 @@
         </ul>
       </div>
 
-      <!-- COLUMN 4: CONTACT US WITH SOCIAL ICONS -->
       <div class="footer-col">
         <h3>Contact Us</h3>
         <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-bottom: 12px;">Join official channels for PDFs &amp; updates:</p>
         <div class="footer-social-icons">
-          <a href="https://t.me/notespointfreenotes" target="_blank" class="f-social-btn" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
-          <a href="https://www.instagram.com/notespoint9to12" target="_blank" class="f-social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener" class="f-social-btn" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="f-social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
           <a href="mailto:notespoint2026@gmail.com" class="f-social-btn" title="Email Us"><i class="fa-solid fa-envelope"></i></a>
         </div>
       </div>
@@ -1283,15 +1254,13 @@
     </div>
   </footer>
 
-  <!-- ==================== WORKING JAVASCRIPT HANDLERS ==================== -->
+  <!-- JAVASCRIPT HANDLERS -->
   <script>
-    // Mobile Navigation Drawer Toggle
     function toggleMobileNav() {
       const nav = document.getElementById('mainNav');
       nav.classList.toggle('nav-open');
     }
 
-    // FAQ Accordion Handler
     document.querySelectorAll('.faq-question').forEach(button => {
       button.addEventListener('click', () => {
         const faqItem = button.parentElement;
@@ -1301,17 +1270,23 @@
       });
     });
 
-    // Support Form Handler
     function handleSupportSubmit(e) {
       e.preventDefault();
       alert('Thank you! Your feedback or requested notes message has been sent successfully.');
       e.target.reset();
     }
 
-    // AI Chatbot Controls
     function toggleAiModal() {
       const modal = document.getElementById('aiChatModal');
       modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    function openAppModal() {
+      document.getElementById('appModalOverlay').style.display = 'flex';
+    }
+
+    function closeAppModal() {
+      document.getElementById('appModalOverlay').style.display = 'none';
     }
 
     function handleKeyPress(e) {
@@ -1348,10 +1323,6 @@
           aiMsg.innerHTML = '🔬 Class 11 Science, Commerce aur Arts ke saare stream notes उपलब्ध hain. <br><a href="student.html" style="color:#2563EB; font-weight:700;">Open Class 11 Panel →</a>';
         } else if (query.includes('12')) {
           aiMsg.innerHTML = '🎓 Class 12 Final Board Exam Revision Notes & Derivations yahan hain. <br><a href="student.html" style="color:#2563EB; font-weight:700;">Open Class 12 Panel →</a>';
-        } else if (query.includes('app') || query.includes('apk')) {
-          aiMsg.innerHTML = '📱 Aap hamारा Official Android App download kar sakte hain! <br><button onclick="openAppModal()" style="background:#10B981; color:#fff; border:none; padding:4px 10px; border-radius:6px; margin-top:4px; cursor:pointer;">Download App APK</button>';
-        } else if (query.includes('hi') || query.includes('hello') || query.includes('hey')) {
-          aiMsg.innerHTML = '👋 Hello Scholar! Aapko kis class ya competitive exam (JEE/NEET) ke notes chahiye? BATAEIN!';
         } else {
           aiMsg.innerHTML = '✨ Aap Student Workspace me jaakar direct Class & Subject chunte hue free PDF padh ya download kar sakte hain. <br><a href="student.html" style="color:#2563EB; font-weight:700;">Open Student Workspace →</a>';
         }
@@ -1360,21 +1331,6 @@
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
       }, 600);
     }
-
-    // App Download Popup Control
-    function openAppModal() {
-      document.getElementById('appModalOverlay').style.display = 'flex';
-    }
-    function closeAppModal() {
-      document.getElementById('appModalOverlay').style.display = 'none';
-    }
-
-    // Auto open popup after 5 seconds
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        openAppModal();
-      }, 5000);
-    });
   </script>
 
 </body>
