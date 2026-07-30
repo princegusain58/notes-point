@@ -3152,3 +3152,77 @@ button:active {
     gap: 4px !important;
   }
 }
+
+/* ==================== ULTIMATE MOBILE RESPONSIVE FIX ==================== */
+
+@media screen and (max-width: 992px) {
+  /* Container & Grid Adjustments */
+  body {
+    overflow-x: hidden !important;
+  }
+  
+  .hero-section {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    margin-top: 20px !important;
+    padding: 0 16px !important;
+  }
+
+  .hero-title {
+    font-size: 2.1rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .hero-ctas {
+    justify-content: center !important;
+  }
+
+  .class-selection-grid {
+    grid-template-columns: 1fr !important;
+    padding: 0 16px !important;
+    gap: 16px !important;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr !important;
+    text-align: left !important;
+    gap: 30px !important;
+  }
+
+  .support-card-box {
+    padding: 20px !important;
+  }
+
+  .support-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Chatbot & Modal Fixes for Small Screens */
+  #aiChatModal {
+    width: 90% !important;
+    right: 5% !important;
+    bottom: 75px !important;
+  }
+
+  .app-modal-card {
+    max-width: 90% !important;
+    margin: 0 auto !important;
+    padding: 24px 16px !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero-title {
+    font-size: 1.8rem !important;
+  }
+  
+  .home-class-card {
+    min-height: auto !important;
+    padding: 20px 16px !important;
+  }
+
+  .top-announcement-bar {
+    font-size: 0.78rem !important;
+    padding: 8px 10px !important;
+  }
+}
