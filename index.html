@@ -664,48 +664,6 @@
     overflow: hidden;
   }
 
-  /* ---------------- App Download Popup Modal ---------------- */
-  .app-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(15, 23, 42, 0.7);
-    backdrop-filter: blur(6px);
-    z-index: 999999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-
-  .app-modal-card {
-    background: #ffffff;
-    border-radius: 24px;
-    max-width: 420px;
-    width: 100%;
-    padding: 32px 24px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    border: 1px solid var(--border-color);
-  }
-
-  .close-popup-btn {
-    position: absolute;
-    top: 16px;
-    right: 18px;
-    background: #F1F5F9;
-    border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
-    color: var(--slate-500);
-  }
-
   /* ---------------- 4-Column Footer ---------------- */
   .site-footer {
     background: var(--dark-navy);
@@ -852,7 +810,6 @@
       </nav>
 
       <div style="display:flex; gap:6px; align-items:center;">
-        <button type="button" class="btn-nav-primary" onclick="openAppModal()" style="background: linear-gradient(135deg,#10B981,#059669);"><i class="fa-brands fa-android"></i> App APK</button>
         <a href="student.html" class="btn-nav-primary"><i class="fa-solid fa-book-open"></i> Notes</a>
       </div>
     </div>
@@ -874,7 +831,6 @@
 
         <div class="hero-ctas">
           <a href="student.html" class="btn-nav-primary" style="font-size: 1.05rem; padding: 14px 32px;"><i class="fa-solid fa-rocket"></i> Jump To Student Workspace</a>
-          <button type="button" class="btn-nav-primary" onclick="openAppModal()" style="background:#ffffff; color:#0F172A !important; border:1px solid #CBD5E1; box-shadow:none;"><i class="fa-brands fa-android" style="color:#10B981;"></i> Download App APK</button>
         </div>
       </div>
 
@@ -1150,16 +1106,13 @@
 
   <!-- FLOATING DOCK -->
   <div class="vedantu-floating-dock">
-    <button type="button" class="dock-circle-btn ai-dock-btn" onclick="openAppModal()" title="Download Android App">
-      <i class="fa-brands fa-android"></i>
-    </button>
     <button type="button" class="dock-circle-btn ai-dock-btn" onclick="toggleAiModal()" title="Ask NotesPoint AI Chatbot" style="background: linear-gradient(135deg, #2563EB, #7C3AED);">
       🤖
     </button>
-    <a href="https://wa.me/?text=Check%20out%20NotesPoint%20for%20free%20NCERT%20notes!" target="_blank" rel="noopener" class="dock-circle-btn whatsapp-dock-btn" title="Join WhatsApp Channel">
+    <a href="https://whatsapp.com/channel/0029VbDBkW7DuMRXnoY2Th11" target="_blank" rel="noopener" class="dock-circle-btn whatsapp-dock-btn" title="Join WhatsApp Channel">
       <i class="fa-brands fa-whatsapp"></i>
     </a>
-    <a href="https://instagram.com" target="_blank" rel="noopener" class="dock-circle-btn insta-dock-btn" title="Follow on Instagram">
+    <a href="https://www.instagram.com/notespoint_?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener" class="dock-circle-btn insta-dock-btn" title="Follow on Instagram">
       <i class="fa-brands fa-instagram"></i>
     </a>
     <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener" class="dock-circle-btn telegram-dock-btn" title="Join Telegram Channel">
@@ -1189,25 +1142,6 @@
     <div style="padding: 10px; background: #ffffff; border-top: 1px solid #E2E8F0; display: flex; gap: 8px;">
       <input type="text" id="aiUserInput" placeholder="Ask anything..." style="flex: 1; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.85rem; outline: none;" onkeypress="handleKeyPress(event)">
       <button type="button" onclick="sendAiMessage()" style="background: #2563EB; color: #ffffff; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer;">🚀</button>
-    </div>
-  </div>
-
-  <!-- APP DOWNLOAD POPUP MODAL -->
-  <div class="app-modal-overlay" id="appModalOverlay">
-    <div class="app-modal-card">
-      <button type="button" class="close-popup-btn" onclick="closeAppModal()">&times;</button>
-      
-      <div style="width:64px; height:64px; background:#ECFDF5; color:#10B981; border-radius:20px; display:grid; place-items:center; font-size:2.2rem; margin:0 auto 16px auto;">
-        <i class="fa-brands fa-android"></i>
-      </div>
-      
-      <h3 style="font-size:1.45rem; font-weight:800; color:#0F172A; margin:0 0 8px 0;">NotesPoint Official App</h3>
-      <p style="font-size:0.9rem; color:#64748B; margin:0 0 20px 0; line-height:1.5;">Get fast 1-click PDF downloads, offline notes reading, and board exam revision alerts on your phone.</p>
-      
-      <a href="app.apk" download class="btn-nav-primary" style="width:100%; justify-content:center; padding:14px; font-size:1rem; background:linear-gradient(135deg,#10B981,#059669);">
-        <i class="fa-solid fa-download"></i> Download Android APK (Free)
-      </a>
-      <p style="font-size:0.75rem; color:#94A3B8; margin-top:12px;">v2.4 • Direct Download • 100% Free</p>
     </div>
   </div>
 
@@ -1245,7 +1179,7 @@
         <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-bottom: 12px;">Join official channels for PDFs &amp; updates:</p>
         <div class="footer-social-icons">
           <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener" class="f-social-btn" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
-          <a href="https://instagram.com" target="_blank" rel="noopener" class="f-social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.instagram.com/notespoint_?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener" class="f-social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
           <a href="mailto:notespoint2026@gmail.com" class="f-social-btn" title="Email Us"><i class="fa-solid fa-envelope"></i></a>
         </div>
       </div>
@@ -1291,14 +1225,6 @@
     function toggleAiModal() {
       const modal = document.getElementById('aiChatModal');
       modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
-    }
-
-    function openAppModal() {
-      document.getElementById('appModalOverlay').style.display = 'flex';
-    }
-
-    function closeAppModal() {
-      document.getElementById('appModalOverlay').style.display = 'none';
     }
 
     function handleKeyPress(e) {
