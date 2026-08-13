@@ -3344,3 +3344,427 @@ html, body {
     z-index: 9999 !important;
   }
 }
+/* ============================================================
+   FIXES FOR HERO TITLE (NO GREEN BLOCK) & MOBILE SUPPORT FORM
+   ============================================================ */
+
+/* Hero Title Green Block Fix */
+.hero-title {
+  font-size: 3.1rem;
+  font-weight: 800;
+  color: var(--brand-navy, #0F172A);
+  margin: 0 0 18px 0;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+}
+
+.hero-title span.highlight {
+  color: var(--primary-teal, #14B8A6) !important;
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+  display: inline-block;
+}
+
+/* Support Form & Card Alignment Fix */
+.support-section {
+  padding: 50px 16px 120px 16px !important;
+  background: rgba(255, 255, 255, 0.9);
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.support-card-box {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid var(--border-color, #CBD5E1);
+  border-radius: var(--radius-lg, 20px);
+  padding: 32px 20px !important;
+  box-shadow: var(--shadow-sm, 0 4px 12px rgba(15, 23, 42, 0.04));
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  width: 100% !important;
+}
+
+.support-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 28px;
+  align-items: center;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.support-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.support-form input,
+.support-form textarea {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 12px 14px;
+  border: 1px solid var(--border-color, #CBD5E1);
+  border-radius: var(--radius-sm, 8px);
+  font-family: inherit;
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.support-form input:focus,
+.support-form textarea:focus {
+  border-color: var(--primary-teal, #14B8A6);
+}
+
+/* Mobile Responsive Fixes */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.1rem !important;
+  }
+
+  .support-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .support-card-box {
+    padding: 20px 14px !important;
+  }
+
+  .support-form button {
+    align-self: center !important;
+    width: 100% !important;
+  }
+
+  /* Floating Dock adjustment so it won't block form inputs */
+  .vedantu-floating-dock {
+    right: 10px !important;
+    bottom: 15px !important;
+    gap: 8px !important;
+  }
+
+  .dock-circle-btn {
+    width: 42px !important;
+    height: 42px !important;
+    font-size: 1.1rem !important;
+  }
+}
+/* ============================================================
+   ULTIMATE MOBILE FIX FOR SUPPORT FORM & INPUTS (STYLE.CSS)
+   ============================================================ */
+
+/* 1. Support Section Full Width */
+.support-section {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 30px 10px 160px 10px !important; /* Bottom padding for floating dock */
+  box-sizing: border-box !important;
+}
+
+/* 2. White Card Width Fix (Gives full width to inner elements) */
+.support-card-box {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 20px 12px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+  border-radius: 16px !important;
+}
+
+/* 3. Force Flex Layout (Stacked in Mobile) */
+.support-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  gap: 16px !important;
+  box-sizing: border-box !important;
+}
+
+/* 4. Support Form Stretch */
+.support-form {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+/* 5. Inputs & Textarea Strict Containment */
+.support-form input,
+.support-form textarea {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 10px 12px !important;
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 8px !important;
+  font-size: 0.88rem !important;
+  display: block !important;
+}
+
+.support-form button {
+  width: 100% !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+/* 6. Push Floating Icons to Edge so they don't cover inputs */
+@media (max-width: 768px) {
+  .vedantu-floating-dock {
+    right: 4px !important;
+    bottom: 10px !important;
+    gap: 6px !important;
+  }
+
+  .dock-circle-btn {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 0.95rem !important;
+  }
+}/* ============================================================
+   EMERGENCY MOBILE FORM OVERFLOW FIX (OVERRIDES ALL FIXED WIDTHS)
+   ============================================================ */
+
+/* 1. Reset Outer Container Padding */
+#support, 
+.support-section {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  padding-bottom: 160px !important; /* Floater ke liye space */
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* 2. Make White Card Full Width in Mobile */
+.support-card-box {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 auto !important;
+  padding: 20px 12px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* 3. Force Grid to Single Column & Remove Width Constraints */
+.support-grid,
+.support-grid > div {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* 4. Strict Containment for Form Inputs */
+.support-form,
+.support-form input,
+.support-form textarea,
+.support-form button {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.support-form input,
+.support-form textarea {
+  padding: 10px 12px !important;
+  font-size: 0.88rem !important;
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 8px !important;
+  display: block !important;
+}
+
+/* 5. Push Floating Dock Slightly Right/Bottom */
+@media (max-width: 768px) {
+  .vedantu-floating-dock {
+    right: 5px !important;
+    bottom: 10px !important;
+    transform: scale(0.88) !important; /* Thoda chota kar diya */
+    transform-origin: bottom right !important;
+  }
+}
+/* ============================================================
+   FINAL ABSOLUTE FIX FOR SUPPORT FORM OVERFLOW (STYLE.CSS)
+   ============================================================ */
+
+/* 1. Ensure Body & Main Section don't overflow */
+.support-section {
+  width: 100% !important;
+  max-width: 100vw !important;
+  padding: 30px 12px 170px 12px !important; /* Bottom space for floating dock */
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* 2. White Card Container Expansion & Boundary */
+.support-card-box {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  padding: 20px 12px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+}
+
+/* 3. Force Grid to single stacked vertical column */
+.support-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  gap: 16px !important;
+  box-sizing: border-box !important;
+}
+
+.support-grid > div {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* 4. Form and Field Containment (Prevents right border bleed) */
+.support-form {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.support-form input,
+.support-form textarea {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 10px 12px !important;
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 8px !important;
+  font-size: 0.88rem !important;
+  display: block !important;
+}
+
+.support-form button {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  justify-content: center !important;
+}
+
+/* 5. Floating Dock Alignment & Spacing in Mobile View */
+@media (max-width: 768px) {
+  .support-section {
+    padding-bottom: 180px !important;
+  }
+
+  .vedantu-floating-dock {
+    right: 6px !important;
+    bottom: 12px !important;
+    gap: 6px !important;
+    z-index: 9999 !important;
+  }
+
+  .dock-circle-btn {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 0.95rem !important;
+  }
+}
+/* ============================================================
+   MASTER FULL-WIDTH SUPPORT FORM FIX (NO OVERFLOW GUARANTEED)
+   ============================================================ */
+
+/* 1. Reset all container limits */
+section#support,
+.support-section {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 30px 10px 180px 10px !important;
+  overflow: hidden !important;
+}
+
+/* 2. Make white card fill full mobile screen width */
+.support-card-box {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  padding: 16px 10px !important;
+  margin: 0 auto !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+}
+
+/* 3. Break grid into clean 1-column layout */
+.support-grid,
+.support-grid > div {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* 4. Force Form inputs strictly inside card */
+.support-form {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  gap: 10px !important;
+}
+
+.support-form input,
+.support-form textarea {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  padding: 10px 12px !important;
+  margin: 0 0 8px 0 !important;
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 8px !important;
+  font-size: 0.88rem !important;
+  display: block !important;
+}
+
+.support-form button {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  justify-content: center !important;
+}
+
+/* 5. Floating Dock Spacing */
+@media (max-width: 768px) {
+  .vedantu-floating-dock {
+    right: 5px !important;
+    bottom: 8px !important;
+    transform: scale(0.85) !important;
+    transform-origin: bottom right !important;
+  }
+}
