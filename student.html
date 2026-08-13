@@ -126,7 +126,7 @@
     box-shadow: 6px 6px 0px var(--brand-navy); margin-bottom: 28px;
   }
 
-  /* ===== CLASS CARDS ===== */
+  /* ===== CLASS CARDS (SOFT PASTEL THEMES) ===== */
   .class-rail {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 18px; margin-top: 16px;
@@ -451,7 +451,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 
-  <!-- ROBUST EMBEDDED STUDENT ENGINE (ADMIN PANEL SYNC CONNECTED) -->
+  <!-- FULL POWERED DYNAMIC CLASS-COLOR THEMED STUDENT ENGINE -->
   <script>
   (() => {
     'use strict';
@@ -543,6 +543,15 @@
       'competitive': { subjects: ['JEE Main & Advanced', 'NEET-UG Biology & Physics', 'CUET General Test', 'NDA Entrance Exam', 'Formula Short Tricks'] }
     };
 
+    /* CLASS THEME MAP FOR DYNAMIC COLOR MATCHING */
+    const CLASS_THEMES = {
+      '9': { bg: 'linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%)', border: '#BFDBFE', text: '#1E3A8A', accent: '#2563EB' },
+      '10': { bg: 'linear-gradient(135deg,#ECFDF5 0%,#D1FAE5 100%)', border: '#A7F3D0', text: '#064E3B', accent: '#059669' },
+      '11': { bg: 'linear-gradient(135deg,#FFFBEB 0%,#FEF3C7 100%)', border: '#FDE68A', text: '#78350F', accent: '#D97706' },
+      '12': { bg: 'linear-gradient(135deg,#FEF2F2 0%,#FEE2E2 100%)', border: '#FECACA', text: '#7F1D1D', accent: '#DC2626' },
+      'competitive': { bg: 'linear-gradient(135deg,#F3E8FF 0%,#EDE9FE 100%)', border: '#D8B4FE', text: '#4C1D95', accent: '#7C3AED' }
+    };
+
     const BOOKMARKS_KEY = 'notesPointBookmarks';
     const RECENT_KEY = 'notesPointRecentlyViewed';
 
@@ -607,9 +616,14 @@
       if (classHeaderArea) classHeaderArea.style.cssText = 'display: none !important;';
       if (subjectContainerArea) subjectContainerArea.hidden = false;
 
+      const theme = CLASS_THEMES[activeClass] || CLASS_THEMES['10'];
       const titleText = activeClass === 'competitive' ? 'Competitive Entrance Exams' : `Class ${activeClass} — Subjects & Resources`;
+      
       if (selectedClassTitle) {
-        selectedClassTitle.innerHTML = `<h3 style="font-size: 1.35rem; color: #0F172A; font-weight: 800; margin: 0; text-align: center;">${titleText}</h3>`;
+        selectedClassTitle.innerHTML = `
+          <span style="display:inline-block; background:${theme.bg}; color:${theme.text}; font-size:.72rem; font-weight:700; padding:4px 12px; border-radius:20px; margin-bottom:6px; border:1px solid ${theme.border};">Selected Class</span>
+          <h3 style="font-size: 1.35rem; color: ${theme.text}; font-weight: 800; margin: 0; text-align: center;">${titleText}</h3>
+        `;
       }
 
       if (CURRICULUM[activeClass]?.streams) {
@@ -617,11 +631,11 @@
         const streamKeys = Object.keys(CURRICULUM[activeClass].streams);
         activeStream = streamKeys[0];
         renderStreamPills(activeClass, activeStream);
-        renderSubjectGrid(CURRICULUM[activeClass].streams[activeStream]);
+        renderSubjectGrid(CURRICULUM[activeClass].streams[activeStream], theme);
       } else {
         if (streamLevel) streamLevel.hidden = true;
         if (streamPills) streamPills.innerHTML = '';
-        if (CURRICULUM[activeClass]) renderSubjectGrid(CURRICULUM[activeClass].subjects);
+        if (CURRICULUM[activeClass]) renderSubjectGrid(CURRICULUM[activeClass].subjects, theme);
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -639,42 +653,51 @@
     function renderStreamPills(classValue, currentActiveStream) {
       if (!streamPills) return;
       streamPills.innerHTML = '';
+      const theme = CLASS_THEMES[classValue] || CLASS_THEMES['10'];
+
       Object.keys(CURRICULUM[classValue].streams).forEach((streamName) => {
         const pill = document.createElement('button');
         pill.type = 'button';
         const isActive = streamName === currentActiveStream;
-        pill.className = isActive ? 'stream-pill-btn active' : 'stream-pill-btn';
+        pill.className = 'stream-pill-btn';
+        pill.style.cssText = `
+          padding: 8px 18px; border-radius: 20px; font-weight: 700; font-size: 0.88rem; cursor: pointer;
+          background: ${isActive ? theme.accent : '#FFFFFF'}; color: ${isActive ? '#FFFFFF' : '#475569'};
+          border: 1px solid ${isActive ? theme.accent : '#CBD5E1'}; box-shadow: ${isActive ? '0 4px 12px rgba(0,0,0,0.1)' : 'none'};
+        `;
         pill.textContent = streamName;
         pill.addEventListener('click', () => {
           activeStream = streamName;
           renderStreamPills(classValue, streamName);
-          renderSubjectGrid(CURRICULUM[classValue].streams[streamName]);
+          renderSubjectGrid(CURRICULUM[classValue].streams[streamName], theme);
         });
         streamPills.appendChild(pill);
       });
     }
 
-    function renderSubjectGrid(subjects) {
+    function renderSubjectGrid(subjects, theme) {
       if (!subjectGrid) return;
       subjectGrid.innerHTML = '';
       subjects.forEach((subjectLabel) => {
         const cleanName = subjectLabel.replace(' (Optional)', '');
         const card = document.createElement('button');
         card.type = 'button';
+        card.className = 'subject-card-box';
         card.style.cssText = `
-          background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%) !important;
-          border: 1px solid #CBD5E1 !important; border-radius: 12px !important;
-          padding: 18px !important; text-align: left !important; cursor: pointer !important;
+          background: ${theme.bg} !important; border: 1px solid ${theme.border} !important;
+          border-radius: 14px !important; padding: 18px !important; text-align: left !important; cursor: pointer !important;
           display: flex !important; flex-direction: column !important; justify-content: space-between !important;
-          min-height: 110px !important; box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.2s ease;
+          min-height: 120px !important; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: all 0.25s ease;
         `;
         card.innerHTML = `
-          <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 8px;">
-            <div style="width:36px; height:36px; border-radius:8px; background:#2563EB; color:#fff; display:grid; place-items:center;"><i class="fa-solid fa-book-open"></i></div>
-            <span style="background:#10B981; color: #fff; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 6px;">100% FREE</span>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 10px;">
+              <div style="width:38px; height:38px; border-radius:10px; background:${theme.accent}; color:#fff; display:grid; place-items:center;"><i class="fa-solid fa-book-open"></i></div>
+              <span style="background:#EF4444; color: #fff; font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 6px;">100% FREE</span>
+            </div>
+            <strong style="font-size: 1rem; color: ${theme.text}; font-weight:800;">${cleanName}</strong>
           </div>
-          <h4 style="font-size: 1rem; font-weight: 700; color: #0F172A; margin: 0;">${cleanName}</h4>
-          <span style="font-size: 0.8rem; color: #2563EB; font-weight: 700; margin-top: 10px; display:inline-block;">Open Materials →</span>
+          <span style="font-size: 0.82rem; color: ${theme.accent}; font-weight: 700; margin-top: 10px; display:inline-flex; align-items:center; gap:6px;">Open <i class="fa-solid fa-arrow-right"></i></span>
         `;
         card.addEventListener('click', () => openNotesPanel({ classValue: activeClass, streamValue: activeStream, subjectValue: cleanName }));
         subjectGrid.appendChild(card);
@@ -713,17 +736,12 @@
           <span style="font-size: 0.75rem; color: #10B981; font-weight: 700;">100% FREE VERIFIED PDF</span>
         </div>
         <div style="display:flex; gap:8px;">
-          <button type="button" class="save-btn" style="background: ${isBookmarked(id)?'#F59E0B':'#E2E8F0'}; color: #fff; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer;">★</button>
           <button type="button" class="dl-btn" style="background: #2563EB; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.85rem;">Download <i class="fa-solid fa-download"></i></button>
         </div>
       `;
       card.querySelector('.dl-btn').addEventListener('click', () => {
         addRecentlyViewed(id, note);
         openPdfInNewTab(note.fileUrl, id);
-      });
-      card.querySelector('.save-btn').addEventListener('click', () => {
-        const nowSaved = toggleBookmark(id, note);
-        card.querySelector('.save-btn').style.background = nowSaved ? '#F59E0B' : '#E2E8F0';
       });
       return card;
     }
@@ -829,5 +847,3 @@
 
 </body>
 </html>
-
-
