@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Student Portal — Notes Point Dashboard</title>
 <meta name="description" content="Notes Point Student Command Center & Study Materials Dashboard.">
 <meta name="theme-color" content="#2563EB">
@@ -11,853 +11,505 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="admin.css">
-<link rel="stylesheet" href="student.css">
 
 <style>
-  /* ===== GLOBAL ENHANCEMENTS ===== */
-  html { scroll-behavior: smooth !important; }
+  :root {
+    --primary-cyan: #06B6D4;
+    --primary-teal: #14B8A6;
+    --brand-navy: #0F172A;
+    --brand-slate: #1E293B;
+    --slate-700: #334155;
+    --slate-600: #475569;
+    --slate-500: #64748B;
+    --border-color: #CBD5E1;
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --paper-bg: #FAF9F5;
+    --paper-line: #E2E0D4;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    scroll-behavior: smooth !important;
+  }
 
   body.admin-body-wrap {
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
-    background:
-      radial-gradient(1000px 600px at -10% -10%, rgba(37,99,235,0.10), transparent 60%),
-      radial-gradient(900px 500px at 110% 10%, rgba(124,58,237,0.10), transparent 60%),
-      radial-gradient(700px 500px at 50% 120%, rgba(5,150,105,0.08), transparent 60%),
-      #F6F8FC !important;
+    background-color: var(--paper-bg) !important;
+    background-image: linear-gradient(var(--paper-line) 1px, transparent 1px) !important;
+    background-size: 100% 32px !important;
+    color: var(--brand-navy);
+    line-height: 1.6;
     min-height: 100vh;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
   }
 
-  /* Floating decorative blobs */
-  body.admin-body-wrap::before,
-  body.admin-body-wrap::after {
-    content: "";
-    position: fixed;
-    z-index: 0;
-    filter: blur(80px);
-    opacity: 0.55;
-    pointer-events: none;
-    border-radius: 50%;
+  /* ===== SIDEBAR UI ===== */
+  .admin-sidebar {
+    position: fixed; top: 0; left: 0; width: 260px; height: 100vh;
+    background: #FFFFFF !important;
+    border-right: 2px solid var(--paper-line) !important;
+    z-index: 100;
+    display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: 4px 0 20px rgba(15,23,42,0.03);
+    transition: left 0.3s ease;
   }
-  body.admin-body-wrap::before {
-    width: 380px; height: 380px;
-    background: radial-gradient(circle, #93C5FD 0%, transparent 70%);
-    top: -120px; right: -80px;
-    animation: floatBlob 14s ease-in-out infinite;
+  .sidebar-brand { cursor: pointer; padding: 20px; display: flex; align-items: center; gap: 12px; border-bottom: 2px solid var(--paper-line); }
+  .brand-icon-box {
+    background: linear-gradient(135deg,var(--brand-navy),var(--primary-teal)) !important;
+    color:#fff !important; width: 38px; height: 38px; border-radius: 10px;
+    display: grid; place-items: center; font-size: 1.1rem;
   }
-  body.admin-body-wrap::after {
-    width: 420px; height: 420px;
-    background: radial-gradient(circle, #C4B5FD 0%, transparent 70%);
-    bottom: -140px; left: -100px;
-    animation: floatBlob 18s ease-in-out infinite reverse;
+  .sidebar-menu { list-style: none; padding: 16px; margin: 0; }
+  .sidebar-menu li { margin-bottom: 8px; }
+  .sidebar-menu .nav-item {
+    display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+    border-radius: 12px; color: var(--slate-700); font-weight: 700; text-decoration: none;
+    transition: all 0.25s ease;
   }
-  @keyframes floatBlob {
-    0%,100% { transform: translate(0,0) scale(1); }
-    50%     { transform: translate(30px,-40px) scale(1.08); }
+  .sidebar-menu .nav-item:hover {
+    background: #EFF6FF !important; color: #2563EB !important; transform: translateX(4px);
+  }
+  .sidebar-menu .nav-item.active {
+    background: var(--brand-navy) !important;
+    color: var(--primary-cyan) !important;
+    box-shadow: 0 8px 20px -6px rgba(15,23,42,0.4);
   }
 
-  .admin-main-wrapper { position: relative; z-index: 1; }
+  /* ===== MAIN WRAPPER ===== */
+  .admin-main-wrapper {
+    margin-left: 260px;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    width: calc(100% - 260px) !important;
+  }
 
-  /* ===== GLASS TOPBAR ===== */
   .admin-topbar {
-    background: rgba(255,255,255,0.75) !important;
-    backdrop-filter: saturate(180%) blur(14px);
-    -webkit-backdrop-filter: saturate(180%) blur(14px);
-    border-bottom: 1px solid rgba(226,232,240,0.8) !important;
-    position: sticky; top: 0; z-index: 50;
+    background: rgba(250, 249, 245, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--paper-line) !important;
+    padding: 16px 28px;
+    position: sticky; top: 0; z-index: 90;
+    display: flex; justify-content: space-between; align-items: center;
   }
-  #pageSectionTitle {
-    background: linear-gradient(90deg,#0F172A,#2563EB);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+  #pageSectionTitle { font-size: 1.25rem; font-weight: 800; margin: 0; color: var(--brand-navy); }
+
   .btn-topbar-action {
-    background: #F1F5F9 !important;
-    border: 1px solid #E2E8F0 !important;
+    background: #ffffff !important;
+    border: 1px solid var(--border-color) !important;
     border-radius: 10px !important;
     width: 40px; height: 40px;
     display: inline-flex; align-items: center; justify-content: center;
-    cursor: pointer; transition: all .25s ease;
-    color: #0F172A;
+    cursor: pointer; transition: all .2s ease; color: var(--brand-navy);
   }
-  .btn-topbar-action:hover { background: #E0E7FF !important; color: #2563EB; transform: rotate(-8deg); }
+  .btn-topbar-action:hover { background: #0F172A !important; color: var(--primary-cyan) !important; }
 
-  /* ===== SIDEBAR POLISH & HOME LINK ===== */
-  .admin-sidebar {
-    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFF 100%) !important;
-    border-right: 1px solid #E2E8F0 !important;
-  }
-  .sidebar-brand {
-    cursor: pointer;
-  }
-  .sidebar-menu .nav-item {
-    position: relative;
-    border-radius: 10px;
-    transition: all .2s ease;
-  }
-  .sidebar-menu .nav-item:hover {
-    background: #EFF6FF !important;
-    color: #2563EB !important;
-    transform: translateX(4px);
-  }
-  .sidebar-menu .nav-item.active {
-    background: linear-gradient(135deg,#2563EB,#4F46E5) !important;
-    color: #fff !important;
-    box-shadow: 0 8px 20px -6px rgba(37,99,235,0.5);
-  }
-  .sidebar-menu .nav-item.active::before {
-    content:""; position:absolute; left:-4px; top:20%; bottom:20%;
-    width:4px; background:#FBBF24; border-radius:4px;
-  }
-  .brand-icon-box {
-    background: linear-gradient(135deg,#2563EB,#7C3AED) !important;
-    color:#fff !important;
-    box-shadow: 0 6px 18px -6px rgba(37,99,235,0.6);
-  }
+  .admin-content-body { padding: 28px; flex: 1; }
 
-  /* ===== STAT CARDS ===== */
-  .stat-card {
-    background: #ffffff !important;
-    border: 1px solid #E2E8F0 !important;
-    border-radius: 16px !important;
-    padding: 20px !important;
-    display: flex; gap: 14px; align-items: flex-start;
-    position: relative; overflow: hidden;
-    transition: all .3s ease;
-    box-shadow: 0 4px 20px -8px rgba(15,23,42,0.08);
+  .admin-card {
+    background: #ffffff; border: 2px solid var(--brand-navy);
+    border-radius: var(--radius-lg); padding: 28px;
+    box-shadow: 6px 6px 0px var(--brand-navy); margin-bottom: 28px;
   }
-  .stat-card::after {
-    content:""; position:absolute; inset:0;
-    background: linear-gradient(135deg, transparent 60%, rgba(37,99,235,0.06));
-    opacity:0; transition: opacity .3s;
-  }
-  .stat-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px -12px rgba(37,99,235,0.25); }
-  .stat-card:hover::after { opacity: 1; }
-  .stat-icon {
-    width: 52px; height: 52px; border-radius: 14px;
-    display: grid; place-items: center;
-    font-size: 1.35rem; color: #fff; flex-shrink: 0;
-    box-shadow: 0 8px 18px -6px rgba(0,0,0,0.2);
-  }
-  .stat-icon.blue   { background: linear-gradient(135deg,#3B82F6,#1D4ED8); }
-  .stat-icon.purple { background: linear-gradient(135deg,#8B5CF6,#6D28D9); }
-  .stat-icon.green  { background: linear-gradient(135deg,#10B981,#047857); }
-  .stat-details span { font-size:.8rem; color:#64748B; font-weight:600; text-transform:uppercase; letter-spacing:.4px; }
-  .stat-details h3 { font-size:1.15rem; font-weight:800; color:#0F172A; margin:4px 0; }
-  .stat-trend { font-size:.78rem; font-weight:600; }
-  .stat-trend.success { color:#059669; }
-  .stat-trend.info    { color:#2563EB; }
 
   /* ===== CLASS CARDS ===== */
+  .class-rail {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px; margin-top: 16px;
+  }
   .class-card {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    min-height: 250px !important;
-    border-radius: 20px !important;
-    padding: 24px !important;
-    text-align: left !important;
-    box-shadow: 0 6px 20px rgba(15,23,42,0.06);
-    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s, border-color .35s;
-    cursor: pointer !important;
-    border: 2px solid transparent !important;
-    position: relative; overflow: hidden;
+    border-radius: var(--radius-lg) !important; padding: 22px !important;
+    text-align: left !important; box-shadow: 4px 4px 0px var(--brand-navy);
+    cursor: pointer !important; display: flex; flex-direction: column;
+    justify-content: space-between; min-height: 210px; transition: transform 0.25s ease;
+    border: 2px solid var(--brand-navy) !important;
   }
-  .class-card::before {
-    content:""; position:absolute; top:-50%; left:-50%;
-    width:200%; height:200%;
-    background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.35), transparent 30%);
-    opacity: 0; transition: opacity .4s;
-    animation: spin 6s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .class-card:hover::before { opacity: 1; }
-  .class-card > * { position: relative; z-index: 1; }
-  .class-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 22px 45px -18px rgba(37,99,235,0.35);
-  }
+  .class-card:hover { transform: translateY(-6px); }
 
-  .card-theme-9  { background: linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%) !important; border-color:#BFDBFE !important; }
-  .card-theme-9:hover  { border-color:#2563EB !important; }
-  .card-theme-10 { background: linear-gradient(135deg,#ECFDF5 0%,#D1FAE5 100%) !important; border-color:#A7F3D0 !important; }
-  .card-theme-10:hover { border-color:#059669 !important; }
-  .card-theme-11 { background: linear-gradient(135deg,#FFFBEB 0%,#FEF3C7 100%) !important; border-color:#FDE68A !important; }
-  .card-theme-11:hover { border-color:#D97706 !important; }
-  .card-theme-12 { background: linear-gradient(135deg,#FEF2F2 0%,#FEE2E2 100%) !important; border-color:#FECACA !important; }
-  .card-theme-12:hover { border-color:#DC2626 !important; }
-  .card-theme-comp { background: linear-gradient(135deg,#F3E8FF 0%,#EDE9FE 100%) !important; border-color:#D8B4FE !important; }
-  .card-theme-comp:hover { border-color:#7C3AED !important; }
+  .card-theme-9  { background: linear-gradient(135deg,#EFF6FF,#DBEAFE) !important; }
+  .card-theme-10 { background: linear-gradient(135deg,#ECFDF5,#D1FAE5) !important; }
+  .card-theme-11 { background: linear-gradient(135deg,#FFFBEB,#FEF3C7) !important; }
+  .card-theme-12 { background: linear-gradient(135deg,#FEF2F2,#FEE2E2) !important; }
+  .card-theme-comp { background: linear-gradient(135deg,#F3E8FF,#EDE9FE) !important; }
 
-  .class-index {
-    display:inline-flex; align-items:center; justify-content:center;
-    min-width: 40px; height: 32px;
-    box-shadow: 0 6px 14px -4px rgba(0,0,0,0.25);
+  /* BACK BUTTON STYLING */
+  .btn-back-step {
+    background: #0F172A;
+    color: #06B6D4;
+    border: 1px solid #1E293B;
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    margin-bottom: 16px;
   }
-
-  /* ===== SUBJECT CARDS & STREAM BUTTONS ===== */
-  .subject-card {
-    background: #ffffff !important;
-    border: 1px solid #E2E8F0 !important;
-    border-radius: 16px !important;
-    padding: 20px !important;
-    text-align: left !important;
-    cursor: pointer !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    min-height: 130px !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-    transition: all .28s cubic-bezier(.2,.8,.2,1);
-    position: relative; overflow: hidden;
-  }
-  .subject-card:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 14px 30px -10px rgba(0,0,0,0.12);
+  .btn-back-step:hover {
+    background: #1E293B;
+    color: #38BDF8;
+    transform: translateX(-3px);
   }
 
   .stream-pill-btn {
-    padding: 10px 22px;
-    border-radius: 25px;
-    font-weight: 700;
-    font-size: 0.90rem;
-    cursor: pointer;
-    border: 1px solid #CBD5E1;
-    background: #FFFFFF;
-    color: #475569;
-    transition: all .25s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 8px 18px; border-radius: 20px; font-weight: 700; font-size: 0.88rem;
+    cursor: pointer; border: 1px solid #CBD5E1; background: #FFFFFF; color: #475569; transition: all .2s ease;
   }
   .stream-pill-btn.active {
-    background: linear-gradient(135deg,#2563EB,#4F46E5) !important;
+    background: var(--brand-navy) !important; color: var(--primary-cyan) !important; border-color: var(--brand-navy) !important;
+  }
+
+  .subject-card-box {
+    background: #1E293B !important; border: 1px solid #334155 !important;
+    border-radius: var(--radius-md) !important; padding: 18px !important; color: #F8FAFC !important;
+    cursor: pointer !important; display: flex !important; flex-direction: column !important;
+    justify-content: space-between !important; min-height: 120px !important; transition: all .2s ease;
+  }
+  .subject-card-box:hover { transform: translateY(-4px); border-color: var(--primary-cyan) !important; }
+
+  /* ===== FIXED MODAL POPUP (HIDDEN BY DEFAULT) ===== */
+  .notes-panel-modal {
+    position: fixed; inset: 0;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 2000;
+    display: none !important;
+    align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .notes-panel-modal.show-modal {
+    display: flex !important;
+  }
+
+  .notes-modal-container {
+    background: #0F172A !important;
+    border: 2px solid #1E293B !important;
     color: #FFFFFF !important;
-    border-color: #2563EB !important;
-    box-shadow: 0 6px 16px rgba(37,99,235,0.35) !important;
+    width: 90% !important;
+    max-width: 780px !important;
+    max-height: 85vh !important;
+    border-radius: 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
   }
 
-  /* ===== 100% FREE BADGES ===== */
-  .free-badge-tag {
-    background: #EF4444 !important;
-    color: #FFFFFF !important;
-    font-size: 0.70rem;
-    font-weight: 800;
-    padding: 4px 9px;
-    border-radius: 6px;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.35);
-  }
-
-  /* ===== ADMIN CARD ===== */
-  .admin-card {
-    background: #ffffff;
-    border: 1px solid #E2E8F0;
-    border-radius: 20px;
-    padding: 26px;
-    box-shadow: 0 6px 24px -12px rgba(15,23,42,0.1);
-  }
-
-  /* ===== WELCOME BANNER SHINE ===== */
-  .welcome-banner-content {
-    position: relative;
-    overflow: hidden;
-  }
-  .welcome-banner-content::after {
-    content:""; position:absolute; top:0; left:-60%;
-    width:40%; height:100%;
-    background: linear-gradient(90deg, transparent, rgba(37,99,235,0.08), transparent);
-    animation: shine 5s ease-in-out infinite;
-  }
-  @keyframes shine {
-    0% { left:-60%; } 60%,100% { left:120%; }
-  }
-
-  /* Primary button */
-  .admin-btn-primary {
-    background: linear-gradient(135deg,#2563EB,#4F46E5) !important;
-    transition: all .25s ease;
-  }
-  .admin-btn-primary:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 12px 24px -8px rgba(37,99,235,0.45) !important;
-    filter: brightness(1.05);
-  }
-
-  /* Section entrance animation */
-  .workspace-section.active {
-    animation: fadeUp .5s ease both;
-  }
-  @keyframes fadeUp {
-    from { opacity:0; transform: translateY(12px); }
-    to   { opacity:1; transform: translateY(0); }
-  }
-
-  /* Quote strip */
-  .np-quote-strip {
-    margin-top: 20px;
-    padding: 16px 22px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%);
-    color: #E0E7FF;
-    display: flex; align-items:center; gap: 14px;
-    box-shadow: 0 10px 30px -12px rgba(15,23,42,0.4);
-    font-size: .95rem;
-    position: relative; overflow: hidden;
-  }
-  .np-quote-strip i.fa-quote-left {
-    font-size: 1.4rem; color:#FBBF24; flex-shrink:0;
-  }
-  .np-quote-strip strong { color:#FBBF24; }
-
-  /* Notes modal enhancements */
-  .notes-panel-modal { animation: fadeIn .25s ease; backdrop-filter: blur(4px); }
-  .notes-modal-container { animation: popIn .3s cubic-bezier(.2,.9,.3,1.3); box-shadow: 0 30px 60px -20px rgba(0,0,0,0.4); }
-  @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
-  @keyframes popIn { from { opacity:0; transform: scale(.92) } to { opacity:1; transform: scale(1) } }
-
-  /* FOOTER */
+  /* ===== FIXED FOOTER ===== */
   .student-footer-dark {
-    background:
-      radial-gradient(600px 300px at 20% 0%, rgba(37,99,235,0.25), transparent 70%),
-      radial-gradient(500px 300px at 80% 100%, rgba(124,58,237,0.2), transparent 70%),
-      #0A1128;
-    color:#94A3B8;
-    padding:60px 30px 24px 30px;
-    margin-top:50px;
-    border-top:1px solid #1E293B;
+    background: #0F172A !important;
+    color: #CBD5E1 !important;
+    padding: 30px 28px 16px 28px !important;
+    margin-top: auto !important;
+    border-top: 1px solid #1E293B !important;
   }
-  .student-footer-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:30px; margin-bottom:40px; }
-  .student-footer-col h3, .student-footer-col h4 { color:#FFFFFF; margin-bottom:14px; }
-  .student-footer-col p { font-size:.9rem; line-height:1.55; color:#94A3B8; }
-  .student-footer-col ul { list-style:none; padding:0; margin:0; }
-  .student-footer-col ul li { margin-bottom:8px; }
-  .student-footer-col ul li a { color:#94A3B8; text-decoration:none; font-size:.9rem; transition:color .2s, padding-left .2s; display:inline-block; }
-  .student-footer-col ul li a:hover { color:#60A5FA; padding-left:6px; }
-  .student-footer-socials { display:flex; gap:10px; margin-top:12px; }
-  .student-footer-social-icon {
-    width:40px; height:40px;
-    background:rgba(30,41,59,0.7);
-    color:#FFFFFF; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    text-decoration:none; transition:all .25s ease;
-    border:1px solid rgba(148,163,184,0.15);
+  .student-footer-grid {
+    max-width: 1200px;
+    margin: 0 auto 20px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
   }
-  .student-footer-social-icon:hover {
-    background:linear-gradient(135deg,#2563EB,#7C3AED);
-    transform: translateY(-3px) rotate(-6deg);
-    box-shadow: 0 10px 20px -8px rgba(37,99,235,0.6);
-  }
-  .student-footer-bottom { max-width:1200px; margin:0 auto; text-align:center; padding-top:20px; border-top:1px solid #1E293B; font-size:.85rem; color:#64748B; }
-
-  /* Support form input focus */
-  .admin-input:focus {
-    outline: none !important;
-    border-color: #2563EB !important;
-    box-shadow: 0 0 0 4px rgba(37,99,235,0.15) !important;
+  .student-footer-grid h3 { color: #38BDF8 !important; font-size: 1.3rem; font-weight: 800; margin-bottom: 8px; }
+  .student-footer-grid h4 { color: #FFFFFF !important; font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+  .student-footer-grid p { color: #94A3B8 !important; font-size: 0.88rem; line-height: 1.5; margin: 0; }
+  .student-footer-grid ul { list-style: none; padding: 0; margin: 0; }
+  .student-footer-grid ul li { margin-bottom: 6px; }
+  .student-footer-grid ul li a { color: #94A3B8 !important; text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+  .student-footer-grid ul li a:hover { color: #38BDF8 !important; }
+  
+  .student-footer-bottom {
+    text-align: center;
+    border-top: 1px solid #1E293B;
+    padding-top: 14px;
+    margin-top: 14px;
+    font-size: 0.82rem;
+    color: #64748B !important;
   }
 
-  /* Logout button */
-  .btn-sidebar-logout {
-    background:#FEF2F2; color:#DC2626;
-    border:1px solid #FECACA; border-radius:8px;
-    width:34px; height:34px; cursor:pointer;
-    transition: all .2s ease;
-  }
-  .btn-sidebar-logout:hover { background:#DC2626; color:#fff; transform: rotate(-8deg); }
-
-  /* ===== MOBILE ===== */
   @media (max-width: 992px) {
-    .admin-sidebar {
-      position: fixed !important;
-      left: -100% !important;
-      top: 0 !important;
-      height: 100vh !important;
-      z-index: 9999 !important;
-      transition: left .3s ease-in-out !important;
-      box-shadow: 4px 0 20px rgba(0,0,0,0.15) !important;
-      width: 260px !important;
-    }
-    .admin-sidebar.open { left: 0 !important; }
-    .admin-main-wrapper { margin-left: 0 !important; width: 100% !important; padding: 0 !important; }
-    .admin-content-body { padding: 12px !important; }
-    .class-rail, .subject-grid, .admin-grid-stats, .notes-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
-    .admin-topbar { padding: 12px 16px !important; display:flex !important; justify-content:space-between !important; align-items:center !important; }
-    .mobile-toggle-btn {
-      display:inline-flex !important; align-items:center !important; justify-content:center !important;
-      font-size:1.15rem !important; padding:8px 12px !important;
-      background:#F1F5F9 !important; border:1px solid #CBD5E1 !important;
-      border-radius:10px !important; cursor:pointer !important; color:#0F172A !important;
-    }
-    .welcome-banner-content {
-      text-align:center !important; align-items:center !important;
-      display:flex; flex-direction:column;
-    }
+    .admin-sidebar { left: -100%; }
+    .admin-sidebar.open { left: 0; }
+    .admin-main-wrapper { margin-left: 0 !important; width: 100% !important; }
+    .mobile-toggle-btn { display: inline-flex !important; }
+    .notes-modal-container { width: 95% !important; }
   }
-
-  /* ============ DARK MODE THEME ============ */
-  body.dark-mode {
-    background:
-      radial-gradient(1000px 600px at -10% -10%, rgba(59,130,246,0.18), transparent 60%),
-      radial-gradient(900px 500px at 110% 10%, rgba(139,92,246,0.18), transparent 60%),
-      radial-gradient(700px 500px at 50% 120%, rgba(16,185,129,0.10), transparent 60%),
-      #0B1220 !important;
-    color: #E2E8F0;
-  }
-  body.dark-mode::before { background: radial-gradient(circle,#1E40AF 0%,transparent 70%); opacity:.4; }
-  body.dark-mode::after  { background: radial-gradient(circle,#6D28D9 0%,transparent 70%); opacity:.4; }
-
-  body.dark-mode .admin-topbar {
-    background: rgba(15,23,42,0.75) !important;
-    border-bottom: 1px solid rgba(51,65,85,0.6) !important;
-  }
-  body.dark-mode #pageSectionTitle {
-    background: linear-gradient(90deg,#E2E8F0,#60A5FA);
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  body.dark-mode .btn-topbar-action {
-    background: #1E293B !important; border-color: #334155 !important; color: #E2E8F0;
-  }
-  body.dark-mode .btn-topbar-action:hover { background: #312E81 !important; color: #A5B4FC; }
-
-  body.dark-mode .admin-sidebar {
-    background: linear-gradient(180deg,#0F172A 0%,#111827 100%) !important;
-    border-right: 1px solid #1E293B !important;
-    color:#E2E8F0;
-  }
-  body.dark-mode .sidebar-brand h2 { color:#F8FAFC; }
-  body.dark-mode .sidebar-brand span,
-  body.dark-mode .admin-user-info span { color:#94A3B8; }
-  body.dark-mode .admin-user-info strong { color:#F8FAFC; }
-  body.dark-mode .sidebar-menu .nav-item { color:#CBD5E1; }
-  body.dark-mode .sidebar-menu .nav-item:hover { background:#1E3A8A !important; color:#BFDBFE !important; }
-
-  body.dark-mode .admin-card {
-    background: #111827 !important;
-    border-color: #1F2937 !important;
-    color: #E2E8F0;
-    box-shadow: 0 8px 30px -12px rgba(0,0,0,0.5);
-  }
-  body.dark-mode .stat-card {
-    background:#111827 !important;
-    border-color:#1F2937 !important;
-    color:#E2E8F0;
-  }
-  body.dark-mode .stat-details h3 { color:#F8FAFC; }
-  body.dark-mode .stat-details span { color:#94A3B8; }
-
-  body.dark-mode .welcome-banner-content h2 { color:#F8FAFC !important; }
-  body.dark-mode .welcome-banner-content p  { color:#94A3B8 !important; }
-  body.dark-mode #classHeaderArea h2 { color:#F8FAFC !important; }
-  body.dark-mode #classHeaderArea p  { color:#94A3B8 !important; }
-
-  body.dark-mode .card-theme-9  { background: linear-gradient(135deg,#0B1E3F 0%,#111827 100%) !important; border-color:#1E3A8A !important; }
-  body.dark-mode .card-theme-10 { background: linear-gradient(135deg,#052E23 0%,#111827 100%) !important; border-color:#065F46 !important; }
-  body.dark-mode .card-theme-11 { background: linear-gradient(135deg,#3A2A08 0%,#111827 100%) !important; border-color:#78350F !important; }
-  body.dark-mode .card-theme-12 { background: linear-gradient(135deg,#3F1212 0%,#111827 100%) !important; border-color:#7F1D1D !important; }
-  body.dark-mode .card-theme-comp { background: linear-gradient(135deg,#2A1758 0%,#111827 100%) !important; border-color:#4C1D95 !important; }
-  body.dark-mode .class-card h3 { color:#F8FAFC !important; }
-  body.dark-mode .class-card p  { color:#CBD5E1 !important; }
-
-  body.dark-mode .admin-input {
-    background:#0F172A !important; border-color:#334155 !important; color:#E2E8F0 !important;
-  }
-  body.dark-mode .admin-input::placeholder { color:#64748B; }
-  body.dark-mode label { color:#CBD5E1 !important; }
-
-  body.dark-mode .notes-modal-container { background:#111827 !important; color:#E2E8F0; }
-  body.dark-mode .notes-modal-header {
-    background: linear-gradient(135deg,#0F172A,#1E293B) !important;
-    border-bottom:1px solid #1F2937 !important;
-  }
-  body.dark-mode #notesPanelTitle { color:#F8FAFC; }
-
 </style>
 </head>
 <body class="admin-body-wrap">
 
   <!-- SIDEBAR NAVIGATION -->
   <aside class="admin-sidebar" id="appSidebar">
-    <div class="sidebar-brand" onclick="window.location.href='index.html'" title="Go to Homepage">
-      <div class="brand-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
-      <div class="brand-text">
-        <h2>NotesPoint</h2>
-        <span>Student Workspace</span>
+    <div>
+      <div class="sidebar-brand" onclick="window.location.href='index.html'" title="Go to Homepage">
+        <div class="brand-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div>
+          <h2 style="font-family:'Space Grotesk',sans-serif; font-size:1.15rem; font-weight:800; margin:0; color:var(--brand-navy);">NotesPoint</h2>
+          <span style="font-size:.72rem; color:var(--slate-500); font-weight:600;">Student Workspace</span>
+        </div>
       </div>
+
+      <ul class="sidebar-menu">
+        <li>
+          <a href="#" class="nav-item active" data-target="classesSection">
+            <i class="fa-solid fa-book-open-reader"></i>
+            <span>Browse Classes &amp; Notes</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-item" data-target="savedSection">
+            <i class="fa-solid fa-bookmark"></i>
+            <span>Saved Notes</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-item" data-target="recentSection">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Recently Viewed</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-item" data-target="supportSection">
+            <i class="fa-solid fa-headset"></i>
+            <span>Support &amp; Feedback</span>
+          </a>
+        </li>
+      </ul>
     </div>
 
-    <ul class="sidebar-menu">
-      <li>
-        <a href="#" class="nav-item active" data-target="overviewSection">
-          <i class="fa-solid fa-chart-pie"></i>
-          <span>Dashboard Overview</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-item" data-target="classesSection">
-          <i class="fa-solid fa-book-open-reader"></i>
-          <span>Browse Classes &amp; Notes</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-item" data-target="savedSection" id="sidebarSavedBtn">
-          <i class="fa-solid fa-bookmark"></i>
-          <span>Saved Notes</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-item" data-target="recentSection" id="sidebarRecentBtn">
-          <i class="fa-solid fa-clock-rotate-left"></i>
-          <span>Recently Viewed</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-item" data-target="supportSection">
-          <i class="fa-solid fa-headset"></i>
-          <span>Support &amp; Feedback</span>
-        </a>
-      </li>
-    </ul>
-
-    <div class="sidebar-footer">
-      <div class="admin-user-mini">
-        <div class="admin-avatar" id="userAvatarLetter">T</div>
-        <div class="admin-user-info">
-          <strong id="studentHeaderName">Topper</strong>
-          <span>Active Scholar</span>
+    <div class="sidebar-footer" style="padding:16px; border-top:1px solid #E2E8F0;">
+      <div style="display:flex; align-items:center; justify-content:space-between;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="width:36px; height:36px; background:var(--brand-navy); color:#fff; border-radius:50%; display:grid; place-items:center; font-weight:800;">T</div>
+          <div>
+            <strong style="font-size:.88rem; display:block; color:var(--brand-navy);">Topper</strong>
+            <span style="font-size:.72rem; color:var(--slate-500);">Active Scholar</span>
+          </div>
         </div>
-        <button type="button" class="btn-sidebar-logout" id="logoutBtn" title="Logout / Home">
+        <button type="button" id="logoutBtn" style="background:#FEF2F2; color:#DC2626; border:1px solid #FECACA; border-radius:8px; width:32px; height:32px; cursor:pointer;" title="Exit to Home">
           <i class="fa-solid fa-right-from-bracket"></i>
         </button>
       </div>
     </div>
   </aside>
 
-  <!-- MAIN WORKSPACE AREA -->
+  <!-- MAIN WORKSPACE -->
   <div class="admin-main-wrapper">
     
     <!-- TOP HEADER BAR -->
     <header class="admin-topbar">
-      <div class="topbar-left" style="display: flex; align-items: center; gap: 12px;">
-        <button type="button" class="mobile-toggle-btn" id="toggleSidebarMobile" aria-label="Toggle Sidebar">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <button type="button" class="btn-topbar-action mobile-toggle-btn" id="toggleSidebarMobile" style="display:none;">
           <i class="fa-solid fa-bars"></i>
         </button>
-        <h1 id="pageSectionTitle" style="font-size: 1.25rem; font-weight: 800; margin: 0;">Dashboard Overview</h1>
+        <h1 id="pageSectionTitle">Browse Classes &amp; Notes</h1>
       </div>
 
-      <div class="topbar-right" style="display: flex; align-items: center; gap: 10px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
         <a href="index.html" class="btn-topbar-action" title="Back to Home" style="text-decoration:none;">
           <i class="fa-solid fa-house"></i>
         </a>
-        <button type="button" class="btn-topbar-action" id="themeToggleBtn" title="Toggle Theme">
-          <i class="fa-solid fa-moon"></i>
-        </button>
       </div>
     </header>
 
-    <!-- CONTENT WORKSPACE SECTIONS -->
+    <!-- CONTENT BODY -->
     <main class="admin-content-body">
 
-      <!-- SECTION 1: OVERVIEW DASHBOARD -->
-      <section class="workspace-section active" id="overviewSection">
-        <div class="admin-grid-stats" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px;">
-          <div class="stat-card">
-            <div class="stat-icon blue"><i class="fa-solid fa-book-bookmark"></i></div>
-            <div class="stat-details">
-              <span>Available Classes</span>
-              <h3 id="statTotalClasses">Class 9–12 &amp; Entrance</h3>
-              <p class="stat-trend success"><span>100% Free Materials</span></p>
-            </div>
-          </div>
-
-          <div class="stat-card">
-            <div class="stat-icon purple"><i class="fa-solid fa-file-pdf"></i></div>
-            <div class="stat-details">
-              <span>Study Materials</span>
-              <h3 id="statTotalNotes">Ready</h3>
-              <p class="stat-trend info"><span>NCERT Books &amp; PYQs</span></p>
-            </div>
-          </div>
-
-          <div class="stat-card">
-            <div class="stat-icon green"><i class="fa-solid fa-star"></i></div>
-            <div class="stat-details">
-              <span>Exam Readiness</span>
-              <h3 id="statReadiness">100%</h3>
-              <p class="stat-trend success"><span>Free Access</span></p>
-            </div>
-          </div>
-        </div>
-
-        <!-- WELCOME BANNER CARD -->
-        <div class="admin-card mt-24" style="margin-top:20px; padding:32px;">
-          <div class="welcome-banner-content" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; text-align:left;">
-            <div style="flex:1; min-width:260px; position:relative; z-index:2;">
-              <span style="background:#EFF6FF; color:#2563EB; font-size:.78rem; font-weight:700; padding:5px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:.5px; border:1px solid #BFDBFE;">Scholar Workspace</span>
-              <h2 style="font-size:1.8rem; font-weight:800; margin:12px 0 8px 0; color:#0F172A;">
-                Welcome back, <span id="studentName" style="background:linear-gradient(90deg,#2563EB,#7C3AED); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">Topper</span>! 📘
-              </h2>
-              <p style="font-size:.95rem; max-width:620px; margin-bottom:0; color:#475569; line-height:1.6;">
-                All study notes, NCERT books, and competitive exam materials are now 100% free. Choose your grade below to get started.
-              </p>
-            </div>
-
-            <button type="button" class="admin-btn-primary" onclick="window.switchSection('classesSection');" style="color:#FFFFFF; font-weight:700; border:none; padding:14px 28px; border-radius:12px; cursor:pointer; font-size:.95rem; box-shadow:0 10px 24px -8px rgba(37,99,235,0.5); white-space:nowrap; position:relative; z-index:2;">
-              <i class="fa-solid fa-book-open" style="margin-right:8px;"></i> Open Notes →
-            </button>
-          </div>
-        </div>
-
-        <!-- MOTIVATIONAL QUOTE STRIP -->
-        <div class="np-quote-strip">
-          <i class="fa-solid fa-quote-left"></i>
-          <div>
-            <strong>Aaj ka thought:</strong> Consistency beats intensity — thoda daily padho, boards aur entrance dono easy ho jayenge.
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 2: BROWSE CLASSES & SUBJECTS -->
-      <section class="workspace-section" id="classesSection" style="display: none;">
+      <!-- SECTION 1: BROWSE CLASSES & NOTES (MAIN DIRECT PAGE) -->
+      <section class="workspace-section active" id="classesSection">
         <div class="admin-card">
-          <div class="section-head mb-20" id="classHeaderArea" style="text-align:center; margin:0 auto 20px; max-width:650px;">
-            <span style="display:inline-block; background:#EEF2FF; color:#4F46E5; font-size:.72rem; font-weight:700; padding:4px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:.6px; margin-bottom:10px;">Study Library</span>
-            <h2 style="font-size:1.5rem; font-weight:800; text-align:center; color:#0F172A;">Select Your Class, NCERT Books or Competitive Exam</h2>
-            <p style="color:#64748B; font-size:.92rem; text-align:center; margin-top:6px;">100% Free Chapter Notes, NCERT Books, PYQs &amp; Entrance Material.</p>
+          <div style="text-align:center; margin:0 auto 20px; max-width:650px;" id="mainClassesHeader">
+            <span style="background:#E0F2FE; color:#0284C7; border:1px solid #BAE6FD; font-size:.72rem; font-weight:800; padding:4px 12px; border-radius:20px; text-transform:uppercase;">Study Repository</span>
+            <h2 style="font-size:1.5rem; font-weight:800; margin-top:8px; color:var(--brand-navy);">Select Your Class or Competitive Exam</h2>
+            <p style="color:var(--slate-600); font-size:.92rem;">Click any grade card below to view subjects &amp; notes.</p>
           </div>
 
-          <!-- Class Selection Cards Rail -->
-          <div class="class-rail" id="classRail" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; margin-bottom:24px;" role="list">
-            
-            <button type="button" class="class-card card-theme-9" role="listitem" data-class="9">
+          <!-- CLASS CARDS RAIL -->
+          <div class="class-rail" id="mainClassRail">
+            <div class="class-card card-theme-9" data-class="9">
               <div>
-                <span class="class-index" style="background:#2563EB; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:8px; font-size:.9rem;">01</span>
-                <h3 style="font-size:1.3rem; margin:14px 0 6px 0; color:#1E3A8A; font-weight:800;">Class 9</h3>
-                <p style="font-size:.88rem; color:#475569; line-height:1.5;">NCERT Books, Science, Maths, PYQs</p>
+                <span style="background:#0F172A; color:#38BDF8; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">01</span>
+                <h3 style="font-size:1.25rem; margin:12px 0 4px 0; color:#1E3A8A; font-weight:800;">Class 9</h3>
+                <p style="font-size:.85rem; color:#475569;">Science, Maths, Social Science &amp; PYQs</p>
               </div>
-              <span style="font-size:.9rem; color:#2563EB; font-weight:700; margin-top:12px; display:inline-flex; align-items:center; gap:6px;">Explore Notes <i class="fa-solid fa-arrow-right"></i></span>
-            </button>
-         
-            <button type="button" class="class-card card-theme-10" role="listitem" data-class="10">
-              <div>
-                <span class="class-index" style="background:#059669; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:8px; font-size:.9rem;">02</span>
-                <h3 style="font-size:1.3rem; margin:14px 0 6px 0; color:#064E3B; font-weight:800;">Class 10</h3>
-                <p style="font-size:.88rem; color:#475569; line-height:1.5;">NCERT Books, Board Notes, PYQs</p>
-              </div>
-              <span style="font-size:.9rem; color:#059669; font-weight:700; margin-top:12px; display:inline-flex; align-items:center; gap:6px;">Explore Notes <i class="fa-solid fa-arrow-right"></i></span>
-            </button>
-
-            <button type="button" class="class-card card-theme-11" role="listitem" data-class="11">
-              <div>
-                <span class="class-index" style="background:#D97706; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:8px; font-size:.9rem;">03</span>
-                <h3 style="font-size:1.3rem; margin:14px 0 6px 0; color:#78350F; font-weight:800;">Class 11</h3>
-                <p style="font-size:.88rem; color:#475569; line-height:1.5;">NCERT Books, Science, Commerce, Arts</p>
-              </div>
-              <span style="font-size:.9rem; color:#D97706; font-weight:700; margin-top:12px; display:inline-flex; align-items:center; gap:6px;">Explore Notes <i class="fa-solid fa-arrow-right"></i></span>
-            </button>
-
-            <button type="button" class="class-card card-theme-12" role="listitem" data-class="12">
-              <div>
-                <span class="class-index" style="background:#DC2626; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:8px; font-size:.9rem;">04</span>
-                <h3 style="font-size:1.3rem; margin:14px 0 6px 0; color:#7F1D1D; font-weight:800;">Class 12</h3>
-                <p style="font-size:.88rem; color:#475569; line-height:1.5;">NCERT Books, Board Revision, PYQs</p>
-              </div>
-              <span style="font-size:.9rem; color:#DC2626; font-weight:700; margin-top:12px; display:inline-flex; align-items:center; gap:6px;">Explore Notes <i class="fa-solid fa-arrow-right"></i></span>
-            </button>
-
-            <button type="button" class="class-card card-theme-comp" role="listitem" data-class="competitive">
-              <div>
-                <span class="class-index" style="background:#7C3AED; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:8px; font-size:.9rem;">🔥</span>
-                <h3 style="font-size:1.3rem; margin:14px 0 6px 0; color:#4C1D95; font-weight:800;">Competitive Exams</h3>
-                <p style="font-size:.88rem; color:#5B21B6; line-height:1.5;">JEE Main/Adv, NEET-UG, CUET, NDA</p>
-              </div>
-              <span style="font-size:.9rem; color:#7C3AED; font-weight:700; margin-top:12px; display:inline-flex; align-items:center; gap:6px;">Explore Notes <i class="fa-solid fa-arrow-right"></i></span>
-            </button>
-
-          </div>
-
-          <!-- Dynamic Subject Grid Container -->
-          <div id="subjectContainerArea" style="margin-top:10px;" hidden>
-            <div id="selectedClassTitle" style="text-align:center; margin-bottom:20px;"></div>
-            
-            <!-- STREAM LEVEL BUTTONS (For Class 11 & 12) -->
-            <div class="nav-level mb-16" id="streamLevel" hidden style="margin-bottom:20px;">
-              <h4 style="font-size:.95rem; margin-bottom:10px; color:#334155; text-align:center; font-weight:700;">Select Your Stream:</h4>
-              <div class="nav-pills" id="streamPills" style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;"></div>
+              <span style="font-size:.88rem; color:#2563EB; font-weight:700; margin-top:10px;">Explore Notes →</span>
             </div>
 
-            <div class="subject-grid" id="subjectGrid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;"></div>
+            <div class="class-card card-theme-10" data-class="10">
+              <div>
+                <span style="background:#0F172A; color:#38BDF8; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">02</span>
+                <h3 style="font-size:1.25rem; margin:12px 0 4px 0; color:#064E3B; font-weight:800;">Class 10</h3>
+                <p style="font-size:.85rem; color:#475569;">Board Prep, Science, Maths &amp; PYQs</p>
+              </div>
+              <span style="font-size:.88rem; color:#059669; font-weight:700; margin-top:10px;">Explore Notes →</span>
+            </div>
+
+            <div class="class-card card-theme-11" data-class="11">
+              <div>
+                <span style="background:#0F172A; color:#38BDF8; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">03</span>
+                <h3 style="font-size:1.25rem; margin:12px 0 4px 0; color:#78350F; font-weight:800;">Class 11</h3>
+                <p style="font-size:.85rem; color:#475569;">Science, Commerce &amp; Arts Streams</p>
+              </div>
+              <span style="font-size:.88rem; color:#D97706; font-weight:700; margin-top:10px;">Explore Notes →</span>
+            </div>
+
+            <div class="class-card card-theme-12" data-class="12">
+              <div>
+                <span style="background:#0F172A; color:#38BDF8; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">04</span>
+                <h3 style="font-size:1.25rem; margin:12px 0 4px 0; color:#7F1D1D; font-weight:800;">Class 12</h3>
+                <p style="font-size:.85rem; color:#475569;">Board Revision, Derivations &amp; PYQs</p>
+              </div>
+              <span style="font-size:.88rem; color:#DC2626; font-weight:700; margin-top:10px;">Explore Notes →</span>
+            </div>
+
+            <div class="class-card card-theme-comp" data-class="competitive">
+              <div>
+                <span style="background:#0F172A; color:#38BDF8; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">🔥</span>
+                <h3 style="font-size:1.25rem; margin:12px 0 4px 0; color:#4C1D95; font-weight:800;">Competitive</h3>
+                <p style="font-size:.85rem; color:#5B21B6;">JEE Main, NEET-UG, CUET &amp; NDA</p>
+              </div>
+              <span style="font-size:.88rem; color:#7C3AED; font-weight:700; margin-top:10px;">Explore Notes →</span>
+            </div>
+          </div>
+
+          <!-- STREAM & SUBJECT LEVEL CONTAINER WITH BACK BUTTON -->
+          <div id="subjectContainerArea" hidden style="margin-top:16px; padding-top:16px; border-top:1px solid #E2E8F0;">
+            
+            <!-- STEP-BY-STEP BACK BUTTON -->
+            <button type="button" class="btn-back-step" id="btnBackToClasses">
+              <i class="fa-solid fa-arrow-left"></i> ← Back to All Classes
+            </button>
+
+            <div id="selectedClassTitle" style="text-align:center; margin-bottom:16px;"></div>
+
+            <!-- STREAM SELECTION PILLS (For Class 11 & 12) -->
+            <div id="streamLevel" hidden style="margin-bottom:20px; text-align:center;">
+              <span style="font-size:.88rem; font-weight:700; color:#334155; margin-right:10px;">Select Stream:</span>
+              <div id="streamPills" style="display:inline-flex; gap:10px; flex-wrap:wrap; justify-content:center;"></div>
+            </div>
+
+            <div id="subjectGrid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;"></div>
           </div>
         </div>
       </section>
 
-      <!-- SECTION 3: SAVED NOTES -->
+      <!-- SECTION 2: SAVED NOTES -->
       <section class="workspace-section" id="savedSection" style="display: none;">
-        <div class="admin-card">
-          <h2 style="font-size:1.4rem; font-weight:800; color:#0F172A;"><i class="fa-solid fa-bookmark" style="color:#F59E0B; margin-right:8px;"></i>Saved Notes</h2>
-          <p style="color:#64748B; margin:6px 0 20px;">Quick access to your bookmarked study materials.</p>
-          <div id="savedNotesListContainer" class="notes-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px;"></div>
+        <div style="background:#0F172A; border-radius:var(--radius-lg); padding:28px; color:#fff;">
+          <h2 style="font-size:1.3rem; font-weight:800;"><i class="fa-solid fa-bookmark" style="color:#F59E0B; margin-right:8px;"></i>Saved Notes</h2>
+          <p style="color:#94A3B8; font-size:.88rem; margin:4px 0 20px;">Quick access to your bookmarked study materials.</p>
+          <div id="savedNotesContainer" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;"></div>
         </div>
       </section>
 
-      <!-- SECTION 4: RECENTLY VIEWED -->
+      <!-- SECTION 3: RECENTLY VIEWED -->
       <section class="workspace-section" id="recentSection" style="display: none;">
-        <div class="admin-card">
-          <h2 style="font-size:1.4rem; font-weight:800; color:#0F172A;"><i class="fa-solid fa-clock-rotate-left" style="color:#2563EB; margin-right:8px;"></i>Recently Viewed Notes</h2>
-          <p style="color:#64748B; margin:6px 0 20px;">Materials you checked recently.</p>
-          <div id="recentNotesListContainer" class="notes-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px;"></div>
+        <div style="background:#0F172A; border-radius:var(--radius-lg); padding:28px; color:#fff;">
+          <h2 style="font-size:1.3rem; font-weight:800;"><i class="fa-solid fa-clock-rotate-left" style="color:#38BDF8; margin-right:8px;"></i>Recently Viewed Notes</h2>
+          <p style="color:#94A3B8; font-size:.88rem; margin:4px 0 20px;">Materials you opened recently.</p>
+          <div id="recentNotesContainer" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;"></div>
         </div>
       </section>
 
-      <!-- SECTION 5: SUPPORT & FEEDBACK -->
+      <!-- SECTION 4: SUPPORT & FEEDBACK -->
       <section class="workspace-section" id="supportSection" style="display: none;">
-        <div class="admin-card" style="max-width:900px; margin:0 auto;">
-          <div class="support-card-container" style="display:grid; grid-template-columns:1fr; max-width:600px; margin:0 auto;">
-            <div class="support-form-box">
-              <div style="text-align:center; margin-bottom:20px;">
-                <div style="width:60px; height:60px; border-radius:16px; background:linear-gradient(135deg,#2563EB,#7C3AED); display:inline-grid; place-items:center; color:#fff; font-size:1.5rem; box-shadow:0 12px 24px -8px rgba(37,99,235,0.5); margin-bottom:10px;">
-                  <i class="fa-solid fa-headset"></i>
-                </div>
-                <h2 style="font-size:1.5rem; font-weight:800; color:#0F172A; margin:0;">Student Support &amp; Feedback</h2>
-                <p style="color:#64748B; font-size:.92rem; margin-top:6px; line-height:1.5;">Have a question or want to request missing notes? Send us a message directly.</p>
-              </div>
-
-              <form style="display:flex; flex-direction:column; gap:14px;">
-                <div>
-                  <label style="display:block; font-weight:600; margin-bottom:6px; font-size:.88rem; color:#334155;">Your Name</label>
-                  <input type="text" name="name" id="supportNameInput" class="admin-input" placeholder="Rahul Sharma" required style="width:100%; padding:12px 14px; border:1px solid #CBD5E1; border-radius:10px; font-family:inherit;">
-                </div>
-                <div>
-                  <label style="display:block; font-weight:600; margin-bottom:6px; font-size:.88rem; color:#334155;">Your Email</label>
-                  <input type="email" name="email" id="supportEmailInput" class="admin-input" placeholder="you@example.com" required style="width:100%; padding:12px 14px; border:1px solid #CBD5E1; border-radius:10px; font-family:inherit;">
-                </div>
-                <div>
-                  <label style="display:block; font-weight:600; margin-bottom:6px; font-size:.88rem; color:#334155;">Message / Request</label>
-                  <textarea name="message" rows="4" class="admin-input" placeholder="Write your message here..." required style="width:100%; padding:12px 14px; border:1px solid #CBD5E1; border-radius:10px; resize:vertical; font-family:inherit;"></textarea>
-                </div>
-                <button type="submit" class="admin-btn-primary" style="color:#fff; border:none; padding:14px 24px; border-radius:12px; font-weight:700; cursor:pointer; font-size:.95rem;">Send Message <i class="fa-solid fa-paper-plane" style="margin-left:6px;"></i></button>
-              </form>
-            </div>
+        <div style="background:#0F172A; border-radius:var(--radius-lg); padding:28px; color:#fff; max-width:550px; margin:0 auto;">
+          <div style="text-align:center; margin-bottom:18px;">
+            <i class="fa-solid fa-headset" style="font-size:2rem; color:#38BDF8; margin-bottom:8px;"></i>
+            <h2 style="font-size:1.3rem; font-weight:800; margin:0;">Student Support</h2>
+            <p style="color:#94A3B8; font-size:.85rem; margin-top:4px;">Request missing notes or report an issue.</p>
           </div>
+
+          <form id="supportForm" style="display:flex; flex-direction:column; gap:12px;">
+            <input type="text" placeholder="Your Name" required style="padding:12px; border:1px solid #334155; border-radius:8px; background:#1E293B; color:#FFF;">
+            <input type="email" placeholder="Your Email" required style="padding:12px; border:1px solid #334155; border-radius:8px; background:#1E293B; color:#FFF;">
+            <textarea rows="4" placeholder="Write your message..." required style="padding:12px; border:1px solid #334155; border-radius:8px; background:#1E293B; color:#FFF; resize:vertical;"></textarea>
+            <button type="submit" style="background:#0284C7; color:#fff; border:none; padding:12px; border-radius:8px; font-weight:800; cursor:pointer;">Send Request 🚀</button>
+          </form>
         </div>
       </section>
 
     </main>
 
-    <!-- PROFESSIONAL DARK FOOTER -->
+    <!-- CLEAN FIXED FOOTER -->
     <footer class="student-footer-dark">
       <div class="student-footer-grid">
-        <div class="student-footer-col">
-          <h3 style="background:linear-gradient(90deg,#60A5FA,#A78BFA); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; font-size:1.4rem; font-weight:800; margin-bottom:12px;">NotesPoint</h3>
+        <div>
+          <h3>NotesPoint</h3>
           <p>Free NCERT and Board study material for Class 9–12 &amp; Competitive Exams.</p>
         </div>
-        <div class="student-footer-col">
+        <div>
           <h4>Quick Links</h4>
           <ul>
-            <li><a href="student.html">Student Panel</a></li>
+            <li><a href="#" onclick="switchSection('classesSection')">Browse Classes</a></li>
             <li><a href="index.html">Home Page</a></li>
-            <li><a href="index.html#faqs">Frequently Asked Questions</a></li>
-            <li><a href="student.html">Support &amp; Feedback</a></li>
           </ul>
         </div>
-        <div class="student-footer-col">
-          <h4>Classes &amp; Exams</h4>
-          <ul>
-            <li><a href="student.html">Class 9 Foundation</a></li>
-            <li><a href="student.html">Class 10 Boards</a></li>
-            <li><a href="student.html">Class 11 Streams</a></li>
-            <li><a href="student.html">Class 12 Boards</a></li>
-            <li><a href="student.html">JEE / NEET Entrance</a></li>
-          </ul>
-        </div>
-        <div class="student-footer-col">
-          <h4>Contact Us</h4>
-          <p style="margin-bottom:10px;">Join official channels for PDFs &amp; updates:</p>
-          <div class="student-footer-socials">
-            <a href="https://t.me/notespointfreenotes" target="_blank" class="student-footer-social-icon"><i class="fa-brands fa-telegram"></i></a>
-            <a href="https://www.instagram.com/notespoint9to12" target="_blank" class="student-footer-social-icon"><i class="fa-brands fa-instagram"></i></a>
-            <a href="mailto:notespoint2026@gmail.com" class="student-footer-social-icon"><i class="fa-solid fa-envelope"></i></a>
+        <div>
+          <h4>Official Channels</h4>
+          <div style="display:flex; gap:10px; margin-top:6px;">
+            <a href="https://t.me/notespointfreenotes" target="_blank" style="width:34px; height:34px; background:rgba(255,255,255,0.08); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none;"><i class="fa-brands fa-telegram"></i></a>
+            <a href="https://www.instagram.com/notespoint_" target="_blank" style="width:34px; height:34px; background:rgba(255,255,255,0.08); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none;"><i class="fa-brands fa-instagram"></i></a>
           </div>
         </div>
       </div>
       <div class="student-footer-bottom">
-        <p>&copy; 2026 Notes Point. Built with ❤️ for students.</p>
+        &copy; 2026 Notes Point. Built with ❤️ for students.
       </div>
     </footer>
   </div>
 
-  <!-- NOTES MODAL -->
-  <div class="notes-panel-modal" id="notesPanel" hidden style="position:fixed; inset:0; background:rgba(15,23,42,0.55); z-index:1000; display:flex; align-items:center; justify-content:center;">
-    <div class="notes-modal-container" style="background:#fff; width:92%; max-width:850px; max-height:85vh; border-radius:18px; display:flex; flex-direction:column; overflow:hidden;">
-      <div class="notes-modal-header" style="padding:18px 22px; background:linear-gradient(135deg,#F8FAFC,#EFF6FF); border-bottom:1px solid #E2E8F0; display:flex; justify-content:space-between; align-items:center;">
+  <!-- FIXED NOTES MODAL POPUP (HIDDEN BY DEFAULT) -->
+  <div class="notes-panel-modal" id="notesPanel">
+    <div class="notes-modal-container">
+      <div style="padding:18px 24px; background:#1E293B; border-bottom:1px solid #334155; display:flex; justify-content:space-between; align-items:center; flex-shrink:0;">
         <div>
-          <p class="eyebrow" id="notesPanelBreadcrumb" style="font-size:.72rem; color:#2563EB; font-weight:700; text-transform:uppercase; letter-spacing:.5px;"></p>
-          <h2 id="notesPanelTitle" style="font-size:1.25rem; color:#0F172A; font-weight:800; margin:2px 0 0;"></h2>
+          <p id="notesPanelBreadcrumb" style="font-size:.78rem; color:var(--primary-cyan); font-weight:700; text-transform:uppercase; margin:0;"></p>
+          <h2 id="notesPanelTitle" style="font-size:1.35rem; color:#FFF; font-weight:800; margin:4px 0 0;"></h2>
         </div>
-        <button type="button" id="notesPanelClose" style="background:#FEF2F2; border:1px solid #FECACA; width:36px; height:36px; border-radius:10px; font-size:1rem; cursor:pointer; color:#EF4444; transition:all .2s;"><i class="fa-solid fa-xmark"></i></button>
+        <button type="button" id="notesPanelClose" style="background:#FEF2F2; border:none; width:36px; height:36px; border-radius:10px; cursor:pointer; color:#EF4444; font-size:1.1rem; display:grid; place-items:center;"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="notes-modal-body" style="padding:22px; overflow-y:auto; flex:1;">
-        <p class="browse-status" id="notesPanelStatus" style="font-size:.85rem; color:#64748B; margin-bottom:14px;"></p>
-        <div class="notes-grid" id="notesPanelGrid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;"></div>
-        
-        <div class="notes-state" id="notesPanelEmpty" hidden style="text-align:center; padding:30px 15px;">
-          <div style="width:70px; height:70px; border-radius:20px; background:linear-gradient(135deg,#EFF6FF,#F3E8FF); display:inline-grid; place-items:center; color:#7C3AED; font-size:1.75rem; margin-bottom:12px;">
-            <i class="fa-solid fa-folder-open"></i>
-          </div>
-          <h3 style="font-size:1.2rem; font-weight:800; color:#0F172A; margin-bottom:6px;">No materials available yet</h3>
-          <p id="notesPanelEmptyMessage" style="color:#64748B; font-size:.92rem;">This shelf is empty right now. We are uploading notes for this subject soon!</p>
-        </div>
+
+      <div style="padding:24px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:14px;">
+        <p id="notesPanelStatus" style="font-size:.88rem; color:#94A3B8; margin:0; font-weight:600;"></p>
+        <div id="notesPanelGrid" style="display:flex; flex-direction:column; gap:12px;"></div>
       </div>
     </div>
   </div>
 
-  <!-- Firebase SDKs & Script -->
+  <!-- Firebase SDKs Compat -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
-  <script src="student.js" defer></script>
 
-  <!-- ================= STUDENT PANEL UI WIRING ================= -->
+  <!-- JAVASCRIPT ENGINE WITH BROWSER BACK BUTTON INTEGRATION -->
   <script>
   (function () {
     'use strict';
-    const THEME_KEY = 'notespoint_theme_v1';
 
-    /* ---------- THEME (Light/Dark) ---------- */
-    const themeBtn = document.getElementById('themeToggleBtn');
-    const themeIcon = themeBtn ? themeBtn.querySelector('i') : null;
-
-    function applyTheme(mode) {
-      const isDark = mode === 'dark';
-      document.body.classList.toggle('dark-mode', isDark);
-      if (themeIcon) themeIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-      if (themeBtn) themeBtn.setAttribute('title', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
-    }
-
-    let savedTheme = null;
-    try { savedTheme = localStorage.getItem(THEME_KEY); } catch (e) {}
-    if (!savedTheme) {
-      savedTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-    }
-    applyTheme(savedTheme);
-
-    if (themeBtn) {
-      themeBtn.addEventListener('click', function () {
-        const next = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
-        applyTheme(next);
-        try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
-      });
-    }
-
-    /* ---------- SECTION SWITCHING ---------- */
+    /* ---------- NAVIGATION ---------- */
     const sections = document.querySelectorAll('.workspace-section');
     const navItems = document.querySelectorAll('.sidebar-menu .nav-item');
     const pageTitle = document.getElementById('pageSectionTitle');
 
-    function switchSection(id) {
+    function switchSection(id, pushState = true) {
       sections.forEach(s => {
         const active = s.id === id;
         s.classList.toggle('active', active);
@@ -868,7 +520,6 @@
       });
       if (pageTitle) {
         const map = {
-          overviewSection: 'Dashboard Overview',
           classesSection: 'Browse Classes & Notes',
           savedSection: 'Saved Notes',
           recentSection: 'Recently Viewed',
@@ -876,6 +527,13 @@
         };
         pageTitle.textContent = map[id] || 'Dashboard';
       }
+      if (id === 'savedSection') renderSavedNotes();
+      if (id === 'recentSection') renderRecentNotes();
+
+      if (pushState) {
+        history.pushState({ step: 'section', sectionId: id }, '', `#${id}`);
+      }
+
       const sb = document.getElementById('appSidebar');
       if (sb) sb.classList.remove('open');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -890,7 +548,7 @@
       });
     });
 
-    /* ---------- MOBILE SIDEBAR TOGGLE FIXED (3-BAR BUTTON) ---------- */
+    /* ---------- MOBILE SIDEBAR ---------- */
     const sidebar = document.getElementById('appSidebar');
     const toggleBtn = document.getElementById('toggleSidebarMobile');
     if (toggleBtn && sidebar) {
@@ -899,38 +557,36 @@
         sidebar.classList.toggle('open');
       });
       document.addEventListener('click', function (e) {
-        if (window.innerWidth <= 992 && sidebar.classList.contains('open')
-            && !sidebar.contains(e.target) && e.target !== toggleBtn) {
+        if (window.innerWidth <= 992 && sidebar.classList.contains('open') && !sidebar.contains(e.target)) {
           sidebar.classList.remove('open');
         }
       });
     }
 
-    /* ---------- CURRICULUM WITH SCIENCE, COMMERCE & ARTS STREAMS ---------- */
+    /* ---------- CURRICULUM DATA ---------- */
     const CURRICULUM = {
-      '9': { 'All': ['Mathematics','Science','Social Science','English','Hindi','Sanskrit','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)','Sample Papers'] },
-      '10': { 'All': ['Mathematics','Science','Social Science','English','Hindi','IT / Computer','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)','Sample Papers'] },
+      '9': { 'All': ['Mathematics','Science','Social Science','English','Hindi','Sanskrit','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)'] },
+      '10': { 'All': ['Mathematics','Science','Social Science','English','Hindi','IT / Computer','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)'] },
       '11': {
-        'Science': ['Physics','Chemistry','Mathematics','Biology','English','Computer Science','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)'],
-        'Commerce': ['Accountancy','Business Studies','Economics','Mathematics','English','Informatics Practices','NCERT Books 📚','PYQs'],
-        'Arts / Humanities': ['History','Political Science','Geography','Economics','Psychology','Sociology','English','Hindi','NCERT Books 📚']
+        'Science': ['Physics','Chemistry','Mathematics','Biology','English','Computer Science','NCERT Books 📚','PYQs'],
+        'Commerce': ['Accountancy','Business Studies','Economics','Mathematics','English','PYQs'],
+        'Arts / Humanities': ['History','Political Science','Geography','Economics','Sociology','Psychology','English','Hindi']
       },
       '12': {
-        'Science': ['Physics','Chemistry','Mathematics','Biology','English','Computer Science','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)'],
-        'Commerce': ['Accountancy','Business Studies','Economics','Mathematics','English','Informatics Practices','NCERT Books 📚','PYQs'],
-        'Arts / Humanities': ['History','Political Science','Geography','Economics','Psychology','Sociology','English','Hindi','NCERT Books 📚']
+        'Science': ['Physics','Chemistry','Mathematics','Biology','English','Computer Science','NCERT Books 📚','PYQs'],
+        'Commerce': ['Accountancy','Business Studies','Economics','Mathematics','English','PYQs'],
+        'Arts / Humanities': ['History','Political Science','Geography','Economics','Sociology','Psychology','English','Hindi']
       },
-      'competitive': { 'All': ['JEE Main & Advanced','NEET-UG Biology & Physics','CUET General Test','NDA Entrance Exam','Formula Short Tricks','Entrance PYQs'] }
+      'competitive': { 'All': ['JEE Main & Advanced','NEET-UG Biology & Physics','CUET General Test','NDA Entrance Exam','Formula Short Tricks'] }
     };
 
     const CLASS_LABEL = { '9':'Class 9','10':'Class 10','11':'Class 11','12':'Class 12','competitive':'Competitive Exams' };
-
     const CLASS_THEMES = {
-      '9':  { bg: 'linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%)', border: '#BFDBFE', iconBg: 'linear-gradient(135deg, #2563EB, #1D4ED8)', text: '#1E3A8A', accent: '#2563EB' },
-      '10': { bg: 'linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)', border: '#A7F3D0', iconBg: 'linear-gradient(135deg, #059669, #047857)', text: '#064E3B', accent: '#059669' },
-      '11': { bg: 'linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%)', border: '#FDE68A', iconBg: 'linear-gradient(135deg, #D97706, #B45309)', text: '#78350F', accent: '#D97706' },
-      '12': { bg: 'linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%)', border: '#FECACA', iconBg: 'linear-gradient(135deg, #DC2626, #B91C1C)', text: '#7F1D1D', accent: '#DC2626' },
-      'competitive': { bg: 'linear-gradient(135deg, #F3E8FF 0%, #EDE9FE 100%)', border: '#D8B4FE', iconBg: 'linear-gradient(135deg, #7C3AED, #6D28D9)', text: '#4C1D95', accent: '#7C3AED' }
+      '9':   { bg: 'linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%)', border: '#BFDBFE', text: '#1E3A8A', accent: '#2563EB' },
+      '10':  { bg: 'linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)', border: '#A7F3D0', text: '#064E3B', accent: '#059669' },
+      '11':  { bg: 'linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%)', border: '#FDE68A', text: '#78350F', accent: '#D97706' },
+      '12':  { bg: 'linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%)', border: '#FECACA', text: '#7F1D1D', accent: '#DC2626' },
+      'competitive': { bg: 'linear-gradient(135deg, #F3E8FF 0%, #EDE9FE 100%)', border: '#D8B4FE', text: '#4C1D95', accent: '#7C3AED' }
     };
 
     const subjectContainer = document.getElementById('subjectContainerArea');
@@ -938,6 +594,7 @@
     const streamLevel = document.getElementById('streamLevel');
     const streamPills = document.getElementById('streamPills');
     const subjectGrid = document.getElementById('subjectGrid');
+    const btnBackToClasses = document.getElementById('btnBackToClasses');
 
     let activeClass = '10';
     let activeStream = 'Science';
@@ -949,19 +606,19 @@
 
       if (subjectGrid) {
         subjectGrid.innerHTML = subs.map(s => (
-          `<button type="button" class="subject-card" data-subject="${s.replace(/"/g,'&quot;')}" data-class="${cls}" style="background:${theme.bg} !important; border-color:${theme.border} !important; position:relative;">` +
+          `<button type="button" class="subject-card-box" data-subject="${s.replace(/"/g,'&quot;')}" data-class="${cls}" style="background:${theme.bg} !important; border-color:${theme.border} !important;">` +
             `<div>` +
-              `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">` +
-                `<div style="width:42px;height:42px;border-radius:12px;background:${theme.iconBg};color:#fff;display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);"><i class="fa-solid fa-book-open"></i></div>` +
-                `<span class="free-badge-tag">🔥 100% FREE</span>` +
+              `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">` +
+                `<div style="width:38px;height:38px;border-radius:10px;background:${theme.accent};color:#fff;display:grid;place-items:center;"><i class="fa-solid fa-book-open"></i></div>` +
+                `<span style="background:#EF4444; color:#fff; font-size:.68rem; font-weight:800; padding:2px 8px; border-radius:6px;">100% FREE</span>` +
               `</div>` +
-              `<strong style="font-size:1.05rem;color:${theme.text};">${s}</strong>` +
+              `<strong style="font-size:1rem;color:${theme.text};">${s}</strong>` +
             `</div>` +
-            `<span style="font-size:.85rem;color:${theme.accent};font-weight:700;margin-top:14px;display:inline-flex;align-items:center;gap:6px;">Open <i class="fa-solid fa-arrow-right"></i></span>` +
+            `<span style="font-size:.82rem;color:${theme.accent};font-weight:700;margin-top:10px;display:inline-flex;align-items:center;gap:6px;">Open <i class="fa-solid fa-arrow-right"></i></span>` +
           `</button>`
         )).join('');
 
-        subjectGrid.querySelectorAll('.subject-card').forEach(sc => {
+        subjectGrid.querySelectorAll('.subject-card-box').forEach(sc => {
           sc.addEventListener('click', function () {
             openNotesPanel(this.getAttribute('data-class'), this.getAttribute('data-subject'));
           });
@@ -969,59 +626,156 @@
       }
     }
 
+    function selectClassCard(cls, pushState = true) {
+      activeClass = cls;
+      const theme = CLASS_THEMES[cls] || CLASS_THEMES['9'];
+      const streamsObj = CURRICULUM[cls] || {};
+      const availableStreams = Object.keys(streamsObj);
+
+      if (selectedClassTitle) {
+        selectedClassTitle.innerHTML =
+          `<span style="display:inline-block;background:${theme.bg};color:${theme.text};font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:6px;border:1px solid ${theme.border};">Selected Class</span>` +
+          `<h3 style="font-size:1.3rem;font-weight:800;margin:0;color:${theme.text};">${(CLASS_LABEL[cls] || cls)} — Subjects</h3>`;
+      }
+
+      if (availableStreams.length > 1 && availableStreams[0] !== 'All') {
+        streamLevel.hidden = false;
+        activeStream = availableStreams[0];
+        streamPills.innerHTML = availableStreams.map(st => `
+          <button type="button" class="stream-pill-btn ${st === activeStream ? 'active' : ''}" data-stream="${st}">${st}</button>
+        `).join('');
+
+        streamPills.querySelectorAll('.stream-pill-btn').forEach(btn => {
+          btn.addEventListener('click', function () {
+            streamPills.querySelectorAll('.stream-pill-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            activeStream = this.getAttribute('data-stream');
+            renderSubjectGrid(activeClass, activeStream);
+          });
+        });
+      } else {
+        streamLevel.hidden = true;
+        activeStream = 'All';
+      }
+
+      renderSubjectGrid(activeClass, activeStream);
+
+      if (subjectContainer) {
+        subjectContainer.hidden = false;
+        subjectContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      if (pushState) {
+        history.pushState({ step: 'class', classVal: cls }, '', `?class=${cls}`);
+      }
+    }
+
     document.querySelectorAll('.class-card').forEach(card => {
       card.addEventListener('click', function () {
-        const cls = this.getAttribute('data-class');
-        activeClass = cls;
-        const theme = CLASS_THEMES[cls] || CLASS_THEMES['9'];
-        const streamsObj = CURRICULUM[cls] || {};
-        const availableStreams = Object.keys(streamsObj);
-
-        if (selectedClassTitle) {
-          selectedClassTitle.innerHTML =
-            `<span style="display:inline-block;background:${theme.bg};color:${theme.text};font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;border:1px solid ${theme.border};">Selected</span>` +
-            `<h3 style="font-size:1.35rem;font-weight:800;margin:6px 0 0;color:${theme.text};">${(CLASS_LABEL[cls] || cls)} — Subjects</h3>`;
-        }
-
-        if (availableStreams.length > 1 && availableStreams[0] !== 'All') {
-          streamLevel.hidden = false;
-          activeStream = availableStreams[0];
-          streamPills.innerHTML = availableStreams.map(st => `
-            <button type="button" class="stream-pill-btn ${st === activeStream ? 'active' : ''}" data-stream="${st}">${st}</button>
-          `).join('');
-
-          streamPills.querySelectorAll('.stream-pill-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-              streamPills.querySelectorAll('.stream-pill-btn').forEach(b => b.classList.remove('active'));
-              this.classList.add('active');
-              activeStream = this.getAttribute('data-stream');
-              renderSubjectGrid(activeClass, activeStream);
-            });
-          });
-        } else {
-          streamLevel.hidden = true;
-          activeStream = 'All';
-        }
-
-        renderSubjectGrid(activeClass, activeStream);
-
-        if (subjectContainer) {
-          subjectContainer.hidden = false;
-          subjectContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        selectClassCard(this.getAttribute('data-class'));
       });
     });
 
-    /* ---------- NOTES MODAL ---------- */
+    /* STEP-BY-STEP BACK BUTTON CLICK HANDLER */
+    function backToClassesList(pushState = true) {
+      if (subjectContainer) subjectContainer.hidden = true;
+      const mainRail = document.getElementById('mainClassRail');
+      if (mainRail) mainRail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      if (pushState) {
+        history.pushState({ step: 'classList' }, '', 'student.html');
+      }
+    }
+
+    if (btnBackToClasses) {
+      btnBackToClasses.addEventListener('click', function () {
+        backToClassesList();
+      });
+    }
+
+    /* ---------- BROWSER BACK BUTTON (POPSTATE INTEGRATION) ---------- */
+    window.addEventListener('popstate', function (e) {
+      /* 1. Close Modal if Open */
+      if (notesPanel && notesPanel.classList.contains('show-modal')) {
+        closeNotesModal(false);
+        return;
+      }
+
+      /* 2. Step back from Subject Grid to Classes List */
+      if (subjectContainer && !subjectContainer.hidden) {
+        backToClassesList(false);
+        return;
+      }
+
+      /* 3. Handle Section or URL parameters */
+      if (e.state && e.state.classVal) {
+        selectClassCard(e.state.classVal, false);
+      } else if (e.state && e.state.sectionId) {
+        switchSection(e.state.sectionId, false);
+      } else {
+        backToClassesList(false);
+      }
+    });
+
+    /* ---------- URL PARAMETER INITIAL HANDLER ---------- */
+    window.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetClass = urlParams.get('class');
+      if (targetClass) {
+        switchSection('classesSection', false);
+        setTimeout(() => { selectClassCard(targetClass, false); }, 150);
+      }
+    });
+
+    /* ---------- RECENT & SAVED NOTES LOGIC ---------- */
+    function saveToRecent(item) {
+      let recents = JSON.parse(localStorage.getItem('np_recents') || '[]');
+      recents = recents.filter(r => r.title !== item.title);
+      recents.unshift(item);
+      localStorage.setItem('np_recents', JSON.stringify(recents.slice(0, 10)));
+    }
+
+    function renderRecentNotes() {
+      const container = document.getElementById('recentNotesContainer');
+      const recents = JSON.parse(localStorage.getItem('np_recents') || '[]');
+      if (!container) return;
+      if (recents.length === 0) {
+        container.innerHTML = `<p style="grid-column:1/-1; color:#94A3B8; text-align:center; padding:20px;">No recently viewed notes.</p>`;
+      } else {
+        container.innerHTML = recents.map(r => `
+          <a href="${r.url || '#'}" target="_blank" style="background:#1E293B; border:1px solid #334155; padding:16px; border-radius:12px; text-decoration:none; color:#fff; display:block;">
+            <strong style="display:block; font-size:.95rem; color:#FFF;">${r.title}</strong>
+            <span style="font-size:.75rem; color:#38BDF8;">Class ${r.cls} • ${r.sub}</span>
+          </a>
+        `).join('');
+      }
+    }
+
+    function renderSavedNotes() {
+      const container = document.getElementById('savedNotesContainer');
+      const saved = JSON.parse(localStorage.getItem('np_saved') || '[]');
+      if (!container) return;
+      if (saved.length === 0) {
+        container.innerHTML = `<p style="grid-column:1/-1; color:#94A3B8; text-align:center; padding:20px;">No saved notes found.</p>`;
+      } else {
+        container.innerHTML = saved.map(s => `
+          <a href="${s.url || '#'}" target="_blank" style="background:#1E293B; border:1px solid #334155; padding:16px; border-radius:12px; text-decoration:none; color:#fff; display:block;">
+            <strong style="display:block; font-size:.95rem; color:#FFF;">${s.title}</strong>
+            <span style="font-size:.75rem; color:#F59E0B;">Class ${s.cls} • ${s.sub}</span>
+          </a>
+        `).join('');
+      }
+    }
+
+    /* ---------- NOTES MODAL (STRICT ADMIN DATA ONLY) ---------- */
     const notesPanel = document.getElementById('notesPanel');
     const notesClose = document.getElementById('notesPanelClose');
     const notesTitle = document.getElementById('notesPanelTitle');
     const notesCrumb = document.getElementById('notesPanelBreadcrumb');
     const notesStatus = document.getElementById('notesPanelStatus');
     const notesGrid = document.getElementById('notesPanelGrid');
-    const notesEmpty = document.getElementById('notesPanelEmpty');
 
-    function openNotesPanel(cls, subject) {
+    function openNotesPanel(cls, subject, pushState = true) {
       if (!notesPanel) return;
       const theme = CLASS_THEMES[cls] || CLASS_THEMES['9'];
 
@@ -1033,39 +787,32 @@
       if (notesStatus) notesStatus.textContent = 'Loading materials...';
       if (notesGrid) notesGrid.innerHTML = '';
 
-      function renderNotes(items) {
+      function renderNotesList(items) {
         if (!items || items.length === 0) {
-          if (notesEmpty) notesEmpty.hidden = false;
-          if (notesStatus) notesStatus.textContent = '';
-          if (notesGrid) notesGrid.innerHTML = '';
+          notesStatus.textContent = `0 material(s) available`;
+          notesGrid.innerHTML = `<div style="text-align:center; padding:35px 20px; color:#94A3B8; font-weight:600;">No uploaded notes for this subject yet. Upload from Admin Panel!</div>`;
         } else {
-          if (notesEmpty) notesEmpty.hidden = true;
-          if (notesStatus) notesStatus.textContent = items.length + ' material(s) available';
-          if (notesGrid) {
-            notesGrid.innerHTML = items.map(n => {
-              const fileLink = n.fileUrl || n.cloudUrl || n.url || '#';
-              const docTitle = n.title || n.chapter || n.fileName || 'Study Note';
-              const docCategory = n.docType || 'Chapter Note';
-              
-              return `
-                <a href="${fileLink}" target="_blank" rel="noopener" class="subject-card" style="text-decoration:none; position:relative; background:${theme.bg} !important; border-color:${theme.border} !important;">
-                  <div>
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                      <div style="width:42px;height:42px;border-radius:12px;background:${theme.iconBg};color:#fff;display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);">
-                        <i class="fa-solid fa-file-pdf"></i>
-                      </div>
-                      <span class="free-badge-tag">🔥 100% FREE</span>
-                    </div>
-                    <strong style="font-size:1.02rem; color:${theme.text};">${docTitle}</strong>
-                    <p style="font-size:.78rem;color:#64748B;margin:4px 0 0;">${docCategory}</p>
-                  </div>
-                  <span style="font-size:.85rem;color:${theme.accent};font-weight:700;margin-top:14px;display:inline-flex;align-items:center;gap:6px;">Download / View <i class="fa-solid fa-download"></i></span>
-                </a>
-              `;
-            }).join('');
-          }
+          notesStatus.textContent = `${items.length} material(s) available`;
+          notesGrid.innerHTML = items.map(n => {
+            const fileLink = n.fileUrl || n.cloudUrl || n.url || '#';
+            const docTitle = n.title || n.chapter || n.fileName || 'Study Note';
+            
+            return `
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 18px; background:#1E293B; border:1px solid #334155; border-radius:12px;">
+                <div>
+                  <strong style="font-size:.95rem; display:block; color:#FFF;">${docTitle}</strong>
+                  <span style="font-size:.75rem; color:#34D399; font-weight:700;">100% FREE VERIFIED PDF</span>
+                </div>
+                <a href="${fileLink}" target="_blank" rel="noopener" onclick="window.trackNoteClick('${cls}', '${subject}', '${docTitle}', '${fileLink}')" style="background:#0284C7; color:#fff; text-decoration:none; padding:8px 16px; border-radius:8px; font-weight:700; font-size:.85rem;">Download <i class="fa-solid fa-download" style="margin-left:4px;"></i></a>
+              </div>
+            `;
+          }).join('');
         }
       }
+
+      window.trackNoteClick = function(c, s, t, u) {
+        saveToRecent({ cls: c, sub: s, title: t, url: u });
+      };
 
       let notes = [];
       try { notes = JSON.parse(localStorage.getItem('notespoint_uploaded_notes_v7') || '[]'); } catch (e) {}
@@ -1078,56 +825,38 @@
                (noteSubject === cleanSubject || noteSubject.includes(cleanSubject) || cleanSubject.includes(noteSubject));
       });
 
-      renderNotes(filtered);
+      renderNotesList(filtered);
+      notesPanel.classList.add('show-modal');
 
-      if (typeof firebase !== 'undefined' && firebase.apps && firebase.apps.length) {
-        try {
-          const db = firebase.firestore();
-          db.collection('notes')
-            .where('class', '==', String(cls))
-            .get()
-            .then(snapshot => {
-              if (!snapshot.empty) {
-                const cloudNotes = [];
-                snapshot.forEach(doc => cloudNotes.push(doc.data()));
-
-                const cloudFiltered = cloudNotes.filter(n => {
-                  const noteSub = String(n.subject || '').trim().toLowerCase();
-                  return noteSub === cleanSubject || noteSub.includes(cleanSubject) || cleanSubject.includes(noteSub);
-                });
-
-                if (cloudFiltered.length > 0) {
-                  renderNotes(cloudFiltered);
-                  localStorage.setItem('notespoint_uploaded_notes_v7', JSON.stringify(cloudNotes));
-                }
-              }
-            })
-            .catch(err => console.warn("Firestore Sync Warning:", err));
-        } catch (err) { console.warn("Firebase Warning:", err); }
+      if (pushState) {
+        history.pushState({ step: 'modal', modalSubject: subject }, '', `?class=${cls}&subject=${encodeURIComponent(subject)}`);
       }
-
-      notesPanel.hidden = false;
     }
 
-    if (notesClose) notesClose.addEventListener('click', function () { notesPanel.hidden = true; });
+    function closeNotesModal(pushState = true) {
+      if (notesPanel) notesPanel.classList.remove('show-modal');
+      if (pushState && history.state && history.state.step === 'modal') {
+        history.back();
+      }
+    }
+
+    if (notesClose) notesClose.addEventListener('click', function () { closeNotesModal(true); });
     if (notesPanel) notesPanel.addEventListener('click', function (e) {
-      if (e.target === notesPanel) notesPanel.hidden = true;
+      if (e.target === notesPanel) closeNotesModal(true);
     });
 
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
       logoutBtn.addEventListener('click', function () {
-        if (confirm('Return to Home Page?')) {
-          window.location.href = 'index.html';
-        }
+        if (confirm('Return to Home Page?')) window.location.href = 'index.html';
       });
     }
 
-    const supportForm = document.querySelector('#supportSection form');
+    const supportForm = document.getElementById('supportForm');
     if (supportForm) {
       supportForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        alert('Thanks! Your message has been recorded. We will get back to you soon.');
+        alert('Thank you! Your request has been recorded.');
         supportForm.reset();
       });
     }
