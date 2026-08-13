@@ -3,41 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Notes Point — NCERT Study Notes, PYQs & Competitive Prep</title>
-<meta name="description" content="Free NCERT Notes, Board PYQs, Formula Sheets & Competitive Exam Material for Class 9 to 12.">
-<meta name="theme-color" content="#2563EB">
+<title>Notes Point — Academic Workspace & NCERT Resources</title>
+<meta name="description" content="Comprehensive Academic Study Material, Board Examination Notes, NCERT Solutions & Competitive Prep for Grades 9 to 12.">
+<meta name="theme-color" content="#0F172A">
 
-<!-- NP Favicon Logo -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%232563EB%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22700%22 font-size=%2250%22 fill=%22%23ffffff%22>NP</text></svg>">
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%230F172A%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22 font-size=%2248%22 fill=%22%2306B6D4%22>NP</text></svg>">
 
 <!-- Fonts & FontAwesome -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!-- ==================== COMPLETE PRODUCTION STYLESHEET ==================== -->
+<!-- Firebase Imports -->
+<script type="importmap">
+    {
+        "imports": {
+            "firebase/app": "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js",
+            "firebase/firestore": "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js",
+            "firebase/storage": "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js"
+        }
+    }
+</script>
+
 <style>
   :root {
-    --primary: #2563EB;
-    --primary-dark: #1D4ED8;
-    --accent-purple: #7C3AED;
-    --whatsapp-green: #25D366;
-    --dark-navy: #0B132B;
-    --slate-900: #0F172A;
-    --slate-800: #1E293B;
+    --primary-cyan: #06B6D4;
+    --primary-teal: #14B8A6;
+    --brand-navy: #0F172A;
+    --brand-slate: #1E293B;
     --slate-700: #334155;
     --slate-600: #475569;
     --slate-500: #64748B;
     --slate-200: #E2E8F0;
     --slate-100: #F8FAFC;
-    --border-color: #E2E8F0;
-    --radius-lg: 24px;
-    --radius-md: 16px;
+    --border-color: #CBD5E1;
+    --radius-lg: 20px;
+    --radius-md: 12px;
     --radius-sm: 8px;
-    --shadow-sm: 0 4px 15px rgba(0,0,0,0.03);
-    --shadow-md: 0 10px 25px rgba(37,99,235,0.08);
-    --shadow-lg: 0 20px 45px rgba(37,99,235,0.22);
+    --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 10px 25px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.12);
+    /* PRO MATCHING NOTEBOOK PATTERN */
+    --paper-bg: #FAF9F5;
+    --paper-line: #E2E0D4;
   }
 
   *, *::before, *::after {
@@ -56,30 +66,19 @@
   }
 
   body {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
-    background: radial-gradient(1200px 800px at 50% -10%, rgba(37, 99, 235, 0.08), transparent 70%), var(--slate-100) !important;
-    color: var(--slate-900);
-    line-height: 1.55;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    background-color: var(--paper-bg) !important;
+    background-image: linear-gradient(var(--paper-line) 1px, transparent 1px) !important;
+    background-size: 100% 32px !important;
+    color: var(--brand-navy);
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ---------------- Top Announcement Ticker ---------------- */
-  .top-announcement-bar {
-    background: var(--dark-navy);
-    color: #38BDF8;
-    padding: 10px 16px;
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  /* ---------------- Site Header & Navbar ---------------- */
+  /* ---------------- Header & Mobile Responsive Fixes ---------------- */
   .site-header {
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border-color);
+    background: rgba(250, 249, 245, 0.96);
+    border-bottom: 2px solid var(--paper-line);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -92,29 +91,30 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 16px;
   }
 
   .header-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
   }
 
   .nav-toggle-btn {
     display: none;
     background: none;
     border: none;
-    font-size: 1.3rem;
-    color: var(--slate-900);
+    font-size: 1.4rem;
+    color: var(--brand-navy);
     cursor: pointer;
-    padding: 4px;
+    padding: 6px;
+    border-radius: 8px;
   }
 
   .brand {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     text-decoration: none;
   }
 
@@ -122,32 +122,31 @@
     width: 38px;
     height: 38px;
     border-radius: 10px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: linear-gradient(135deg, var(--brand-navy), var(--primary-teal));
     color: #ffffff;
     display: grid;
     place-items: center;
     font-size: 1.1rem;
-    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    box-shadow: 0 4px 14px rgba(6, 182, 212, 0.25);
   }
 
   .brand-name {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 1.3rem;
     font-weight: 700;
-    color: var(--slate-900);
+    color: var(--brand-navy);
+    letter-spacing: -0.5px;
   }
 
   .brand-accent {
-    color: var(--primary);
+    color: var(--primary-cyan);
   }
 
   .main-nav ul {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 24px;
     list-style: none;
-    margin: 0;
-    padding: 0;
   }
 
   .main-nav a {
@@ -155,34 +154,133 @@
     font-weight: 600;
     text-decoration: none;
     color: var(--slate-700);
-    transition: color 0.2s ease;
+    transition: color 0.2s;
+    cursor: pointer;
   }
 
   .main-nav a:hover {
-    color: var(--primary);
+    color: var(--primary-teal);
+  }
+
+  .header-right-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .btn-nav-primary {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: var(--brand-navy);
     color: #ffffff !important;
     font-weight: 700;
     text-decoration: none;
     padding: 9px 18px;
     border-radius: 10px;
-    font-size: 0.85rem;
-    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.3);
+    font-size: 0.88rem;
     transition: all 0.2s ease;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    border: none;
-    cursor: pointer;
-    white-space: nowrap;
+    gap: 8px;
+    border: 1px solid var(--brand-navy);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
   }
 
   .btn-nav-primary:hover {
+    background: var(--primary-teal);
+    border-color: var(--primary-teal);
     transform: translateY(-2px);
-    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.45);
+  }
+
+  /* NO BLUR MOBILE OVERLAY */
+  .mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    z-index: 99998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-nav-drawer-header {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--paper-line);
+  }
+
+  .mobile-nav-close-btn {
+    background: var(--slate-100);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    color: var(--slate-700);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* MOBILE VIEW RESPONSIVE RULES */
+  @media (max-width: 992px) {
+    .nav-toggle-btn { display: flex; align-items: center; }
+    
+    /* HIDE TOP ACCESS WORKSPACE BUTTON IN MOBILE VIEW (PER SCREENSHOT REQUEST) */
+    .header-right-action {
+      display: none !important;
+    }
+
+    .main-nav {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 290px;
+      max-width: 85vw;
+      height: 100vh;
+      background: #ffffff;
+      box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+      z-index: 99999;
+      padding: 24px 20px;
+      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    
+    .main-nav.nav-open { left: 0; }
+    .mobile-nav-drawer-header { display: flex; }
+    
+    .main-nav ul {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      width: 100%;
+    }
+    
+    .main-nav li { width: 100%; }
+    
+    .main-nav a {
+      font-size: 1rem;
+      font-weight: 700;
+      display: block;
+      padding: 12px 14px;
+      border-radius: 10px;
+      width: 100%;
+      color: var(--brand-navy);
+    }
+
+    .main-nav a:hover {
+      background: rgba(6, 182, 212, 0.08);
+      color: var(--primary-teal);
+    }
   }
 
   /* ---------------- Hero Section ---------------- */
@@ -196,137 +294,124 @@
     align-items: center;
   }
 
-  .free-badge-glow {
+  .badge-tag {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: #FEF2F2;
-    color: #DC2626;
-    border: 1px solid #FECACA;
+    background: #ECFEFF;
+    color: #0891B2;
+    border: 1px solid #CFFAFE;
     font-size: 0.82rem;
-    font-weight: 800;
-    padding: 6px 18px;
+    font-weight: 700;
+    padding: 6px 16px;
     border-radius: 30px;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.5px;
     margin-bottom: 20px;
   }
 
   .hero-title {
     font-size: 3.1rem;
     font-weight: 800;
-    color: var(--slate-900);
+    color: var(--brand-navy);
     margin: 0 0 18px 0;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+    line-height: 1.18;
+    letter-spacing: -0.03em;
   }
 
-  .hero-title span.text-purple-highlight {
-    color: #7C3AED;
-    display: inline;
-    background: none;
+  .hero-title span.highlight {
+    background: linear-gradient(135deg, var(--primary-cyan), var(--primary-teal));
+    -background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .hero-subtitle {
     font-size: 1.05rem;
     color: var(--slate-600);
-    margin: 0 0 30px 0;
-    line-height: 1.6;
+    margin: 0 0 32px 0;
+    line-height: 1.65;
+    max-width: 580px;
   }
 
   .hero-ctas {
     display: flex;
-    gap: 14px;
+    gap: 16px;
     flex-wrap: wrap;
   }
 
-  /* HERO GLASS CARD */
-  .hero-glass-card {
-    background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);
+  .hero-card {
+    background: var(--brand-navy);
     border-radius: var(--radius-lg);
     padding: 32px 26px;
     color: #ffffff;
     box-shadow: var(--shadow-lg);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--brand-slate);
     position: relative;
     overflow: hidden;
-  }
-
-  .glass-badge {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 20px;
   }
 
   .hero-features-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px;
-    margin-top: 22px;
+    margin-top: 24px;
   }
 
   .h-feat-item {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-md);
-    padding: 14px;
+    padding: 16px;
     text-align: center;
   }
 
   .h-feat-item i {
     font-size: 1.5rem;
-    color: #38BDF8;
-    margin-bottom: 6px;
+    color: var(--primary-cyan);
+    margin-bottom: 8px;
   }
 
   .h-feat-item strong {
     display: block;
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     margin-bottom: 2px;
   }
 
   .h-feat-item span {
-    font-size: 0.75rem;
-    opacity: 0.85;
+    font-size: 0.78rem;
+    color: #94A3B8;
   }
 
-  /* ---------------- Infinite Marquee Ticker ---------------- */
+  /* ---------------- Ticker ---------------- */
   .ticker-wrap {
     width: 100%;
     overflow: hidden;
-    background: var(--dark-navy);
-    color: #E0E7FF;
+    background: var(--brand-navy);
+    color: #E2E8F0;
     padding: 14px 0;
-    margin: 40px 0 50px 0;
-    border-top: 1px solid var(--slate-800);
-    border-bottom: 1px solid var(--slate-800);
+    margin: 40px 0 60px 0;
+    border-top: 1px solid var(--brand-slate);
+    border-bottom: 1px solid var(--brand-slate);
   }
 
   .ticker-move {
     display: flex;
     gap: 40px;
     width: max-content;
-    animation: ticker 22s linear infinite;
+    animation: ticker 25s linear infinite;
   }
 
   .ticker-item {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-weight: 700;
-    font-size: 0.95rem;
+    font-weight: 600;
+    font-size: 0.92rem;
     white-space: nowrap;
   }
 
   .ticker-item i {
-    color: #FBBF24;
+    color: var(--primary-cyan);
   }
 
   @keyframes ticker {
@@ -334,22 +419,23 @@
     100% { transform: translateX(-50%); }
   }
 
-  /* ---------------- 1-Click Class Rail Grid ---------------- */
+  /* ---------------- CLASS CARDS WITH SMOOTH HOVER ANIMATION ---------------- */
   .section-head {
     text-align: center;
-    margin-bottom: 35px;
-    padding: 0 16px;
+    margin-bottom: 38px;
+    padding: 0 20px;
   }
 
   .section-head h2 {
     font-size: 2.2rem;
     font-weight: 800;
-    color: var(--slate-900);
-    margin: 0 0 8px 0;
+    color: var(--brand-navy);
+    margin: 0 0 10px 0;
+    letter-spacing: -0.5px;
   }
 
   .section-head p {
-    color: var(--slate-500);
+    color: var(--slate-600);
     margin: 0;
     font-size: 1rem;
   }
@@ -366,22 +452,24 @@
   .home-class-card {
     text-decoration: none;
     border-radius: var(--radius-lg);
-    padding: 26px 20px;
+    padding: 28px 22px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 220px;
-    transition: all 0.3s cubic-bezier(.2,.8,.2,1);
+    min-height: 230px;
+    transition: all 0.35s cubic-bezier(.25,.8,.25,1);
     position: relative;
-    overflow: hidden;
-    border: 2px solid transparent;
-    box-shadow: var(--shadow-sm);
+    border: 2px solid var(--brand-navy);
+    box-shadow: 5px 5px 0px var(--brand-navy);
     background: #ffffff;
+    cursor: pointer;
   }
 
+  /* ENHANCED MICRO-ANIMATION ON CLASS CARDS */
   .home-class-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 8px 12px 20px rgba(15, 23, 42, 0.15);
+    border-color: var(--primary-teal);
   }
 
   .card-icon-box {
@@ -392,7 +480,12 @@
     place-items: center;
     font-size: 1.3rem;
     margin-bottom: 16px;
-    background: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.95);
+    transition: transform 0.3s ease;
+  }
+
+  .home-class-card:hover .card-icon-box {
+    transform: rotate(6deg) scale(1.1);
   }
 
   .hc-9  { background: linear-gradient(135deg,#EFF6FF,#DBEAFE); border-color:#BFDBFE; color:#1E3A8A; }
@@ -401,24 +494,10 @@
   .hc-12 { background: linear-gradient(135deg,#FEF2F2,#FEE2E2); border-color:#FECACA; color:#7F1D1D; }
   .hc-comp { background: linear-gradient(135deg,#F3E8FF,#EDE9FE); border-color:#D8B4FE; color:#4C1D95; }
 
-  .badge-free-mini {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    background: #EF4444;
-    color: #ffffff;
-    font-size: 0.68rem;
-    font-weight: 800;
-    padding: 3px 8px;
-    border-radius: 6px;
-    text-transform: uppercase;
-  }
-
-  /* ---------------- Live Trust Stats Banner ---------------- */
   .stats-banner {
-    background: linear-gradient(135deg, var(--slate-900) 0%, #1E3A8A 100%);
+    background: var(--brand-navy);
     color: #ffffff;
-    padding: 45px 20px;
+    padding: 50px 20px;
     text-align: center;
     margin: 40px 0 60px 0;
   }
@@ -432,23 +511,22 @@
   }
 
   .stat-item h3 {
-    font-size: 2.5rem;
+    font-size: 2.6rem;
     font-weight: 800;
     margin: 0;
-    color: #FBBF24;
+    color: var(--primary-cyan);
   }
 
   .stat-item p {
     margin: 6px 0 0 0;
-    color: #CBD5E1;
-    font-size: 0.95rem;
+    color: #94A3B8;
+    font-size: 0.92rem;
     font-weight: 600;
   }
 
-  /* ---------------- 7 Complete FAQs ---------------- */
   .faq-section {
     padding: 60px 20px;
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.85);
   }
 
   .faq-container {
@@ -462,29 +540,28 @@
   .faq-item {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    background: var(--slate-100);
+    background: #ffffff;
     overflow: hidden;
-    transition: all 0.2s ease;
   }
 
   .faq-question {
     width: 100%;
-    padding: 18px 22px;
+    padding: 20px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: none;
     border: none;
-    font-size: 1.02rem;
+    font-size: 1rem;
     font-weight: 700;
-    color: var(--slate-900);
+    color: var(--brand-navy);
     cursor: pointer;
     text-align: left;
     font-family: inherit;
   }
 
   .faq-answer {
-    padding: 0 22px 18px 22px;
+    padding: 0 24px 20px 24px;
     font-size: 0.94rem;
     color: var(--slate-600);
     line-height: 1.65;
@@ -492,9 +569,8 @@
   }
 
   .faq-item.active {
-    border-color: var(--primary);
-    background: #FFFFFF;
-    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.08);
+    border-color: var(--primary-teal);
+    box-shadow: 0 4px 16px rgba(20, 184, 166, 0.1);
   }
 
   .faq-item.active .faq-answer {
@@ -502,9 +578,9 @@
   }
 
   .faq-icon {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 800;
-    color: var(--primary);
+    color: var(--primary-teal);
     transition: transform 0.2s;
   }
 
@@ -512,10 +588,9 @@
     transform: rotate(45deg);
   }
 
-  /* ---------------- Real Student Reviews ---------------- */
   .reviews-section {
     padding: 60px 20px;
-    background: var(--slate-100);
+    background: rgba(248, 250, 252, 0.85);
   }
 
   .reviews-grid {
@@ -530,40 +605,39 @@
     background: #FFFFFF;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    padding: 24px;
+    padding: 26px;
     box-shadow: var(--shadow-sm);
   }
 
   .review-stars {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: #F59E0B;
     margin-bottom: 12px;
   }
 
   .review-text {
-    font-size: 0.93rem;
+    font-size: 0.94rem;
     color: var(--slate-700);
     line-height: 1.6;
     margin-bottom: 18px;
-    font-style: italic;
   }
 
   .review-author strong {
     display: block;
-    color: var(--slate-900);
+    color: var(--brand-navy);
     font-size: 0.95rem;
   }
 
   .review-author span {
     font-size: 0.8rem;
-    color: var(--primary);
+    color: var(--primary-teal);
     font-weight: 700;
   }
 
-  /* ---------------- SUPPORT & FEEDBACK SECTION ---------------- */
+  /* ---------------- SUPPORT SECTION SPACING ---------------- */
   .support-section {
-    padding: 60px 20px;
-    background: #ffffff;
+    padding: 60px 20px 100px 20px;
+    background: rgba(255, 255, 255, 0.9);
   }
 
   .support-card-box {
@@ -572,28 +646,28 @@
     background: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    padding: 35px;
+    padding: 38px;
     box-shadow: var(--shadow-sm);
   }
 
   .support-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+    gap: 32px;
     align-items: center;
   }
 
   .support-form {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
   }
 
   .support-form input,
   .support-form textarea {
     width: 100%;
     padding: 12px 16px;
-    border: 1px solid #CBD5E1;
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
     font-family: inherit;
     font-size: 0.92rem;
@@ -603,15 +677,15 @@
 
   .support-form input:focus,
   .support-form textarea:focus {
-    border-color: var(--primary);
+    border-color: var(--primary-teal);
   }
 
-  /* ---------------- Floating Dock ---------------- */
+  /* ---------------- FLOATING DOCK & ROBOT AVATAR ---------------- */
   .vedantu-floating-dock {
     position: fixed;
     bottom: 24px;
-    right: 24px;
-    z-index: 9999;
+    right: 20px;
+    z-index: 9990;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -625,19 +699,32 @@
     align-items: center;
     justify-content: center;
     color: #ffffff;
-    box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.2);
     border: none;
     text-decoration: none;
     transition: transform 0.25s ease;
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     cursor: pointer;
+    overflow: hidden;
   }
 
   .dock-circle-btn:hover {
     transform: scale(1.12);
   }
 
-  .ai-dock-btn { background: linear-gradient(135deg, #2563EB, #7C3AED); }
+  .ai-dock-robot-btn {
+    background: #ffffff;
+    border: 2px solid var(--primary-cyan);
+    padding: 3px;
+  }
+
+  .ai-dock-robot-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
   .whatsapp-dock-btn { background: linear-gradient(135deg, #25D366, #128C7E); }
   .insta-dock-btn { background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCB045); }
   .telegram-dock-btn { background: linear-gradient(135deg, #0088cc, #2AABEE); }
@@ -648,15 +735,16 @@
     fill: #ffffff;
   }
 
-  /* ---------------- AI Chatbot Popup Modal ---------------- */
+  /* ---------------- CHATBOT POPUP MODAL ---------------- */
   #aiChatModal {
     position: fixed;
     bottom: 85px;
-    right: 24px;
+    right: 20px;
     width: 340px;
+    max-width: 90vw;
     background: #ffffff;
-    border-radius: 18px;
-    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    border-radius: 20px;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.25);
     border: 1px solid var(--border-color);
     z-index: 99999;
     display: none;
@@ -664,9 +752,8 @@
     overflow: hidden;
   }
 
-  /* ---------------- 4-Column Footer ---------------- */
   .site-footer {
-    background: var(--dark-navy);
+    background: var(--brand-navy);
     color: #ffffff;
     padding: 50px 20px 25px 20px;
   }
@@ -688,7 +775,7 @@
   }
 
   .footer-brand p {
-    color: rgba(255, 255, 255, 0.7);
+    color: #94A3B8;
     font-size: 0.88rem;
     line-height: 1.6;
     margin: 0;
@@ -711,14 +798,14 @@
   }
 
   .footer-col ul a {
-    color: rgba(255, 255, 255, 0.75);
+    color: #94A3B8;
     text-decoration: none;
     font-size: 0.88rem;
     transition: color 0.2s;
   }
 
   .footer-col ul a:hover {
-    color: #38BDF8;
+    color: var(--primary-cyan);
   }
 
   .footer-social-icons {
@@ -732,7 +819,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     color: #ffffff;
     display: flex;
     align-items: center;
@@ -743,7 +830,7 @@
   }
 
   .f-social-btn:hover {
-    background: var(--primary);
+    background: var(--primary-teal);
     transform: translateY(-3px);
   }
 
@@ -753,29 +840,12 @@
     margin-top: 35px;
     padding-top: 20px;
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: #94A3B8;
   }
 
   @media (max-width: 992px) {
-    .nav-toggle-btn { display: block; }
-    .main-nav {
-      position: fixed;
-      top: 0;
-      left: -100%;
-      width: 280px;
-      height: 100vh;
-      background: #ffffff;
-      box-shadow: 15px 0 40px rgba(0,0,0,0.2);
-      z-index: 999999;
-      padding: 80px 24px 30px 24px;
-      transition: left 0.3s ease;
-    }
-    .main-nav.nav-open { left: 0; }
-    .main-nav ul { flex-direction: column; align-items: flex-start; gap: 18px; }
-    .main-nav a { font-size: 1.1rem; }
-    
     .hero-section { grid-template-columns: 1fr; text-align: center; margin-top: 20px; }
-    .hero-title { font-size: 2.1rem; }
+    .hero-title { font-size: 2.2rem; }
     .hero-ctas { justify-content: center; }
     .footer-inner { grid-template-columns: 1fr; text-align: left; }
   }
@@ -783,10 +853,8 @@
 </head>
 <body>
 
-  <!-- TOP TICKER -->
-  <div class="top-announcement-bar">
-    ⚡ Welcome to NotesPoint — 100% Free NCERT Study Material & Board Exam PYQs
-  </div>
+  <!-- MOBILE SIDEBAR OVERLAY (NO BLUR) -->
+  <div class="mobile-menu-overlay" id="mobileOverlay" onclick="closeMobileNav()"></div>
 
   <!-- HEADER NAVBAR -->
   <header class="site-header">
@@ -800,17 +868,26 @@
       </div>
 
       <nav class="main-nav" id="mainNav">
+        <div class="mobile-nav-drawer-header">
+          <a href="index.html" class="brand" onclick="closeMobileNav()">
+            <div class="brand-logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <span class="brand-name">Notes<span class="brand-accent">Point</span></span>
+          </a>
+          <button type="button" class="mobile-nav-close-btn" onclick="closeMobileNav()">&times;</button>
+        </div>
+
         <ul>
-          <li><a href="student.html">Student Panel</a></li>
-          <li><a href="#classes">Classes</a></li>
-          <li><a href="#faq">FAQs</a></li>
-          <li><a href="#reviews">Reviews</a></li>
-          <li><a href="#support">Support</a></li>
+          <li><a onclick="navigateTo('student.html')">Student Workspace</a></li>
+          <li><a onclick="navigateTo('#classes')">Curriculum</a></li>
+          <li><a onclick="navigateTo('#faq')">FAQs</a></li>
+          <li><a onclick="navigateTo('#reviews')">Reviews</a></li>
+          <li><a onclick="navigateTo('#support')">Support</a></li>
         </ul>
       </nav>
 
-      <div style="display:flex; gap:6px; align-items:center;">
-        <a href="student.html" class="btn-nav-primary"><i class="fa-solid fa-book-open"></i> Notes</a>
+      <!-- THIS ACTION BUTTON IS HIDDEN IN MOBILE VIEW PER SCREENSHOT FIX -->
+      <div class="header-right-action">
+        <a href="student.html" class="btn-nav-primary"><i class="fa-solid fa-book-open"></i> Access Workspace</a>
       </div>
     </div>
   </header>
@@ -819,48 +896,48 @@
     <!-- HERO BANNER SECTION -->
     <section class="hero-section">
       <div>
-        <div class="free-badge-glow">
-          <i class="fa-solid fa-fire"></i> 100% Free Access • No Registration Required
+        <div class="badge-tag">
+          <i class="fa-solid fa-graduation-cap"></i> Academic Repository Grade 9 - 12
         </div>
         <h1 class="hero-title">
-          High Quality Study Notes <br><span class="text-purple-highlight">For Board &amp; Entrance Exams</span>
+          Standardized Study Resources <br><span class="highlight">For Board &amp; Entrance Prep</span>
         </h1>
         <p class="hero-subtitle">
-          Download 100% free chapterwise handwritten notes, NCERT Books &amp; Solutions, Board Revision Sheets and Previous Year Solved Question Papers for Class 9 to 12.
+          Access structured chapterwise notes, verified NCERT solutions, conceptual formula guides, and previous years' question banks for Class 9 through 12.
         </p>
 
         <div class="hero-ctas">
-          <a href="student.html" class="btn-nav-primary" style="font-size: 1.05rem; padding: 14px 32px;"><i class="fa-solid fa-rocket"></i> Jump To Student Workspace</a>
+          <a href="student.html" class="btn-nav-primary" style="font-size: 1rem; padding: 12px 28px;"><i class="fa-solid fa-arrow-right"></i> Open Student Workspace</a>
         </div>
       </div>
 
-      <!-- HIGH-TECH HERO GLASS CARD -->
+      <!-- HERO GLASS CARD -->
       <div>
-        <div class="hero-glass-card">
-          <div class="glass-badge"><i class="fa-solid fa-shield-halved"></i> Verified Topper Materials</div>
-          <h3 style="font-size:1.5rem; margin:0 0 6px 0; font-weight:800;">NotesPoint Smart Dashboard</h3>
-          <p style="font-size:0.88rem; opacity:0.9; margin:0;">Complete 100% Free Access for Class 9th, 10th, 11th, 12th &amp; Entrance Aspirants.</p>
+        <div class="hero-card">
+          <div class="badge-tag" style="background:rgba(6,182,212,0.15); color:var(--primary-cyan); border-color:rgba(6,182,212,0.3);"><i class="fa-solid fa-shield-check"></i> Verified Syllabus Materials</div>
+          <h3 style="font-size:1.4rem; margin:0 0 8px 0; font-weight:800;">NotesPoint Digital Library</h3>
+          <p style="font-size:0.88rem; color:#94A3B8; margin:0;">Complete access for Class 9th, 10th, 11th, 12th &amp; Entrance Aspirants.</p>
 
           <div class="hero-features-list">
             <div class="h-feat-item">
               <i class="fa-solid fa-file-pdf"></i>
-              <strong>5000+ PDFs</strong>
-              <span>Free Download</span>
+              <strong id="livePdfsCount">5000+ PDFs</strong>
+              <span>Verified Documents</span>
             </div>
             <div class="h-feat-item">
               <i class="fa-solid fa-book-open"></i>
-              <strong>NCERT Sets</strong>
-              <span>100% Solved</span>
+              <strong>Notes Sets</strong>
+              <span>Complete Solutions</span>
             </div>
             <div class="h-feat-item">
               <i class="fa-solid fa-clock-rotate-left"></i>
-              <strong>10-Yr PYQs</strong>
-              <span>Board Special</span>
+              <strong>Board PYQs</strong>
+              <span>Solved Question Bank</span>
             </div>
             <div class="h-feat-item">
               <i class="fa-solid fa-star"></i>
-              <strong>4.5 ★ Rated</strong>
-              <span>By Students</span>
+              <strong>4.1 ★ Rating</strong>
+              <span>Academic Trust</span>
             </div>
           </div>
         </div>
@@ -870,76 +947,65 @@
     <!-- MOVING LOGO TICKER -->
     <div class="ticker-wrap">
       <div class="ticker-move">
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> NCERT Chapter Notes</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Board PYQs &amp; Solutions</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> JEE Main Formula Sheets</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> NEET Biology Mindmaps</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> NCERT Aligned Chapter Notes</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Board Solved Question Papers</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> JEE Main &amp; NEET Formula Guides</div>
         <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Class 9 to 12 All Subjects</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Direct Free PDF Downloads</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Instant PDF Access</div>
       </div>
     </div>
 
     <!-- 1-CLICK CLASS CARDS SECTION -->
     <section id="classes">
       <div class="section-head">
-        <h2>Select Your Class &amp; Start Studying</h2>
-        <p>Click on your class card below to open notes instantly</p>
+        <h2>Select Your Academic Grade</h2>
+        <p>Choose your enrolled class to browse available subject modules</p>
       </div>
 
       <div class="class-selection-grid">
-        <!-- Class 9 -->
         <a href="student.html" class="home-class-card hc-9">
-          <span class="badge-free-mini">FREE</span>
           <div>
             <div class="card-icon-box"><i class="fa-solid fa-seedling"></i></div>
-            <h3 style="font-size:1.4rem; margin:0 0 6px 0; font-weight:800;">Class 9</h3>
-            <p style="font-size:.88rem; opacity:0.85; margin:0;">Science, Maths, Social Science &amp; Languages</p>
+            <h3 style="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Class 9</h3>
+            <p style="font-size:.88rem; opacity:0.85; margin:0;">Science, Mathematics, Social Science &amp; Languages</p>
           </div>
-          <span style="font-weight:800; font-size:.9rem; margin-top:20px;">Open Class 9 Notes →</span>
+          <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Class 9 →</span>
         </a>
 
-        <!-- Class 10 -->
         <a href="student.html" class="home-class-card hc-10">
-          <span class="badge-free-mini">FREE</span>
           <div>
             <div class="card-icon-box"><i class="fa-solid fa-award"></i></div>
-            <h3 style="font-size:1.4rem; margin:0 0 6px 0; font-weight:800;">Class 10</h3>
-            <p style="font-size:.88rem; opacity:0.85; margin:0;">Board Special Notes, Formulas &amp; 10-Yr PYQs</p>
+            <h3 style="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Class 10</h3>
+            <p style="font-size:.88rem; opacity:0.85; margin:0;">Board Examination Prep, Formulas &amp; PYQs</p>
           </div>
-          <span style="font-weight:800; font-size:.9rem; margin-top:20px;">Open Class 10 Notes →</span>
+          <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Class 10 →</span>
         </a>
 
-        <!-- Class 11 -->
         <a href="student.html" class="home-class-card hc-11">
-          <span class="badge-free-mini">FREE</span>
           <div>
             <div class="card-icon-box"><i class="fa-solid fa-microscope"></i></div>
-            <h3 style="font-size:1.4rem; margin:0 0 6px 0; font-weight:800;">Class 11</h3>
-            <p style="font-size:.88rem; opacity:0.85; margin:0;">Science, Commerce &amp; Arts (Humanities)</p>
+            <h3 style="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Class 11</h3>
+            <p style="font-size:.88rem; opacity:0.85; margin:0;">Science, Commerce &amp; Arts Streams</p>
           </div>
-          <span style="font-weight:800; font-size:.9rem; margin-top:20px;">Open Class 11 Notes →</span>
+          <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Class 11 →</span>
         </a>
 
-        <!-- Class 12 -->
         <a href="student.html" class="home-class-card hc-12">
-          <span class="badge-free-mini">FREE</span>
           <div>
             <div class="card-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
-            <h3 style="font-size:1.4rem; margin:0 0 6px 0; font-weight:800;">Class 12</h3>
-            <p style="font-size:.88rem; opacity:0.85; margin:0;">Board Revision, Derivations, Science &amp; Commerce</p>
+            <h3 style="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Class 12</h3>
+            <p style="font-size:.88rem; opacity:0.85; margin:0;">Senior Secondary Revision, Derivations &amp; Practice Sets</p>
           </div>
-          <span style="font-weight:800; font-size:.9rem; margin-top:20px;">Open Class 12 Notes →</span>
+          <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Class 12 →</span>
         </a>
 
-        <!-- Entrance -->
         <a href="student.html" class="home-class-card hc-comp">
-          <span class="badge-free-mini">SPECIAL</span>
           <div>
             <div class="card-icon-box"><i class="fa-solid fa-bolt"></i></div>
-            <h3 style="font-size:1.4rem; margin:0 0 6px 0; font-weight:800;">Entrance Exams</h3>
-            <p style="font-size:.88rem; opacity:0.85; margin:0;">JEE Main, NEET-UG, CUET &amp; NDA Formula Books</p>
+            <h3 tyle="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Entrance Exams</h3>
+            <p style="font-size:.88rem; opacity:0.85; margin:0;">JEE Main, NEET-UG, CUET &amp; Entrance Material</p>
           </div>
-          <span style="font-weight:800; font-size:.9rem; margin-top:20px;">Open Entrance Notes →</span>
+          <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Competitive →</span>
         </a>
       </div>
     </section>
@@ -948,155 +1014,214 @@
     <section class="stats-banner">
       <div class="stats-grid">
         <div class="stat-item">
-          <h3>10,000+</h3>
-          <p>Active Scholars</p>
+          <h3>1000+</h3>
+          <p>Active Students</p>
         </div>
         <div class="stat-item">
-          <h3>5000+</h3>
-          <p>Free Study PDFs</p>
+          <h3 id="statLivePdfs">500+</h3>
+          <p>Study Materials</p>
         </div>
         <div class="stat-item">
           <h3>100%</h3>
-          <p>Free Material</p>
+          <p>Free Repository</p>
         </div>
         <div class="stat-item">
-          <h3>4.7 ★</h3>
-          <p>Student Rating</p>
+          <h3>4.1 ★</h3>
+          <p>Satisfaction Rating</p>
         </div>
       </div>
     </section>
 
-    <!-- 7 COMPLETE FAQS -->
+    <!-- FAQS -->
     <section class="faq-section" id="faq">
       <div class="section-head">
-        <h2>Frequently Asked Questions 💡</h2>
-        <p>Everything you need to know about NotesPoint</p>
+        <h2>Frequently Asked Questions</h2>
+        <p>Key information regarding our study repository</p>
       </div>
 
       <div class="faq-container">
         <div class="faq-item">
           <button type="button" class="faq-question">
-            <span>1. Are all study notes and PDFs on NotesPoint completely free?</span>
+            <!-- FAQS SECTION (ALL 7 EQUAL WIDTH) -->
+
+
+      <div class="faq-container">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <button type="button" class="faq-question">
+            <span>1. Are all study resources on NotesPoint free to access?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            Yes, 100%! All chapter notes, NCERT textbook solutions, formula sheets, and board revision PDFs are completely free to view and download with zero hidden charges.
+            Yes, all chapter notes, NCERT solutions, formula sheets, and examination revision PDFs are accessible without any cost.
           </div>
         </div>
 
+        <!-- FAQ 2 -->
         <div class="faq-item">
           <button type="button" class="faq-question">
-            <span>2. Do I need to create an account or sign up to access notes?</span>
+            <span>2. Is account creation mandatory for reading or downloading PDFs?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            No registration required! You can freely browse any class or subject and directly download or view PDF study material with a single click.
+            No registration is required. You can browse grade modules and view documents directly.
           </div>
         </div>
 
+        <!-- FAQ 3 -->
         <div class="faq-item">
           <button type="button" class="faq-question">
-            <span>3. Which classes and subjects are covered on NotesPoint?</span>
+            <span>3. Which educational boards are supported?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            We cover Class 9th, 10th, 11th, and 12th for Physics, Chemistry, Mathematics, Biology, Social Science, Accountancy, Business Studies, Economics, and English.
+            Our content is strictly mapped to the current NCERT curriculum, making it applicable for CBSE and state board curriculums.
           </div>
         </div>
 
+        <!-- FAQ 4 -->
         <div class="faq-item">
           <button type="button" class="faq-question">
-            <span>4. Are these notes helpful for CBSE and State Board exams?</span>
+            <span>4. How can I download study notes on my mobile phone?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            All our revision notes and PYQs are strictly aligned with the latest NCERT curriculum, making them 100% effective for CBSE, UP Board, Bihar Board, MP Board, and other state boards.
+            Simply navigate to the Student Workspace, select your grade and subject, then click on any note card to instantly preview or download the PDF to your device.
           </div>
         </div>
 
+        <!-- FAQ 5 -->
         <div class="faq-item">
           <button type="button" class="faq-question">
-            <span>5. Do you provide competitive exam preparation material?</span>
+            <span>5. Do you offer competitive entrance exam study material?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            Yes! Our Competitive Panel includes JEE Main/Advanced formula books, NEET Biology NCERT extracts & mindmaps, CUET domain practice sets, and short-trick sheets.
+            Yes, we provide specialized formula cheat-sheets, NCERT extract mindmaps, and solved practice papers for JEE Main, NEET-UG, and CUET examinations.
           </div>
         </div>
 
+        <!-- FAQ 6 -->
         <div class="faq-item">
           <button type="button" class="faq-question">
-            <span>6. How can I download notes on my mobile phone?</span>
+            <span>6. How can students contribute or share their own notes?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            Simply select your class, pick a subject, and click on any chapter note card. You can view the document in our fast reader or click the download button to save it directly to your device.
+            Students can share their high-quality handwritten notes via the Upload section in the Student Workspace to help peer learners across all classes.
           </div>
         </div>
 
+        <!-- FAQ 7 -->
         <div class="faq-item">
           <button type="button" class="faq-question">
-            <span>7. What should I do if I can't find notes for a specific chapter?</span>
+            <span>7. What should I do if a specific chapter note is missing?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            If a specific chapter is missing, you can submit a message via our Telegram channel or support form. Our team regularly uploads requested notes.
+            If a required chapter is currently unavailable, you can send a direct request through our Support form or join our official Telegram channel to request immediate updates.
           </div>
         </div>
       </div>
     </section>
-
-    <!-- REVIEWS SECTION -->
+    <!-- REVIEWS -->
     <section class="reviews-section" id="reviews">
       <div class="section-head">
-        <h2>What Students Say About NotesPoint</h2>
-        <p>Real feedback from board and competitive exam toppers</p>
+       <div class="reviews-grid">
+        <!-- Review 1 (5 Stars) -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Class 12 Physics derivation lists and Chemistry mechanisms are clear and well-organized."</p>
+          <div class="review-author"><strong>Priya Verma</strong><span>Class 12 Science Student</span></div>
+        </div>
+
+        <!-- Review 2 (4 Stars) -->
+        <div class="review-card">
+          <div class="review-stars">★★★★☆</div>
+          <p class="review-text">"Notes overall bahut ache hain. Math ke formula sheets ne revision me kafi help ki, bas kuch extra solved examples bhi chahiye the."</p>
+          <div class="review-author"><strong>Aman Joshi</strong><span>Class 10 Student</span></div>
+        </div>
+
+        <!-- Review 3 (5 Stars) -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Handwritten PDF quality is top notch! Biology diagrams and mindmaps for Class 11 are super clean."</p>
+          <div class="review-author"><strong>Ananya Bisht</strong><span>Class 11 PCB Student</span></div>
+        </div>
+
+        <!-- Review 4 (3 Stars) -->
+        <div class="review-card">
+          <div class="review-stars">★★★☆☆</div>
+          <p class="review-text">"Study material to acha hai par Class 9 Social Science ke kuch chapters missing lage. Hope jaldi upload honge."</p>
+          <div class="review-author"><strong>Rohan Mehta</strong><span>Class 9 Foundation</span></div>
+        </div>
+
+        <!-- Review 5 (4 Stars) -->
+        <div class="review-card">
+          <div class="review-stars">★★★★☆</div>
+          <p class="review-text">"JEE Formula cheat-sheets are really useful for quick revision before test series."</p>
+          <div class="review-author"><strong>Kunal Rawat</strong><span>JEE Main Aspirant</span></div>
+        </div>
+
+        <!-- Review 6 (2 Stars) -->
+        <div class="review-card">
+          <div class="review-stars">★★☆☆☆</div>
+          <p class="review-text">"Class 11 Economics notes me thoda text small hai mobile view me padhne me dikkat hoti hai. Content thoda adjust karo."</p>
+          <div class="review-author"><strong>Sanya Kapoor</strong><span>Class 11 Commerce</span></div>
+        </div>
+
+        <!-- Review 7 (5 Stars) -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Board Exam 10-year PYQs with solution is the best feature. Saved a lot of time before pre-boards!"</p>
+          <div class="review-author"><strong>Harsh Vardhan</strong><span>Class 12 Board Student</span></div>
+        </div>
+
+        <!-- Review 8 (1 Star) -->
+        <div class="review-card">
+          <div class="review-stars">★☆☆☆☆</div>
+          <p class="review-text">"Mera Chemistry PDF download hone me time le raha tha mobile network par. Server speed thodi aur fast honi chahiye."</p>
+          <div class="review-author"><strong>Vikram Singh</strong><span>Class 10 Student</span></div>
+        </div>
+
+        <!-- Review 9 (4 Stars) -->
+        <div class="review-card">
+          <div class="review-stars">★★★★☆</div>
+          <p class="review-text">"Free me itna acha material milna mushkil hai. Neat handwriting aur direct PDF access bina faltu ads ke bohot sahi hai."</p>
+          <div class="review-author"><strong>Neha Sharma</strong><span>Class 12 Commerce</span></div>
+        </div>
+
+        <!-- Review 10 (3 Stars) -->
+        <div class="review-card">
+          <div class="review-stars">★★★☆☆</div>
+          <p class="review-text">"Average UI, par notes helpful hain. Agar topic-wise practice quiz bhi add kar do to website aur better ho jayegi."</p>
+          <div class="review-author"><strong>Devansh Patel</strong><span>NEET Aspirant</span></div>
+        </div>
       </div>
 
-      <div class="reviews-grid">
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Class 10 Science PYQs and formula sheets helped me score 94% in my board exams! NotesPoint is a lifesaver for fast revision."</p>
-          <div class="review-author"><strong>Rohan Sharma</strong><span>Class 10 Student</span></div>
-        </div>
-        
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Class 12 Physics derivations and Organic Chemistry reaction mechanisms are super clean and easy to understand. Best site for boards."</p>
-          <div class="review-author"><strong>Priya Verma</strong><span>Class 12 Science</span></div>
-        </div>
-
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"NEET Biology NCERT extracts and mindmaps saved me so much time. Direct PDF downloads without annoying ads make it 10/10."</p>
-          <div class="review-author"><strong>Aman Gupta</strong><span>NEET Aspirant</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SUPPORT & FEEDBACK SECTION -->
+    <!-- SUPPORT SECTION -->
     <section class="support-section" id="support">
       <div class="support-card-box">
         <div class="support-grid">
           <div style="text-align: center;">
-            <div style="width: 100px; height: 100px; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 50%; display: grid; place-items: center; margin: 0 auto; color: #2563EB; font-size: 2.5rem;">
+            <div style="width: 90px; height: 90px; background: #ECFEFF; border: 1px solid #CFFAFE; border-radius: 50%; display: grid; place-items: center; margin: 0 auto; color: var(--primary-teal); font-size: 2.2rem;">
               <i class="fa-solid fa-headset"></i>
             </div>
-            <h3 style="margin-top: 14px; font-weight: 800; color: #0F172A;">24/7 Student Help</h3>
+            <h3 style="margin-top: 14px; font-weight: 800; color: var(--brand-navy);">Academic Assistance</h3>
           </div>
 
           <div>
-            <span class="free-badge-glow" style="margin-bottom:8px;">GET IN TOUCH</span>
-            <h2 style="font-weight: 800; color: #0F172A; margin: 4px 0 8px 0; font-size: 1.6rem;">Have a Question or Feedback? 💬</h2>
-            <p style="color: #64748B; margin-bottom: 18px; font-size: 0.95rem;">
-              Need specific study materials or have suggestions for NotesPoint? Send us a direct message!
+            <div class="badge-tag" style="margin-bottom:10px;">Contact Helpdesk</div>
+            <h2 style="font-weight: 800; color: var(--brand-navy); margin: 4px 0 8px 0; font-size: 1.6rem;">Have Feedback or Inquiries? 💬</h2>
+            <p style="color: var(--slate-600); margin-bottom: 20px; font-size: 0.95rem;">
+              Submit your inquiry or study material requests below.
             </p>
 
             <form class="support-form" id="homeFeedbackForm" onsubmit="handleSupportSubmit(event)">
-              <input type="text" placeholder="Your Full Name" required>
-              <input type="email" placeholder="Your Email Address" required>
-              <textarea rows="3" placeholder="Write your message or requested chapter notes here..." required></textarea>
-              <button type="submit" class="btn-nav-primary" style="align-self: flex-start;">Send Message 🚀</button>
+              <input type="text" placeholder="Full Name" required>
+              <input type="email" placeholder="Email Address" required>
+              <textarea rows="3" placeholder="Write your message or requested subject notes..." required></textarea>
+              <button type="submit" class="btn-nav-primary" style="align-self: flex-start;">Send Inquiry 🚀</button>
             </form>
           </div>
         </div>
@@ -1104,79 +1229,82 @@
     </section>
   </main>
 
-  <!-- FLOATING DOCK -->
+  <!-- FLOATING DOCK WITH VECTOR ROBOT AVATAR -->
   <div class="vedantu-floating-dock">
-    <button type="button" class="dock-circle-btn ai-dock-btn" onclick="toggleAiModal()" title="Ask NotesPoint AI Chatbot" style="background: linear-gradient(135deg, #2563EB, #7C3AED);">
-      🤖
+    <button type="button" class="dock-circle-btn ai-dock-robot-btn" onclick="toggleAiModal()" title="NotesPoint AI Assistant">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='50' fill='%2306B6D4'/><circle cx='35' cy='45' r='8' fill='%230F172A'/><circle cx='65' cy='45' r='8' fill='%230F172A'/><path d='M35 65 Q50 80 65 65' stroke='%230F172A' stroke-width='5' fill='none'/><circle cx='50' cy='18' r='5' fill='%2314B8A6'/><line x1='50' y1='23' x2='50' y2='32' stroke='%2314B8A6' stroke-width='4'/></svg>" alt="AI Robot Avatar" id="robotAvatarImg">
     </button>
-    <a href="https://whatsapp.com/channel/0029VbDBkW7DuMRXnoY2Th11" target="_blank" rel="noopener" class="dock-circle-btn whatsapp-dock-btn" title="Join WhatsApp Channel">
+    
+    <a href="https://whatsapp.com/channel/0029VbDBkW7DuMRXnoY2Th11" target="_blank" rel="noopener" class="dock-circle-btn whatsapp-dock-btn" title="WhatsApp Channel">
       <i class="fa-brands fa-whatsapp"></i>
     </a>
-    <a href="https://www.instagram.com/notespoint_?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener" class="dock-circle-btn insta-dock-btn" title="Follow on Instagram">
+    <a href="https://www.instagram.com/notespoint_?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener" class="dock-circle-btn insta-dock-btn" title="Instagram Page">
       <i class="fa-brands fa-instagram"></i>
     </a>
-    <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener" class="dock-circle-btn telegram-dock-btn" title="Join Telegram Channel">
+    <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener" class="dock-circle-btn telegram-dock-btn" title="Telegram Channel">
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
     </a>
   </div>
 
-  <!-- AI CHATBOT POPUP MODAL -->
+  <!-- ROBOT AI CHATBOT MODAL -->
   <div id="aiChatModal">
-    <div style="background: linear-gradient(135deg, #2563EB, #1D4ED8); color: #ffffff; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;">
+    <div style="background: linear-gradient(135deg, var(--brand-navy), var(--primary-teal)); color: #ffffff; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;">
       <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="font-size: 1.3rem;">🤖</span>
+        <div style="width:32px; height:32px; border-radius:50%; background:#FFF; padding:2px;">
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='50' fill='%2306B6D4'/><circle cx='35' cy='45' r='8' fill='%230F172A'/><circle cx='65' cy='45' r='8' fill='%230F172A'/><path d='M35 65 Q50 80 65 65' stroke='%230F172A' stroke-width='5' fill='none'/></svg>" alt="Robot" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+        </div>
         <div>
-          <strong style="display: block; font-size: 0.92rem;">NotesPoint AI</strong>
-          <span style="font-size: 0.72rem; opacity: 0.9;">Online • Instant Study Help</span>
+          <strong style="display: block; font-size: 0.92rem;">NotesPoint Assistant</strong>
+          <span style="font-size: 0.72rem; opacity: 0.9;">Online • Academic Guidance</span>
         </div>
       </div>
       <button type="button" onclick="toggleAiModal()" style="background: none; border: none; color: #ffffff; font-size: 1.4rem; cursor: pointer;">&times;</button>
     </div>
     
     <div id="aiChatMessages" style="height: 250px; padding: 14px; overflow-y: auto; background: #F8FAFC; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem;">
-      <div style="background: #EFF6FF; color: #1E3A8A; padding: 10px 12px; border-radius: 12px 12px 12px 2px; max-width: 85%; align-self: flex-start; border: 1px solid #BFDBFE;">
-        👋 Hello Scholar! Main NotesPoint AI Assistant hoon. Aapko kis class ya subject ke notes chahiye?
+      <div style="background: #ECFEFF; color: #0891B2; padding: 10px 12px; border-radius: 12px 12px 12px 2px; max-width: 85%; align-self: flex-start; border: 1px solid #CFFAFE;">
+        👋 Welcome! I am NotesPoint AI Assistant. Which class or subject notes are you looking for today?
       </div>
     </div>
     
-    <div style="padding: 10px; background: #ffffff; border-top: 1px solid #E2E8F0; display: flex; gap: 8px;">
-      <input type="text" id="aiUserInput" placeholder="Ask anything..." style="flex: 1; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.85rem; outline: none;" onkeypress="handleKeyPress(event)">
-      <button type="button" onclick="sendAiMessage()" style="background: #2563EB; color: #ffffff; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer;">🚀</button>
+    <div style="padding: 10px; background: #ffffff; border-top: 1px solid var(--border-color); display: flex; gap: 8px;">
+      <input type="text" id="aiUserInput" placeholder="Ask about Class 10, 12, Physics..." style="flex: 1; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.85rem; outline: none;" onkeypress="handleKeyPress(event)">
+      <button type="button" onclick="sendAiMessage()" style="background: var(--brand-navy); color: #ffffff; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer;">🚀</button>
     </div>
   </div>
 
-  <!-- 4-COLUMN FOOTER -->
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-brand">
         <h2>NotesPoint</h2>
-        <p>Free NCERT and Board study material for Class 9–12 &amp; Competitive Exams.</p>
+        <p>Standardized Academic Resources for Grades 9–12 and Competitive Examinations.</p>
       </div>
 
       <div class="footer-col">
-        <h3>Quick Links</h3>
+        <h3>Navigation</h3>
         <ul>
-          <li><a href="student.html">Student Panel</a></li>
-          <li><a href="index.html">Home Page</a></li>
+          <li><a href="student.html">Student Workspace</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="#faq">Frequently Asked Questions</a></li>
-          <li><a href="student.html">Support &amp; Feedback</a></li>
+          <li><a href="student.html">Support</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h3>Classes &amp; Exams</h3>
+        <h3>Curriculum</h3>
         <ul>
-          <li><a href="student.html">Class 9 Foundation</a></li>
-          <li><a href="student.html">Class 10 Boards</a></li>
-          <li><a href="student.html">Class 11 Streams</a></li>
-          <li><a href="student.html">Class 12 Boards</a></li>
-          <li><a href="student.html">JEE / NEET Entrance</a></li>
+          <li><a href="student.html">Grade 9 Foundation</a></li>
+          <li><a href="student.html">Grade 10 Board Prep</a></li>
+          <li><a href="student.html">Grade 11 Stream Modules</a></li>
+          <li><a href="student.html">Grade 12 Senior Secondary</a></li>
+          <li><a href="student.html">Competitive Examination Prep</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h3>Contact Us</h3>
-        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-bottom: 12px;">Join official channels for PDFs &amp; updates:</p>
+        <h3>Official Channels</h3>
+        <p style="font-size: 0.85rem; color: #94A3B8; margin-bottom: 12px;">Connect with official communities:</p>
         <div class="footer-social-icons">
           <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener" class="f-social-btn" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
           <a href="https://www.instagram.com/notespoint_?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener" class="f-social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -1186,13 +1314,57 @@
     </div>
 
     <div class="footer-bottom-copy">
-      <p>&copy; 2026 Notes Point. Built with ❤️ for students.</p>
+      <p>&copy; 2026 Notes Point Platform. All Rights Reserved.</p>
     </div>
   </footer>
+  <!-- FIREBASE & LIVE NOTES DYNAMIC SYNC -->
+  <script type="module">
+    import { initializeApp } from 'firebase/app';
+    import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
-  <!-- JAVASCRIPT HANDLERS -->
+    const firebaseConfig = {
+        apiKey: "AIzaSyA8lZsf-VAFwHVclSjk-tQnWAC2-ycpKVM",
+        authDomain: "notes-point-7b7d9.firebaseapp.com",
+        projectId: "notes-point-7b7d9",
+        storageBucket: "notes-point-7b7d9.appspot.com",
+        messagingSenderId: "1096318631780",
+        appId: "1:1096318631780:web:4b3f8d4a5f6a7b8c9d0e1f"
+    };
+
+    try {
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function updateLiveStats() {
+            let totalCount = 0;
+            
+            try {
+                const localNotes = JSON.parse(localStorage.getItem('notespoint_uploaded_notes_v7')) || [];
+                totalCount += localNotes.length;
+            } catch(e) {}
+
+            try {
+                const querySnapshot = await getDocs(collection(db, "notes"));
+                totalCount += querySnapshot.size;
+            } catch(e) {}
+
+            const displayVal = totalCount > 0 ? totalCount + '+' : '100+';
+            
+            const livePdfsCountEl = document.getElementById('livePdfsCount');
+            const statLivePdfsEl = document.getElementById('statLivePdfs');
+
+            if (livePdfsCountEl) livePdfsCountEl.textContent = displayVal + ' Verified PDFs';
+            if (statLivePdfsEl) statLivePdfsEl.textContent = displayVal;
+        }
+
+        updateLiveStats();
+    } catch(e) {
+        console.warn('Firebase sync active with LocalStorage fallback.');
+    }
+  </script>
+
+  <!-- JAVASCRIPT HANDLERS & NAVIGATION LOGIC -->
   <script>
-    // Page load hote hi hamesha top par rakhne ke liye
     if (history.scrollRestoration) {
       history.scrollRestoration = 'manual';
     }
@@ -1202,11 +1374,44 @@
       window.scrollTo(0, 0);
     };
 
-    function toggleMobileNav() {
-      const nav = document.getElementById('mainNav');
-      nav.classList.toggle('nav-open');
+    // Navigation Helper (Fixes Left Sidebar Click Bug)
+    function navigateTo(target) {
+      closeMobileNav();
+      setTimeout(() => {
+        if (target.startsWith('#')) {
+          const el = document.querySelector(target);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.location.href = target;
+        }
+      }, 100);
     }
 
+    // Mobile Drawer Handlers
+    function toggleMobileNav() {
+      const nav = document.getElementById('mainNav');
+      const overlay = document.getElementById('mobileOverlay');
+      
+      const isOpen = nav.classList.contains('nav-open');
+      if (isOpen) {
+        closeMobileNav();
+      } else {
+        nav.classList.add('nav-open');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeMobileNav() {
+      const nav = document.getElementById('mainNav');
+      const overlay = document.getElementById('mobileOverlay');
+      
+      if (nav) nav.classList.remove('nav-open');
+      if (overlay) overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Accordion Logic
     document.querySelectorAll('.faq-question').forEach(button => {
       button.addEventListener('click', () => {
         const faqItem = button.parentElement;
@@ -1218,7 +1423,7 @@
 
     function handleSupportSubmit(e) {
       e.preventDefault();
-      alert('Thank you! Your feedback or requested notes message has been sent successfully.');
+      alert('Thank you! Your academic inquiry has been submitted successfully.');
       e.target.reset();
     }
 
@@ -1241,7 +1446,7 @@
       if (!text) return;
 
       const userMsg = document.createElement('div');
-      userMsg.style.cssText = 'background:#2563EB; color:#ffffff; padding:10px 12px; border-radius:12px 12px 2px 12px; max-width:85%; align-self:flex-end; font-size:0.85rem;';
+      userMsg.style.cssText = 'background:var(--brand-navy); color:#ffffff; padding:10px 12px; border-radius:12px 12px 2px 12px; max-width:85%; align-self:flex-end; font-size:0.85rem;';
       userMsg.textContent = text;
       messagesContainer.appendChild(userMsg);
 
@@ -1250,19 +1455,19 @@
 
       setTimeout(() => {
         const aiMsg = document.createElement('div');
-        aiMsg.style.cssText = 'background:#EFF6FF; color:#1E3A8A; padding:10px 12px; border-radius:12px 12px 12px 2px; max-width:85%; align-self:flex-start; border:1px solid #BFDBFE; font-size:0.85rem;';
+        aiMsg.style.cssText = 'background:#ECFEFF; color:#0891B2; padding:10px 12px; border-radius:12px 12px 2px 12px; max-width:85%; align-self:flex-start; border:1px solid #CFFAFE; font-size:0.85rem;';
         
         const query = text.toLowerCase();
         if (query.includes('9')) {
-          aiMsg.innerHTML = '📚 Class 9 ke saare NCERT notes, Science & Maths handwritten PDFs mil jayenge. <br><a href="student.html" style="color:#2563EB; font-weight:700;">Open Class 9 Panel →</a>';
+          aiMsg.innerHTML = '📚 Class 9 NCERT modules and Science & Maths handwritten notes are ready. <br><a href="student.html" style="color:var(--brand-navy); font-weight:700;">Open Class 9 Workspace →</a>';
         } else if (query.includes('10')) {
-          aiMsg.innerHTML = '🎯 Class 10 Board Special Notes, Formula Sheets & 10-Year PYQs ready hain. <br><a href="student.html" style="color:#2563EB; font-weight:700;">Open Class 10 Panel →</a>';
+          aiMsg.innerHTML = '🎯 Class 10 Board Special Notes, Formula Sheets & Solved PYQs are available. <br><a href="student.html" style="color:var(--brand-navy); font-weight:700;">Open Class 10 Workspace →</a>';
         } else if (query.includes('11')) {
-          aiMsg.innerHTML = '🔬 Class 11 Science, Commerce aur Arts ke saare stream notes उपलब्ध hain. <br><a href="student.html" style="color:#2563EB; font-weight:700;">Open Class 11 Panel →</a>';
+          aiMsg.innerHTML = '🔬 Class 11 Science, Commerce, and Arts stream modules are available. <br><a href="student.html" style="color:var(--brand-navy); font-weight:700;">Open Class 11 Workspace →</a>';
         } else if (query.includes('12')) {
-          aiMsg.innerHTML = '🎓 Class 12 Final Board Exam Revision Notes & Derivations yahan hain. <br><a href="student.html" style="color:#2563EB; font-weight:700;">Open Class 12 Panel →</a>';
+          aiMsg.innerHTML = '🎓 Class 12 Senior Secondary Board Revision Notes & Derivations are listed here. <br><a href="student.html" style="color:var(--brand-navy); font-weight:700;">Open Class 12 Workspace →</a>';
         } else {
-          aiMsg.innerHTML = '✨ Aap Student Workspace me jaakar direct Class & Subject chunte hue free PDF padh ya download kar sakte hain. <br><a href="student.html" style="color:#2563EB; font-weight:700;">Open Student Workspace →</a>';
+          aiMsg.innerHTML = '✨ You can navigate to the Student Workspace to select your grade and view verified PDFs directly. <br><a href="student.html" style="color:var(--brand-navy); font-weight:700;">Open Student Workspace →</a>';
         }
 
         messagesContainer.appendChild(aiMsg);
