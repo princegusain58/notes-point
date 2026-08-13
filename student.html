@@ -101,7 +101,7 @@
   .admin-topbar {
     background: rgba(250, 249, 245, 0.95) !important;
     backdrop-filter: blur(10px);
-    border-bottom: 2px solid var(--paper-line) !important;
+    border-bottom: 1px solid rgba(226,232,240,0.8) !important;
     padding: 16px 28px;
     position: sticky; top: 0; z-index: 90;
     display: flex; justify-content: space-between; align-items: center;
@@ -140,33 +140,19 @@
   }
   .class-card:hover { transform: translateY(-6px); }
 
-  .card-theme-9  { background: linear-gradient(135deg,#EFF6FF,#DBEAFE) !important; }
-  .card-theme-10 { background: linear-gradient(135deg,#ECFDF5,#D1FAE5) !important; }
-  .card-theme-11 { background: linear-gradient(135deg,#FFFBEB,#FEF3C7) !important; }
-  .card-theme-12 { background: linear-gradient(135deg,#FEF2F2,#FEE2E2) !important; }
-  .card-theme-comp { background: linear-gradient(135deg,#F3E8FF,#EDE9FE) !important; }
+  .card-theme-9  { background: linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%) !important; }
+  .card-theme-10 { background: linear-gradient(135deg,#ECFDF5 0%,#D1FAE5 100%) !important; }
+  .card-theme-11 { background: linear-gradient(135deg,#FFFBEB 0%,#FEF3C7 100%) !important; }
+  .card-theme-12 { background: linear-gradient(135deg,#FEF2F2 0%,#FEE2E2 100%) !important; }
+  .card-theme-comp { background: linear-gradient(135deg,#F3E8FF 0%,#EDE9FE 100%) !important; }
 
-  /* BACK BUTTON STYLING */
+  /* BACK BUTTON */
   .btn-back-step {
-    background: #0F172A;
-    color: #06B6D4;
-    border: 1px solid #1E293B;
-    padding: 8px 18px;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 0.88rem;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.2s ease;
-    margin-bottom: 16px;
+    background: #0F172A; color: #06B6D4; border: 1px solid #1E293B;
+    padding: 8px 18px; border-radius: 10px; font-weight: 700; font-size: 0.88rem;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease; margin-bottom: 16px;
   }
-  .btn-back-step:hover {
-    background: #1E293B;
-    color: #38BDF8;
-    transform: translateX(-3px);
-  }
+  .btn-back-step:hover { background: #1E293B; color: #38BDF8; transform: translateX(-3px); }
 
   .stream-pill-btn {
     padding: 8px 18px; border-radius: 20px; font-weight: 700; font-size: 0.88rem;
@@ -176,56 +162,25 @@
     background: var(--brand-navy) !important; color: var(--primary-cyan) !important; border-color: var(--brand-navy) !important;
   }
 
-  .subject-card-box {
-    background: #1E293B !important; border: 1px solid #334155 !important;
-    border-radius: var(--radius-md) !important; padding: 18px !important; color: #F8FAFC !important;
-    cursor: pointer !important; display: flex !important; flex-direction: column !important;
-    justify-content: space-between !important; min-height: 120px !important; transition: all .2s ease;
-  }
-  .subject-card-box:hover { transform: translateY(-4px); border-color: var(--primary-cyan) !important; }
-
-  /* ===== FIXED MODAL POPUP (HIDDEN BY DEFAULT) ===== */
+  /* ===== NOTES MODAL POPUP ===== */
   .notes-panel-modal {
-    position: fixed; inset: 0;
-    background: rgba(15, 23, 42, 0.75);
-    backdrop-filter: blur(6px);
-    z-index: 2000;
-    display: none !important;
-    align-items: center; justify-content: center;
-    padding: 20px;
+    position: fixed; inset: 0; z-index: 2000;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
   }
-  .notes-panel-modal.show-modal {
-    display: flex !important;
-  }
-
+  .notes-panel-modal[hidden] { display: none !important; }
+  .notes-panel-overlay { position: absolute; inset: 0; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px); }
   .notes-modal-container {
-    background: #0F172A !important;
-    border: 2px solid #1E293B !important;
-    color: #FFFFFF !important;
-    width: 90% !important;
-    max-width: 780px !important;
-    max-height: 85vh !important;
-    border-radius: 24px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    overflow: hidden !important;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+    position: relative; background: #FFFFFF; border-radius: 20px; width: 100%; max-width: 750px;
+    max-height: 85vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); z-index: 2001;
   }
 
   /* ===== FIXED FOOTER ===== */
   .student-footer-dark {
-    background: #0F172A !important;
-    color: #CBD5E1 !important;
-    padding: 30px 28px 16px 28px !important;
-    margin-top: auto !important;
-    border-top: 1px solid #1E293B !important;
+    background: #0F172A !important; color: #CBD5E1 !important;
+    padding: 30px 28px 16px 28px !important; margin-top: auto !important; border-top: 1px solid #1E293B !important;
   }
   .student-footer-grid {
-    max-width: 1200px;
-    margin: 0 auto 20px auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 24px;
+    max-width: 1200px; margin: 0 auto 20px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px;
   }
   .student-footer-grid h3 { color: #38BDF8 !important; font-size: 1.3rem; font-weight: 800; margin-bottom: 8px; }
   .student-footer-grid h4 { color: #FFFFFF !important; font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
@@ -236,12 +191,7 @@
   .student-footer-grid ul li a:hover { color: #38BDF8 !important; }
   
   .student-footer-bottom {
-    text-align: center;
-    border-top: 1px solid #1E293B;
-    padding-top: 14px;
-    margin-top: 14px;
-    font-size: 0.82rem;
-    color: #64748B !important;
+    text-align: center; border-top: 1px solid #1E293B; padding-top: 14px; margin-top: 14px; font-size: 0.82rem; color: #64748B !important;
   }
 
   @media (max-width: 992px) {
@@ -249,7 +199,6 @@
     .admin-sidebar.open { left: 0; }
     .admin-main-wrapper { margin-left: 0 !important; width: 100% !important; }
     .mobile-toggle-btn { display: inline-flex !important; }
-    .notes-modal-container { width: 95% !important; }
   }
 </style>
 </head>
@@ -274,13 +223,13 @@
           </a>
         </li>
         <li>
-          <a href="#" class="nav-item" data-target="savedSection">
+          <a href="#" class="nav-item" data-target="savedSection" id="sidebarSavedBtn">
             <i class="fa-solid fa-bookmark"></i>
             <span>Saved Notes</span>
           </a>
         </li>
         <li>
-          <a href="#" class="nav-item" data-target="recentSection">
+          <a href="#" class="nav-item" data-target="recentSection" id="sidebarRecentBtn">
             <i class="fa-solid fa-clock-rotate-left"></i>
             <span>Recently Viewed</span>
           </a>
@@ -297,9 +246,9 @@
     <div class="sidebar-footer" style="padding:16px; border-top:1px solid #E2E8F0;">
       <div style="display:flex; align-items:center; justify-content:space-between;">
         <div style="display:flex; align-items:center; gap:10px;">
-          <div style="width:36px; height:36px; background:var(--brand-navy); color:#fff; border-radius:50%; display:grid; place-items:center; font-weight:800;">T</div>
+          <div style="width:36px; height:36px; background:var(--brand-navy); color:#fff; border-radius:50%; display:grid; place-items:center; font-weight:800;" id="userAvatarLetter">T</div>
           <div>
-            <strong style="font-size:.88rem; display:block; color:var(--brand-navy);">Topper</strong>
+            <strong id="studentHeaderName" style="font-size:.88rem; display:block; color:var(--brand-navy);">Topper</strong>
             <span style="font-size:.72rem; color:var(--slate-500);">Active Scholar</span>
           </div>
         </div>
@@ -332,67 +281,65 @@
     <!-- CONTENT BODY -->
     <main class="admin-content-body">
 
-      <!-- SECTION 1: BROWSE CLASSES & NOTES (MAIN DIRECT PAGE) -->
+      <!-- SECTION 1: BROWSE CLASSES & NOTES -->
       <section class="workspace-section active" id="classesSection">
         <div class="admin-card">
-          <div style="text-align:center; margin:0 auto 20px; max-width:650px;" id="mainClassesHeader">
+          <div style="text-align:center; margin:0 auto 20px; max-width:650px;" id="classHeaderArea">
             <span style="background:#E0F2FE; color:#0284C7; border:1px solid #BAE6FD; font-size:.72rem; font-weight:800; padding:4px 12px; border-radius:20px; text-transform:uppercase;">Study Repository</span>
             <h2 style="font-size:1.5rem; font-weight:800; margin-top:8px; color:var(--brand-navy);">Select Your Class or Competitive Exam</h2>
             <p style="color:var(--slate-600); font-size:.92rem;">Click any grade card below to view subjects &amp; notes.</p>
           </div>
 
           <!-- CLASS CARDS RAIL -->
-          <div class="class-rail" id="mainClassRail">
-            <div class="class-card card-theme-9" data-class="9">
+          <div class="class-rail" id="classRail">
+            <button type="button" class="class-card card-theme-9" data-class="9">
               <div>
-                <span style="background:#0F172A; color:#38BDF8; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">01</span>
+                <span style="background:#2563EB; color:#fff; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">01</span>
                 <h3 style="font-size:1.25rem; margin:12px 0 4px 0; color:#1E3A8A; font-weight:800;">Class 9</h3>
                 <p style="font-size:.85rem; color:#475569;">Science, Maths, Social Science &amp; PYQs</p>
               </div>
               <span style="font-size:.88rem; color:#2563EB; font-weight:700; margin-top:10px;">Explore Notes →</span>
-            </div>
+            </button>
 
-            <div class="class-card card-theme-10" data-class="10">
+            <button type="button" class="class-card card-theme-10" data-class="10">
               <div>
-                <span style="background:#0F172A; color:#38BDF8; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">02</span>
+                <span style="background:#059669; color:#fff; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">02</span>
                 <h3 style="font-size:1.25rem; margin:12px 0 4px 0; color:#064E3B; font-weight:800;">Class 10</h3>
                 <p style="font-size:.85rem; color:#475569;">Board Prep, Science, Maths &amp; PYQs</p>
               </div>
               <span style="font-size:.88rem; color:#059669; font-weight:700; margin-top:10px;">Explore Notes →</span>
-            </div>
+            </button>
 
-            <div class="class-card card-theme-11" data-class="11">
+            <button type="button" class="class-card card-theme-11" data-class="11">
               <div>
-                <span style="background:#0F172A; color:#38BDF8; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">03</span>
+                <span style="background:#D97706; color:#fff; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">03</span>
                 <h3 style="font-size:1.25rem; margin:12px 0 4px 0; color:#78350F; font-weight:800;">Class 11</h3>
                 <p style="font-size:.85rem; color:#475569;">Science, Commerce &amp; Arts Streams</p>
               </div>
               <span style="font-size:.88rem; color:#D97706; font-weight:700; margin-top:10px;">Explore Notes →</span>
-            </div>
+            </button>
 
-            <div class="class-card card-theme-12" data-class="12">
+            <button type="button" class="class-card card-theme-12" data-class="12">
               <div>
-                <span style="background:#0F172A; color:#38BDF8; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">04</span>
+                <span style="background:#DC2626; color:#fff; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">04</span>
                 <h3 style="font-size:1.25rem; margin:12px 0 4px 0; color:#7F1D1D; font-weight:800;">Class 12</h3>
                 <p style="font-size:.85rem; color:#475569;">Board Revision, Derivations &amp; PYQs</p>
               </div>
               <span style="font-size:.88rem; color:#DC2626; font-weight:700; margin-top:10px;">Explore Notes →</span>
-            </div>
+            </button>
 
-            <div class="class-card card-theme-comp" data-class="competitive">
+            <button type="button" class="class-card card-theme-comp" data-class="competitive">
               <div>
-                <span style="background:#0F172A; color:#38BDF8; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">🔥</span>
+                <span style="background:#7C3AED; color:#fff; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">🔥</span>
                 <h3 style="font-size:1.25rem; margin:12px 0 4px 0; color:#4C1D95; font-weight:800;">Competitive</h3>
                 <p style="font-size:.85rem; color:#5B21B6;">JEE Main, NEET-UG, CUET &amp; NDA</p>
               </div>
               <span style="font-size:.88rem; color:#7C3AED; font-weight:700; margin-top:10px;">Explore Notes →</span>
-            </div>
+            </button>
           </div>
 
-          <!-- STREAM & SUBJECT LEVEL CONTAINER WITH BACK BUTTON -->
+          <!-- STREAM & SUBJECT LEVEL CONTAINER -->
           <div id="subjectContainerArea" hidden style="margin-top:16px; padding-top:16px; border-top:1px solid #E2E8F0;">
-            
-            <!-- STEP-BY-STEP BACK BUTTON -->
             <button type="button" class="btn-back-step" id="btnBackToClasses">
               <i class="fa-solid fa-arrow-left"></i> ← Back to All Classes
             </button>
@@ -412,36 +359,38 @@
 
       <!-- SECTION 2: SAVED NOTES -->
       <section class="workspace-section" id="savedSection" style="display: none;">
-        <div style="background:#0F172A; border-radius:var(--radius-lg); padding:28px; color:#fff;">
-          <h2 style="font-size:1.3rem; font-weight:800;"><i class="fa-solid fa-bookmark" style="color:#F59E0B; margin-right:8px;"></i>Saved Notes</h2>
-          <p style="color:#94A3B8; font-size:.88rem; margin:4px 0 20px;">Quick access to your bookmarked study materials.</p>
+        <div class="admin-card">
+          <h2 style="font-size:1.3rem; font-weight:800; color:#0F172A;"><i class="fa-solid fa-bookmark" style="color:#F59E0B; margin-right:8px;"></i>Saved Notes</h2>
+          <p style="color:#64748B; font-size:.88rem; margin:4px 0 20px;">Quick access to your bookmarked study materials.</p>
           <div id="savedNotesContainer" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;"></div>
         </div>
       </section>
 
       <!-- SECTION 3: RECENTLY VIEWED -->
       <section class="workspace-section" id="recentSection" style="display: none;">
-        <div style="background:#0F172A; border-radius:var(--radius-lg); padding:28px; color:#fff;">
-          <h2 style="font-size:1.3rem; font-weight:800;"><i class="fa-solid fa-clock-rotate-left" style="color:#38BDF8; margin-right:8px;"></i>Recently Viewed Notes</h2>
-          <p style="color:#94A3B8; font-size:.88rem; margin:4px 0 20px;">Materials you opened recently.</p>
+        <div class="admin-card">
+          <h2 style="font-size:1.3rem; font-weight:800; color:#0F172A;"><i class="fa-solid fa-clock-rotate-left" style="color:#2563EB; margin-right:8px;"></i>Recently Viewed Notes</h2>
+          <p style="color:#64748B; font-size:.88rem; margin:4px 0 20px;">Materials you checked recently.</p>
           <div id="recentNotesContainer" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;"></div>
         </div>
       </section>
 
       <!-- SECTION 4: SUPPORT & FEEDBACK -->
       <section class="workspace-section" id="supportSection" style="display: none;">
-        <div style="background:#0F172A; border-radius:var(--radius-lg); padding:28px; color:#fff; max-width:550px; margin:0 auto;">
+        <div class="admin-card" style="max-width:550px; margin:0 auto;">
           <div style="text-align:center; margin-bottom:18px;">
-            <i class="fa-solid fa-headset" style="font-size:2rem; color:#38BDF8; margin-bottom:8px;"></i>
-            <h2 style="font-size:1.3rem; font-weight:800; margin:0;">Student Support</h2>
-            <p style="color:#94A3B8; font-size:.85rem; margin-top:4px;">Request missing notes or report an issue.</p>
+            <div style="width:50px; height:50px; border-radius:12px; background:#2563EB; color:#fff; display:inline-grid; place-items:center; font-size:1.3rem; margin-bottom:8px;">
+              <i class="fa-solid fa-headset"></i>
+            </div>
+            <h2 style="font-size:1.3rem; font-weight:800; color:#0F172A; margin:0;">Student Support</h2>
+            <p style="color:#64748B; font-size:.85rem; margin-top:4px;">Request missing notes or report an issue.</p>
           </div>
 
           <form id="supportForm" style="display:flex; flex-direction:column; gap:12px;">
-            <input type="text" placeholder="Your Name" required style="padding:12px; border:1px solid #334155; border-radius:8px; background:#1E293B; color:#FFF;">
-            <input type="email" placeholder="Your Email" required style="padding:12px; border:1px solid #334155; border-radius:8px; background:#1E293B; color:#FFF;">
-            <textarea rows="4" placeholder="Write your message..." required style="padding:12px; border:1px solid #334155; border-radius:8px; background:#1E293B; color:#FFF; resize:vertical;"></textarea>
-            <button type="submit" style="background:#0284C7; color:#fff; border:none; padding:12px; border-radius:8px; font-weight:800; cursor:pointer;">Send Request 🚀</button>
+            <input type="text" id="supportNameInput" placeholder="Your Name" required style="padding:12px; border:1px solid #CBD5E1; border-radius:8px; background:#F8FAFC;">
+            <input type="email" id="supportEmailInput" placeholder="Your Email" required style="padding:12px; border:1px solid #CBD5E1; border-radius:8px; background:#F8FAFC;">
+            <textarea rows="4" placeholder="Write your message..." required style="padding:12px; border:1px solid #CBD5E1; border-radius:8px; background:#F8FAFC; resize:vertical;"></textarea>
+            <button type="submit" style="background:#2563EB; color:#fff; border:none; padding:12px; border-radius:8px; font-weight:800; cursor:pointer;">Send Request 🚀</button>
           </form>
         </div>
       </section>
@@ -471,25 +420,28 @@
         </div>
       </div>
       <div class="student-footer-bottom">
-        &copy; 2026 Notes Point. Built with ❤️ for students.
+        &copy; <span id="footerYear">2026</span> Notes Point. Built with ❤️ for students.
       </div>
     </footer>
   </div>
 
-  <!-- FIXED NOTES MODAL POPUP (HIDDEN BY DEFAULT) -->
-  <div class="notes-panel-modal" id="notesPanel">
+  <!-- NOTES MODAL POPUP -->
+  <div class="notes-panel-modal" id="notesPanel" hidden>
+    <div class="notes-panel-overlay" id="notesPanelOverlay"></div>
     <div class="notes-modal-container">
-      <div style="padding:18px 24px; background:#1E293B; border-bottom:1px solid #334155; display:flex; justify-content:space-between; align-items:center; flex-shrink:0;">
+      <div style="padding:18px 24px; background:#F8FAFC; border-bottom:1px solid #E2E8F0; display:flex; justify-content:space-between; align-items:center; flex-shrink:0;">
         <div>
-          <p id="notesPanelBreadcrumb" style="font-size:.78rem; color:var(--primary-cyan); font-weight:700; text-transform:uppercase; margin:0;"></p>
-          <h2 id="notesPanelTitle" style="font-size:1.35rem; color:#FFF; font-weight:800; margin:4px 0 0;"></h2>
+          <p id="notesPanelBreadcrumb" style="font-size:.78rem; color:#2563EB; font-weight:700; text-transform:uppercase; margin:0;"></p>
+          <h2 id="notesPanelTitle" style="font-size:1.30rem; color:#0F172A; font-weight:800; margin:4px 0 0;"></h2>
         </div>
-        <button type="button" id="notesPanelClose" style="background:#FEF2F2; border:none; width:36px; height:36px; border-radius:10px; cursor:pointer; color:#EF4444; font-size:1.1rem; display:grid; place-items:center;"><i class="fa-solid fa-xmark"></i></button>
+        <button type="button" id="notesPanelClose" style="background:#FEF2F2; border:1px solid #FECACA; width:36px; height:36px; border-radius:10px; cursor:pointer; color:#EF4444; font-size:1.1rem; display:grid; place-items:center;"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
-      <div style="padding:24px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:14px;">
-        <p id="notesPanelStatus" style="font-size:.88rem; color:#94A3B8; margin:0; font-weight:600;"></p>
-        <div id="notesPanelGrid" style="display:flex; flex-direction:column; gap:12px;"></div>
+      <div style="padding:24px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:12px;">
+        <div id="notesPanelLoading" hidden style="text-align:center; padding:20px; color:#64748B;">Loading files from Admin Panel...</div>
+        <p id="notesPanelStatus" style="font-size:.85rem; color:#64748B; margin:0; font-weight:600;"></p>
+        <div id="notesPanelGrid"></div>
+        <div id="notesPanelEmpty" hidden></div>
       </div>
     </div>
   </div>
@@ -499,322 +451,310 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 
-  <!-- JAVASCRIPT ENGINE WITH ULTRA-ROBUST SEARCH MATCHING -->
+  <!-- ROBUST EMBEDDED STUDENT ENGINE (ADMIN PANEL SYNC CONNECTED) -->
   <script>
-  (function () {
+  (() => {
     'use strict';
 
-    /* ---------- NAVIGATION ---------- */
-    const sections = document.querySelectorAll('.workspace-section');
-    const navItems = document.querySelectorAll('.sidebar-menu .nav-item');
-    const pageTitle = document.getElementById('pageSectionTitle');
-
-    function switchSection(id, pushState = true) {
-      sections.forEach(s => {
-        const active = s.id === id;
-        s.classList.toggle('active', active);
-        s.style.display = active ? '' : 'none';
-      });
-      navItems.forEach(n => {
-        n.classList.toggle('active', n.getAttribute('data-target') === id);
-      });
-      if (pageTitle) {
-        const map = {
-          classesSection: 'Browse Classes & Notes',
-          savedSection: 'Saved Notes',
-          recentSection: 'Recently Viewed',
-          supportSection: 'Support & Feedback'
-        };
-        pageTitle.textContent = map[id] || 'Dashboard';
+    const ENGINE_CONFIG = {
+      storageKeys: {
+        notes: 'notespoint_uploaded_notes_v7',
+        ticker: 'notespoint_running_ticker_v7',
+        reviews: 'notespoint_student_reviews_v7'
       }
-      if (id === 'savedSection') renderSavedNotes();
-      if (id === 'recentSection') renderRecentNotes();
+    };
 
-      if (pushState) {
-        history.pushState({ step: 'section', sectionId: id }, '', `#${id}`);
+    class LargeStorageEngine {
+      static async openDB() {
+        return new Promise((resolve, reject) => {
+          const request = indexedDB.open("NotesPointPDFDB", 1);
+          request.onsuccess = () => resolve(request.result);
+          request.onerror = (e) => reject(e);
+        });
       }
 
-      const sb = document.getElementById('appSidebar');
-      if (sb) sb.classList.remove('open');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      static async getPDFBlob(id) {
+        try {
+          const db = await this.openDB();
+          return new Promise((resolve) => {
+            const tx = db.transaction("pdf_files", "readonly");
+            const store = tx.objectStore("pdf_files");
+            const req = store.get(id);
+            req.onsuccess = () => resolve(req.result ? req.result.blob : null);
+            req.onerror = () => resolve(null);
+          });
+        } catch (err) { return null; }
+      }
     }
-    window.switchSection = switchSection;
 
-    navItems.forEach(n => {
-      n.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = this.getAttribute('data-target');
-        if (target) switchSection(target);
-      });
+    const firebaseConfig = {
+      apiKey: "AIzaSyB8Q233ol5opi0Io8tEp498yDEmMesjmgE",
+      authDomain: "notes-point-215c8.firebaseapp.com",
+      projectId: "notes-point-215c8",
+      storageBucket: "notes-point-215c8.firebasestorage.app",
+      messagingSenderId: "945990871633",
+      appId: "1:945990871633:web:4cfd8339055182317fa670"
+    };
+
+    if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const db = (typeof firebase !== 'undefined') ? firebase.firestore() : null;
+    const notesCollection = db ? db.collection('notes') : null;
+
+    function initStudentSession() {
+      const studentHeaderName = document.getElementById('studentHeaderName');
+      const userAvatarLetter = document.getElementById('userAvatarLetter');
+      const supportNameInput = document.getElementById('supportNameInput');
+      const supportEmailInput = document.getElementById('supportEmailInput');
+
+      const activeName = localStorage.getItem('notespoint_user_name');
+      const activeEmail = localStorage.getItem('notespoint_user_email');
+      let finalName = "Topper";
+
+      if (activeName) finalName = activeName;
+      else if (activeEmail) finalName = activeEmail.split('@')[0];
+
+      if (studentHeaderName) studentHeaderName.textContent = finalName;
+      if (userAvatarLetter) userAvatarLetter.textContent = finalName.charAt(0).toUpperCase();
+      if (supportNameInput) supportNameInput.value = finalName;
+      if (supportEmailInput && activeEmail) supportEmailInput.value = activeEmail;
+    }
+    initStudentSession();
+
+    const RESOURCE_EXTRAS = ['NCERT Books 📚', 'Formula & Derivation Sheets', 'Previous Year Questions (PYQs)', 'Sample Papers'];
+    const CURRICULUM = {
+      9: { subjects: ['Mathematics', 'Science', 'Social Science', 'English', 'Hindi', 'Sanskrit', ...RESOURCE_EXTRAS] },
+      10: { subjects: ['Mathematics', 'Science', 'Social Science', 'English', 'Hindi', 'IT / Computer', ...RESOURCE_EXTRAS] },
+      11: {
+        streams: {
+          Science: ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'English', 'Computer Science', ...RESOURCE_EXTRAS],
+          Commerce: ['Accountancy', 'Business Studies', 'Economics', 'English', 'Mathematics', ...RESOURCE_EXTRAS],
+          Humanities: ['History', 'Political Science', 'Geography', 'Economics', 'English', 'Psychology', ...RESOURCE_EXTRAS],
+        },
+      },
+      12: {
+        streams: {
+          Science: ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'English', 'Computer Science', ...RESOURCE_EXTRAS],
+          Commerce: ['Accountancy', 'Business Studies', 'Economics', 'English', 'Mathematics', ...RESOURCE_EXTRAS],
+          Arts: ['History', 'Political Science', 'Geography', 'Economics', 'Sociology', 'English', ...RESOURCE_EXTRAS],
+        },
+      },
+      'competitive': { subjects: ['JEE Main & Advanced', 'NEET-UG Biology & Physics', 'CUET General Test', 'NDA Entrance Exam', 'Formula Short Tricks'] }
+    };
+
+    const BOOKMARKS_KEY = 'notesPointBookmarks';
+    const RECENT_KEY = 'notesPointRecentlyViewed';
+
+    function readJSON(key, fallback) {
+      try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch { return fallback; }
+    }
+    function writeJSON(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+    }
+
+    function getBookmarks() { return readJSON(BOOKMARKS_KEY, {}); }
+    function toggleBookmark(id, note) {
+      const bookmarks = getBookmarks();
+      if (bookmarks[id]) delete bookmarks[id]; else bookmarks[id] = note;
+      writeJSON(BOOKMARKS_KEY, bookmarks);
+      return !!bookmarks[id];
+    }
+    function isBookmarked(id) { return !!getBookmarks()[id]; }
+
+    function addRecentlyViewed(id, note) {
+      const list = readJSON(RECENT_KEY, []).filter((n) => n.fileUrl !== note.fileUrl && n.id !== note.id);
+      list.unshift(note);
+      writeJSON(RECENT_KEY, list.slice(0, 12));
+    }
+
+    document.getElementById('sidebarSavedBtn')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.switchSection('savedSection');
+      const items = Object.values(getBookmarks());
+      openLocalListPanel({ items, breadcrumb: 'Saved Notes', title: `Your Saved Notes (${items.length})` });
     });
 
-    /* ---------- MOBILE SIDEBAR ---------- */
-    const sidebar = document.getElementById('appSidebar');
-    const toggleBtn = document.getElementById('toggleSidebarMobile');
-    if (toggleBtn && sidebar) {
-      toggleBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        sidebar.classList.toggle('open');
-      });
-      document.addEventListener('click', function (e) {
-        if (window.innerWidth <= 992 && sidebar.classList.contains('open') && !sidebar.contains(e.target)) {
-          sidebar.classList.remove('open');
-        }
-      });
-    }
+    document.getElementById('sidebarRecentBtn')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.switchSection('recentSection');
+      const items = readJSON(RECENT_KEY, []);
+      openLocalListPanel({ items, breadcrumb: 'Recently Viewed', title: `Recently Viewed Notes (${items.length})` });
+    });
 
-    /* ---------- CURRICULUM DATA ---------- */
-    const CURRICULUM = {
-      '9': { 'All': ['Mathematics','Science','Social Science','English','Hindi','Sanskrit','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)'] },
-      '10': { 'All': ['Mathematics','Science','Social Science','English','Hindi','IT / Computer','NCERT Books 📚','Formula & Derivation Sheets','Previous Year Questions (PYQs)'] },
-      '11': {
-        'Science': ['Physics','Chemistry','Mathematics','Biology','English','Computer Science','NCERT Books 📚','PYQs'],
-        'Commerce': ['Accountancy','Business Studies','Economics','Mathematics','English','PYQs'],
-        'Arts / Humanities': ['History','Political Science','Geography','Economics','Sociology','Psychology','English','Hindi']
-      },
-      '12': {
-        'Science': ['Physics','Chemistry','Mathematics','Biology','English','Computer Science','NCERT Books 📚','PYQs'],
-        'Commerce': ['Accountancy','Business Studies','Economics','Mathematics','English','PYQs'],
-        'Arts / Humanities': ['History','Political Science','Geography','Economics','Sociology','Psychology','English','Hindi']
-      },
-      'competitive': { 'All': ['JEE Main & Advanced','NEET-UG Biology & Physics','CUET General Test','NDA Entrance Exam','Formula Short Tricks'] }
-    };
-
-    const CLASS_LABEL = { '9':'Class 9','10':'Class 10','11':'Class 11','12':'Class 12','competitive':'Competitive Exams' };
-    const CLASS_THEMES = {
-      '9':   { bg: 'linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%)', border: '#BFDBFE', text: '#1E3A8A', accent: '#2563EB' },
-      '10':  { bg: 'linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)', border: '#A7F3D0', text: '#064E3B', accent: '#059669' },
-      '11':  { bg: 'linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%)', border: '#FDE68A', text: '#78350F', accent: '#D97706' },
-      '12':  { bg: 'linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%)', border: '#FECACA', text: '#7F1D1D', accent: '#DC2626' },
-      'competitive': { bg: 'linear-gradient(135deg, #F3E8FF 0%, #EDE9FE 100%)', border: '#D8B4FE', text: '#4C1D95', accent: '#7C3AED' }
-    };
-
-    const subjectContainer = document.getElementById('subjectContainerArea');
-    const selectedClassTitle = document.getElementById('selectedClassTitle');
+    const classRail = document.getElementById('classRail');
+    const classHeaderArea = document.getElementById('classHeaderArea');
+    const subjectContainerArea = document.getElementById('subjectContainerArea');
     const streamLevel = document.getElementById('streamLevel');
     const streamPills = document.getElementById('streamPills');
     const subjectGrid = document.getElementById('subjectGrid');
+    const selectedClassTitle = document.getElementById('selectedClassTitle');
     const btnBackToClasses = document.getElementById('btnBackToClasses');
 
-    let activeClass = '10';
-    let activeStream = 'Science';
+    let activeClass = '';
+    let activeStream = '';
 
-    function renderSubjectGrid(cls, stream) {
-      const streamsData = CURRICULUM[cls] || {};
-      const subs = streamsData[stream] || streamsData['All'] || [];
-      const theme = CLASS_THEMES[cls] || CLASS_THEMES['9'];
-
-      if (subjectGrid) {
-        subjectGrid.innerHTML = subs.map(s => (
-          `<button type="button" class="subject-card-box" data-subject="${s.replace(/"/g,'&quot;')}" data-class="${cls}" style="background:${theme.bg} !important; border-color:${theme.border} !important;">` +
-            `<div>` +
-              `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">` +
-                `<div style="width:38px;height:38px;border-radius:10px;background:${theme.accent};color:#fff;display:grid;place-items:center;"><i class="fa-solid fa-book-open"></i></div>` +
-                `<span style="background:#EF4444; color:#fff; font-size:.68rem; font-weight:800; padding:2px 8px; border-radius:6px;">100% FREE</span>` +
-              `</div>` +
-              `<strong style="font-size:1rem;color:${theme.text};">${s}</strong>` +
-            `</div>` +
-            `<span style="font-size:.82rem;color:${theme.accent};font-weight:700;margin-top:10px;display:inline-flex;align-items:center;gap:6px;">Open <i class="fa-solid fa-arrow-right"></i></span>` +
-          `</button>`
-        )).join('');
-
-        subjectGrid.querySelectorAll('.subject-card-box').forEach(sc => {
-          sc.addEventListener('click', function () {
-            openNotesPanel(this.getAttribute('data-class'), this.getAttribute('data-subject'));
-          });
-        });
-      }
+    function goToClassStep() {
+      if (classRail) classRail.style.cssText = 'display: grid !important;';
+      if (classHeaderArea) classHeaderArea.style.cssText = 'display: block !important; text-align: center !important; margin: 0 auto 20px auto; max-width: 650px;';
+      if (subjectContainerArea) subjectContainerArea.hidden = true;
     }
 
-    function selectClassCard(cls, pushState = true) {
-      activeClass = cls;
-      const theme = CLASS_THEMES[cls] || CLASS_THEMES['9'];
-      const streamsObj = CURRICULUM[cls] || {};
-      const availableStreams = Object.keys(streamsObj);
+    function goToSubjectStep(classValue) {
+      activeClass = String(classValue);
+      activeStream = '';
+      if (classRail) classRail.style.cssText = 'display: none !important;';
+      if (classHeaderArea) classHeaderArea.style.cssText = 'display: none !important;';
+      if (subjectContainerArea) subjectContainerArea.hidden = false;
 
+      const titleText = activeClass === 'competitive' ? 'Competitive Entrance Exams' : `Class ${activeClass} — Subjects & Resources`;
       if (selectedClassTitle) {
-        selectedClassTitle.innerHTML =
-          `<span style="display:inline-block;background:${theme.bg};color:${theme.text};font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:6px;border:1px solid ${theme.border};">Selected Class</span>` +
-          `<h3 style="font-size:1.3rem;font-weight:800;margin:0;color:${theme.text};">${(CLASS_LABEL[cls] || cls)} — Subjects</h3>`;
+        selectedClassTitle.innerHTML = `<h3 style="font-size: 1.35rem; color: #0F172A; font-weight: 800; margin: 0; text-align: center;">${titleText}</h3>`;
       }
 
-      if (availableStreams.length > 1 && availableStreams[0] !== 'All') {
-        streamLevel.hidden = false;
-        activeStream = availableStreams[0];
-        streamPills.innerHTML = availableStreams.map(st => `
-          <button type="button" class="stream-pill-btn ${st === activeStream ? 'active' : ''}" data-stream="${st}">${st}</button>
-        `).join('');
+      if (CURRICULUM[activeClass]?.streams) {
+        if (streamLevel) streamLevel.hidden = false;
+        const streamKeys = Object.keys(CURRICULUM[activeClass].streams);
+        activeStream = streamKeys[0];
+        renderStreamPills(activeClass, activeStream);
+        renderSubjectGrid(CURRICULUM[activeClass].streams[activeStream]);
+      } else {
+        if (streamLevel) streamLevel.hidden = true;
+        if (streamPills) streamPills.innerHTML = '';
+        if (CURRICULUM[activeClass]) renderSubjectGrid(CURRICULUM[activeClass].subjects);
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-        streamPills.querySelectorAll('.stream-pill-btn').forEach(btn => {
-          btn.addEventListener('click', function () {
-            streamPills.querySelectorAll('.stream-pill-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            activeStream = this.getAttribute('data-stream');
-            renderSubjectGrid(activeClass, activeStream);
-          });
+    classRail?.addEventListener('click', (e) => {
+      const card = e.target.closest('.class-card');
+      if (card) {
+        const targetClass = card.getAttribute('data-class');
+        if (targetClass) goToSubjectStep(targetClass);
+      }
+    });
+
+    btnBackToClasses?.addEventListener('click', goToClassStep);
+
+    function renderStreamPills(classValue, currentActiveStream) {
+      if (!streamPills) return;
+      streamPills.innerHTML = '';
+      Object.keys(CURRICULUM[classValue].streams).forEach((streamName) => {
+        const pill = document.createElement('button');
+        pill.type = 'button';
+        const isActive = streamName === currentActiveStream;
+        pill.className = isActive ? 'stream-pill-btn active' : 'stream-pill-btn';
+        pill.textContent = streamName;
+        pill.addEventListener('click', () => {
+          activeStream = streamName;
+          renderStreamPills(classValue, streamName);
+          renderSubjectGrid(CURRICULUM[classValue].streams[streamName]);
         });
-      } else {
-        streamLevel.hidden = true;
-        activeStream = 'All';
-      }
-
-      renderSubjectGrid(activeClass, activeStream);
-
-      if (subjectContainer) {
-        subjectContainer.hidden = false;
-        subjectContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-
-      if (pushState) {
-        history.pushState({ step: 'class', classVal: cls }, '', `?class=${cls}`);
-      }
-    }
-
-    document.querySelectorAll('.class-card').forEach(card => {
-      card.addEventListener('click', function () {
-        selectClassCard(this.getAttribute('data-class'));
-      });
-    });
-
-    /* STEP-BY-STEP BACK BUTTON CLICK HANDLER */
-    function backToClassesList(pushState = true) {
-      if (subjectContainer) subjectContainer.hidden = true;
-      const mainRail = document.getElementById('mainClassRail');
-      if (mainRail) mainRail.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      if (pushState) {
-        history.pushState({ step: 'classList' }, '', 'student.html');
-      }
-    }
-
-    if (btnBackToClasses) {
-      btnBackToClasses.addEventListener('click', function () {
-        backToClassesList();
+        streamPills.appendChild(pill);
       });
     }
 
-    /* ---------- BROWSER BACK BUTTON (POPSTATE INTEGRATION) ---------- */
-    window.addEventListener('popstate', function (e) {
-      if (notesPanel && notesPanel.classList.contains('show-modal')) {
-        closeNotesModal(false);
-        return;
-      }
-
-      if (subjectContainer && !subjectContainer.hidden) {
-        backToClassesList(false);
-        return;
-      }
-
-      if (e.state && e.state.classVal) {
-        selectClassCard(e.state.classVal, false);
-      } else if (e.state && e.state.sectionId) {
-        switchSection(e.state.sectionId, false);
-      } else {
-        backToClassesList(false);
-      }
-    });
-
-    /* ---------- URL PARAMETER INITIAL HANDLER ---------- */
-    window.addEventListener('DOMContentLoaded', function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const targetClass = urlParams.get('class');
-      if (targetClass) {
-        switchSection('classesSection', false);
-        setTimeout(() => { selectClassCard(targetClass, false); }, 150);
-      }
-    });
-
-    /* ---------- RECENT & SAVED NOTES LOGIC ---------- */
-    function saveToRecent(item) {
-      let recents = JSON.parse(localStorage.getItem('np_recents') || '[]');
-      recents = recents.filter(r => r.title !== item.title);
-      recents.unshift(item);
-      localStorage.setItem('np_recents', JSON.stringify(recents.slice(0, 10)));
+    function renderSubjectGrid(subjects) {
+      if (!subjectGrid) return;
+      subjectGrid.innerHTML = '';
+      subjects.forEach((subjectLabel) => {
+        const cleanName = subjectLabel.replace(' (Optional)', '');
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.style.cssText = `
+          background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%) !important;
+          border: 1px solid #CBD5E1 !important; border-radius: 12px !important;
+          padding: 18px !important; text-align: left !important; cursor: pointer !important;
+          display: flex !important; flex-direction: column !important; justify-content: space-between !important;
+          min-height: 110px !important; box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.2s ease;
+        `;
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 8px;">
+            <div style="width:36px; height:36px; border-radius:8px; background:#2563EB; color:#fff; display:grid; place-items:center;"><i class="fa-solid fa-book-open"></i></div>
+            <span style="background:#10B981; color: #fff; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 6px;">100% FREE</span>
+          </div>
+          <h4 style="font-size: 1rem; font-weight: 700; color: #0F172A; margin: 0;">${cleanName}</h4>
+          <span style="font-size: 0.8rem; color: #2563EB; font-weight: 700; margin-top: 10px; display:inline-block;">Open Materials →</span>
+        `;
+        card.addEventListener('click', () => openNotesPanel({ classValue: activeClass, streamValue: activeStream, subjectValue: cleanName }));
+        subjectGrid.appendChild(card);
+      });
     }
 
-    function renderRecentNotes() {
-      const container = document.getElementById('recentNotesContainer');
-      const recents = JSON.parse(localStorage.getItem('np_recents') || '[]');
-      if (!container) return;
-      if (recents.length === 0) {
-        container.innerHTML = `<p style="grid-column:1/-1; color:#94A3B8; text-align:center; padding:20px;">No recently viewed notes.</p>`;
-      } else {
-        container.innerHTML = recents.map(r => `
-          <a href="${r.url || '#'}" target="_blank" style="background:#1E293B; border:1px solid #334155; padding:16px; border-radius:12px; text-decoration:none; color:#fff; display:block;">
-            <strong style="display:block; font-size:.95rem; color:#FFF;">${r.title}</strong>
-            <span style="font-size:.75rem; color:#38BDF8;">Class ${r.cls} • ${r.sub}</span>
-          </a>
-        `).join('');
-      }
-    }
-
-    function renderSavedNotes() {
-      const container = document.getElementById('savedNotesContainer');
-      const saved = JSON.parse(localStorage.getItem('np_saved') || '[]');
-      if (!container) return;
-      if (saved.length === 0) {
-        container.innerHTML = `<p style="grid-column:1/-1; color:#94A3B8; text-align:center; padding:20px;">No saved notes found.</p>`;
-      } else {
-        container.innerHTML = saved.map(s => `
-          <a href="${s.url || '#'}" target="_blank" style="background:#1E293B; border:1px solid #334155; padding:16px; border-radius:12px; text-decoration:none; color:#fff; display:block;">
-            <strong style="display:block; font-size:.95rem; color:#FFF;">${s.title}</strong>
-            <span style="font-size:.75rem; color:#F59E0B;">Class ${s.cls} • ${s.sub}</span>
-          </a>
-        `).join('');
-      }
-    }
-
-    /* ---------- NOTES MODAL (ULTRA-ROBUST SEARCH MATCHING) ---------- */
     const notesPanel = document.getElementById('notesPanel');
-    const notesClose = document.getElementById('notesPanelClose');
-    const notesTitle = document.getElementById('notesPanelTitle');
-    const notesCrumb = document.getElementById('notesPanelBreadcrumb');
-    const notesStatus = document.getElementById('notesPanelStatus');
-    const notesGrid = document.getElementById('notesPanelGrid');
+    const notesPanelClose = document.getElementById('notesPanelClose');
+    const notesPanelOverlay = document.getElementById('notesPanelOverlay');
+    const notesPanelBreadcrumb = document.getElementById('notesPanelBreadcrumb');
+    const notesPanelTitle = document.getElementById('notesPanelTitle');
+    const notesPanelStatus = document.getElementById('notesPanelStatus');
+    const notesPanelGrid = document.getElementById('notesPanelGrid');
+    const notesPanelLoading = document.getElementById('notesPanelLoading');
+    const notesPanelEmpty = document.getElementById('notesPanelEmpty');
 
-    function openNotesPanel(cls, subject, pushState = true) {
-      if (!notesPanel) return;
-      const theme = CLASS_THEMES[cls] || CLASS_THEMES['9'];
-
-      if (notesCrumb) {
-        notesCrumb.textContent = (CLASS_LABEL[cls] || cls) + ' • Notes';
-        notesCrumb.style.color = theme.accent;
+    async function openPdfInNewTab(url, id) {
+      if (!url) return alert("PDF URL not found.");
+      if (url.startsWith('indexeddb://')) {
+        const actualId = url.replace('indexeddb://', '') || id;
+        const blob = await LargeStorageEngine.getPDFBlob(actualId);
+        if (blob) { window.open(URL.createObjectURL(blob), '_blank'); return; }
       }
-      if (notesTitle) notesTitle.textContent = subject;
-      if (notesStatus) notesStatus.textContent = 'Loading materials...';
-      if (notesGrid) notesGrid.innerHTML = '';
+      window.open(url, '_blank');
+    }
 
-      function renderNotesList(items) {
-        if (!items || items.length === 0) {
-          notesStatus.textContent = `0 material(s) available`;
-          notesGrid.innerHTML = `<div style="text-align:center; padding:35px 20px; color:#94A3B8; font-weight:600;">No uploaded notes for this subject yet. Upload from Admin Panel!</div>`;
-        } else {
-          notesStatus.textContent = `${items.length} material(s) available`;
-          notesGrid.innerHTML = items.map(n => {
-            const fileLink = n.fileUrl || n.cloudUrl || n.url || n.driveUrl || '#';
-            const docTitle = n.title || n.chapter || n.fileName || n.name || 'Study Note';
-            
-            return `
-              <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 18px; background:#1E293B; border:1px solid #334155; border-radius:12px;">
-                <div>
-                  <strong style="font-size:.95rem; display:block; color:#FFF;">${docTitle}</strong>
-                  <span style="font-size:.75rem; color:#34D399; font-weight:700;">100% FREE VERIFIED PDF</span>
-                </div>
-                <a href="${fileLink}" target="_blank" rel="noopener" onclick="window.trackNoteClick('${cls}', '${subject}', '${docTitle}', '${fileLink}')" style="background:#0284C7; color:#fff; text-decoration:none; padding:8px 16px; border-radius:8px; font-weight:700; font-size:.85rem;">Download <i class="fa-solid fa-download" style="margin-left:4px;"></i></a>
-              </div>
-            `;
-          }).join('');
+    function buildNoteCard(id, note) {
+      const card = document.createElement('div');
+      card.style.cssText = `
+        background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 12px;
+        padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      `;
+      card.innerHTML = `
+        <div>
+          <strong style="font-size: 0.95rem; color: #0F172A; display: block; margin-bottom: 2px;">${note.chapter || note.title || 'Study Material'}</strong>
+          <span style="font-size: 0.75rem; color: #10B981; font-weight: 700;">100% FREE VERIFIED PDF</span>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button type="button" class="save-btn" style="background: ${isBookmarked(id)?'#F59E0B':'#E2E8F0'}; color: #fff; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer;">★</button>
+          <button type="button" class="dl-btn" style="background: #2563EB; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.85rem;">Download <i class="fa-solid fa-download"></i></button>
+        </div>
+      `;
+      card.querySelector('.dl-btn').addEventListener('click', () => {
+        addRecentlyViewed(id, note);
+        openPdfInNewTab(note.fileUrl, id);
+      });
+      card.querySelector('.save-btn').addEventListener('click', () => {
+        const nowSaved = toggleBookmark(id, note);
+        card.querySelector('.save-btn').style.background = nowSaved ? '#F59E0B' : '#E2E8F0';
+      });
+      return card;
+    }
+
+    function renderNotesList(notesArray) {
+      if (!notesPanelGrid) return;
+      notesPanelGrid.innerHTML = '';
+      if (!Array.isArray(notesArray) || notesArray.length === 0) {
+        if (notesPanelStatus) notesPanelStatus.textContent = '0 material(s) available';
+        if (notesPanelEmpty) {
+          notesPanelEmpty.hidden = false;
+          notesPanelEmpty.innerHTML = `<div style="text-align:center; padding:30px; color:#64748B; font-weight:600;">No uploaded notes for this subject yet. Upload from Admin Panel!</div>`;
         }
+      } else {
+        if (notesPanelStatus) notesPanelStatus.textContent = `${notesArray.length} material(s) available`;
+        if (notesPanelEmpty) notesPanelEmpty.hidden = true;
+        notesArray.forEach((note) => {
+          notesPanelGrid.appendChild(buildNoteCard(note.id || Math.random(), note));
+        });
       }
+    }
 
-      window.trackNoteClick = function(c, s, t, u) {
-        saveToRecent({ cls: c, sub: s, title: t, url: u });
-      };
+    function openNotesPanel({ classValue, streamValue, subjectValue }) {
+      if (notesPanelBreadcrumb) notesPanelBreadcrumb.textContent = streamValue ? `Class ${classValue} · ${streamValue}` : `Class ${classValue}`;
+      if (notesPanelTitle) notesPanelTitle.textContent = subjectValue;
+      if (notesPanel) notesPanel.hidden = false;
+      if (notesPanelLoading) notesPanelLoading.hidden = false;
+      if (notesPanelGrid) notesPanelGrid.innerHTML = '';
 
-      /* FETCH FROM ALL POSSIBLE LOCALSTORAGE KEYS (PREVENT MISSING ADMIN DATA) */
       let allNotes = [];
       const storageKeys = ['notespoint_uploaded_notes_v7', 'notespoint_uploaded_notes', 'np_uploaded_notes', 'notes'];
-      
       storageKeys.forEach(key => {
         try {
           const parsed = JSON.parse(localStorage.getItem(key) || '[]');
@@ -822,57 +762,72 @@
         } catch (e) {}
       });
 
-      const cleanClass = String(cls).trim().toLowerCase();
-      const cleanSub = String(subject).trim().toLowerCase();
+      const cleanClass = String(classValue).trim().toLowerCase();
+      const cleanSub = String(subjectValue).trim().toLowerCase();
 
-      /* SMART FUZZY MATCHING FOR CLASS AND SUBJECT */
-      let filtered = allNotes.filter(n => {
-        const nCls = String(n.class || n.classVal || n.grade || '').trim().toLowerCase();
-        const nSub = String(n.subject || n.sub || n.category || '').trim().toLowerCase();
-
-        const isClassMatch = (nCls === cleanClass) || (cleanClass === 'competitive' && (nCls.includes('comp') || nCls.includes('entrance')));
-        const isSubMatch = (nSub === cleanSub) || nSub.includes(cleanSub) || cleanSub.includes(nSub);
-
-        return isClassMatch && isSubMatch;
+      const filtered = allNotes.filter(n => {
+        const nCls = String(n.class || n.classVal || '').trim().toLowerCase();
+        const nSub = String(n.subject || '').trim().toLowerCase();
+        const matchClass = (nCls === cleanClass) || (cleanClass === 'competitive' && nCls.includes('comp'));
+        const matchSub = (nSub === cleanSub) || nSub.includes(cleanSub) || cleanSub.includes(nSub);
+        return matchClass && matchSub;
       });
 
+      if (notesPanelLoading) notesPanelLoading.hidden = true;
       renderNotesList(filtered);
-      notesPanel.classList.add('show-modal');
 
-      if (pushState) {
-        history.pushState({ step: 'modal', modalSubject: subject }, '', `?class=${cls}&subject=${encodeURIComponent(subject)}`);
+      if (notesCollection) {
+        notesCollection.get().then((snapshot) => {
+          const cloudNotes = [];
+          snapshot.forEach((doc) => {
+            const data = { id: doc.id, ...doc.data() };
+            const nCls = String(data.class || '').trim().toLowerCase();
+            const nSub = String(data.subject || '').trim().toLowerCase();
+            if ((nCls === cleanClass) && (nSub === cleanSub || nSub.includes(cleanSub) || cleanSub.includes(nSub))) {
+              cloudNotes.push(data);
+            }
+          });
+          if (cloudNotes.length > 0) {
+            renderNotesList(cloudNotes);
+          }
+        }).catch(() => {});
       }
     }
 
-    function closeNotesModal(pushState = true) {
-      if (notesPanel) notesPanel.classList.remove('show-modal');
-      if (pushState && history.state && history.state.step === 'modal') {
-        history.back();
-      }
+    function openLocalListPanel({ items, breadcrumb, title }) {
+      if (notesPanelBreadcrumb) notesPanelBreadcrumb.textContent = breadcrumb;
+      if (notesPanelTitle) notesPanelTitle.textContent = title;
+      if (notesPanel) notesPanel.hidden = false;
+      if (notesPanelLoading) notesPanelLoading.hidden = true;
+      renderNotesList(items);
     }
 
-    if (notesClose) notesClose.addEventListener('click', function () { closeNotesModal(true); });
-    if (notesPanel) notesPanel.addEventListener('click', function (e) {
-      if (e.target === notesPanel) closeNotesModal(true);
+    notesPanelClose?.addEventListener('click', () => { if (notesPanel) notesPanel.hidden = true; });
+    notesPanelOverlay?.addEventListener('click', () => { if (notesPanel) notesPanel.hidden = true; });
+
+    window.switchSection = function(targetId) {
+      document.querySelectorAll('.workspace-section').forEach(sec => {
+        sec.style.display = (sec.id === targetId) ? 'block' : 'none';
+      });
+      document.querySelectorAll('.sidebar-menu .nav-item').forEach(item => {
+        item.classList.toggle('active', item.getAttribute('data-target') === targetId);
+      });
+      if (targetId === 'classesSection') goToClassStep();
+    };
+
+    document.querySelectorAll('.sidebar-menu .nav-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = item.getAttribute('data-target');
+        if (target) window.switchSection(target);
+      });
     });
 
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', function () {
-        if (confirm('Return to Home Page?')) window.location.href = 'index.html';
-      });
-    }
-
-    const supportForm = document.getElementById('supportForm');
-    if (supportForm) {
-      supportForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        alert('Thank you! Your request has been recorded.');
-        supportForm.reset();
-      });
-    }
+    document.addEventListener('DOMContentLoaded', goToClassStep);
   })();
   </script>
 
 </body>
 </html>
+
+
