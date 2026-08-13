@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Student Portal — Notes Point Dashboard</title>
 <meta name="description" content="Notes Point Student Command Center & Study Materials Dashboard.">
-<meta name="theme-color" content="#2563EB">
+<meta name="theme-color" content="#14B8A6">
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%232563EB%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22700%22 font-size=%2250%22 fill=%22%23ffffff%22>NP</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%2314B8A6%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22700%22 font-size=%2250%22 fill=%22%23ffffff%22>NP</text></svg>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -499,7 +499,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 
-  <!-- JAVASCRIPT ENGINE WITH BROWSER BACK BUTTON INTEGRATION -->
+  <!-- JAVASCRIPT ENGINE WITH ULTRA-ROBUST SEARCH MATCHING -->
   <script>
   (function () {
     'use strict';
@@ -695,19 +695,16 @@
 
     /* ---------- BROWSER BACK BUTTON (POPSTATE INTEGRATION) ---------- */
     window.addEventListener('popstate', function (e) {
-      /* 1. Close Modal if Open */
       if (notesPanel && notesPanel.classList.contains('show-modal')) {
         closeNotesModal(false);
         return;
       }
 
-      /* 2. Step back from Subject Grid to Classes List */
       if (subjectContainer && !subjectContainer.hidden) {
         backToClassesList(false);
         return;
       }
 
-      /* 3. Handle Section or URL parameters */
       if (e.state && e.state.classVal) {
         selectClassCard(e.state.classVal, false);
       } else if (e.state && e.state.sectionId) {
@@ -767,7 +764,7 @@
       }
     }
 
-    /* ---------- NOTES MODAL (STRICT ADMIN DATA ONLY) ---------- */
+    /* ---------- NOTES MODAL (ULTRA-ROBUST SEARCH MATCHING) ---------- */
     const notesPanel = document.getElementById('notesPanel');
     const notesClose = document.getElementById('notesPanelClose');
     const notesTitle = document.getElementById('notesPanelTitle');
@@ -794,8 +791,8 @@
         } else {
           notesStatus.textContent = `${items.length} material(s) available`;
           notesGrid.innerHTML = items.map(n => {
-            const fileLink = n.fileUrl || n.cloudUrl || n.url || '#';
-            const docTitle = n.title || n.chapter || n.fileName || 'Study Note';
+            const fileLink = n.fileUrl || n.cloudUrl || n.url || n.driveUrl || '#';
+            const docTitle = n.title || n.chapter || n.fileName || n.name || 'Study Note';
             
             return `
               <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 18px; background:#1E293B; border:1px solid #334155; border-radius:12px;">
@@ -814,15 +811,29 @@
         saveToRecent({ cls: c, sub: s, title: t, url: u });
       };
 
-      let notes = [];
-      try { notes = JSON.parse(localStorage.getItem('notespoint_uploaded_notes_v7') || '[]'); } catch (e) {}
+      /* FETCH FROM ALL POSSIBLE LOCALSTORAGE KEYS (PREVENT MISSING ADMIN DATA) */
+      let allNotes = [];
+      const storageKeys = ['notespoint_uploaded_notes_v7', 'notespoint_uploaded_notes', 'np_uploaded_notes', 'notes'];
+      
+      storageKeys.forEach(key => {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(key) || '[]');
+          if (Array.isArray(parsed)) allNotes = allNotes.concat(parsed);
+        } catch (e) {}
+      });
 
-      const cleanSubject = String(subject).trim().toLowerCase();
-      let filtered = notes.filter(n => {
-        const noteClass = String(n.class || n.classVal || '').trim();
-        const noteSubject = String(n.subject || '').trim().toLowerCase();
-        return noteClass === String(cls).trim() && 
-               (noteSubject === cleanSubject || noteSubject.includes(cleanSubject) || cleanSubject.includes(noteSubject));
+      const cleanClass = String(cls).trim().toLowerCase();
+      const cleanSub = String(subject).trim().toLowerCase();
+
+      /* SMART FUZZY MATCHING FOR CLASS AND SUBJECT */
+      let filtered = allNotes.filter(n => {
+        const nCls = String(n.class || n.classVal || n.grade || '').trim().toLowerCase();
+        const nSub = String(n.subject || n.sub || n.category || '').trim().toLowerCase();
+
+        const isClassMatch = (nCls === cleanClass) || (cleanClass === 'competitive' && (nCls.includes('comp') || nCls.includes('entrance')));
+        const isSubMatch = (nSub === cleanSub) || nSub.includes(cleanSub) || cleanSub.includes(nSub);
+
+        return isClassMatch && isSubMatch;
       });
 
       renderNotesList(filtered);
