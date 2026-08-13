@@ -321,7 +321,7 @@
 
   .hero-title span.highlight {
     background: linear-gradient(135deg, var(--primary-cyan), var(--primary-teal));
-    -background-clip: text;
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
@@ -1200,34 +1200,43 @@
       </div>
 
     <!-- SUPPORT SECTION -->
-    <section class="support-section" id="support">
-      <div class="support-card-box">
-        <div class="support-grid">
-          <div style="text-align: center;">
-            <div style="width: 90px; height: 90px; background: #ECFEFF; border: 1px solid #CFFAFE; border-radius: 50%; display: grid; place-items: center; margin: 0 auto; color: var(--primary-teal); font-size: 2.2rem;">
+   <!-- INLINE FIXED SUPPORT SECTION (GUARANTEED NO OVERFLOW) -->
+    <section id="support" style="width:100% !important; padding:20px 10px 180px 10px !important; box-sizing:border-box !important; overflow:hidden !important; background:rgba(255,255,255,0.9);">
+      
+      <div style="width:100% !important; max-width:100% !important; background:#ffffff !important; border:1px solid #CBD5E1 !important; border-radius:16px !important; padding:20px 12px !important; box-sizing:border-box !important; overflow:hidden !important; margin:0 auto !important; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+        
+        <div style="display:flex !important; flex-direction:column !important; width:100% !important; gap:16px !important; box-sizing:border-box !important;">
+          
+          <!-- LEFT ICON & TITLE -->
+          <div style="text-align:center !important; width:100% !important;">
+            <div style="width:65px; height:65px; background:#ECFEFF; border:1px solid #CFFAFE; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 10px auto; color:#14B8A6; font-size:1.6rem;">
               <i class="fa-solid fa-headset"></i>
             </div>
-            <h3 style="margin-top: 14px; font-weight: 800; color: var(--brand-navy);">Academic Assistance</h3>
+            <h3 style="font-size:1.2rem; font-weight:800; color:#0F172A; margin:0 0 6px 0;">Academic Assistance</h3>
+            <span style="display:inline-block; background:#ECFEFF; color:#0891B2; border:1px solid #CFFAFE; font-size:0.75rem; font-weight:700; padding:4px 12px; border-radius:20px;">CONTACT HELPDESK</span>
           </div>
 
-          <div>
-            <div class="badge-tag" style="margin-bottom:10px;">Contact Helpdesk</div>
-            <h2 style="font-weight: 800; color: var(--brand-navy); margin: 4px 0 8px 0; font-size: 1.6rem;">Have Feedback or Inquiries? 💬</h2>
-            <p style="color: var(--slate-600); margin-bottom: 20px; font-size: 0.95rem;">
-              Submit your inquiry or study material requests below.
-            </p>
+          <!-- RIGHT FORM -->
+          <div style="width:100% !important; box-sizing:border-box !important; text-align:center !important;">
+            <h2 style="font-size:1.3rem; font-weight:800; color:#0F172A; margin:0 0 6px 0;">Have Feedback or Inquiries? 💬</h2>
+            <p style="font-size:0.85rem; color:#64748B; margin:0 0 16px 0;">Submit your inquiry or study material requests below.</p>
 
-            <form class="support-form" id="homeFeedbackForm" onsubmit="handleSupportSubmit(event)">
-              <input type="text" placeholder="Full Name" required>
-              <input type="email" placeholder="Email Address" required>
-              <textarea rows="3" placeholder="Write your message or requested subject notes..." required></textarea>
-              <button type="submit" class="btn-nav-primary" style="align-self: flex-start;">Send Inquiry 🚀</button>
+            <form id="homeFeedbackForm" onsubmit="handleSupportSubmit(event)" style="display:flex !important; flex-direction:column !important; width:100% !important; gap:10px !important; box-sizing:border-box !important;">
+              
+              <input type="text" placeholder="Full Name" required style="width:100% !important; max-width:100% !important; min-width:0 !important; box-sizing:border-box !important; padding:12px !important; border:1px solid #CBD5E1 !important; border-radius:8px !important; font-size:0.9rem !important; outline:none; background:#ffffff;">
+              
+              <input type="email" placeholder="Email Address" required style="width:100% !important; max-width:100% !important; min-width:0 !important; box-sizing:border-box !important; padding:12px !important; border:1px solid #CBD5E1 !important; border-radius:8px !important; font-size:0.9rem !important; outline:none; background:#ffffff;">
+              
+              <textarea rows="3" placeholder="Write your message or requested subject notes..." required style="width:100% !important; max-width:100% !important; min-width:0 !important; box-sizing:border-box !important; padding:12px !important; border:1px solid #CBD5E1 !important; border-radius:8px !important; font-size:0.9rem !important; outline:none; background:#ffffff; font-family:inherit;"></textarea>
+              
+              <button type="submit" class="btn-nav-primary" style="width:100% !important; padding:12px !important; justify-content:center !important; margin-top:4px !important; font-size:0.92rem !important; box-sizing:border-box !important;">Send Inquiry 🚀</button>
             </form>
           </div>
+
         </div>
+
       </div>
     </section>
-  </main>
 
   <!-- FLOATING DOCK WITH VECTOR ROBOT AVATAR -->
   <div class="vedantu-floating-dock">
