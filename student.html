@@ -7,7 +7,7 @@
 <meta name="description" content="Notes Point Student Command Center & Study Materials Dashboard.">
 <meta name="theme-color" content="#14B8A6">
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%2314B8A6%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22700%22 font-size=%2250%22 fill=%22%23ffffff%22>NP</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%2314B8A6%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22 font-size=%2248%22 fill=%22%23ffffff%22>NP</text></svg>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,7 +63,7 @@
     position: fixed; top: 0; left: 0; width: 260px; height: 100vh;
     background: #FFFFFF !important;
     border-right: 2px solid var(--paper-line) !important;
-    z-index: 100;
+    z-index: 1000;
     display: flex; flex-direction: column; justify-content: space-between;
     box-shadow: 4px 0 20px rgba(15,23,42,0.03);
     transition: left 0.3s ease;
@@ -89,6 +89,67 @@
     color: var(--primary-cyan) !important;
     box-shadow: 0 8px 20px -6px rgba(15,23,42,0.4);
   }
+
+  /* PROGRESS TRACKER WIDGET STYLES */
+  .sidebar-study-tracker {
+    margin: 10px 16px 14px 16px;
+    background: linear-gradient(135deg, #0F172A, #1E293B);
+    border: 1px solid #334155;
+    border-radius: 14px;
+    padding: 14px 12px;
+    color: #FFFFFF;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+  }
+  .tracker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .tracker-title {
+    font-size: 0.76rem;
+    font-weight: 800;
+    color: var(--primary-cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tracker-time-count {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #38BDF8;
+  }
+  .tracker-progress-bg {
+    width: 100%;
+    height: 7px;
+    background: #334155;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .tracker-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #14B8A6, #38BDF8);
+    border-radius: 10px;
+    transition: width 0.4s ease;
+  }
+  .tracker-stats-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.72rem;
+    color: #94A3B8;
+  }
+
+  /* MOBILE BACKDROP OVERLAY */
+  .mobile-menu-overlay {
+    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.45);
+    z-index: 900; opacity: 0; visibility: hidden; transition: all 0.3s ease;
+  }
+  .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
 
   /* ===== MAIN WRAPPER ===== */
   .admin-main-wrapper {
@@ -126,7 +187,7 @@
     box-shadow: 6px 6px 0px var(--brand-navy); margin-bottom: 28px;
   }
 
-  /* ===== CLASS CARDS (SOFT PASTEL THEMES) ===== */
+  /* ===== CLASS CARDS ===== */
   .class-rail {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 18px; margin-top: 16px;
@@ -204,6 +265,9 @@
 </head>
 <body class="admin-body-wrap">
 
+  <!-- MOBILE SIDEBAR OVERLAY -->
+  <div class="mobile-menu-overlay" id="mobileOverlay" onclick="closeMobileNav()"></div>
+
   <!-- SIDEBAR NAVIGATION -->
   <aside class="admin-sidebar" id="appSidebar">
     <div>
@@ -241,6 +305,21 @@
           </a>
         </li>
       </ul>
+
+      <!-- PROGRESS TRACKER WIDGET -->
+      <div class="sidebar-study-tracker">
+        <div class="tracker-header">
+          <span class="tracker-title"><i class="fa-solid fa-fire" style="color:#F59E0B;"></i> Study Goal</span>
+          <span class="tracker-time-count" id="trackerTimeDisplay">0m / 45m</span>
+        </div>
+        <div class="tracker-progress-bg">
+          <div class="tracker-progress-bar" id="trackerProgressBar"></div>
+        </div>
+        <div class="tracker-stats-row">
+          <span><i class="fa-solid fa-book-open" style="color:var(--primary-cyan); margin-right:3px;"></i> <span id="trackerPdfCount">0</span> PDFs Viewed</span>
+          <span id="trackerStreakLabel">Active 🔥</span>
+        </div>
+      </div>
     </div>
 
     <div class="sidebar-footer" style="padding:16px; border-top:1px solid #E2E8F0;">
@@ -265,7 +344,7 @@
     <!-- TOP HEADER BAR -->
     <header class="admin-topbar">
       <div style="display: flex; align-items: center; gap: 12px;">
-        <button type="button" class="btn-topbar-action mobile-toggle-btn" id="toggleSidebarMobile" style="display:none;">
+        <button type="button" class="btn-topbar-action mobile-toggle-btn" id="toggleSidebarMobile" onclick="toggleMobileNav()">
           <i class="fa-solid fa-bars"></i>
         </button>
         <h1 id="pageSectionTitle">Browse Classes &amp; Notes</h1>
@@ -360,18 +439,28 @@
       <!-- SECTION 2: SAVED NOTES -->
       <section class="workspace-section" id="savedSection" style="display: none;">
         <div class="admin-card">
-          <h2 style="font-size:1.3rem; font-weight:800; color:#0F172A;"><i class="fa-solid fa-bookmark" style="color:#F59E0B; margin-right:8px;"></i>Saved Notes</h2>
-          <p style="color:#64748B; font-size:.88rem; margin:4px 0 20px;">Quick access to your bookmarked study materials.</p>
-          <div id="savedNotesContainer" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;"></div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <div>
+              <h2 style="font-size:1.35rem; font-weight:800; color:#0F172A; margin:0;"><i class="fa-solid fa-bookmark" style="color:#F59E0B; margin-right:8px;"></i>Saved Notes</h2>
+              <p style="color:#64748B; font-size:.88rem; margin:4px 0 0 0;">Quick access to your bookmarked study materials.</p>
+            </div>
+            <button type="button" class="btn-back-step" onclick="window.switchSection('classesSection')" style="margin:0;">← Back to Classes</button>
+          </div>
+          <div id="savedNotesContainer" style="display:flex; flex-direction:column; gap:12px;"></div>
         </div>
       </section>
 
       <!-- SECTION 3: RECENTLY VIEWED -->
       <section class="workspace-section" id="recentSection" style="display: none;">
         <div class="admin-card">
-          <h2 style="font-size:1.3rem; font-weight:800; color:#0F172A;"><i class="fa-solid fa-clock-rotate-left" style="color:#2563EB; margin-right:8px;"></i>Recently Viewed Notes</h2>
-          <p style="color:#64748B; font-size:.88rem; margin:4px 0 20px;">Materials you checked recently.</p>
-          <div id="recentNotesContainer" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;"></div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <div>
+              <h2 style="font-size:1.35rem; font-weight:800; color:#0F172A; margin:0;"><i class="fa-solid fa-clock-rotate-left" style="color:#2563EB; margin-right:8px;"></i>Recently Viewed Notes</h2>
+              <p style="color:#64748B; font-size:.88rem; margin:4px 0 0 0;">Materials and PDFs you recently opened.</p>
+            </div>
+            <button type="button" class="btn-back-step" onclick="window.switchSection('classesSection')" style="margin:0;">← Back to Classes</button>
+          </div>
+          <div id="recentNotesContainer" style="display:flex; flex-direction:column; gap:12px;"></div>
         </div>
       </section>
 
@@ -440,7 +529,7 @@
       <div style="padding:24px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:12px;">
         <div id="notesPanelLoading" hidden style="text-align:center; padding:20px; color:#64748B;">Loading files from Admin Panel...</div>
         <p id="notesPanelStatus" style="font-size:.85rem; color:#64748B; margin:0; font-weight:600;"></p>
-        <div id="notesPanelGrid"></div>
+        <div id="notesPanelGrid" style="display:flex; flex-direction:column; gap:12px;"></div>
         <div id="notesPanelEmpty" hidden></div>
       </div>
     </div>
@@ -451,7 +540,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 
-  <!-- FULL POWERED DYNAMIC CLASS-COLOR THEMED STUDENT ENGINE -->
+  <!-- JAVASCRIPT LOGIC ENGINE -->
   <script>
   (() => {
     'use strict';
@@ -459,8 +548,9 @@
     const ENGINE_CONFIG = {
       storageKeys: {
         notes: 'notespoint_uploaded_notes_v7',
-        ticker: 'notespoint_running_ticker_v7',
-        reviews: 'notespoint_student_reviews_v7'
+        bookmarks: 'notespoint_saved_bookmarks_v7',
+        recents: 'notespoint_recently_viewed_v7',
+        studyTracker: 'notespoint_daily_study_time_v7'
       }
     };
 
@@ -522,6 +612,68 @@
     }
     initStudentSession();
 
+    /* ==========================================================================
+       DAILY STUDY TRACKER & PROGRESS BAR SYSTEM
+       ========================================================================== */
+    function initStudyProgressTracker() {
+      const todayStr = new Date().toISOString().slice(0, 10);
+      let trackerData = { date: todayStr, seconds: 0, pdfCount: 0 };
+
+      try {
+        const saved = JSON.parse(localStorage.getItem(ENGINE_CONFIG.storageKeys.studyTracker) || '{}');
+        if (saved && saved.date === todayStr) {
+          trackerData = saved;
+        }
+      } catch(e) {}
+
+      const timeDisplay = document.getElementById('trackerTimeDisplay');
+      const progressBar = document.getElementById('trackerProgressBar');
+      const pdfCountDisplay = document.getElementById('trackerPdfCount');
+      const goalMinutes = 45; // 45 Mins Daily Goal
+
+      function updateTrackerUI() {
+        const minutes = Math.floor(trackerData.seconds / 60);
+        if (timeDisplay) timeDisplay.textContent = `${minutes}m / ${goalMinutes}m`;
+        if (pdfCountDisplay) pdfCountDisplay.textContent = trackerData.pdfCount;
+        
+        const percent = Math.min(100, Math.round((minutes / goalMinutes) * 100));
+        if (progressBar) progressBar.style.width = `${percent}%`;
+      }
+
+      updateTrackerUI();
+
+      // Track seconds spent on dashboard
+      setInterval(() => {
+        trackerData.seconds += 10;
+        updateTrackerUI();
+        localStorage.setItem(ENGINE_CONFIG.storageKeys.studyTracker, JSON.stringify(trackerData));
+      }, 10000);
+
+      window.recordPdfViewTracker = function() {
+        trackerData.pdfCount += 1;
+        updateTrackerUI();
+        localStorage.setItem(ENGINE_CONFIG.storageKeys.studyTracker, JSON.stringify(trackerData));
+      };
+    }
+    initStudyProgressTracker();
+
+    /* MOBILE SIDEBAR DRAWER HANDLERS */
+    window.toggleMobileNav = function() {
+      const sidebar = document.getElementById('appSidebar');
+      const overlay = document.getElementById('mobileOverlay');
+      if (sidebar && overlay) {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+      }
+    };
+
+    window.closeMobileNav = function() {
+      const sidebar = document.getElementById('appSidebar');
+      const overlay = document.getElementById('mobileOverlay');
+      if (sidebar) sidebar.classList.remove('open');
+      if (overlay) overlay.classList.remove('active');
+    };
+
     const RESOURCE_EXTRAS = ['NCERT Books 📚', 'Formula & Derivation Sheets', 'Previous Year Questions (PYQs)', 'Sample Papers'];
     const CURRICULUM = {
       9: { subjects: ['Mathematics', 'Science', 'Social Science', 'English', 'Hindi', 'Sanskrit', ...RESOURCE_EXTRAS] },
@@ -543,7 +695,6 @@
       'competitive': { subjects: ['JEE Main & Advanced', 'NEET-UG Biology & Physics', 'CUET General Test', 'NDA Entrance Exam', 'Formula Short Tricks'] }
     };
 
-    /* CLASS THEME MAP FOR DYNAMIC COLOR MATCHING */
     const CLASS_THEMES = {
       '9': { bg: 'linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%)', border: '#BFDBFE', text: '#1E3A8A', accent: '#2563EB' },
       '10': { bg: 'linear-gradient(135deg,#ECFDF5 0%,#D1FAE5 100%)', border: '#A7F3D0', text: '#064E3B', accent: '#059669' },
@@ -552,44 +703,71 @@
       'competitive': { bg: 'linear-gradient(135deg,#F3E8FF 0%,#EDE9FE 100%)', border: '#D8B4FE', text: '#4C1D95', accent: '#7C3AED' }
     };
 
-    const BOOKMARKS_KEY = 'notesPointBookmarks';
-    const RECENT_KEY = 'notesPointRecentlyViewed';
-
-    function readJSON(key, fallback) {
-      try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch { return fallback; }
-    }
-    function writeJSON(key, value) {
-      try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+    /* BOOKMARKS & RECENT STORAGE HELPERS */
+    function getSavedBookmarks() {
+      try { return JSON.parse(localStorage.getItem(ENGINE_CONFIG.storageKeys.bookmarks) || '[]'); } catch { return []; }
     }
 
-    function getBookmarks() { return readJSON(BOOKMARKS_KEY, {}); }
-    function toggleBookmark(id, note) {
-      const bookmarks = getBookmarks();
-      if (bookmarks[id]) delete bookmarks[id]; else bookmarks[id] = note;
-      writeJSON(BOOKMARKS_KEY, bookmarks);
-      return !!bookmarks[id];
+    function toggleSaveBookmark(note) {
+      let bookmarks = getSavedBookmarks();
+      const noteIdentifier = note.fileUrl || note.id || note.title;
+      const index = bookmarks.findIndex(b => (b.fileUrl || b.id || b.title) === noteIdentifier);
+
+      if (index > -1) {
+        bookmarks.splice(index, 1);
+      } else {
+        bookmarks.unshift(note);
+      }
+      localStorage.setItem(ENGINE_CONFIG.storageKeys.bookmarks, JSON.stringify(bookmarks));
+      return index === -1;
     }
-    function isBookmarked(id) { return !!getBookmarks()[id]; }
 
-    function addRecentlyViewed(id, note) {
-      const list = readJSON(RECENT_KEY, []).filter((n) => n.fileUrl !== note.fileUrl && n.id !== note.id);
-      list.unshift(note);
-      writeJSON(RECENT_KEY, list.slice(0, 12));
+    function isNoteSaved(note) {
+      const bookmarks = getSavedBookmarks();
+      const noteIdentifier = note.fileUrl || note.id || note.title;
+      return bookmarks.some(b => (b.fileUrl || b.id || b.title) === noteIdentifier);
     }
 
-    document.getElementById('sidebarSavedBtn')?.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.switchSection('savedSection');
-      const items = Object.values(getBookmarks());
-      openLocalListPanel({ items, breadcrumb: 'Saved Notes', title: `Your Saved Notes (${items.length})` });
-    });
+    function addRecentView(note) {
+      try {
+        let recents = JSON.parse(localStorage.getItem(ENGINE_CONFIG.storageKeys.recents) || '[]');
+        const noteIdentifier = note.fileUrl || note.id || note.title;
+        recents = recents.filter(r => (r.fileUrl || r.id || r.title) !== noteIdentifier);
+        recents.unshift(note);
+        localStorage.setItem(ENGINE_CONFIG.storageKeys.recents, JSON.stringify(recents.slice(0, 20)));
+      } catch (e) {}
+    }
 
-    document.getElementById('sidebarRecentBtn')?.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.switchSection('recentSection');
-      const items = readJSON(RECENT_KEY, []);
-      openLocalListPanel({ items, breadcrumb: 'Recently Viewed', title: `Recently Viewed Notes (${items.length})` });
-    });
+    /* RENDER SAVED NOTES SECTION */
+    function renderSavedSection() {
+      const container = document.getElementById('savedNotesContainer');
+      if (!container) return;
+      const bookmarks = getSavedBookmarks();
+      if (bookmarks.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:40px 20px; color:#64748B; font-weight:600;"><i class="fa-regular fa-bookmark" style="font-size:2rem; margin-bottom:8px; display:block; color:#CBD5E1;"></i>No saved notes found yet. Click the ★ icon on any note to save it here!</div>`;
+      } else {
+        container.innerHTML = '';
+        bookmarks.forEach(note => {
+          container.appendChild(buildNoteCard(note.id || Math.random(), note, () => renderSavedSection()));
+        });
+      }
+    }
+
+    /* RENDER RECENTLY VIEWED SECTION */
+    function renderRecentSection() {
+      const container = document.getElementById('recentNotesContainer');
+      if (!container) return;
+      let recents = [];
+      try { recents = JSON.parse(localStorage.getItem(ENGINE_CONFIG.storageKeys.recents) || '[]'); } catch { recents = []; }
+      if (recents.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:40px 20px; color:#64748B; font-weight:600;"><i class="fa-solid fa-clock-rotate-left" style="font-size:2rem; margin-bottom:8px; display:block; color:#CBD5E1;"></i>No recently opened materials yet.</div>`;
+      } else {
+        container.innerHTML = '';
+        recents.forEach(note => {
+          container.appendChild(buildNoteCard(note.id || Math.random(), note));
+        });
+      }
+    }
 
     const classRail = document.getElementById('classRail');
     const classHeaderArea = document.getElementById('classHeaderArea');
@@ -716,6 +894,9 @@
 
     async function openPdfInNewTab(url, id) {
       if (!url) return alert("PDF URL not found.");
+      if (typeof window.recordPdfViewTracker === 'function') {
+        window.recordPdfViewTracker();
+      }
       if (url.startsWith('indexeddb://')) {
         const actualId = url.replace('indexeddb://', '') || id;
         const blob = await LargeStorageEngine.getPDFBlob(actualId);
@@ -724,25 +905,46 @@
       window.open(url, '_blank');
     }
 
-    function buildNoteCard(id, note) {
+    function buildNoteCard(id, note, onBookmarkChange) {
       const card = document.createElement('div');
       card.style.cssText = `
         background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 12px;
         padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.02);
       `;
+      const isSaved = isNoteSaved(note);
+
       card.innerHTML = `
-        <div>
-          <strong style="font-size: 0.95rem; color: #0F172A; display: block; margin-bottom: 2px;">${note.chapter || note.title || 'Study Material'}</strong>
-          <span style="font-size: 0.75rem; color: #10B981; font-weight: 700;">100% FREE VERIFIED PDF</span>
+        <div style="flex:1; min-width:0;">
+          <strong style="font-size: 0.95rem; color: #0F172A; display: block; margin-bottom: 2px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${note.chapter || note.title || 'Study Material'}</strong>
+          <span style="font-size: 0.75rem; color: #10B981; font-weight: 700;">100% FREE VERIFIED PDF • ${note.subject || 'Notes'}</span>
         </div>
-        <div style="display:flex; gap:8px;">
-          <button type="button" class="dl-btn" style="background: #2563EB; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.85rem;">Download <i class="fa-solid fa-download"></i></button>
+        <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+          <button type="button" class="btn-save-note" title="${isSaved ? 'Remove from Saved' : 'Save Note'}" style="background: ${isSaved ? '#FEF3C7' : '#F1F5F9'}; color: ${isSaved ? '#D97706' : '#64748B'}; border: 1px solid ${isSaved ? '#FDE68A' : '#CBD5E1'}; width: 36px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; display:grid; place-items:center;">
+            ${isSaved ? '★' : '☆'}
+          </button>
+          <button type="button" class="btn-dl-note" style="background: #2563EB; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.85rem; display:inline-flex; align-items:center; gap:6px;">
+            Download <i class="fa-solid fa-download"></i>
+          </button>
         </div>
       `;
-      card.querySelector('.dl-btn').addEventListener('click', () => {
-        addRecentlyViewed(id, note);
+
+      card.querySelector('.btn-save-note').addEventListener('click', (e) => {
+        e.stopPropagation();
+        const nowSaved = toggleSaveBookmark(note);
+        const btn = card.querySelector('.btn-save-note');
+        btn.innerHTML = nowSaved ? '★' : '☆';
+        btn.style.background = nowSaved ? '#FEF3C7' : '#F1F5F9';
+        btn.style.color = nowSaved ? '#D97706' : '#64748B';
+        btn.style.borderColor = nowSaved ? '#FDE68A' : '#CBD5E1';
+        if (onBookmarkChange) onBookmarkChange();
+      });
+
+      card.querySelector('.btn-dl-note').addEventListener('click', () => {
+        addRecentView(note);
         openPdfInNewTab(note.fileUrl, id);
       });
+
       return card;
     }
 
@@ -812,17 +1014,10 @@
       }
     }
 
-    function openLocalListPanel({ items, breadcrumb, title }) {
-      if (notesPanelBreadcrumb) notesPanelBreadcrumb.textContent = breadcrumb;
-      if (notesPanelTitle) notesPanelTitle.textContent = title;
-      if (notesPanel) notesPanel.hidden = false;
-      if (notesPanelLoading) notesPanelLoading.hidden = true;
-      renderNotesList(items);
-    }
-
     notesPanelClose?.addEventListener('click', () => { if (notesPanel) notesPanel.hidden = true; });
     notesPanelOverlay?.addEventListener('click', () => { if (notesPanel) notesPanel.hidden = true; });
 
+    /* NAVIGATION LOGIC WITH SECTION RENDERING */
     window.switchSection = function(targetId) {
       document.querySelectorAll('.workspace-section').forEach(sec => {
         sec.style.display = (sec.id === targetId) ? 'block' : 'none';
@@ -830,7 +1025,22 @@
       document.querySelectorAll('.sidebar-menu .nav-item').forEach(item => {
         item.classList.toggle('active', item.getAttribute('data-target') === targetId);
       });
+
+      const pageTitle = document.getElementById('pageSectionTitle');
+      if (pageTitle) {
+        const titles = {
+          classesSection: 'Browse Classes & Notes',
+          savedSection: 'Saved Notes',
+          recentSection: 'Recently Viewed',
+          supportSection: 'Support & Feedback'
+        };
+        pageTitle.textContent = titles[targetId] || 'Dashboard';
+      }
+
       if (targetId === 'classesSection') goToClassStep();
+      if (targetId === 'savedSection') renderSavedSection();
+      if (targetId === 'recentSection') renderRecentSection();
+      window.closeMobileNav();
     };
 
     document.querySelectorAll('.sidebar-menu .nav-item').forEach(item => {
