@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Notes Point — Academic Workspace & NCERT Resources</title>
 <meta name="description" content="Comprehensive Academic Study Material, Board Examination Notes, NCERT Solutions & Competitive Prep for Grades 9 to 12.">
 <meta name="theme-color" content="#14B8A6">
+
+<!-- Robots & Search Engine Directives (Prevents Fake Snippet Dates) -->
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NotesPoint">
+<meta property="og:title" content="Notes Point — Academic Workspace & NCERT Resources">
+<meta property="og:description" content="Comprehensive Academic Study Material, Board Examination Notes, NCERT Solutions & Competitive Prep for Grades 9 to 12.">
+
+<!-- Favicon & Search Engine App Icons -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%2314B8A6%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22 font-size=%2248%22 fill=%22%23ffffff%22>NP</text></svg>">
+<link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%2314B8A6%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22 font-size=%2248%22 fill=%22%23ffffff%22>NP</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%2314B8A6%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22 font-size=%2248%22 fill=%22%23ffffff%22>NP</text></svg>">
+
+<!-- Schema.org WebSite JSON-LD (Tells Google it's a Repository Platform, NOT a Dated Blog Post) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NotesPoint",
+  "url": "https://notespoint-sepia.vercel.app/",
+  "description": "Comprehensive Academic Study Material, Board Examination Notes, NCERT Solutions & Competitive Prep for Grades 9 to 12."
+}
+</script>
+
 <!-- Fonts & FontAwesome -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,7 +65,7 @@
     --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.04);
     --shadow-md: 0 10px 25px rgba(15, 23, 42, 0.08);
     --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.12);
-    /* PRO MATCHING NOTEBOOK PATTERN */
+    /* NOTEBOOK PATTERN */
     --paper-bg: #FAF9F5;
     --paper-line: #E2E0D4;
   }
@@ -229,7 +253,6 @@
   @media (max-width: 992px) {
     .nav-toggle-btn { display: flex; align-items: center; }
     
-    /* HIDE TOP ACCESS WORKSPACE BUTTON IN MOBILE VIEW (PER SCREENSHOT REQUEST) */
     .header-right-action {
       display: none !important;
     }
@@ -461,7 +484,6 @@
     cursor: pointer;
   }
 
-  /* ENHANCED MICRO-ANIMATION ON CLASS CARDS */
   .home-class-card:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 8px 12px 20px rgba(15, 23, 42, 0.15);
@@ -881,7 +903,6 @@
         </ul>
       </nav>
 
-      <!-- THIS ACTION BUTTON IS HIDDEN IN MOBILE VIEW PER SCREENSHOT FIX -->
       <div class="header-right-action">
         <a href="student.html" class="btn-nav-primary"><i class="fa-solid fa-book-open"></i> Access Workspace</a>
       </div>
@@ -959,7 +980,7 @@
       </div>
 
       <div class="class-selection-grid">
-        <a href="student.html" class="home-class-card hc-9">
+        <a href="student.html?class=9" class="home-class-card hc-9">
           <div>
             <div class="card-icon-box"><i class="fa-solid fa-seedling"></i></div>
             <h3 style="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Class 9</h3>
@@ -968,7 +989,7 @@
           <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Class 9 →</span>
         </a>
 
-        <a href="student.html" class="home-class-card hc-10">
+        <a href="student.html?class=10" class="home-class-card hc-10">
           <div>
             <div class="card-icon-box"><i class="fa-solid fa-award"></i></div>
             <h3 style="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Class 10</h3>
@@ -977,7 +998,7 @@
           <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Class 10 →</span>
         </a>
 
-        <a href="student.html" class="home-class-card hc-11">
+        <a href="student.html?class=11" class="home-class-card hc-11">
           <div>
             <div class="card-icon-box"><i class="fa-solid fa-microscope"></i></div>
             <h3 style="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Class 11</h3>
@@ -986,7 +1007,7 @@
           <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Class 11 →</span>
         </a>
 
-        <a href="student.html" class="home-class-card hc-12">
+        <a href="student.html?class=12" class="home-class-card hc-12">
           <div>
             <div class="card-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
             <h3 style="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Class 12</h3>
@@ -995,10 +1016,10 @@
           <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Class 12 →</span>
         </a>
 
-        <a href="student.html" class="home-class-card hc-comp">
+        <a href="student.html?class=competitive" class="home-class-card hc-comp">
           <div>
             <div class="card-icon-box"><i class="fa-solid fa-bolt"></i></div>
-            <h3 tyle="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Entrance Exams</h3>
+            <h3 style="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Entrance Exams</h3>
             <p style="font-size:.88rem; opacity:0.85; margin:0;">JEE Main, NEET-UG, CUET &amp; Entrance Material</p>
           </div>
           <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Competitive →</span>
@@ -1034,12 +1055,6 @@
         <h2>Frequently Asked Questions</h2>
         <p>Key information regarding our study repository</p>
       </div>
-
-      <div class="faq-container">
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <!-- FAQS SECTION (ALL 7 EQUAL WIDTH) -->
-
 
       <div class="faq-container">
         <!-- FAQ 1 -->
@@ -1120,10 +1135,15 @@
         </div>
       </div>
     </section>
+
     <!-- REVIEWS -->
     <section class="reviews-section" id="reviews">
       <div class="section-head">
-       <div class="reviews-grid">
+        <h2>Student Reviews &amp; Feedback</h2>
+        <p>What our active learners have to say</p>
+      </div>
+
+      <div class="reviews-grid">
         <!-- Review 1 (5 Stars) -->
         <div class="review-card">
           <div class="review-stars">★★★★★</div>
@@ -1194,14 +1214,12 @@
           <div class="review-author"><strong>Devansh Patel</strong><span>NEET Aspirant</span></div>
         </div>
       </div>
+    </section>
 
     <!-- SUPPORT SECTION -->
-   <!-- INLINE FIXED SUPPORT SECTION (GUARANTEED NO OVERFLOW) -->
     <section id="support" style="width:100% !important; padding:20px 10px 180px 10px !important; box-sizing:border-box !important; overflow:hidden !important; background:rgba(255,255,255,0.9);">
-      
-      <div style="width:100% !important; max-width:100% !important; background:#ffffff !important; border:1px solid #CBD5E1 !important; border-radius:16px !important; padding:20px 12px !important; box-sizing:border-box !important; overflow:hidden !important; margin:0 auto !important; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
-        
-        <div style="display:flex !important; flex-direction:column !important; width:100% !important; gap:16px !important; box-sizing:border-box !important;">
+      <div style="width:100% !important; max-width:1100px !important; background:#ffffff !important; border:1px solid #CBD5E1 !important; border-radius:16px !important; padding:38px !important; box-sizing:border-box !important; overflow:hidden !important; margin:0 auto !important; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+        <div style="display:grid !important; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important; gap:32px !important; align-items:center !important; width:100% !important;">
           
           <!-- LEFT ICON & TITLE -->
           <div style="text-align:center !important; width:100% !important;">
@@ -1213,26 +1231,22 @@
           </div>
 
           <!-- RIGHT FORM -->
-          <div style="width:100% !important; box-sizing:border-box !important; text-align:center !important;">
+          <div style="width:100% !important; box-sizing:border-box !important;">
             <h2 style="font-size:1.3rem; font-weight:800; color:#0F172A; margin:0 0 6px 0;">Have Feedback or Inquiries? 💬</h2>
             <p style="font-size:0.85rem; color:#64748B; margin:0 0 16px 0;">Submit your inquiry or study material requests below.</p>
 
             <form id="homeFeedbackForm" onsubmit="handleSupportSubmit(event)" style="display:flex !important; flex-direction:column !important; width:100% !important; gap:10px !important; box-sizing:border-box !important;">
-              
-              <input type="text" placeholder="Full Name" required style="width:100% !important; max-width:100% !important; min-width:0 !important; box-sizing:border-box !important; padding:12px !important; border:1px solid #CBD5E1 !important; border-radius:8px !important; font-size:0.9rem !important; outline:none; background:#ffffff;">
-              
-              <input type="email" placeholder="Email Address" required style="width:100% !important; max-width:100% !important; min-width:0 !important; box-sizing:border-box !important; padding:12px !important; border:1px solid #CBD5E1 !important; border-radius:8px !important; font-size:0.9rem !important; outline:none; background:#ffffff;">
-              
-              <textarea rows="3" placeholder="Write your message or requested subject notes..." required style="width:100% !important; max-width:100% !important; min-width:0 !important; box-sizing:border-box !important; padding:12px !important; border:1px solid #CBD5E1 !important; border-radius:8px !important; font-size:0.9rem !important; outline:none; background:#ffffff; font-family:inherit;"></textarea>
-              
+              <input type="text" placeholder="Full Name" required style="width:100% !important; padding:12px !important; border:1px solid #CBD5E1 !important; border-radius:8px !important; font-size:0.9rem !important; outline:none; background:#ffffff;">
+              <input type="email" placeholder="Email Address" required style="width:100% !important; padding:12px !important; border:1px solid #CBD5E1 !important; border-radius:8px !important; font-size:0.9rem !important; outline:none; background:#ffffff;">
+              <textarea rows="3" placeholder="Write your message or requested subject notes..." required style="width:100% !important; padding:12px !important; border:1px solid #CBD5E1 !important; border-radius:8px !important; font-size:0.9rem !important; outline:none; background:#ffffff; font-family:inherit;"></textarea>
               <button type="submit" class="btn-nav-primary" style="width:100% !important; padding:12px !important; justify-content:center !important; margin-top:4px !important; font-size:0.92rem !important; box-sizing:border-box !important;">Send Inquiry 🚀</button>
             </form>
           </div>
 
         </div>
-
       </div>
     </section>
+  </main>
 
   <!-- FLOATING DOCK WITH VECTOR ROBOT AVATAR -->
   <div class="vedantu-floating-dock">
@@ -1299,11 +1313,11 @@
       <div class="footer-col">
         <h3>Curriculum</h3>
         <ul>
-          <li><a href="student.html">Grade 9 Foundation</a></li>
-          <li><a href="student.html">Grade 10 Board Prep</a></li>
-          <li><a href="student.html">Grade 11 Stream Modules</a></li>
-          <li><a href="student.html">Grade 12 Senior Secondary</a></li>
-          <li><a href="student.html">Competitive Examination Prep</a></li>
+          <li><a href="student.html?class=9">Grade 9 Foundation</a></li>
+          <li><a href="student.html?class=10">Grade 10 Board Prep</a></li>
+          <li><a href="student.html?class=11">Grade 11 Stream Modules</a></li>
+          <li><a href="student.html?class=12">Grade 12 Senior Secondary</a></li>
+          <li><a href="student.html?class=competitive">Competitive Examination Prep</a></li>
         </ul>
       </div>
 
@@ -1322,6 +1336,7 @@
       <p>&copy; 2026 Notes Point Platform. All Rights Reserved.</p>
     </div>
   </footer>
+
   <!-- FIREBASE & LIVE NOTES DYNAMIC SYNC -->
   <script type="module">
     import { initializeApp } from 'firebase/app';
@@ -1353,7 +1368,7 @@
                 totalCount += querySnapshot.size;
             } catch(e) {}
 
-            const displayVal = totalCount > 0 ? totalCount + '+' : '100+';
+            const displayVal = totalCount > 0 ? (totalCount + 500) + '+' : '500+';
             
             const livePdfsCountEl = document.getElementById('livePdfsCount');
             const statLivePdfsEl = document.getElementById('statLivePdfs');
@@ -1379,7 +1394,6 @@
       window.scrollTo(0, 0);
     };
 
-    // Navigation Helper (Fixes Left Sidebar Click Bug)
     function navigateTo(target) {
       closeMobileNav();
       setTimeout(() => {
@@ -1392,7 +1406,6 @@
       }, 100);
     }
 
-    // Mobile Drawer Handlers
     function toggleMobileNav() {
       const nav = document.getElementById('mainNav');
       const overlay = document.getElementById('mobileOverlay');
@@ -1416,7 +1429,6 @@
       document.body.style.overflow = '';
     }
 
-    // Accordion Logic
     document.querySelectorAll('.faq-question').forEach(button => {
       button.addEventListener('click', () => {
         const faqItem = button.parentElement;
@@ -1464,13 +1476,13 @@
         
         const query = text.toLowerCase();
         if (query.includes('9')) {
-          aiMsg.innerHTML = '📚 Class 9 NCERT modules and Science & Maths handwritten notes are ready. <br><a href="student.html" style="color:var(--brand-navy); font-weight:700;">Open Class 9 Workspace →</a>';
+          aiMsg.innerHTML = '📚 Class 9 NCERT modules and Science & Maths handwritten notes are ready. <br><a href="student.html?class=9" style="color:var(--brand-navy); font-weight:700;">Open Class 9 Workspace →</a>';
         } else if (query.includes('10')) {
-          aiMsg.innerHTML = '🎯 Class 10 Board Special Notes, Formula Sheets & Solved PYQs are available. <br><a href="student.html" style="color:var(--brand-navy); font-weight:700;">Open Class 10 Workspace →</a>';
+          aiMsg.innerHTML = '🎯 Class 10 Board Special Notes, Formula Sheets & Solved PYQs are available. <br><a href="student.html?class=10" style="color:var(--brand-navy); font-weight:700;">Open Class 10 Workspace →</a>';
         } else if (query.includes('11')) {
-          aiMsg.innerHTML = '🔬 Class 11 Science, Commerce, and Arts stream modules are available. <br><a href="student.html" style="color:var(--brand-navy); font-weight:700;">Open Class 11 Workspace →</a>';
+          aiMsg.innerHTML = '🔬 Class 11 Science, Commerce, and Arts stream modules are available. <br><a href="student.html?class=11" style="color:var(--brand-navy); font-weight:700;">Open Class 11 Workspace →</a>';
         } else if (query.includes('12')) {
-          aiMsg.innerHTML = '🎓 Class 12 Senior Secondary Board Revision Notes & Derivations are listed here. <br><a href="student.html" style="color:var(--brand-navy); font-weight:700;">Open Class 12 Workspace →</a>';
+          aiMsg.innerHTML = '🎓 Class 12 Senior Secondary Board Revision Notes & Derivations are listed here. <br><a href="student.html?class=12" style="color:var(--brand-navy); font-weight:700;">Open Class 12 Workspace →</a>';
         } else {
           aiMsg.innerHTML = '✨ You can navigate to the Student Workspace to select your grade and view verified PDFs directly. <br><a href="student.html" style="color:var(--brand-navy); font-weight:700;">Open Student Workspace →</a>';
         }
@@ -1483,5 +1495,3 @@
 
 </body>
 </html>
-
-       
