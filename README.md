@@ -40,9 +40,8 @@
 └── README.md         # Project documentation
 
 
-👨‍💻 Author
-Prince — Developer & Creator
+## 👨‍💻 Author
 
-Telegram: @notespointfreenotes
-
-Instagram: @notespoint_
+- **Prince** — *Founder & Lead Developer*
+- **Telegram:** [@notespointfreenotes](https://t.me/notespointfreenotes)
+- **Instagram:** [@notespoint_](https://www.instagram.com/notespoint_)
