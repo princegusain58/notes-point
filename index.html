@@ -1,1497 +1,2389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Notes Point — Academic Workspace & NCERT Resources</title>
-<meta name="description" content="Comprehensive Academic Study Material, Board Examination Notes, NCERT Solutions & Competitive Prep for Grades 9 to 12.">
-<meta name="theme-color" content="#14B8A6">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>NotesPoint — Great Notes Shouldn't End With You | Standardized Academic Workspace</title>
+  <meta name="description" content="NotesPoint is a standardized academic workspace providing verified handwritten topper notes, NCERT solutions, formula books, and question banks for Class 1 to 12.">
+  <meta name="keywords" content="NotesPoint, Class 1 to 12 Notes, NCERT Solutions, Handwritten Notes, Physics Derivations, Formula Cheat Sheets">
+  <meta name="theme-color" content="#059669">
 
-<!-- Robots & Search Engine Directives (Prevents Fake Snippet Dates) -->
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="NotesPoint">
-<meta property="og:title" content="Notes Point — Academic Workspace & NCERT Resources">
-<meta property="og:description" content="Comprehensive Academic Study Material, Board Examination Notes, NCERT Solutions & Competitive Prep for Grades 9 to 12.">
+  <meta property="og:title" content="NotesPoint — Standardized Academic Workspace">
+  <meta property="og:description" content="Access verified topper notes, NCERT solutions, and study resources for Class 1 to 12.">
+  <meta property="og:type" content="website">
 
-<!-- Favicon & Search Engine App Icons -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%2314B8A6%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22 font-size=%2248%22 fill=%22%23ffffff%22>NP</text></svg>">
-<link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%2314B8A6%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22 font-size=%2248%22 fill=%22%23ffffff%22>NP</text></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%2314B8A6%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22 font-size=%2248%22 fill=%22%23ffffff%22>NP</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%23059669%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22 font-size=%2248%22 fill=%22%23ffffff%22>NP</text></svg>">
 
-<!-- Schema.org WebSite JSON-LD (Tells Google it's a Repository Platform, NOT a Dated Blog Post) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "NotesPoint",
-  "url": "https://notespoint-sepia.vercel.app/",
-  "description": "Comprehensive Academic Study Material, Board Examination Notes, NCERT Solutions & Competitive Prep for Grades 9 to 12."
-}
-</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<!-- Fonts & FontAwesome -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<!-- Firebase Imports -->
-<script type="importmap">
-    {
-        "imports": {
-            "firebase/app": "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js",
-            "firebase/firestore": "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js",
-            "firebase/storage": "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js"
-        }
-    }
-</script>
-
-<style>
-  :root {
-    --primary-cyan: #06B6D4;
-    --primary-teal: #14B8A6;
-    --brand-navy: #0F172A;
-    --brand-slate: #1E293B;
-    --slate-700: #334155;
-    --slate-600: #475569;
-    --slate-500: #64748B;
-    --slate-200: #E2E8F0;
-    --slate-100: #F8FAFC;
-    --border-color: #CBD5E1;
-    --radius-lg: 20px;
-    --radius-md: 12px;
-    --radius-sm: 8px;
-    --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.04);
-    --shadow-md: 0 10px 25px rgba(15, 23, 42, 0.08);
-    --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.12);
-    /* NOTEBOOK PATTERN */
-    --paper-bg: #FAF9F5;
-    --paper-line: #E2E0D4;
-  }
-
-  *, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  html, body {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    height: auto !important;
-    scroll-behavior: smooth !important;
-  }
-
-  body {
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
-    background-color: var(--paper-bg) !important;
-    background-image: linear-gradient(var(--paper-line) 1px, transparent 1px) !important;
-    background-size: 100% 32px !important;
-    color: var(--brand-navy);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* ---------------- Header & Mobile Responsive Fixes ---------------- */
-  .site-header {
-    background: rgba(250, 249, 245, 0.96);
-    border-bottom: 2px solid var(--paper-line);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    padding: 14px 20px;
-  }
-
-  .header-inner {
-    max-width: 1240px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .nav-toggle-btn {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.4rem;
-    color: var(--brand-navy);
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 8px;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-  }
-
-  .brand-logo-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--brand-navy), var(--primary-teal));
-    color: #ffffff;
-    display: grid;
-    place-items: center;
-    font-size: 1.1rem;
-    box-shadow: 0 4px 14px rgba(6, 182, 212, 0.25);
-  }
-
-  .brand-name {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--brand-navy);
-    letter-spacing: -0.5px;
-  }
-
-  .brand-accent {
-    color: var(--primary-cyan);
-  }
-
-  .main-nav ul {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    list-style: none;
-  }
-
-  .main-nav a {
-    font-size: 0.92rem;
-    font-weight: 600;
-    text-decoration: none;
-    color: var(--slate-700);
-    transition: color 0.2s;
-    cursor: pointer;
-  }
-
-  .main-nav a:hover {
-    color: var(--primary-teal);
-  }
-
-  .header-right-action {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .btn-nav-primary {
-    background: var(--brand-navy);
-    color: #ffffff !important;
-    font-weight: 700;
-    text-decoration: none;
-    padding: 9px 18px;
-    border-radius: 10px;
-    font-size: 0.88rem;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid var(--brand-navy);
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
-  }
-
-  .btn-nav-primary:hover {
-    background: var(--primary-teal);
-    border-color: var(--primary-teal);
-    transform: translateY(-2px);
-  }
-
-  /* NO BLUR MOBILE OVERLAY */
-  .mobile-menu-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.45);
-    z-index: 99998;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-
-  .mobile-menu-overlay.active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .mobile-nav-drawer-header {
-    display: none;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--paper-line);
-  }
-
-  .mobile-nav-close-btn {
-    background: var(--slate-100);
-    border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    color: var(--slate-700);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* MOBILE VIEW RESPONSIVE RULES */
-  @media (max-width: 992px) {
-    .nav-toggle-btn { display: flex; align-items: center; }
-    
-    .header-right-action {
-      display: none !important;
+  <style>
+    /* -------- ALL CSS REMAINS EXACTLY THE SAME -------- */
+    :root {
+      --primary: #059669;
+      --primary-hover: #047857;
+      --primary-dark: #064E3B;
+      --primary-deep: #022C22;
+      --primary-light: #ECFDF5;
+      --primary-mint: #D1FAE5;
+      --primary-sage: #34D399;
+      --accent-cyan: #06B6D4;
+      --accent-amber: #F59E0B;
+      --accent-blue: #2563EB;
+      
+      --brand-navy: #0F172A;
+      --brand-slate: #1E293B;
+      --slate-800: #1E293B;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748B;
+      --slate-400: #94A3B8;
+      --slate-300: #CBD5E1;
+      --slate-200: #E2E8F0;
+      --slate-100: #F8FAFC;
+      
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --paper-bg: #F8FAFC;
+      --paper-line: #EEF2F6;
+      
+      --radius-2xl: 24px;
+      --radius-xl: 18px;
+      --radius-lg: 14px;
+      --radius-md: 10px;
+      --radius-sm: 8px;
+      
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 16px 40px rgba(15, 23, 42, 0.12);
+      
+      --font-main: 'Plus Jakarta Sans', sans-serif;
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-hand: 'Caveat', cursive;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      --transition-fast: 0.18s ease;
+      --transition-normal: 0.28s ease;
     }
 
-    .main-nav {
-      position: fixed;
+    body.dark-mode {
+      --brand-navy: #F8FAFC;
+      --brand-slate: #E2E8F0;
+      --slate-700: #CBD5E1;
+      --slate-600: #94A3B8;
+      --slate-500: #64748B;
+      --slate-400: #94A3B8;
+      --slate-200: #334155;
+      --slate-100: #1E293B;
+      --card-bg: #111827;
+      --border-color: #1F2937;
+      --paper-bg: #0B0F19;
+      --paper-line: #1F2937;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box !important;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100% !important;
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      position: relative;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--paper-bg);
+      background-image: linear-gradient(var(--paper-line) 1px, transparent 1px);
+      background-size: 100% 32px;
+      color: var(--brand-navy);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color var(--transition-normal), color var(--transition-normal);
+    }
+
+    img, svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font-family: inherit; }
+
+    :focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--paper-bg); }
+    ::-webkit-scrollbar-thumb { background: var(--slate-300); border-radius: 4px; }
+    body.dark-mode ::-webkit-scrollbar-thumb { background: var(--slate-700); }
+
+    .site-header {
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1.5px solid var(--border-color);
+      position: sticky;
       top: 0;
-      left: -100%;
-      width: 290px;
-      max-width: 85vw;
-      height: 100vh;
-      background: #ffffff;
-      box-shadow: 10px 0 30px rgba(0,0,0,0.1);
-      z-index: 99999;
-      padding: 24px 20px;
-      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+      padding: 12px 20px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow-sm);
+      width: 100%;
+    }
+
+    body.dark-mode .site-header { background: rgba(11, 15, 25, 0.94); }
+
+    .header-inner {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .brand-logo-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--brand-navy);
+      letter-spacing: -0.5px;
+    }
+
+    .brand-accent { color: var(--primary); }
+
+    .main-nav ul {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .main-nav a {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      transition: color var(--transition-fast);
+      cursor: pointer;
+    }
+
+    body.dark-mode .main-nav a { color: var(--slate-300); }
+    .main-nav a:hover, .main-nav a:focus-visible { color: var(--primary); }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .icon-circle-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-color);
+      display: grid;
+      place-items: center;
+      color: var(--brand-navy);
+      cursor: pointer;
+      font-size: 1.05rem;
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .icon-circle-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .gear-dot {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 8px;
+      height: 8px;
+      background: #3B82F6;
+      border-radius: 50%;
+      border: 1.5px solid var(--card-bg);
+    }
+
+    .nav-toggle-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: var(--brand-navy);
+      cursor: pointer;
+    }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      z-index: 99998;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+
+    .mobile-nav-drawer-header {
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .mobile-nav-close-btn {
+      background: var(--slate-100);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      color: var(--slate-700);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-wrapper {
+      width: 100%;
+      max-width: 1320px;
+      margin: 24px auto 16px auto;
+      padding: 0 16px;
+    }
+
+    .hero-container {
+      background: var(--card-bg);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-2xl);
+      padding: 48px 36px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 36px;
+      width: 100%;
+    }
+
+    .hero-content-front {
+      position: relative;
+      z-index: 3;
+      flex: 1;
+      max-width: 620px;
+    }
+
+    .hero-title-main {
+      font-family: var(--font-main);
+      font-size: clamp(2.3rem, 5.2vw, 3.6rem);
+      font-weight: 800;
+      color: var(--brand-navy);
+      margin: 0 0 16px 0;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-subtitle-text {
+      font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+      color: var(--slate-600);
+      margin: 0 0 28px 0;
+      line-height: 1.65;
+      max-width: 560px;
+    }
+
+    .hero-btn-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-hero-primary {
+      background: var(--primary);
+      color: #ffffff !important;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--primary);
+      box-shadow: 0 6px 18px rgba(5, 150, 105, 0.25);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-hero-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-hero-secondary {
+      background: transparent;
+      color: var(--brand-navy) !important;
+      font-weight: 700;
+      padding: 14px 26px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 2px solid var(--border-color);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-hero-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary) !important;
+    }
+
+    .hero-notes-visual-stack {
+      position: relative;
+      width: 360px;
+      height: 390px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .photo-paper-sheet {
+      position: absolute;
+      width: 260px;
+      height: 340px;
+      background: #FAF9F5;
+      border: 2px solid #334155;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+      padding: 18px 16px;
+      background-image: linear-gradient(var(--paper-line) 1px, transparent 1px);
+      background-size: 100% 24px;
+      transition: transform var(--transition-normal);
+    }
+
+    body.dark-mode .photo-paper-sheet {
+      background-color: var(--card-bg);
+      border-color: #64748B;
+    }
+
+    .sheet-pos-1 { transform: rotate(-10deg) translate(-25px, -10px); z-index: 1; }
+    .sheet-pos-2 { transform: rotate(5deg) translate(20px, 8px); z-index: 2; }
+    .sheet-pos-3 { transform: rotate(-2deg) translate(0px, 0px); z-index: 3; }
+
+    .hero-notes-visual-stack:hover .sheet-pos-1 { transform: rotate(-15deg) translate(-40px, -18px); }
+    .hero-notes-visual-stack:hover .sheet-pos-2 { transform: rotate(10deg) translate(35px, 12px); }
+    .hero-notes-visual-stack:hover .sheet-pos-3 { transform: scale(1.03); }
+
+    .sheet-hand-title {
+      font-family: var(--font-hand);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0F172A;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 2px;
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+    body.dark-mode .sheet-hand-title { color: var(--primary-sage); border-color: var(--primary-sage); }
+
+    .sheet-hand-text {
+      font-family: var(--font-hand);
+      font-size: 1.15rem;
+      color: #334155;
+      line-height: 24px;
+    }
+    body.dark-mode .sheet-hand-text { color: #CBD5E1; }
+
+    .topper-seal-badge {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #FFFFFF;
       display: flex;
       flex-direction: column;
-      overflow-y: auto;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-align: center;
+      border: 3px dashed #FFF;
+      box-shadow: 0 8px 24px rgba(5, 150, 105, 0.4);
+      transform: rotate(10deg);
+      z-index: 5;
+      line-height: 1.15;
     }
-    
-    .main-nav.nav-open { left: 0; }
-    .mobile-nav-drawer-header { display: flex; }
-    
-    .main-nav ul {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
+
+    .value-features-strip {
+      max-width: 1320px;
+      margin: 0 auto 32px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .value-feature-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .value-feature-icon {
+      font-size: 1.4rem;
+      color: var(--primary);
+    }
+
+    .value-feature-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--brand-navy);
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+
+    .value-feature-card p {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--slate-500);
+      margin: 0;
+    }
+
+    .ticker-wrap {
       width: 100%;
+      overflow: hidden;
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 12px 0;
+      margin: 10px 0 36px 0;
     }
-    
-    .main-nav li { width: 100%; }
-    
-    .main-nav a {
-      font-size: 1rem;
+
+    .ticker-move {
+      display: flex;
+      gap: 36px;
+      width: max-content;
+      animation: tickerAnim 24s linear infinite;
+    }
+
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-weight: 700;
-      display: block;
-      padding: 12px 14px;
-      border-radius: 10px;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
+    .ticker-item i { color: var(--primary-sage); }
+
+    @keyframes tickerAnim {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .section-container {
       width: 100%;
+      max-width: 1320px;
+      margin: 0 auto 48px auto;
+      padding: 0 16px;
+    }
+
+    .section-header-compact {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 10px;
+      gap: 12px;
+    }
+
+    .section-header-compact h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.2rem, 3.2vw, 1.45rem);
+      font-weight: 800;
       color: var(--brand-navy);
     }
 
-    .main-nav a:hover {
-      background: rgba(6, 182, 212, 0.08);
-      color: var(--primary-teal);
+    .section-header-compact p {
+      font-size: 0.84rem;
+      color: var(--slate-600);
     }
-  }
-
-  /* ---------------- Hero Section ---------------- */
-  .hero-section {
-    max-width: 1240px;
-    margin: 40px auto 30px auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 40px;
-    align-items: center;
-  }
-
-  .badge-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #ECFEFF;
-    color: #0891B2;
-    border: 1px solid #CFFAFE;
-    font-size: 0.82rem;
-    font-weight: 700;
-    padding: 6px 16px;
-    border-radius: 30px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 20px;
-  }
-
-  .hero-title {
-    font-size: 3.1rem;
-    font-weight: 800;
-    color: var(--brand-navy);
-    margin: 0 0 18px 0;
-    line-height: 1.18;
-    letter-spacing: -0.03em;
-  }
-
-  .hero-title span.highlight {
-    background: linear-gradient(135deg, var(--primary-cyan), var(--primary-teal));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .hero-subtitle {
-    font-size: 1.05rem;
-    color: var(--slate-600);
-    margin: 0 0 32px 0;
-    line-height: 1.65;
-    max-width: 580px;
-  }
-
-  .hero-ctas {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .hero-card {
-    background: var(--brand-navy);
-    border-radius: var(--radius-lg);
-    padding: 32px 26px;
-    color: #ffffff;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--brand-slate);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-features-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin-top: 24px;
-  }
-
-  .h-feat-item {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-md);
-    padding: 16px;
-    text-align: center;
-  }
-
-  .h-feat-item i {
-    font-size: 1.5rem;
-    color: var(--primary-cyan);
-    margin-bottom: 8px;
-  }
-
-  .h-feat-item strong {
-    display: block;
-    font-size: 0.92rem;
-    margin-bottom: 2px;
-  }
-
-  .h-feat-item span {
-    font-size: 0.78rem;
-    color: #94A3B8;
-  }
-
-  /* ---------------- Ticker ---------------- */
-  .ticker-wrap {
-    width: 100%;
-    overflow: hidden;
-    background: var(--brand-navy);
-    color: #E2E8F0;
-    padding: 14px 0;
-    margin: 40px 0 60px 0;
-    border-top: 1px solid var(--brand-slate);
-    border-bottom: 1px solid var(--brand-slate);
-  }
-
-  .ticker-move {
-    display: flex;
-    gap: 40px;
-    width: max-content;
-    animation: ticker 25s linear infinite;
-  }
-
-  .ticker-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 600;
-    font-size: 0.92rem;
-    white-space: nowrap;
-  }
-
-  .ticker-item i {
-    color: var(--primary-cyan);
-  }
-
-  @keyframes ticker {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  /* ---------------- CLASS CARDS WITH SMOOTH HOVER ANIMATION ---------------- */
-  .section-head {
-    text-align: center;
-    margin-bottom: 38px;
-    padding: 0 20px;
-  }
-
-  .section-head h2 {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: var(--brand-navy);
-    margin: 0 0 10px 0;
-    letter-spacing: -0.5px;
-  }
-
-  .section-head p {
-    color: var(--slate-600);
-    margin: 0;
-    font-size: 1rem;
-  }
-
-  .class-selection-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 22px;
-    max-width: 1240px;
-    margin: 0 auto 60px auto;
-    padding: 0 20px;
-  }
-
-  .home-class-card {
-    text-decoration: none;
-    border-radius: var(--radius-lg);
-    padding: 28px 22px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 230px;
-    transition: all 0.35s cubic-bezier(.25,.8,.25,1);
-    position: relative;
-    border: 2px solid var(--brand-navy);
-    box-shadow: 5px 5px 0px var(--brand-navy);
-    background: #ffffff;
-    cursor: pointer;
-  }
-
-  .home-class-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 8px 12px 20px rgba(15, 23, 42, 0.15);
-    border-color: var(--primary-teal);
-  }
-
-  .card-icon-box {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    display: grid;
-    place-items: center;
-    font-size: 1.3rem;
-    margin-bottom: 16px;
-    background: rgba(255,255,255,0.95);
-    transition: transform 0.3s ease;
-  }
-
-  .home-class-card:hover .card-icon-box {
-    transform: rotate(6deg) scale(1.1);
-  }
-
-  .hc-9  { background: linear-gradient(135deg,#EFF6FF,#DBEAFE); border-color:#BFDBFE; color:#1E3A8A; }
-  .hc-10 { background: linear-gradient(135deg,#ECFDF5,#D1FAE5); border-color:#A7F3D0; color:#064E3B; }
-  .hc-11 { background: linear-gradient(135deg,#FFFBEB,#FEF3C7); border-color:#FDE68A; color:#78350F; }
-  .hc-12 { background: linear-gradient(135deg,#FEF2F2,#FEE2E2); border-color:#FECACA; color:#7F1D1D; }
-  .hc-comp { background: linear-gradient(135deg,#F3E8FF,#EDE9FE); border-color:#D8B4FE; color:#4C1D95; }
-
-  .stats-banner {
-    background: var(--brand-navy);
-    color: #ffffff;
-    padding: 50px 20px;
-    text-align: center;
-    margin: 40px 0 60px 0;
-  }
-
-  .stats-grid {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 30px;
-  }
-
-  .stat-item h3 {
-    font-size: 2.6rem;
-    font-weight: 800;
-    margin: 0;
-    color: var(--primary-cyan);
-  }
-
-  .stat-item p {
-    margin: 6px 0 0 0;
-    color: #94A3B8;
-    font-size: 0.92rem;
-    font-weight: 600;
-  }
-
-  .faq-section {
-    padding: 60px 20px;
-    background: rgba(255, 255, 255, 0.85);
-  }
-
-  .faq-container {
-    max-width: 820px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .faq-item {
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    background: #ffffff;
-    overflow: hidden;
-  }
-
-  .faq-question {
-    width: 100%;
-    padding: 20px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: none;
-    border: none;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--brand-navy);
-    cursor: pointer;
-    text-align: left;
-    font-family: inherit;
-  }
-
-  .faq-answer {
-    padding: 0 24px 20px 24px;
-    font-size: 0.94rem;
-    color: var(--slate-600);
-    line-height: 1.65;
-    display: none;
-  }
-
-  .faq-item.active {
-    border-color: var(--primary-teal);
-    box-shadow: 0 4px 16px rgba(20, 184, 166, 0.1);
-  }
-
-  .faq-item.active .faq-answer {
-    display: block;
-  }
-
-  .faq-icon {
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: var(--primary-teal);
-    transition: transform 0.2s;
-  }
-
-  .faq-item.active .faq-icon {
-    transform: rotate(45deg);
-  }
-
-  .reviews-section {
-    padding: 60px 20px;
-    background: rgba(248, 250, 252, 0.85);
-  }
-
-  .reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 22px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .review-card {
-    background: #FFFFFF;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 26px;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .review-stars {
-    font-size: 0.95rem;
-    color: #F59E0B;
-    margin-bottom: 12px;
-  }
-
-  .review-text {
-    font-size: 0.94rem;
-    color: var(--slate-700);
-    line-height: 1.6;
-    margin-bottom: 18px;
-  }
-
-  .review-author strong {
-    display: block;
-    color: var(--brand-navy);
-    font-size: 0.95rem;
-  }
-
-  .review-author span {
-    font-size: 0.8rem;
-    color: var(--primary-teal);
-    font-weight: 700;
-  }
-
-  /* ---------------- SUPPORT SECTION SPACING ---------------- */
-  .support-section {
-    padding: 60px 20px 100px 20px;
-    background: rgba(255, 255, 255, 0.9);
-  }
-
-  .support-card-box {
-    max-width: 1100px;
-    margin: 0 auto;
-    background: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    padding: 38px;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .support-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 32px;
-    align-items: center;
-  }
-
-  .support-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .support-form input,
-  .support-form textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    font-family: inherit;
-    font-size: 0.92rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .support-form input:focus,
-  .support-form textarea:focus {
-    border-color: var(--primary-teal);
-  }
-
-  /* ---------------- FLOATING DOCK & ROBOT AVATAR ---------------- */
-  .vedantu-floating-dock {
-    position: fixed;
-    bottom: 24px;
-    right: 20px;
-    z-index: 9990;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .dock-circle-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.2);
-    border: none;
-    text-decoration: none;
-    transition: transform 0.25s ease;
-    font-size: 1.3rem;
-    cursor: pointer;
-    overflow: hidden;
-  }
-
-  .dock-circle-btn:hover {
-    transform: scale(1.12);
-  }
-
-  .ai-dock-robot-btn {
-    background: #ffffff;
-    border: 2px solid var(--primary-cyan);
-    padding: 3px;
-  }
-
-  .ai-dock-robot-btn img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-
-  .whatsapp-dock-btn { background: linear-gradient(135deg, #25D366, #128C7E); }
-  .insta-dock-btn { background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCB045); }
-  .telegram-dock-btn { background: linear-gradient(135deg, #0088cc, #2AABEE); }
-
-  .telegram-dock-btn svg {
-    width: 22px;
-    height: 22px;
-    fill: #ffffff;
-  }
-
-  /* ---------------- CHATBOT POPUP MODAL ---------------- */
-  #aiChatModal {
-    position: fixed;
-    bottom: 85px;
-    right: 20px;
-    width: 340px;
-    max-width: 90vw;
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.25);
-    border: 1px solid var(--border-color);
-    z-index: 99999;
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .site-footer {
-    background: var(--brand-navy);
-    color: #ffffff;
-    padding: 50px 20px 25px 20px;
-  }
-
-  .footer-inner {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr 1.1fr;
-    gap: 35px;
-    max-width: 1240px;
-    margin: 0 auto;
-  }
-
-  .footer-brand h2 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0 0 10px 0;
-  }
-
-  .footer-brand p {
-    color: #94A3B8;
-    font-size: 0.88rem;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  .footer-col h3 {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 14px;
-  }
-
-  .footer-col ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .footer-col ul a {
-    color: #94A3B8;
-    text-decoration: none;
-    font-size: 0.88rem;
-    transition: color 0.2s;
-  }
-
-  .footer-col ul a:hover {
-    color: var(--primary-cyan);
-  }
-
-  .footer-social-icons {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    margin-top: 12px;
-  }
-
-  .f-social-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: all 0.2s ease;
-  }
-
-  .f-social-btn:hover {
-    background: var(--primary-teal);
-    transform: translateY(-3px);
-  }
-
-  .footer-bottom-copy {
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: 35px;
-    padding-top: 20px;
-    font-size: 0.85rem;
-    color: #94A3B8;
-  }
-
-  @media (max-width: 992px) {
-    .hero-section { grid-template-columns: 1fr; text-align: center; margin-top: 20px; }
-    .hero-title { font-size: 2.2rem; }
-    .hero-ctas { justify-content: center; }
-    .footer-inner { grid-template-columns: 1fr; text-align: left; }
-  }
-</style>
+
+    .classes-grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 14px;
+      width: 100%;
+    }
+
+    .class-box-card {
+      border-radius: var(--radius-lg);
+      padding: 18px 10px;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow-sm);
+      color: #FFFFFF;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .class-box-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.2);
+    }
+
+    .class-avatar-badge {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 8px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.25rem;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .class-box-card strong { font-size: 0.95rem; font-weight: 800; display: block; }
+    .class-box-card span { font-size: 0.72rem; opacity: 0.9; margin-top: 4px; font-weight: 600; }
+
+    .c-nat-1  { background: linear-gradient(135deg, #10B981, #059669); }
+    .c-nat-2  { background: linear-gradient(135deg, #F59E0B, #D97706); }
+    .c-nat-3  { background: linear-gradient(135deg, #3B82F6, #2563EB); }
+    .c-nat-4  { background: linear-gradient(135deg, #8B5CF6, #7C3AED); }
+    .c-nat-5  { background: linear-gradient(135deg, #EC4899, #DB2777); }
+    .c-nat-6  { background: linear-gradient(135deg, #06B6D4, #0891B2); }
+    .c-nat-7  { background: linear-gradient(135deg, #14B8A6, #0F766E); }
+    .c-nat-8  { background: linear-gradient(135deg, #F97316, #EA580C); }
+    .c-nat-9  { background: linear-gradient(135deg, #6366F1, #4F46E5); }
+    .c-nat-10 { background: linear-gradient(135deg, #059669, #047857); }
+    .c-nat-11 { background: linear-gradient(135deg, #2563EB, #1D4ED8); }
+    .c-nat-12 { background: linear-gradient(135deg, #E11D48, #BE123C); }
+
+    .reviews-trigger-section {
+      padding: 42px 20px;
+      background: var(--slate-100);
+      text-align: center;
+      border-radius: var(--radius-2xl);
+      width: 100%;
+      border: 1.5px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn-reviews-trigger {
+      background: var(--card-bg);
+      color: var(--brand-navy);
+      border: 2px solid var(--border-color);
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-size: 0.98rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-reviews-trigger:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .faq-section {
+      padding: 48px 28px;
+      background: var(--card-bg);
+      border-radius: var(--radius-2xl);
+      width: 100%;
+      border: 1.5px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .faq-item {
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: var(--card-bg);
+      overflow: hidden;
+      transition: all var(--transition-fast);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: none;
+      border: none;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--brand-navy);
+      cursor: pointer;
+      text-align: left;
+      gap: 12px;
+    }
+
+    .faq-answer {
+      padding: 0 22px 20px 22px;
+      font-size: 0.92rem;
+      color: var(--slate-600);
+      line-height: 1.7;
+      display: none;
+    }
+
+    .faq-item.active {
+      border-color: var(--primary);
+      box-shadow: 0 4px 16px rgba(5, 150, 105, 0.12);
+    }
+
+    .faq-item.active .faq-answer { display: block; }
+    .faq-icon {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+    .faq-item.active .faq-icon { transform: rotate(45deg); }
+
+    .modal-backdrop-full {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 100000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .settings-card-wrapper {
+      background: var(--card-bg);
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-lg);
+      max-width: 850px;
+      width: 100%;
+      padding: clamp(24px, 4vw, 36px);
+      border: 1.5px solid var(--border-color);
+      position: relative;
+      margin: auto;
+    }
+
+    .settings-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .settings-header h2 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--brand-navy);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .settings-header h2 i { color: var(--primary); }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      border-bottom: 2px solid var(--border-color);
+      margin-bottom: 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--slate-500);
+      cursor: pointer;
+      border-radius: 10px 10px 0 0;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .tab-btn:hover { color: var(--brand-navy); background: var(--slate-100); }
+    .tab-btn.active { color: var(--primary); background: var(--primary-light); }
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 4px 4px 0 0;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; animation: fadeIn 0.25s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .setting-group { margin-bottom: 24px; }
+    .setting-group-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--brand-navy);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: var(--paper-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .setting-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .setting-info .icon-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--primary-light);
+      display: grid;
+      place-items: center;
+      color: var(--primary);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .setting-info .label { font-weight: 700; font-size: 0.92rem; color: var(--brand-navy); }
+    .setting-info .description { font-size: 0.78rem; color: var(--slate-500); margin-top: 2px; }
+
+    .toggle {
+      position: relative;
+      width: 48px;
+      height: 26px;
+      background: var(--slate-300);
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s;
+      flex-shrink: 0;
+    }
+    .toggle.active { background: var(--primary); }
+    .toggle .thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 20px;
+      height: 20px;
+      background: #FFF;
+      border-radius: 50%;
+      transition: transform 0.3s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .toggle.active .thumb { transform: translateX(22px); }
+
+    .setting-select, .setting-input {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-color);
+      background: var(--card-bg);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--brand-navy);
+      outline: none;
+    }
+
+    .setting-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1.5px solid var(--border-color);
+      flex-wrap: wrap;
+    }
+
+    #allReviewsModal {
+      position: fixed;
+      inset: 0;
+      background: var(--paper-bg);
+      background-image: linear-gradient(var(--paper-line) 1px, transparent 1px);
+      background-size: 100% 30px;
+      z-index: 100000;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .reviews-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto 20px auto;
+      width: 100%;
+    }
+
+    .reviews-back-btn {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-color);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--brand-navy);
+    }
+
+    .write-review-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 26px;
+      max-width: 1100px;
+      margin: 0 auto 28px auto;
+      width: 100%;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .review-form-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .review-form-stack input, .review-form-stack textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      outline: none;
+      background: var(--paper-bg);
+      color: var(--brand-navy);
+    }
+
+    .interactive-stars {
+      display: flex;
+      gap: 8px;
+      font-size: 1.6rem;
+      color: #CBD5E1;
+      cursor: pointer;
+      margin: 8px 0 14px 0;
+    }
+    .interactive-stars i.active { color: #F59E0B; }
+
+    .reviews-full-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .play-review-item {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .p-reviewer-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .p-avatar-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .vedantu-floating-dock {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      z-index: 9990;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .dock-circle-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.25);
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: transform var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .dock-circle-btn:hover { transform: scale(1.1); }
+    .ai-dock-robot-btn { background: #ffffff; border: 2px solid var(--primary); padding: 4px; }
+    .whatsapp-dock-btn { background: #25D366; }
+    .insta-dock-btn { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+    .telegram-dock-btn { background: #229ED9; }
+
+    #aiChatModal {
+      position: fixed;
+      bottom: 84px;
+      right: 20px;
+      width: 380px;
+      max-width: calc(100vw - 32px);
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.25);
+      border: 1px solid var(--border-color);
+      z-index: 99999;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, var(--brand-navy), var(--primary));
+      color: #ffffff;
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-body-feed {
+      height: 340px;
+      padding: 16px;
+      overflow-y: auto;
+      background: var(--paper-bg);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      font-size: 0.86rem;
+    }
+
+    .chat-msg-user {
+      background: var(--brand-navy);
+      color: #ffffff;
+      padding: 10px 14px;
+      border-radius: 14px 14px 2px 14px;
+      max-width: 85%;
+      align-self: flex-end;
+      font-size: 0.86rem;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .chat-msg-bot {
+      background: var(--card-bg);
+      color: var(--brand-navy);
+      padding: 12px 16px;
+      border-radius: 14px 14px 14px 2px;
+      max-width: 90%;
+      align-self: flex-start;
+      border: 1px solid var(--border-color);
+      font-size: 0.86rem;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .chat-prompt-chips {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 8px 14px;
+      background: var(--slate-100);
+      border-top: 1px solid var(--border-color);
+      scrollbar-width: none;
+    }
+
+    .chat-chip {
+      white-space: nowrap;
+      font-size: 0.74rem;
+      font-weight: 700;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 5px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      color: var(--brand-navy);
+    }
+    .chat-chip:hover { border-color: var(--primary); color: var(--primary); }
+
+    .chat-code-block {
+      background: #0F172A;
+      color: #F8FAFC;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      margin: 8px 0;
+      position: relative;
+      overflow-x: auto;
+    }
+
+    .quiz-option-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 9px 12px;
+      margin: 4px 0;
+      background: var(--paper-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--brand-navy);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .quiz-option-btn.correct-choice {
+      background: #ECFDF5 !important;
+      border-color: #10B981 !important;
+      color: #065F46 !important;
+      font-weight: 700;
+    }
+
+    .quiz-option-btn.wrong-choice {
+      background: #FEF2F2 !important;
+      border-color: #EF4444 !important;
+      color: #991B1B !important;
+    }
+
+    #toastContainer {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100010;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .toast-msg {
+      background: #0F172A;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.25s ease;
+    }
+    .toast-msg.show { opacity: 1; transform: translateY(0); }
+
+    .academic-workflow-bar {
+      background: var(--slate-100);
+      border-top: 1.5px solid var(--border-color);
+      border-bottom: 1.5px solid var(--border-color);
+      padding: 22px 16px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .workflow-bar-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 800;
+      color: var(--slate-500);
+      margin-bottom: 12px;
+    }
+
+    .workflow-chips-flex {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .workflow-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--brand-navy);
+    }
+
+    .site-footer {
+      background: #0F172A;
+      color: #ffffff;
+      padding: 50px 20px 24px 20px;
+      width: 100%;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1.1fr;
+      gap: 30px;
+      max-width: 1240px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .footer-brand h2 { font-family: var(--font-heading); font-size: 1.45rem; font-weight: 700; color: #ffffff; margin: 0 0 8px 0; }
+    .footer-brand p { color: #94A3B8; font-size: 0.86rem; line-height: 1.55; margin: 0; }
+    .footer-col h3 { font-size: 1rem; font-weight: 700; color: #ffffff; margin-bottom: 12px; }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul a { color: #94A3B8; font-size: 0.86rem; cursor: pointer; }
+    .footer-col ul a:hover { color: var(--primary-sage); }
+    
+    .footer-social-icons {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .f-social-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #1E293B;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      border: 1px solid #334155;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+
+    .f-social-btn.telegram:hover { background: #229ED9; border-color: #229ED9; transform: translateY(-2px); }
+    .f-social-btn.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); border-color: transparent; transform: translateY(-2px); }
+    .f-social-btn.whatsapp:hover { background: #25D366; border-color: #25D366; transform: translateY(-2px); }
+    .f-social-btn.email:hover { background: #EA4335; border-color: #EA4335; transform: translateY(-2px); }
+
+    .footer-bottom-copy { text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 32px; padding-top: 20px; font-size: 0.82rem; color: #94A3B8; }
+
+    @media (max-width: 992px) {
+      .hero-container {
+        display: flex;
+        flex-direction: column;
+        padding: 34px 20px;
+        position: relative;
+      }
+      
+      .hero-content-front {
+        width: 100%;
+        text-align: center;
+      }
+
+      .hero-notes-visual-stack {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 260px;
+        height: 300px;
+        opacity: 0.12;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .hero-btn-row { justify-content: center; width: 100%; }
+      .value-features-strip { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+
+      .nav-toggle-btn { display: block; }
+      .main-nav {
+        position: fixed; top: 0; left: -100%; width: 280px; height: 100vh;
+        background: var(--card-bg); box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+        z-index: 99999; padding: 24px 20px; transition: left 0.3s ease;
+        display: flex; flex-direction: column; overflow-y: auto;
+      }
+      .main-nav.nav-open { left: 0; }
+      .mobile-nav-drawer-header { display: flex; }
+      .main-nav ul { flex-direction: column; align-items: flex-start; gap: 12px; width: 100%; }
+      .main-nav a { font-size: 1.05rem; padding: 8px 0; width: 100%; display: block; }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 10px 12px; }
+      .brand-name { font-size: 1.15rem; }
+      
+      .hero-wrapper { padding: 0 12px; }
+      .hero-container { padding: 26px 16px; margin: 12px auto; }
+      .hero-title-main { font-size: 1.95rem; line-height: 1.22; margin-bottom: 12px; }
+      .hero-subtitle-text { font-size: 0.9rem; margin-bottom: 20px; margin-inline: auto; }
+      
+      .btn-hero-primary, .btn-hero-secondary { width: 100%; justify-content: center; text-align: center; }
+      
+      .value-features-strip { grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 12px; }
+      .value-feature-card { padding: 12px 10px; gap: 10px; flex-direction: column; text-align: center; }
+
+      .classes-grid-container { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .btn-reviews-trigger { width: 100%; font-size: 0.92rem; padding: 14px 16px; }
+      .site-footer { padding: 36px 16px 20px 16px; }
+      
+      #aiChatModal { width: calc(100% - 24px); right: 12px; left: 12px; bottom: 75px; }
+      .dock-circle-btn { width: 44px; height: 44px; font-size: 1.15rem; }
+      .vedantu-floating-dock { bottom: 16px; right: 12px; gap: 8px; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- MOBILE SIDEBAR OVERLAY (NO BLUR) -->
-  <div class="mobile-menu-overlay" id="mobileOverlay" onclick="closeMobileNav()"></div>
+  <div id="toastContainer" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- HEADER NAVBAR -->
-  <header class="site-header">
+  <div class="mobile-menu-overlay" id="mobileOverlay" onclick="UI.closeMobileNav()"></div>
+
+  <!-- SITE HEADER -->
+  <header class="site-header" role="banner">
     <div class="header-inner">
       <div class="header-left">
-        <button type="button" class="nav-toggle-btn" onclick="toggleMobileNav()"><i class="fa-solid fa-bars"></i></button>
-        <a href="index.html" class="brand">
-          <div class="brand-logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <button type="button" class="nav-toggle-btn" onclick="UI.toggleMobileNav()" aria-label="Open Navigation Menu">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+        <div class="brand" onclick="window.scrollTo({top:0, behavior:'smooth'})" role="button" tabindex="0" aria-label="NotesPoint Home">
+          <div class="brand-logo-icon"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
           <span class="brand-name">Notes<span class="brand-accent">Point</span></span>
-        </a>
+        </div>
       </div>
 
-      <nav class="main-nav" id="mainNav">
+      <nav class="main-nav" id="mainNav" role="navigation" aria-label="Main Navigation">
         <div class="mobile-nav-drawer-header">
-          <a href="index.html" class="brand" onclick="closeMobileNav()">
-            <div class="brand-logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="brand" onclick="UI.closeMobileNav()">
+            <div class="brand-logo-icon"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
             <span class="brand-name">Notes<span class="brand-accent">Point</span></span>
-          </a>
-          <button type="button" class="mobile-nav-close-btn" onclick="closeMobileNav()">&times;</button>
+          </div>
+          <button type="button" class="mobile-nav-close-btn" onclick="UI.closeMobileNav()" aria-label="Close Navigation Menu">&times;</button>
         </div>
-
         <ul>
-          <li><a onclick="navigateTo('student.html')">Student Workspace</a></li>
-          <li><a onclick="navigateTo('#classes')">Curriculum</a></li>
-          <li><a onclick="navigateTo('#faq')">FAQs</a></li>
-          <li><a onclick="navigateTo('#reviews')">Reviews</a></li>
-          <li><a onclick="navigateTo('#support')">Support</a></li>
+          <li><a onclick="UI.navigateTo('#classes')" data-i18n="navClasses">Class 1–12</a></li>
+          <li><a onclick="UI.navigateTo('#faq')" data-i18n="navFaq">FAQs</a></li>
+          <li><a onclick="Settings.open()" data-i18n="navSettings">Settings</a></li>
         </ul>
       </nav>
 
-      <div class="header-right-action">
-        <a href="student.html" class="btn-nav-primary"><i class="fa-solid fa-book-open"></i> Access Workspace</a>
+      <div class="header-actions">
+        <button type="button" class="icon-circle-btn" onclick="Settings.open()" title="Website Settings" aria-label="Open Settings">
+          <i class="fa-solid fa-gear" aria-hidden="true"></i>
+          <span class="gear-dot" aria-hidden="true"></span>
+        </button>
+
+        <button type="button" class="theme-toggle-btn icon-circle-btn" onclick="Theme.toggle()" title="Toggle Dark/Light Mode" id="themeToggleBtn" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
+
+        <a href="student.html" class="header-chip-btn" id="headerWorkspaceBtn">
+          <i class="fa-solid fa-user-graduate" aria-hidden="true"></i> <span id="headerStudentNameText">Scholar</span>
+        </a>
       </div>
     </div>
   </header>
 
-  <main>
-    <!-- HERO BANNER SECTION -->
-    <section class="hero-section">
-      <div>
-        <div class="badge-tag">
-          <i class="fa-solid fa-graduation-cap"></i> Academic Repository Grade 9 - 12
-        </div>
-        <h1 class="hero-title">
-          Standardized Study Resources <br><span class="highlight">For Board &amp; Entrance Prep</span>
-        </h1>
-        <p class="hero-subtitle">
-          Access structured chapterwise notes, verified NCERT solutions, conceptual formula guides, and previous years' question banks for Class 9 through 12.
-        </p>
+  <main role="main">
+    <!-- HERO SECTION -->
+    <div class="hero-wrapper">
+      <section class="hero-container" aria-label="Hero Introduction">
+        <div class="hero-content-front">
+          <h1 class="hero-title-main" data-i18n="heroTitle">Great notes <br>shouldn't end <br>with you.</h1>
+          <p class="hero-subtitle-text" data-i18n="heroSubtitle">
+            NotesPoint is a curated academic repository of topper-style handwritten notes, NCERT solutions, and revision papers for Class 1 to Class 12.
+          </p>
 
-        <div class="hero-ctas">
-          <a href="student.html" class="btn-nav-primary" style="font-size: 1rem; padding: 12px 28px;"><i class="fa-solid fa-arrow-right"></i> Open Student Workspace</a>
+          <div class="hero-btn-row">
+            <a href="student.html" class="btn-hero-primary"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> <span data-i18n="heroCtaExplore">Explore Resources</span></a>
+            <button type="button" onclick="Chatbot.open()" class="btn-hero-secondary"><i class="fa-solid fa-robot" aria-hidden="true"></i> <span data-i18n="heroCtaBot">Ask AI Bot</span></button>
+          </div>
+        </div>
+
+        <div class="hero-notes-visual-stack" aria-hidden="true">
+          <div class="photo-paper-sheet sheet-pos-1">
+            <div class="sheet-hand-title">Human Settlement</div>
+            <div class="sheet-hand-text">
+              • Types of settlements<br>
+              • Rural vs Urban hierarchy<br>
+              • Compact &amp; dispersed patterns
+            </div>
+          </div>
+
+          <div class="photo-paper-sheet sheet-pos-2">
+            <div class="sheet-hand-title">Organic Chemistry</div>
+            <div class="sheet-hand-text">
+              • Aldol Condensation<br>
+              • Cannizzaro mechanism<br>
+              • Electrophilic addition steps
+            </div>
+          </div>
+
+          <div class="photo-paper-sheet sheet-pos-3">
+            <div class="sheet-hand-title">Calculus &amp; Vectors</div>
+            <div class="sheet-hand-text">
+              • Integration by parts shortcuts<br>
+              • Limit evaluation tricks<br>
+              • 3D Coordinate geometry
+            </div>
+            
+            <div class="topper-seal-badge">
+              <span>Topper<br>Checked</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- VALUE FEATURES STRIP -->
+    <section class="value-features-strip" aria-label="Academic Toolkit Highlights">
+      <div class="value-feature-card">
+        <i class="fa-solid fa-book-bookmark value-feature-icon" aria-hidden="true"></i>
+        <div>
+          <h3 data-i18n="valF1Title">NCERT Aligned</h3>
+          <p data-i18n="valF1Desc">Line-by-line chapter theory</p>
         </div>
       </div>
 
-      <!-- HERO GLASS CARD -->
-      <div>
-        <div class="hero-card">
-          <div class="badge-tag" style="background:rgba(6,182,212,0.15); color:var(--primary-cyan); border-color:rgba(6,182,212,0.3);"><i class="fa-solid fa-shield-check"></i> Verified Syllabus Materials</div>
-          <h3 style="font-size:1.4rem; margin:0 0 8px 0; font-weight:800;">NotesPoint Digital Library</h3>
-          <p style="font-size:0.88rem; color:#94A3B8; margin:0;">Complete access for Class 9th, 10th, 11th, 12th &amp; Entrance Aspirants.</p>
+      <div class="value-feature-card">
+        <i class="fa-solid fa-bolt value-feature-icon" aria-hidden="true"></i>
+        <div>
+          <h3 data-i18n="valF2Title">Formula Books</h3>
+          <p data-i18n="valF2Desc">High-yield quick cheat sheets</p>
+        </div>
+      </div>
 
-          <div class="hero-features-list">
-            <div class="h-feat-item">
-              <i class="fa-solid fa-file-pdf"></i>
-              <strong id="livePdfsCount">5000+ PDFs</strong>
-              <span>Verified Documents</span>
-            </div>
-            <div class="h-feat-item">
-              <i class="fa-solid fa-book-open"></i>
-              <strong>Notes Sets</strong>
-              <span>Complete Solutions</span>
-            </div>
-            <div class="h-feat-item">
-              <i class="fa-solid fa-clock-rotate-left"></i>
-              <strong>Board PYQs</strong>
-              <span>Solved Question Bank</span>
-            </div>
-            <div class="h-feat-item">
-              <i class="fa-solid fa-star"></i>
-              <strong>4.1 ★ Rating</strong>
-              <span>Academic Trust</span>
-            </div>
-          </div>
+      <div class="value-feature-card">
+        <i class="fa-solid fa-mobile-screen-button value-feature-icon" aria-hidden="true"></i>
+        <div>
+          <h3 data-i18n="valF3Title">Instant Stream</h3>
+          <p data-i18n="valF3Desc">Read PDFs right in browser</p>
+        </div>
+      </div>
+
+      <div class="value-feature-card">
+        <i class="fa-solid fa-shield-halved value-feature-icon" aria-hidden="true"></i>
+        <div>
+          <h3 data-i18n="valF4Title">100% Free</h3>
+          <p data-i18n="valF4Desc">Zero barrier open access</p>
         </div>
       </div>
     </section>
 
-    <!-- MOVING LOGO TICKER -->
-    <div class="ticker-wrap">
+    <!-- MOVING TICKER -->
+    <div class="ticker-wrap" aria-hidden="true">
       <div class="ticker-move">
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> NCERT Aligned Chapter Notes</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Board Solved Question Papers</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> JEE Main &amp; NEET Formula Guides</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Class 9 to 12 All Subjects</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Instant PDF Access</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Standardized Handwritten Notes</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> NCERT Line-by-Line Solutions</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Class 1 to Class 12 All Subjects</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Verified Derivations &amp; Mechanisms</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> High-Yield Revision Modules</div>
       </div>
     </div>
 
-    <!-- 1-CLICK CLASS CARDS SECTION -->
-    <section id="classes">
-      <div class="section-head">
-        <h2>Select Your Academic Grade</h2>
-        <p>Choose your enrolled class to browse available subject modules</p>
+    <!-- CLASS 1 TO 12 SECTION -->
+    <section class="section-container" id="classes" aria-label="Curated Class 1 to 12 Modules">
+      <div class="section-header-compact">
+        <div>
+          <h2 data-i18n="classesHeading">CLASS 1 TO 12 CURRICULUM</h2>
+          <p data-i18n="classesSubtitle">Tap your class to open subject notes and solutions directly.</p>
+        </div>
       </div>
 
-      <div class="class-selection-grid">
-        <a href="student.html?class=9" class="home-class-card hc-9">
-          <div>
-            <div class="card-icon-box"><i class="fa-solid fa-seedling"></i></div>
-            <h3 style="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Class 9</h3>
-            <p style="font-size:.88rem; opacity:0.85; margin:0;">Science, Mathematics, Social Science &amp; Languages</p>
-          </div>
-          <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Class 9 →</span>
-        </a>
+      <div class="classes-grid-container" id="classesGridContainer"></div>
+    </section>
 
-        <a href="student.html?class=10" class="home-class-card hc-10">
-          <div>
-            <div class="card-icon-box"><i class="fa-solid fa-award"></i></div>
-            <h3 style="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Class 10</h3>
-            <p style="font-size:.88rem; opacity:0.85; margin:0;">Board Examination Prep, Formulas &amp; PYQs</p>
-          </div>
-          <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Class 10 →</span>
-        </a>
-
-        <a href="student.html?class=11" class="home-class-card hc-11">
-          <div>
-            <div class="card-icon-box"><i class="fa-solid fa-microscope"></i></div>
-            <h3 style="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Class 11</h3>
-            <p style="font-size:.88rem; opacity:0.85; margin:0;">Science, Commerce &amp; Arts Streams</p>
-          </div>
-          <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Class 11 →</span>
-        </a>
-
-        <a href="student.html?class=12" class="home-class-card hc-12">
-          <div>
-            <div class="card-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
-            <h3 style="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Class 12</h3>
-            <p style="font-size:.88rem; opacity:0.85; margin:0;">Senior Secondary Revision, Derivations &amp; Practice Sets</p>
-          </div>
-          <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Class 12 →</span>
-        </a>
-
-        <a href="student.html?class=competitive" class="home-class-card hc-comp">
-          <div>
-            <div class="card-icon-box"><i class="fa-solid fa-bolt"></i></div>
-            <h3 style="font-size:1.35rem; margin:0 0 6px 0; font-weight:800;">Entrance Exams</h3>
-            <p style="font-size:.88rem; opacity:0.85; margin:0;">JEE Main, NEET-UG, CUET &amp; Entrance Material</p>
-          </div>
-          <span style="font-weight:800; font-size:.88rem; margin-top:20px;">Explore Competitive →</span>
-        </a>
+    <!-- REVIEWS & SUPPORT TRIGGER SECTION -->
+    <section class="section-container" aria-label="Student Feedback and Support">
+      <div class="reviews-trigger-section">
+        <button type="button" onclick="Reviews.openModal()" class="btn-reviews-trigger">
+          <i class="fa-solid fa-comments" aria-hidden="true"></i> <span data-i18n="reviewsBtnText">What Students Say About NotesPoint ★</span>
+        </button>
+        <button type="button" onclick="Settings.openTab('privacy')" class="btn-hero-secondary" style="border-radius: 30px; padding: 10px 24px; font-size: 0.88rem;">
+          <i class="fa-solid fa-headset" aria-hidden="true"></i> <span data-i18n="supportDeskBtn">Verified Support &amp; Privacy Desk</span>
+        </button>
       </div>
     </section>
 
-    <!-- LIVE TRUST STATS BANNER -->
-    <section class="stats-banner">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <h3>1000+</h3>
-          <p>Active Students</p>
-        </div>
-        <div class="stat-item">
-          <h3 id="statLivePdfs">500+</h3>
-          <p>Study Materials</p>
-        </div>
-        <div class="stat-item">
-          <h3>100%</h3>
-          <p>Free Repository</p>
-        </div>
-        <div class="stat-item">
-          <h3>4.1 ★</h3>
-          <p>Satisfaction Rating</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQS -->
-    <section class="faq-section" id="faq">
-      <div class="section-head">
-        <h2>Frequently Asked Questions</h2>
-        <p>Key information regarding our study repository</p>
-      </div>
-
-      <div class="faq-container">
-        <!-- FAQ 1 -->
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <span>1. Are all study resources on NotesPoint free to access?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Yes, all chapter notes, NCERT solutions, formula sheets, and examination revision PDFs are accessible without any cost.
+    <!-- EXPANDED FAQS ACCORDION -->
+    <section class="section-container" id="faq" aria-label="Frequently Asked Questions">
+      <div class="faq-section">
+        <div class="section-header-compact" style="border:none; margin-bottom:24px;">
+          <div>
+            <h2 data-i18n="faqHeading">Frequently Asked Questions</h2>
+            <p data-i18n="faqSubtitle">Comprehensive answers to common questions about study materials and downloads.</p>
           </div>
         </div>
 
-        <!-- FAQ 2 -->
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <span>2. Is account creation mandatory for reading or downloading PDFs?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            No registration is required. You can browse grade modules and view documents directly.
-          </div>
-        </div>
-
-        <!-- FAQ 3 -->
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <span>3. Which educational boards are supported?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Our content is strictly mapped to the current NCERT curriculum, making it applicable for CBSE and state board curriculums.
-          </div>
-        </div>
-
-        <!-- FAQ 4 -->
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <span>4. How can I download study notes on my mobile phone?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Simply navigate to the Student Workspace, select your grade and subject, then click on any note card to instantly preview or download the PDF to your device.
-          </div>
-        </div>
-
-        <!-- FAQ 5 -->
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <span>5. Do you offer competitive entrance exam study material?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Yes, we provide specialized formula cheat-sheets, NCERT extract mindmaps, and solved practice papers for JEE Main, NEET-UG, and CUET examinations.
-          </div>
-        </div>
-
-        <!-- FAQ 6 -->
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <span>6. How can students contribute or share their own notes?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Students can share their high-quality handwritten notes via the Upload section in the Student Workspace to help peer learners across all classes.
-          </div>
-        </div>
-
-        <!-- FAQ 7 -->
-        <div class="faq-item">
-          <button type="button" class="faq-question">
-            <span>7. What should I do if a specific chapter note is missing?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            If a required chapter is currently unavailable, you can send a direct request through our Support form or join our official Telegram channel to request immediate updates.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- REVIEWS -->
-    <section class="reviews-section" id="reviews">
-      <div class="section-head">
-        <h2>Student Reviews &amp; Feedback</h2>
-        <p>What our active learners have to say</p>
-      </div>
-
-      <div class="reviews-grid">
-        <!-- Review 1 (5 Stars) -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Class 12 Physics derivation lists and Chemistry mechanisms are clear and well-organized."</p>
-          <div class="review-author"><strong>Priya Verma</strong><span>Class 12 Science Student</span></div>
-        </div>
-
-        <!-- Review 2 (4 Stars) -->
-        <div class="review-card">
-          <div class="review-stars">★★★★☆</div>
-          <p class="review-text">"Notes overall bahut ache hain. Math ke formula sheets ne revision me kafi help ki, bas kuch extra solved examples bhi chahiye the."</p>
-          <div class="review-author"><strong>Aman Joshi</strong><span>Class 10 Student</span></div>
-        </div>
-
-        <!-- Review 3 (5 Stars) -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Handwritten PDF quality is top notch! Biology diagrams and mindmaps for Class 11 are super clean."</p>
-          <div class="review-author"><strong>Ananya Bisht</strong><span>Class 11 PCB Student</span></div>
-        </div>
-
-        <!-- Review 4 (3 Stars) -->
-        <div class="review-card">
-          <div class="review-stars">★★★☆☆</div>
-          <p class="review-text">"Study material to acha hai par Class 9 Social Science ke kuch chapters missing lage. Hope jaldi upload honge."</p>
-          <div class="review-author"><strong>Rohan Mehta</strong><span>Class 9 Foundation</span></div>
-        </div>
-
-        <!-- Review 5 (4 Stars) -->
-        <div class="review-card">
-          <div class="review-stars">★★★★☆</div>
-          <p class="review-text">"JEE Formula cheat-sheets are really useful for quick revision before test series."</p>
-          <div class="review-author"><strong>Kunal Rawat</strong><span>JEE Main Aspirant</span></div>
-        </div>
-
-        <!-- Review 6 (2 Stars) -->
-        <div class="review-card">
-          <div class="review-stars">★★☆☆☆</div>
-          <p class="review-text">"Class 11 Economics notes me thoda text small hai mobile view me padhne me dikkat hoti hai. Content thoda adjust karo."</p>
-          <div class="review-author"><strong>Sanya Kapoor</strong><span>Class 11 Commerce</span></div>
-        </div>
-
-        <!-- Review 7 (5 Stars) -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Board Exam 10-year PYQs with solution is the best feature. Saved a lot of time before pre-boards!"</p>
-          <div class="review-author"><strong>Harsh Vardhan</strong><span>Class 12 Board Student</span></div>
-        </div>
-
-        <!-- Review 8 (1 Star) -->
-        <div class="review-card">
-          <div class="review-stars">★☆☆☆☆</div>
-          <p class="review-text">"Mera Chemistry PDF download hone me time le raha tha mobile network par. Server speed thodi aur fast honi chahiye."</p>
-          <div class="review-author"><strong>Vikram Singh</strong><span>Class 10 Student</span></div>
-        </div>
-
-        <!-- Review 9 (4 Stars) -->
-        <div class="review-card">
-          <div class="review-stars">★★★★☆</div>
-          <p class="review-text">"Free me itna acha material milna mushkil hai. Neat handwriting aur direct PDF access bina faltu ads ke bohot sahi hai."</p>
-          <div class="review-author"><strong>Neha Sharma</strong><span>Class 12 Commerce</span></div>
-        </div>
-
-        <!-- Review 10 (3 Stars) -->
-        <div class="review-card">
-          <div class="review-stars">★★★☆☆</div>
-          <p class="review-text">"Average UI, par notes helpful hain. Agar topic-wise practice quiz bhi add kar do to website aur better ho jayegi."</p>
-          <div class="review-author"><strong>Devansh Patel</strong><span>NEET Aspirant</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SUPPORT SECTION -->
-    <section id="support" style="width:100% !important; padding:20px 10px 180px 10px !important; box-sizing:border-box !important; overflow:hidden !important; background:rgba(255,255,255,0.9);">
-      <div style="width:100% !important; max-width:1100px !important; background:#ffffff !important; border:1px solid #CBD5E1 !important; border-radius:16px !important; padding:38px !important; box-sizing:border-box !important; overflow:hidden !important; margin:0 auto !important; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
-        <div style="display:grid !important; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important; gap:32px !important; align-items:center !important; width:100% !important;">
-          
-          <!-- LEFT ICON & TITLE -->
-          <div style="text-align:center !important; width:100% !important;">
-            <div style="width:65px; height:65px; background:#ECFEFF; border:1px solid #CFFAFE; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 10px auto; color:#14B8A6; font-size:1.6rem;">
-              <i class="fa-solid fa-headset"></i>
+        <div class="faq-container">
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span data-i18n="faq1Q">Are all study resources and PDFs completely free?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" data-i18n="faq1A">
+              Yes, 100%! All chapter notes, handwritten topper sheets, NCERT solutions, formula sheets, and revision papers are completely free without any hidden subscription or paywall.
             </div>
-            <h3 style="font-size:1.2rem; font-weight:800; color:#0F172A; margin:0 0 6px 0;">Academic Assistance</h3>
-            <span style="display:inline-block; background:#ECFEFF; color:#0891B2; border:1px solid #CFFAFE; font-size:0.75rem; font-weight:700; padding:4px 12px; border-radius:20px;">CONTACT HELPDESK</span>
           </div>
 
-          <!-- RIGHT FORM -->
-          <div style="width:100% !important; box-sizing:border-box !important;">
-            <h2 style="font-size:1.3rem; font-weight:800; color:#0F172A; margin:0 0 6px 0;">Have Feedback or Inquiries? 💬</h2>
-            <p style="font-size:0.85rem; color:#64748B; margin:0 0 16px 0;">Submit your inquiry or study material requests below.</p>
-
-            <form id="homeFeedbackForm" onsubmit="handleSupportSubmit(event)" style="display:flex !important; flex-direction:column !important; width:100% !important; gap:10px !important; box-sizing:border-box !important;">
-              <input type="text" placeholder="Full Name" required style="width:100% !important; padding:12px !important; border:1px solid #CBD5E1 !important; border-radius:8px !important; font-size:0.9rem !important; outline:none; background:#ffffff;">
-              <input type="email" placeholder="Email Address" required style="width:100% !important; padding:12px !important; border:1px solid #CBD5E1 !important; border-radius:8px !important; font-size:0.9rem !important; outline:none; background:#ffffff;">
-              <textarea rows="3" placeholder="Write your message or requested subject notes..." required style="width:100% !important; padding:12px !important; border:1px solid #CBD5E1 !important; border-radius:8px !important; font-size:0.9rem !important; outline:none; background:#ffffff; font-family:inherit;"></textarea>
-              <button type="submit" class="btn-nav-primary" style="width:100% !important; padding:12px !important; justify-content:center !important; margin-top:4px !important; font-size:0.92rem !important; box-sizing:border-box !important;">Send Inquiry 🚀</button>
-            </form>
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span data-i18n="faq2Q">Is account creation or registration mandatory?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" data-i18n="faq2A">
+              No registration or phone login is required. You can directly tap on your class, select your subject, and view or download notes instantly.
+            </div>
           </div>
 
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span data-i18n="faq3Q">How can I access and download study notes on mobile?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" data-i18n="faq3A">
+              Simply tap any class card above (Class 1–12). The documents open seamlessly inside your mobile browser without demanding third-party PDF viewers.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span data-i18n="faq4Q">Are these notes aligned with the latest CBSE & State Board syllabus?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" data-i18n="faq4A">
+              Yes, our resources are curated in alignment with the latest rationalized NCERT textbooks and curriculum updates, including high-yield formulas and essential derivations.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span data-i18n="faq5Q">How does the 24/7 AI Tutor work?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" data-i18n="faq5A">
+              You can tap the floating green bot icon anytime to ask textbook doubts, request formulas, get line-by-line concept explanations, or launch an instant topic quiz.
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- FLOATING DOCK WITH VECTOR ROBOT AVATAR -->
-  <div class="vedantu-floating-dock">
-    <button type="button" class="dock-circle-btn ai-dock-robot-btn" onclick="toggleAiModal()" title="NotesPoint AI Assistant">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='50' fill='%2306B6D4'/><circle cx='35' cy='45' r='8' fill='%230F172A'/><circle cx='65' cy='45' r='8' fill='%230F172A'/><path d='M35 65 Q50 80 65 65' stroke='%230F172A' stroke-width='5' fill='none'/><circle cx='50' cy='18' r='5' fill='%2314B8A6'/><line x1='50' y1='23' x2='50' y2='32' stroke='%2314B8A6' stroke-width='4'/></svg>" alt="AI Robot Avatar" id="robotAvatarImg">
-    </button>
-    
-    <a href="https://whatsapp.com/channel/0029VbDBkW7DuMRXnoY2Th11" target="_blank" rel="noopener" class="dock-circle-btn whatsapp-dock-btn" title="WhatsApp Channel">
-      <i class="fa-brands fa-whatsapp"></i>
-    </a>
-    <a href="https://www.instagram.com/notespoint_?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener" class="dock-circle-btn insta-dock-btn" title="Instagram Page">
-      <i class="fa-brands fa-instagram"></i>
-    </a>
-    <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener" class="dock-circle-btn telegram-dock-btn" title="Telegram Channel">
-      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-    </a>
+  <!-- SETTINGS MODAL -->
+  <div class="modal-backdrop-full" id="settingsModalBackdrop" role="dialog" aria-modal="true" aria-label="Website Settings">
+    <div class="settings-card-wrapper">
+      <div class="settings-header">
+        <h2><i class="fa-solid fa-gear" aria-hidden="true"></i> <span data-i18n="settingsTitle">Settings &amp; Preferences</span></h2>
+        <button type="button" onclick="Settings.close()" class="mobile-nav-close-btn" aria-label="Close Settings">&times;</button>
+      </div>
+
+      <div class="tabs" id="settingsTabs">
+        <button class="tab-btn active" data-tab="account"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i> Scholar Identity</button>
+        <button class="tab-btn" data-tab="general"><i class="fa-solid fa-globe" aria-hidden="true"></i> General</button>
+        <button class="tab-btn" data-tab="appearance"><i class="fa-solid fa-palette" aria-hidden="true"></i> Appearance</button>
+        <button class="tab-btn" data-tab="privacy"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Privacy &amp; Support</button>
+      </div>
+
+      <!-- TAB 1: SCHOLAR IDENTITY -->
+      <div class="tab-panel active" id="panel-account">
+        <div class="setting-group">
+          <div class="setting-group-title"><i class="fa-solid fa-user" aria-hidden="true"></i> Student Profile</div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="icon-circle"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i></div>
+              <div>
+                <div class="label">Student / Scholar Name</div>
+                <div class="description">Displays in the header button and for study notes</div>
+              </div>
+            </div>
+            <input type="text" class="setting-input" id="settingDisplayName" value="Scholar" placeholder="Enter student name...">
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: GENERAL -->
+      <div class="tab-panel" id="panel-general">
+        <div class="setting-group">
+          <div class="setting-group-title"><i class="fa-solid fa-language" aria-hidden="true"></i> Workspace Language &amp; Basics</div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="icon-circle"><i class="fa-solid fa-globe" aria-hidden="true"></i></div>
+              <div>
+                <div class="label">Site Language</div>
+                <div class="description">Select from 2 languages</div>
+              </div>
+            </div>
+            <select class="setting-select" id="siteLanguage" onchange="Settings.changeLanguage(this.value)"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: APPEARANCE -->
+      <div class="tab-panel" id="panel-appearance">
+        <div class="setting-group">
+          <div class="setting-group-title"><i class="fa-solid fa-paint-brush" aria-hidden="true"></i> Theme &amp; Layout</div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="icon-circle"><i class="fa-solid fa-moon" aria-hidden="true"></i></div>
+              <div>
+                <div class="label">Dark Reading Mode</div>
+                <div class="description">High-contrast night reading theme</div>
+              </div>
+            </div>
+            <div class="toggle" id="settingsDarkModeToggle" onclick="Theme.toggle(); Settings.syncToggle();">
+              <div class="thumb"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: PRIVACY & SUPPORT -->
+      <div class="tab-panel" id="panel-privacy">
+        <div class="setting-group">
+          <div class="setting-group-title"><i class="fa-solid fa-headset" aria-hidden="true"></i> Official Support Desk</div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="icon-circle"><i class="fa-solid fa-envelope" aria-hidden="true"></i></div>
+              <div>
+                <div class="label">Direct Support Email</div>
+                <div class="description">notespoint2026@gmail.com</div>
+              </div>
+            </div>
+            <a href="mailto:notespoint2026@gmail.com" class="header-chip-btn"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Contact Support</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="setting-actions">
+        <button type="button" class="btn-hero-primary" style="padding:10px 24px;" onclick="Settings.save()">
+          <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Save Changes
+        </button>
+        <button type="button" class="btn-hero-secondary" style="padding:10px 20px;" onclick="Settings.reset()">
+          <i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Reset Defaults
+        </button>
+      </div>
+    </div>
   </div>
 
-  <!-- ROBOT AI CHATBOT MODAL -->
-  <div id="aiChatModal">
-    <div style="background: linear-gradient(135deg, var(--brand-navy), var(--primary-teal)); color: #ffffff; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;">
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <div style="width:32px; height:32px; border-radius:50%; background:#FFF; padding:2px;">
-          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='50' fill='%2306B6D4'/><circle cx='35' cy='45' r='8' fill='%230F172A'/><circle cx='65' cy='45' r='8' fill='%230F172A'/><path d='M35 65 Q50 80 65 65' stroke='%230F172A' stroke-width='5' fill='none'/></svg>" alt="Robot" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-        </div>
-        <div>
-          <strong style="display: block; font-size: 0.92rem;">NotesPoint Assistant</strong>
-          <span style="font-size: 0.72rem; opacity: 0.9;">Online • Academic Guidance</span>
-        </div>
+  <!-- ALL REVIEWS FULL-PAGE MODAL -->
+  <div id="allReviewsModal" role="dialog" aria-modal="true" aria-label="Student Reviews">
+    <div class="reviews-top-bar">
+      <button type="button" class="reviews-back-btn" onclick="Reviews.closeModal()">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to Homepage
+      </button>
+      <span style="font-size:0.95rem; font-weight:800; color:var(--brand-navy);">Verified Student Feedback</span>
+    </div>
+
+    <div class="write-review-card">
+      <h3 style="font-size:1.2rem; font-weight:800; color:var(--brand-navy); margin-bottom:4px;">Rate NotesPoint Platform ★</h3>
+      <p style="font-size:0.85rem; color:var(--slate-600);">Select stars and write your feedback:</p>
+      
+      <div class="interactive-stars" id="starInputContainer" role="radiogroup" aria-label="Rating Stars">
+        <i class="fa-solid fa-star active" data-rating="1" onclick="Reviews.setRating(1)"></i>
+        <i class="fa-solid fa-star active" data-rating="2" onclick="Reviews.setRating(2)"></i>
+        <i class="fa-solid fa-star active" data-rating="3" onclick="Reviews.setRating(3)"></i>
+        <i class="fa-solid fa-star active" data-rating="4" onclick="Reviews.setRating(4)"></i>
+        <i class="fa-solid fa-star active" data-rating="5" onclick="Reviews.setRating(5)"></i>
       </div>
-      <button type="button" onclick="toggleAiModal()" style="background: none; border: none; color: #ffffff; font-size: 1.4rem; cursor: pointer;">&times;</button>
+
+      <form id="liveReviewForm" onsubmit="Reviews.handleSubmit(event)" class="review-form-stack">
+        <label for="revUserName" style="display:none;">Your Name</label>
+        <input type="text" id="revUserName" placeholder="Your Name" required>
+
+        <label for="revUserSubject" style="display:none;">Class / Subject</label>
+        <input type="text" id="revUserSubject" placeholder="Class / Subject (e.g. Class 10 Science)" required>
+
+        <label for="revUserComment" style="display:none;">Your Review</label>
+        <textarea id="revUserComment" rows="3" placeholder="Tell us how NotesPoint helped in your study preparation..." required></textarea>
+
+        <button type="submit" class="btn-hero-primary" style="align-self:flex-start;">Publish Review ★</button>
+      </form>
     </div>
-    
-    <div id="aiChatMessages" style="height: 250px; padding: 14px; overflow-y: auto; background: #F8FAFC; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem;">
-      <div style="background: #ECFEFF; color: #0891B2; padding: 10px 12px; border-radius: 12px 12px 12px 2px; max-width: 85%; align-self: flex-start; border: 1px solid #CFFAFE;">
-        👋 Welcome! I am NotesPoint AI Assistant. Which class or subject notes are you looking for today?
-      </div>
-    </div>
-    
-    <div style="padding: 10px; background: #ffffff; border-top: 1px solid var(--border-color); display: flex; gap: 8px;">
-      <input type="text" id="aiUserInput" placeholder="Ask about Class 10, 12, Physics..." style="flex: 1; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.85rem; outline: none;" onkeypress="handleKeyPress(event)">
-      <button type="button" onclick="sendAiMessage()" style="background: var(--brand-navy); color: #ffffff; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer;">🚀</button>
-    </div>
+
+    <div class="reviews-full-grid" id="fullReviewsFeedContainer"></div>
   </div>
+
+  <!-- ACADEMIC WORKFLOW BANNER -->
+  <section class="academic-workflow-bar" aria-label="Academic Workflow Standard">
+    <div class="workflow-bar-title" data-i18n="workflowTitle">STANDARDIZED K-12 ACADEMIC WORKSPACE</div>
+    <div class="workflow-chips-flex">
+      <div class="workflow-chip"><i class="fa-solid fa-book-open" style="color:var(--primary);" aria-hidden="true"></i> NCERT Line-by-Line Solutions</div>
+      <div class="workflow-chip"><i class="fa-solid fa-file-lines" style="color:var(--accent-amber);" aria-hidden="true"></i> Solved Question Blueprints</div>
+      <div class="workflow-chip"><i class="fa-solid fa-bolt" style="color:var(--primary-sage);" aria-hidden="true"></i> High-Yield Formula Sheets</div>
+      <div class="workflow-chip"><i class="fa-solid fa-mobile-screen-button" style="color:var(--accent-blue);" aria-hidden="true"></i> Instant In-App Mobile PDF Stream</div>
+    </div>
+  </section>
 
   <!-- FOOTER -->
-  <footer class="site-footer">
+  <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
       <div class="footer-brand">
         <h2>NotesPoint</h2>
-        <p>Standardized Academic Resources for Grades 9–12 and Competitive Examinations.</p>
+        <p>Standardized Academic Resources and Handwritten Notes Repository.</p>
       </div>
 
       <div class="footer-col">
         <h3>Navigation</h3>
         <ul>
           <li><a href="student.html">Student Workspace</a></li>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="#faq">Frequently Asked Questions</a></li>
-          <li><a href="student.html">Support</a></li>
+          <li><a onclick="Reviews.openModal()">Student Feedback</a></li>
+          <li><a onclick="Settings.open()">Preferences</a></li>
+          <li><a onclick="UI.navigateTo('#faq')">FAQs</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h3>Curriculum</h3>
+        <h3>Direct Class Links</h3>
         <ul>
-          <li><a href="student.html?class=9">Grade 9 Foundation</a></li>
-          <li><a href="student.html?class=10">Grade 10 Board Prep</a></li>
-          <li><a href="student.html?class=11">Grade 11 Stream Modules</a></li>
-          <li><a href="student.html?class=12">Grade 12 Senior Secondary</a></li>
-          <li><a href="student.html?class=competitive">Competitive Examination Prep</a></li>
+          <li><a href="student.html?class=primary">Primary (Class 1–5)</a></li>
+          <li><a href="student.html?class=middle">Middle (Class 6–8)</a></li>
+          <li><a href="student.html?class=10">Class 10 Secondary</a></li>
+          <li><a href="student.html?class=12">Class 12 Senior Secondary</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h3>Official Channels</h3>
-        <p style="font-size: 0.85rem; color: #94A3B8; margin-bottom: 12px;">Connect with official communities:</p>
+        <p style="font-size: 0.85rem; color: #94A3B8; margin-bottom: 12px;">Connect with official student communities:</p>
         <div class="footer-social-icons">
-          <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener" class="f-social-btn" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
-          <a href="https://www.instagram.com/notespoint_?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener" class="f-social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="mailto:notespoint2026@gmail.com" class="f-social-btn" title="Email Us"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener noreferrer" class="f-social-btn telegram" title="Telegram Channel" aria-label="Telegram Channel">
+            <i class="fa-brands fa-telegram" aria-hidden="true"></i>
+          </a>
+          <a href="https://www.instagram.com/notespoint_?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener noreferrer" class="f-social-btn instagram" title="Instagram Profile" aria-label="Instagram Profile">
+            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+          </a>
+          <a href="https://whatsapp.com/channel/0029VbDBkW7DuMRXnoY2Th11" target="_blank" rel="noopener noreferrer" class="f-social-btn whatsapp" title="WhatsApp Channel" aria-label="WhatsApp Community">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+          </a>
+          <a href="mailto:notespoint2026@gmail.com" class="f-social-btn email" title="Email Us" aria-label="Send an email to NotesPoint">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          </a>
         </div>
       </div>
     </div>
 
     <div class="footer-bottom-copy">
-      <p>&copy; 2026 Notes Point Platform. All Rights Reserved.</p>
+      <p>&copy; 2026 NotesPoint Platform. All Rights Reserved.</p>
     </div>
   </footer>
 
-  <!-- FIREBASE & LIVE NOTES DYNAMIC SYNC -->
-  <script type="module">
-    import { initializeApp } from 'firebase/app';
-    import { getFirestore, collection, getDocs } from 'firebase/firestore';
+  <!-- FLOATING DOCK -->
+  <div class="vedantu-floating-dock" aria-label="Contact and Assistant Dock">
+    <button type="button" class="dock-circle-btn ai-dock-robot-btn" onclick="Chatbot.toggle()" title="Open AI Study Bot" aria-label="Open AI Assistant">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='50' fill='%23059669'/><circle cx='35' cy='45' r='8' fill='%230F172A'/><circle cx='65' cy='45' r='8' fill='%230F172A'/><path d='M35 65 Q50 80 65 65' stroke='%230F172A' stroke-width='5' fill='none'/><circle cx='50' cy='18' r='5' fill='%2310B981'/><line x1='50' y1='23' x2='50' y2='32' stroke='%2310B981' stroke-width='4'/></svg>" alt="AI Assistant Icon">
+    </button>
+    <a href="https://whatsapp.com/channel/0029VbDBkW7DuMRXnoY2Th11" target="_blank" rel="noopener noreferrer" class="dock-circle-btn whatsapp-dock-btn" title="WhatsApp Channel" aria-label="WhatsApp Community">
+      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+    </a>
+    <a href="https://www.instagram.com/notespoint_?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener noreferrer" class="dock-circle-btn insta-dock-btn" title="Instagram Page" aria-label="Instagram Profile">
+      <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+    </a>
+    <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener noreferrer" class="dock-circle-btn telegram-dock-btn" title="Telegram Channel" aria-label="Telegram Group">
+      <i class="fa-brands fa-telegram" aria-hidden="true"></i>
+    </a>
+  </div>
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyA8lZsf-VAFwHVclSjk-tQnWAC2-ycpKVM",
-        authDomain: "notes-point-7b7d9.firebaseapp.com",
-        projectId: "notes-point-7b7d9",
-        storageBucket: "notes-point-7b7d9.appspot.com",
-        messagingSenderId: "1096318631780",
-        appId: "1:1096318631780:web:4b3f8d4a5f6a7b8c9d0e1f"
-    };
+  <!-- AI CHATBOT MODAL -->
+  <div id="aiChatModal" role="dialog" aria-modal="true" aria-label="AI Academic Assistant">
+    <div class="chat-header">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <i class="fa-solid fa-robot" aria-hidden="true"></i>
+        <div>
+          <strong style="display:block; font-size:0.88rem;">NotesPoint AI Tutor</strong>
+          <span style="font-size:0.7rem; opacity:0.85;">24x7 Multi-lingual Academic Assistant</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:6px;">
+        <button type="button" onclick="Chatbot.clearChat()" title="Clear Chat" style="background:none; border:none; color:#FFF; cursor:pointer; font-size:0.85rem;" aria-label="Clear chat messages">
+          <i class="fa-solid fa-trash" aria-hidden="true"></i>
+        </button>
+        <button type="button" onclick="Chatbot.close()" style="background:none; border:none; color:#FFF; cursor:pointer; font-size:1.3rem; margin-left:4px;" aria-label="Close Chat">&times;</button>
+      </div>
+    </div>
 
-    try {
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    <!-- Suggested Prompts -->
+    <div class="chat-prompt-chips" aria-label="Suggested Prompts">
+      <button type="button" class="chat-chip" onclick="Chatbot.submitPrompt('Explain Ohm\'s Law in simple Hinglish')">⚡ Ohm's Law</button>
+      <button type="button" class="chat-chip" onclick="Chatbot.submitPrompt('quiz physics')">📝 Physics Quiz</button>
+      <button type="button" class="chat-chip" onclick="Chatbot.submitPrompt('Give Quadratic Equation formula step by step')">📐 Quadratic Eq</button>
+      <button type="button" class="chat-chip" onclick="Chatbot.submitPrompt('Explain Photosynthesis formula')">🌱 Photosynthesis</button>
+    </div>
 
-        async function updateLiveStats() {
-            let totalCount = 0;
-            
-            try {
-                const localNotes = JSON.parse(localStorage.getItem('notespoint_uploaded_notes_v7')) || [];
-                totalCount += localNotes.length;
-            } catch(e) {}
+    <div id="aiChatMessages" class="chat-body-feed" aria-live="polite">
+      <div class="chat-msg-bot" id="chatWelcomeMsg">
+        👋 <strong>नमस्ते!</strong> मैं हूँ <strong>NotesPoint AI Tutor</strong>। आप मुझसे किसी भी क्लास (1–12), फॉर्मूले, साइंस या कोडिंग का सवाल पूछ सकते हैं या <strong>"quiz physics"</strong> टाइप करके टेस्ट ले सकते हैं!
+      </div>
+    </div>
 
-            try {
-                const querySnapshot = await getDocs(collection(db, "notes"));
-                totalCount += querySnapshot.size;
-            } catch(e) {}
+    <div style="padding:10px; background:var(--card-bg); border-top:1px solid var(--border-color); display:flex; gap:8px;">
+      <input type="text" id="aiUserInput" placeholder="Ask anything (e.g. Newton's law, quiz math)..." style="flex:1; padding:8px 12px; border:1px solid var(--border-color); border-radius:8px; font-size:0.85rem; outline:none; background:var(--paper-bg); color:var(--brand-navy);" onkeypress="if(event.key === 'Enter') Chatbot.sendMessage()">
+      <button type="button" onclick="Chatbot.sendMessage()" style="background:var(--primary); color:#FFF; border:none; padding:8px 14px; border-radius:8px; font-weight:700; cursor:pointer;" aria-label="Send Message">
+        <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
 
-            const displayVal = totalCount > 0 ? (totalCount + 500) + '+' : '500+';
-            
-            const livePdfsCountEl = document.getElementById('livePdfsCount');
-            const statLivePdfsEl = document.getElementById('statLivePdfs');
-
-            if (livePdfsCountEl) livePdfsCountEl.textContent = displayVal + ' Verified PDFs';
-            if (statLivePdfsEl) statLivePdfsEl.textContent = displayVal;
-        }
-
-        updateLiveStats();
-    } catch(e) {
-        console.warn('Firebase sync active with LocalStorage fallback.');
-    }
-  </script>
-
-  <!-- JAVASCRIPT HANDLERS & NAVIGATION LOGIC -->
   <script>
-    if (history.scrollRestoration) {
-      history.scrollRestoration = 'manual';
-    }
-    window.scrollTo(0, 0);
+    "use strict";
 
-    window.onload = function() {
-      window.scrollTo(0, 0);
+    // ================================================================
+    // ONLY ENGLISH AND HINDI – All other languages removed.
+    // ================================================================
+    const LANGUAGES = [
+      { code: 'en', name: 'English' },
+      { code: 'hi', name: 'हिन्दी (Hindi)' }
+    ];
+
+    const TRANSLATIONS = {
+      en: {
+        navClasses: "Class 1–12",
+        navFaq: "FAQs",
+        navSettings: "Settings",
+        heroTitle: "Great notes <br>shouldn't end <br>with you.",
+        heroSubtitle: "NotesPoint is a curated academic repository of topper-style handwritten notes, NCERT solutions, and revision papers for Class 1 to Class 12.",
+        heroCtaExplore: "Explore Resources",
+        heroCtaBot: "Ask AI Bot",
+        valF1Title: "NCERT Aligned",
+        valF1Desc: "Line-by-line chapter theory",
+        valF2Title: "Formula Books",
+        valF2Desc: "High-yield quick cheat sheets",
+        valF3Title: "Instant Stream",
+        valF3Desc: "Read PDFs right in browser",
+        valF4Title: "100% Free",
+        valF4Desc: "Zero barrier open access",
+        classesHeading: "CLASS 1 TO 12 CURRICULUM",
+        classesSubtitle: "Tap your class to open subject notes and solutions directly.",
+        reviewsBtnText: "What Students Say About NotesPoint ★",
+        supportDeskBtn: "Verified Support & Privacy Desk",
+        faqHeading: "Frequently Asked Questions",
+        faqSubtitle: "Key information regarding our study repository",
+        faq1Q: "Are all study resources and PDFs completely free?",
+        faq1A: "Yes, 100%! All chapter notes, handwritten topper sheets, NCERT solutions, formula sheets, and revision papers are completely free without any hidden subscription or paywall.",
+        faq2Q: "Is account creation or registration mandatory?",
+        faq2A: "No registration or phone login is required. You can directly tap on your class, select your subject, and view or download notes instantly.",
+        faq3Q: "How can I access and download study notes on mobile?",
+        faq3A: "Simply tap any class card above (Class 1–12). The documents open seamlessly inside your mobile browser without demanding third-party PDF viewers.",
+        faq4Q: "Are these notes aligned with the latest CBSE & State Board syllabus?",
+        faq4A: "Yes, our resources are curated in alignment with the latest rationalized NCERT textbooks and curriculum updates, including high-yield formulas and essential derivations.",
+        faq5Q: "How does the 24/7 AI Tutor work?",
+        faq5A: "You can tap the floating green bot icon anytime to ask textbook doubts, request formulas, get line-by-line concept explanations, or launch an instant topic quiz.",
+        workflowTitle: "STANDARDIZED K-12 ACADEMIC WORKSPACE",
+        settingsTitle: "Settings & Preferences"
+      },
+      hi: {
+        navClasses: "कक्षा 1–12",
+        navFaq: "अक्सर पूछे जाने वाले सवाल",
+        navSettings: "सेटिंग्स",
+        heroTitle: "शानदार नोट्स <br>सिर्फ आप तक सीमित <br>नहीं रहने चाहिए।",
+        heroSubtitle: "NotesPoint कक्षा 1 से 12 तक के टॉपर्स के हस्तलिखित नोट्स, एनसीईआरटी समाधान और रिवीज़न पेपर्स का एक संगठित मंच है।",
+        heroCtaExplore: "नोट्स देखें",
+        heroCtaBot: "एआई सहायक से पूछें",
+        valF1Title: "NCERT आधारित",
+        valF1Desc: "हर अध्याय का सटीक अध्ययन",
+        valF2Title: "सूत्र पुस्तिका",
+        valF2Desc: "त्वरित रिवीज़न फॉर्मूला शीट्स",
+        valF3Title: "तुरंत पढ़ें",
+        valF3Desc: "सीधे ब्राउज़र में पीडीएफ खोलें",
+        valF4Title: "100% निशुल्क",
+        valF4Desc: "पूरी तरह से मुफ़्त अध्ययन",
+        classesHeading: "कक्षा 1 से 12 पाठ्यक्रम",
+        classesSubtitle: "अपनी कक्षा चुनें और सीधे विषयवार नोट्स व समाधान खोलें।",
+        reviewsBtnText: "छात्रों की राय NotesPoint के बारे में ★",
+        supportDeskBtn: "सत्यापित सहायता एवं गोपनीयता डेस्क",
+        faqHeading: "अक्सर पूछे जाने वाले प्रश्न",
+        faqSubtitle: "स्टडी पोर्टल से जुड़ी महत्वपूर्ण जानकारी",
+        faq1Q: "क्या सभी अध्ययन सामग्री और पीडीएफ पूरी तरह मुफ्त हैं?",
+        faq1A: "हाँ, 100%! सभी अध्याय नोट्स, टॉपर्स हस्तलिखित शीट्स, एनसीईआरटी समाधान और फॉर्मूला बुक्स बिना किसी सब्सक्रिप्शन के मुफ्त हैं।",
+        faq2Q: "क्या पीडीएफ पढ़ने के लिए खाता बनाना अनिवार्य है?",
+        faq2A: "कोई खाता या लॉगिन आवश्यक नहीं है। आप सीधे किसी भी कक्षा पर टैप करके अध्ययन शुरू कर सकते हैं।",
+        faq3Q: "मोबाइल पर नोट्स कैसे डाउनलोड और पढ़ें?",
+        faq3A: "ऊपर दिए गए कक्षा कार्ड पर टैप करें। पीडीएफ सीधे आपके मोबाइल ब्राउज़र में बिना किसी रुकावट के खुल जाएगी।",
+        faq4Q: "क्या यह नोट्स नवीनतम पाठ्यक्रम के अनुसार हैं?",
+        faq4A: "हाँ, सभी नोट्स नवीनतम एनसीईआरटी पाठ्यक्रम और बोर्ड परीक्षाओं के पैटर्न पर आधारित हैं।",
+        faq5Q: "24/7 एआई ट्यूटर कैसे काम करता है?",
+        faq5A: "आप कभी भी ग्रीन बॉट आइकन पर टैप करके अपने डाउट्स पूछ सकते हैं या फॉर्मूला और क्विज़ प्राप्त कर सकते हैं।",
+        workflowTitle: "मानकीकृत K-12 शैक्षणिक वर्कस्पेस",
+        settingsTitle: "सेटिंग्स और प्राथमिकताएं"
+      }
     };
 
-    function navigateTo(target) {
-      closeMobileNav();
-      setTimeout(() => {
-        if (target.startsWith('#')) {
-          const el = document.querySelector(target);
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          window.location.href = target;
-        }
-      }, 100);
-    }
+    // ================================================================
+    // ALL OTHER CODE REMAINS EXACTLY THE SAME (Theme, Settings, UI, Reviews, Chatbot)
+    // ================================================================
 
-    function toggleMobileNav() {
-      const nav = document.getElementById('mainNav');
-      const overlay = document.getElementById('mobileOverlay');
-      
-      const isOpen = nav.classList.contains('nav-open');
-      if (isOpen) {
-        closeMobileNav();
-      } else {
-        nav.classList.add('nav-open');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
+    const CLASSES_DATA = [
+      { num: 1, name: "Class 1", subtitle: "Primary", icon: "fa-child", styleClass: "c-nat-1" },
+      { num: 2, name: "Class 2", subtitle: "Primary", icon: "fa-shapes", styleClass: "c-nat-2" },
+      { num: 3, name: "Class 3", subtitle: "Primary", icon: "fa-book-open", styleClass: "c-nat-3" },
+      { num: 4, name: "Class 4", subtitle: "Primary", icon: "fa-pencil", styleClass: "c-nat-4" },
+      { num: 5, name: "Class 5", subtitle: "Primary", icon: "fa-apple-whole", styleClass: "c-nat-5" },
+      { num: 6, name: "Class 6", subtitle: "Middle", icon: "fa-compass", styleClass: "c-nat-6" },
+      { num: 7, name: "Class 7", subtitle: "Middle", icon: "fa-flask", styleClass: "c-nat-7" },
+      { num: 8, name: "Class 8", subtitle: "Middle", icon: "fa-calculator", styleClass: "c-nat-8" },
+      { num: 9, name: "Class 9", subtitle: "Foundation", icon: "fa-seedling", styleClass: "c-nat-9" },
+      { num: 10, name: "Class 10", subtitle: "Secondary", icon: "fa-award", styleClass: "c-nat-10" },
+      { num: 11, name: "Class 11", subtitle: "Streams", icon: "fa-microscope", styleClass: "c-nat-11" },
+      { num: 12, name: "Class 12", subtitle: "Senior Sec", icon: "fa-user-graduate", styleClass: "c-nat-12" }
+    ];
+
+    const Toast = {
+      show(message) {
+        const container = document.getElementById("toastContainer");
+        if (!container) return;
+        const toast = document.createElement("div");
+        toast.className = "toast-msg";
+        toast.textContent = message;
+        container.appendChild(toast);
+        setTimeout(() => toast.classList.add("show"), 20);
+        setTimeout(() => {
+          toast.classList.remove("show");
+          setTimeout(() => toast.remove(), 300);
+        }, 2800);
       }
-    }
+    };
 
-    function closeMobileNav() {
-      const nav = document.getElementById('mainNav');
-      const overlay = document.getElementById('mobileOverlay');
-      
-      if (nav) nav.classList.remove('nav-open');
-      if (overlay) overlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
+    const Theme = {
+      init() {
+        try {
+          const saved = localStorage.getItem("np_theme_mode");
+          if (saved === "dark") {
+            document.body.classList.add("dark-mode");
+            const icon = document.querySelector("#themeToggleBtn i");
+            if (icon) icon.className = "fa-solid fa-sun";
+          }
+        } catch (e) {}
+      },
+      toggle() {
+        document.body.classList.toggle("dark-mode");
+        const isDark = document.body.classList.contains("dark-mode");
+        try {
+          localStorage.setItem("np_theme_mode", isDark ? "dark" : "light");
+        } catch (e) {}
+        const icon = document.querySelector("#themeToggleBtn i");
+        if (icon) icon.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+        Settings.syncToggle();
+        Toast.show(isDark ? "Dark reading mode activated" : "Light reading mode activated");
+      }
+    };
 
-    document.querySelectorAll('.faq-question').forEach(button => {
-      button.addEventListener('click', () => {
-        const faqItem = button.parentElement;
-        const isActive = faqItem.classList.contains('active');
-        document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
-        if (!isActive) faqItem.classList.add('active');
+    const Settings = {
+      initScholarName() {
+        try {
+          const savedData = JSON.parse(localStorage.getItem("np_user_settings") || "{}");
+          const scholarName = savedData.name || "Scholar";
+          const input = document.getElementById("settingDisplayName");
+          const headerText = document.getElementById("headerStudentNameText");
+          if (input) input.value = scholarName;
+          if (headerText) headerText.textContent = scholarName;
+        } catch (e) {}
+      },
+
+      populateLanguages() {
+        const select = document.getElementById("siteLanguage");
+        if (!select) return;
+        const currentLang = localStorage.getItem("np_site_lang") || "en";
+        select.innerHTML = LANGUAGES.map(l => `<option value="${l.code}" ${l.code === currentLang ? 'selected' : ''}>${l.name}</option>`).join("");
+      },
+
+      changeLanguage(langCode) {
+        try {
+          localStorage.setItem("np_site_lang", langCode);
+        } catch (e) {}
+        Toast.show("Updating Language...");
+        setTimeout(() => window.location.reload(), 400);
+      },
+
+      applyCurrentLanguage() {
+        const currentLang = localStorage.getItem("np_site_lang") || "en";
+        const dict = TRANSLATIONS[currentLang] || TRANSLATIONS['en'];
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+          const key = el.dataset.i18n;
+          if (dict[key]) el.innerHTML = dict[key];
+        });
+      },
+
+      open() {
+        const modal = document.getElementById("settingsModalBackdrop");
+        if (modal) {
+          modal.style.display = "flex";
+          document.body.style.overflow = "hidden";
+          this.syncToggle();
+        }
+      },
+
+      close() {
+        const modal = document.getElementById("settingsModalBackdrop");
+        if (modal) {
+          modal.style.display = "none";
+          document.body.style.overflow = "";
+        }
+      },
+
+      openTab(tabKey) {
+        this.open();
+        const tabBtn = document.querySelector(`.tab-btn[data-tab="${tabKey}"]`);
+        if (tabBtn) tabBtn.click();
+      },
+
+      syncToggle() {
+        const isDark = document.body.classList.contains("dark-mode");
+        const toggle = document.getElementById("settingsDarkModeToggle");
+        if (toggle) toggle.classList.toggle("active", isDark);
+      },
+
+      save() {
+        const lang = document.getElementById("siteLanguage")?.value || "en";
+        const name = (document.getElementById("settingDisplayName")?.value || "Scholar").trim();
+        
+        try {
+          localStorage.setItem("np_user_settings", JSON.stringify({ lang, name }));
+        } catch (e) {}
+
+        const headerText = document.getElementById("headerStudentNameText");
+        if (headerText) headerText.textContent = name || "Scholar";
+
+        Toast.show("Profile & Settings saved!");
+        this.close();
+      },
+
+      reset() {
+        if (!confirm("Reset all settings to default values?")) return;
+        localStorage.removeItem("np_site_lang");
+        localStorage.removeItem("np_user_settings");
+        window.location.reload();
+      }
+    };
+
+    const UI = {
+      renderClasses() {
+        const container = document.getElementById("classesGridContainer");
+        if (!container) return;
+        container.innerHTML = CLASSES_DATA.map(c => `
+          <a href="student.html?class=${c.num}" class="class-box-card ${c.styleClass}" aria-label="${c.name} ${c.subtitle}">
+            <div class="class-avatar-badge"><i class="fa-solid ${c.icon}" aria-hidden="true"></i></div>
+            <strong>${c.name}</strong><span>${c.subtitle}</span>
+          </a>
+        `).join("");
+      },
+
+      toggleMobileNav() {
+        const nav = document.getElementById("mainNav");
+        const overlay = document.getElementById("mobileOverlay");
+        if (!nav || !overlay) return;
+        const isOpen = nav.classList.contains("nav-open");
+        nav.classList.toggle("nav-open", !isOpen);
+        overlay.classList.toggle("active", !isOpen);
+        document.body.style.overflow = isOpen ? "" : "hidden";
+      },
+
+      closeMobileNav() {
+        const nav = document.getElementById("mainNav");
+        const overlay = document.getElementById("mobileOverlay");
+        if (nav) nav.classList.remove("nav-open");
+        if (overlay) overlay.classList.remove("active");
+        document.body.style.overflow = "";
+      },
+
+      navigateTo(targetId) {
+        this.closeMobileNav();
+        const element = document.querySelector(targetId);
+        if (element) element.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
+    const Reviews = {
+      currentRating: 5,
+
+      init() {
+        this.loadFeed();
+      },
+
+      openModal() {
+        const modal = document.getElementById("allReviewsModal");
+        if (modal) {
+          modal.style.display = "flex";
+          document.body.style.overflow = "hidden";
+        }
+      },
+
+      closeModal() {
+        const modal = document.getElementById("allReviewsModal");
+        if (modal) {
+          modal.style.display = "none";
+          document.body.style.overflow = "";
+        }
+      },
+
+      setRating(val) {
+        this.currentRating = val;
+        const stars = document.querySelectorAll("#starInputContainer i");
+        stars.forEach((star, idx) => {
+          star.classList.toggle("active", idx < val);
+        });
+      },
+
+      handleSubmit(e) {
+        e.preventDefault();
+        const nameInput = document.getElementById("revUserName");
+        const subjectInput = document.getElementById("revUserSubject");
+        const commentInput = document.getElementById("revUserComment");
+
+        const name = (nameInput?.value || "").trim();
+        const userSubject = (subjectInput?.value || "").trim();
+        const comment = (commentInput?.value || "").trim();
+
+        if (!name || !comment) return;
+
+        const newReview = {
+          name,
+          userClass: userSubject || "Student",
+          comment,
+          rating: this.currentRating,
+          date: "Just now"
+        };
+
+        try {
+          const saved = JSON.parse(localStorage.getItem("np_real_reviews") || "[]");
+          saved.unshift(newReview);
+          localStorage.setItem("np_real_reviews", JSON.stringify(saved));
+        } catch (err) {}
+
+        e.target.reset();
+        this.setRating(5);
+        this.loadFeed();
+        Toast.show("Review published successfully!");
+      },
+
+      loadFeed() {
+        const container = document.getElementById("fullReviewsFeedContainer");
+        if (!container) return;
+
+        let reviews = [
+          { name: "Verified Student", userClass: "Physics Derivations", rating: 5, comment: "Derivations and mechanisms are super clear and directly aligned with NCERT.", date: "August 2026" },
+          { name: "Active Scholar", userClass: "Class 10 Science", rating: 5, comment: "Fast loading handwritten notes without unnecessary ads. Loved the UI!", date: "August 2026" }
+        ];
+
+        try {
+          const custom = JSON.parse(localStorage.getItem("np_real_reviews") || "[]");
+          reviews = [...custom, ...reviews];
+        } catch (e) {}
+
+        container.innerHTML = reviews.map(r => {
+          const starStr = "★".repeat(r.rating) + "☆".repeat(Math.max(0, 5 - r.rating));
+          const initial = (r.name || "S").charAt(0).toUpperCase();
+          return `
+            <div class="play-review-item">
+              <div>
+                <div class="p-reviewer-header">
+                  <div class="p-avatar-circle">${initial}</div>
+                  <div>
+                    <strong style="display:block; font-size:0.92rem; color:var(--brand-navy);">${this.escapeHTML(r.name)}</strong>
+                    <span style="font-size:0.75rem; color:var(--slate-500);">${this.escapeHTML(r.userClass)}</span>
+                  </div>
+                </div>
+                <div style="color:#F59E0B; font-size:0.85rem; margin-bottom:6px;">${starStr}</div>
+                <p style="font-size:0.88rem; color:var(--slate-700);">${this.escapeHTML(r.comment)}</p>
+              </div>
+              <span style="font-size:0.72rem; color:var(--slate-400); margin-top:10px;">${r.date}</span>
+            </div>
+          `;
+        }).join("");
+      },
+
+      escapeHTML(str) {
+        return (str || "").replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
+      }
+    };
+
+    const Chatbot = {
+      isOpen: false,
+      history: [],
+
+      quizBank: {
+        physics: [
+          { q: "What is the SI unit of Electric Potential?", options: ["Ampere", "Volt", "Ohm", "Joule"], correct: 1, exp: "Electric Potential (V) is measured in Volts (V = W/Q)." }
+        ]
+      },
+
+      init() {
+        try {
+          const saved = localStorage.getItem("np_chat_history");
+          if (saved) {
+            this.history = JSON.parse(saved);
+            this.renderFeed();
+          }
+        } catch (e) {}
+      },
+
+      toggle() {
+        this.isOpen ? this.close() : this.open();
+      },
+
+      open() {
+        const modal = document.getElementById("aiChatModal");
+        if (modal) {
+          modal.style.display = "flex";
+          this.isOpen = true;
+          const input = document.getElementById("aiUserInput");
+          setTimeout(() => input?.focus(), 50);
+        }
+      },
+
+      close() {
+        const modal = document.getElementById("aiChatModal");
+        if (modal) {
+          modal.style.display = "none";
+          this.isOpen = false;
+        }
+      },
+
+      clearChat() {
+        this.history = [];
+        try { localStorage.removeItem("np_chat_history"); } catch (e) {}
+        this.renderFeed();
+        Toast.show("Chat history cleared");
+      },
+
+      submitPrompt(text) {
+        const input = document.getElementById("aiUserInput");
+        if (input) {
+          input.value = text;
+          this.sendMessage();
+        }
+      },
+
+      sendMessage() {
+        const input = document.getElementById("aiUserInput");
+        const query = (input?.value || "").trim();
+        if (!query) return;
+
+        input.value = "";
+        this.appendMessage("user", query);
+
+        setTimeout(() => {
+          let reply = `📚 <strong>NotesPoint AI:</strong> Query received: <em>"${this.escapeHTML(query)}"</em>.<br>Explore the <strong>Class 1 to 12</strong> cards above for complete chapter solutions and formula books!`;
+          if (query.toLowerCase().includes("ohm")) {
+            reply = `⚡ <strong>Ohm's Law:</strong> V = I × R (Potential difference is directly proportional to Current at constant temperature).`;
+          }
+          this.appendMessage("bot", reply);
+        }, 400);
+      },
+
+      appendMessage(role, text) {
+        this.history.push({ role, text });
+        if (this.history.length > 25) this.history.shift();
+        try { localStorage.setItem("np_chat_history", JSON.stringify(this.history)); } catch (e) {}
+        this.renderFeed();
+      },
+
+      renderFeed() {
+        const container = document.getElementById("aiChatMessages");
+        if (!container) return;
+
+        if (this.history.length === 0) {
+          container.innerHTML = `
+            <div class="chat-msg-bot">
+              👋 <strong>नमस्ते!</strong> मैं हूँ <strong>NotesPoint AI Tutor</strong>। आप मुझसे किसी भी क्लास (1–12), फॉर्मूले, साइंस या कोडिंग का सवाल पूछ सकते हैं!
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = this.history.map(msg => {
+          return msg.role === "user"
+            ? `<div class="chat-msg-user">${this.escapeHTML(msg.text)}</div>`
+            : `<div class="chat-msg-bot">${msg.text}</div>`;
+        }).join("");
+
+        container.scrollTop = container.scrollHeight;
+      },
+
+      escapeHTML(str) {
+        return (str || "").replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
+      }
+    };
+
+    window.addEventListener("DOMContentLoaded", () => {
+      Theme.init();
+      Settings.initScholarName();
+      Settings.populateLanguages();
+      Settings.applyCurrentLanguage();
+      UI.renderClasses();
+      Reviews.init();
+      Chatbot.init();
+
+      const tabBtns = document.querySelectorAll(".tab-btn");
+      tabBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          tabBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const tabId = btn.dataset.tab;
+          document.querySelectorAll(".tab-panel").forEach(panel => {
+            panel.classList.toggle("active", panel.id === `panel-${tabId}`);
+          });
+        });
+      });
+
+      document.querySelectorAll(".faq-question").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const item = btn.parentElement;
+          const isActive = item.classList.contains("active");
+          document.querySelectorAll(".faq-item").forEach(el => {
+            el.classList.remove("active");
+            el.querySelector(".faq-question")?.setAttribute("aria-expanded", "false");
+          });
+          if (!isActive) {
+            item.classList.add("active");
+            btn.setAttribute("aria-expanded", "true");
+          }
+        });
+      });
+
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          Reviews.closeModal();
+          Chatbot.close();
+          Settings.close();
+          UI.closeMobileNav();
+        }
       });
     });
-
-    function handleSupportSubmit(e) {
-      e.preventDefault();
-      alert('Thank you! Your academic inquiry has been submitted successfully.');
-      e.target.reset();
-    }
-
-    function toggleAiModal() {
-      const modal = document.getElementById('aiChatModal');
-      modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
-    }
-
-    function handleKeyPress(e) {
-      if (e.key === 'Enter') {
-        sendAiMessage();
-      }
-    }
-
-    function sendAiMessage() {
-      const input = document.getElementById('aiUserInput');
-      const messagesContainer = document.getElementById('aiChatMessages');
-      const text = input.value.trim();
-
-      if (!text) return;
-
-      const userMsg = document.createElement('div');
-      userMsg.style.cssText = 'background:var(--brand-navy); color:#ffffff; padding:10px 12px; border-radius:12px 12px 2px 12px; max-width:85%; align-self:flex-end; font-size:0.85rem;';
-      userMsg.textContent = text;
-      messagesContainer.appendChild(userMsg);
-
-      input.value = '';
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-      setTimeout(() => {
-        const aiMsg = document.createElement('div');
-        aiMsg.style.cssText = 'background:#ECFEFF; color:#0891B2; padding:10px 12px; border-radius:12px 12px 2px 12px; max-width:85%; align-self:flex-start; border:1px solid #CFFAFE; font-size:0.85rem;';
-        
-        const query = text.toLowerCase();
-        if (query.includes('9')) {
-          aiMsg.innerHTML = '📚 Class 9 NCERT modules and Science & Maths handwritten notes are ready. <br><a href="student.html?class=9" style="color:var(--brand-navy); font-weight:700;">Open Class 9 Workspace →</a>';
-        } else if (query.includes('10')) {
-          aiMsg.innerHTML = '🎯 Class 10 Board Special Notes, Formula Sheets & Solved PYQs are available. <br><a href="student.html?class=10" style="color:var(--brand-navy); font-weight:700;">Open Class 10 Workspace →</a>';
-        } else if (query.includes('11')) {
-          aiMsg.innerHTML = '🔬 Class 11 Science, Commerce, and Arts stream modules are available. <br><a href="student.html?class=11" style="color:var(--brand-navy); font-weight:700;">Open Class 11 Workspace →</a>';
-        } else if (query.includes('12')) {
-          aiMsg.innerHTML = '🎓 Class 12 Senior Secondary Board Revision Notes & Derivations are listed here. <br><a href="student.html?class=12" style="color:var(--brand-navy); font-weight:700;">Open Class 12 Workspace →</a>';
-        } else {
-          aiMsg.innerHTML = '✨ You can navigate to the Student Workspace to select your grade and view verified PDFs directly. <br><a href="student.html" style="color:var(--brand-navy); font-weight:700;">Open Student Workspace →</a>';
-        }
-
-        messagesContainer.appendChild(aiMsg);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-      }, 600);
-    }
   </script>
-
 </body>
 </html>
