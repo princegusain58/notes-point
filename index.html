@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>NotesPoint — Great Notes Shouldn't End With You | Standardized Academic Workspace</title>
-  <meta name="description" content="NotesPoint is a standardized academic workspace providing verified handwritten topper notes, NCERT solutions, formula books, and question banks for Class 1 to 12.">
-  <meta name="keywords" content="NotesPoint, Class 1 to 12 Notes, NCERT Solutions, Handwritten Notes, Physics Derivations, Formula Cheat Sheets">
+  <meta name="description" content="NotesPoint is a standardized academic workspace providing verified handwritten topper notes, NCERT solutions, formula books, and question banks for Class 1 to 12, JEE, NEET, CUET & NDA.">
+  <meta name="keywords" content="NotesPoint, Class 1 to 12 Notes, JEE Main Notes, NEET Biology, CUET Preparation, NDA Exam Notes, NCERT Solutions, Handwritten Notes">
   <meta name="theme-color" content="#059669">
 
   <meta property="og:title" content="NotesPoint — Standardized Academic Workspace">
-  <meta property="og:description" content="Access verified topper notes, NCERT solutions, and study resources for Class 1 to 12.">
+  <meta property="og:description" content="Access verified topper notes, NCERT solutions, and competitive study resources for Class 1 to 12, JEE, NEET, CUET & NDA.">
   <meta property="og:type" content="website">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%23059669%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22 font-size=%2248%22 fill=%22%23ffffff%22>NP</text></svg>">
@@ -20,7 +20,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-    /* -------- ALL CSS REMAINS EXACTLY THE SAME -------- */
     :root {
       --primary: #059669;
       --primary-hover: #047857;
@@ -215,6 +214,33 @@
       display: flex;
       align-items: center;
       gap: 10px;
+    }
+
+    .header-chip-btn {
+      background: #0F172A;
+      color: #FFFFFF !important;
+      border: 1.5px solid #0F172A;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+      box-shadow: var(--shadow-sm);
+    }
+
+    body.dark-mode .header-chip-btn {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #0F172A !important;
+    }
+
+    .header-chip-btn:hover {
+      transform: translateY(-2px);
     }
 
     .icon-circle-btn {
@@ -629,6 +655,11 @@
     .c-nat-10 { background: linear-gradient(135deg, #059669, #047857); }
     .c-nat-11 { background: linear-gradient(135deg, #2563EB, #1D4ED8); }
     .c-nat-12 { background: linear-gradient(135deg, #E11D48, #BE123C); }
+
+    .c-comp-jee  { background: linear-gradient(135deg, #7C3AED, #4C1D95); }
+    .c-comp-neet { background: linear-gradient(135deg, #059669, #064E3B); }
+    .c-comp-cuet { background: linear-gradient(135deg, #D97706, #78350F); }
+    .c-comp-nda  { background: linear-gradient(135deg, #1E3A8A, #0F172A); }
 
     .reviews-trigger-section {
       padding: 42px 20px;
@@ -1379,10 +1410,10 @@
     <div class="header-inner">
       <div class="header-left">
         <button type="button" class="nav-toggle-btn" onclick="UI.toggleMobileNav()" aria-label="Open Navigation Menu">
-          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+          <i class="fa-solid fa-bars"></i>
         </button>
         <div class="brand" onclick="window.scrollTo({top:0, behavior:'smooth'})" role="button" tabindex="0" aria-label="NotesPoint Home">
-          <div class="brand-logo-icon"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
+          <div class="brand-logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
           <span class="brand-name">Notes<span class="brand-accent">Point</span></span>
         </div>
       </div>
@@ -1390,13 +1421,14 @@
       <nav class="main-nav" id="mainNav" role="navigation" aria-label="Main Navigation">
         <div class="mobile-nav-drawer-header">
           <div class="brand" onclick="UI.closeMobileNav()">
-            <div class="brand-logo-icon"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
+            <div class="brand-logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
             <span class="brand-name">Notes<span class="brand-accent">Point</span></span>
           </div>
           <button type="button" class="mobile-nav-close-btn" onclick="UI.closeMobileNav()" aria-label="Close Navigation Menu">&times;</button>
         </div>
         <ul>
           <li><a onclick="UI.navigateTo('#classes')" data-i18n="navClasses">Class 1–12</a></li>
+          <li><a onclick="UI.navigateTo('#competitiveSection')" data-i18n="navCompetitive">Competitive Exams</a></li>
           <li><a onclick="UI.navigateTo('#faq')" data-i18n="navFaq">FAQs</a></li>
           <li><a onclick="Settings.open()" data-i18n="navSettings">Settings</a></li>
         </ul>
@@ -1404,16 +1436,16 @@
 
       <div class="header-actions">
         <button type="button" class="icon-circle-btn" onclick="Settings.open()" title="Website Settings" aria-label="Open Settings">
-          <i class="fa-solid fa-gear" aria-hidden="true"></i>
+          <i class="fa-solid fa-gear"></i>
           <span class="gear-dot" aria-hidden="true"></span>
         </button>
 
         <button type="button" class="theme-toggle-btn icon-circle-btn" onclick="Theme.toggle()" title="Toggle Dark/Light Mode" id="themeToggleBtn" aria-label="Toggle Theme">
-          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+          <i class="fa-solid fa-moon"></i>
         </button>
 
         <a href="student.html" class="header-chip-btn" id="headerWorkspaceBtn">
-          <i class="fa-solid fa-user-graduate" aria-hidden="true"></i> <span id="headerStudentNameText">Scholar</span>
+          <i class="fa-solid fa-user-graduate"></i> <span id="headerStudentNameText">Scholar</span>
         </a>
       </div>
     </div>
@@ -1426,12 +1458,12 @@
         <div class="hero-content-front">
           <h1 class="hero-title-main" data-i18n="heroTitle">Great notes <br>shouldn't end <br>with you.</h1>
           <p class="hero-subtitle-text" data-i18n="heroSubtitle">
-            NotesPoint is a curated academic repository of topper-style handwritten notes, NCERT solutions, and revision papers for Class 1 to Class 12.
+            NotesPoint is a curated academic repository of topper-style handwritten notes, NCERT solutions, and revision papers for Class 1 to Class 12 &amp; Competitive Entrance Aspirants.
           </p>
 
           <div class="hero-btn-row">
-            <a href="student.html" class="btn-hero-primary"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> <span data-i18n="heroCtaExplore">Explore Resources</span></a>
-            <button type="button" onclick="Chatbot.open()" class="btn-hero-secondary"><i class="fa-solid fa-robot" aria-hidden="true"></i> <span data-i18n="heroCtaBot">Ask AI Bot</span></button>
+            <a href="student.html" class="btn-hero-primary"><i class="fa-solid fa-arrow-right"></i> <span data-i18n="heroCtaExplore">Explore Resources</span></a>
+            <button type="button" onclick="Chatbot.open()" class="btn-hero-secondary"><i class="fa-solid fa-robot"></i> <span data-i18n="heroCtaBot">Ask AI Bot</span></button>
           </div>
         </div>
 
@@ -1473,7 +1505,7 @@
     <!-- VALUE FEATURES STRIP -->
     <section class="value-features-strip" aria-label="Academic Toolkit Highlights">
       <div class="value-feature-card">
-        <i class="fa-solid fa-book-bookmark value-feature-icon" aria-hidden="true"></i>
+        <i class="fa-solid fa-book-bookmark value-feature-icon"></i>
         <div>
           <h3 data-i18n="valF1Title">NCERT Aligned</h3>
           <p data-i18n="valF1Desc">Line-by-line chapter theory</p>
@@ -1481,7 +1513,7 @@
       </div>
 
       <div class="value-feature-card">
-        <i class="fa-solid fa-bolt value-feature-icon" aria-hidden="true"></i>
+        <i class="fa-solid fa-bolt value-feature-icon"></i>
         <div>
           <h3 data-i18n="valF2Title">Formula Books</h3>
           <p data-i18n="valF2Desc">High-yield quick cheat sheets</p>
@@ -1489,7 +1521,7 @@
       </div>
 
       <div class="value-feature-card">
-        <i class="fa-solid fa-mobile-screen-button value-feature-icon" aria-hidden="true"></i>
+        <i class="fa-solid fa-mobile-screen-button value-feature-icon"></i>
         <div>
           <h3 data-i18n="valF3Title">Instant Stream</h3>
           <p data-i18n="valF3Desc">Read PDFs right in browser</p>
@@ -1497,7 +1529,7 @@
       </div>
 
       <div class="value-feature-card">
-        <i class="fa-solid fa-shield-halved value-feature-icon" aria-hidden="true"></i>
+        <i class="fa-solid fa-shield-halved value-feature-icon"></i>
         <div>
           <h3 data-i18n="valF4Title">100% Free</h3>
           <p data-i18n="valF4Desc">Zero barrier open access</p>
@@ -1511,8 +1543,10 @@
         <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Standardized Handwritten Notes</div>
         <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> NCERT Line-by-Line Solutions</div>
         <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Class 1 to Class 12 All Subjects</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Verified Derivations &amp; Mechanisms</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> High-Yield Revision Modules</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> JEE Main &amp; Advanced Chapter Modules</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> NEET-UG Biology &amp; Physics Sheets</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> CUET General Test &amp; Domain Notes</div>
+        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> NDA Entrance Question Bank</div>
       </div>
     </div>
 
@@ -1528,14 +1562,46 @@
       <div class="classes-grid-container" id="classesGridContainer"></div>
     </section>
 
+    <!-- COMPETITIVE ENTRANCE EXAMS SECTION -->
+    <section class="section-container" id="competitiveSection" aria-label="Competitive Entrance Exam Notes">
+      <div class="section-header-compact">
+        <div>
+          <h2 data-i18n="compHeading" style="color: #7C3AED;"><i class="fa-solid fa-fire"></i> COMPETITIVE ENTRANCE HUB</h2>
+          <p data-i18n="compSubtitle">Direct formula books, quick derivations &amp; solved practice sets for entrance exams.</p>
+        </div>
+      </div>
+
+      <div class="classes-grid-container" id="competitiveGridContainer">
+        <a href="student.html?class=competitive&exam=jee" class="class-box-card c-comp-jee" aria-label="JEE Main & Advanced">
+          <div class="class-avatar-badge"><i class="fa-solid fa-atom"></i></div>
+          <strong>JEE Main &amp; Adv</strong><span>Physics, Chem, Math</span>
+        </a>
+
+        <a href="student.html?class=competitive&exam=neet" class="class-box-card c-comp-neet" aria-label="NEET-UG Medical">
+          <div class="class-avatar-badge"><i class="fa-solid fa-dna"></i></div>
+          <strong>NEET-UG</strong><span>Biology &amp; Physics</span>
+        </a>
+
+        <a href="student.html?class=competitive&exam=cuet" class="class-box-card c-comp-cuet" aria-label="CUET UG Entrance">
+          <div class="class-avatar-badge"><i class="fa-solid fa-graduation-cap"></i></div>
+          <strong>CUET Entrance</strong><span>General &amp; Domains</span>
+        </a>
+
+        <a href="student.html?class=competitive&exam=nda" class="class-box-card c-comp-nda" aria-label="NDA Defence Entrance">
+          <div class="class-avatar-badge"><i class="fa-solid fa-shield-halved"></i></div>
+          <strong>NDA Defence</strong><span>Maths &amp; GAT Papers</span>
+        </a>
+      </div>
+    </section>
+
     <!-- REVIEWS & SUPPORT TRIGGER SECTION -->
     <section class="section-container" aria-label="Student Feedback and Support">
       <div class="reviews-trigger-section">
         <button type="button" onclick="Reviews.openModal()" class="btn-reviews-trigger">
-          <i class="fa-solid fa-comments" aria-hidden="true"></i> <span data-i18n="reviewsBtnText">What Students Say About NotesPoint ★</span>
+          <i class="fa-solid fa-comments"></i> <span data-i18n="reviewsBtnText">What Students Say About NotesPoint ★</span>
         </button>
         <button type="button" onclick="Settings.openTab('privacy')" class="btn-hero-secondary" style="border-radius: 30px; padding: 10px 24px; font-size: 0.88rem;">
-          <i class="fa-solid fa-headset" aria-hidden="true"></i> <span data-i18n="supportDeskBtn">Verified Support &amp; Privacy Desk</span>
+          <i class="fa-solid fa-headset"></i> <span data-i18n="supportDeskBtn">Verified Support &amp; Privacy Desk</span>
         </button>
       </div>
     </section>
@@ -1577,17 +1643,17 @@
               <span class="faq-icon" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" data-i18n="faq3A">
-              Simply tap any class card above (Class 1–12). The documents open seamlessly inside your mobile browser without demanding third-party PDF viewers.
+              Simply tap any class card above (Class 1–12 or Competitive). The documents open seamlessly inside your mobile browser without demanding third-party PDF viewers.
             </div>
           </div>
 
           <div class="faq-item">
             <button type="button" class="faq-question" aria-expanded="false">
-              <span data-i18n="faq4Q">Are these notes aligned with the latest CBSE & State Board syllabus?</span>
+              <span data-i18n="faq4Q">Are competitive exams (JEE, NEET, CUET, NDA) material available?</span>
               <span class="faq-icon" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" data-i18n="faq4A">
-              Yes, our resources are curated in alignment with the latest rationalized NCERT textbooks and curriculum updates, including high-yield formulas and essential derivations.
+              Yes! We provide dedicated high-yield formula sheets, physics derivations, organic reaction mechanisms, and past year questions for JEE Main, NEET-UG, CUET and NDA.
             </div>
           </div>
 
@@ -1609,24 +1675,24 @@
   <div class="modal-backdrop-full" id="settingsModalBackdrop" role="dialog" aria-modal="true" aria-label="Website Settings">
     <div class="settings-card-wrapper">
       <div class="settings-header">
-        <h2><i class="fa-solid fa-gear" aria-hidden="true"></i> <span data-i18n="settingsTitle">Settings &amp; Preferences</span></h2>
+        <h2><i class="fa-solid fa-gear"></i> <span data-i18n="settingsTitle">Settings &amp; Preferences</span></h2>
         <button type="button" onclick="Settings.close()" class="mobile-nav-close-btn" aria-label="Close Settings">&times;</button>
       </div>
 
       <div class="tabs" id="settingsTabs">
-        <button class="tab-btn active" data-tab="account"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i> Scholar Identity</button>
-        <button class="tab-btn" data-tab="general"><i class="fa-solid fa-globe" aria-hidden="true"></i> General</button>
-        <button class="tab-btn" data-tab="appearance"><i class="fa-solid fa-palette" aria-hidden="true"></i> Appearance</button>
-        <button class="tab-btn" data-tab="privacy"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Privacy &amp; Support</button>
+        <button class="tab-btn active" data-tab="account"><i class="fa-solid fa-user-graduate"></i> Scholar Identity</button>
+        <button class="tab-btn" data-tab="general"><i class="fa-solid fa-globe"></i> General</button>
+        <button class="tab-btn" data-tab="appearance"><i class="fa-solid fa-palette"></i> Appearance</button>
+        <button class="tab-btn" data-tab="privacy"><i class="fa-solid fa-shield-halved"></i> Privacy &amp; Support</button>
       </div>
 
       <!-- TAB 1: SCHOLAR IDENTITY -->
       <div class="tab-panel active" id="panel-account">
         <div class="setting-group">
-          <div class="setting-group-title"><i class="fa-solid fa-user" aria-hidden="true"></i> Student Profile</div>
+          <div class="setting-group-title"><i class="fa-solid fa-user"></i> Student Profile</div>
           <div class="setting-row">
             <div class="setting-info">
-              <div class="icon-circle"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i></div>
+              <div class="icon-circle"><i class="fa-solid fa-user-graduate"></i></div>
               <div>
                 <div class="label">Student / Scholar Name</div>
                 <div class="description">Displays in the header button and for study notes</div>
@@ -1640,13 +1706,13 @@
       <!-- TAB 2: GENERAL -->
       <div class="tab-panel" id="panel-general">
         <div class="setting-group">
-          <div class="setting-group-title"><i class="fa-solid fa-language" aria-hidden="true"></i> Workspace Language &amp; Basics</div>
+          <div class="setting-group-title"><i class="fa-solid fa-language"></i> Workspace Language &amp; Basics</div>
           <div class="setting-row">
             <div class="setting-info">
-              <div class="icon-circle"><i class="fa-solid fa-globe" aria-hidden="true"></i></div>
+              <div class="icon-circle"><i class="fa-solid fa-globe"></i></div>
               <div>
                 <div class="label">Site Language</div>
-                <div class="description">Select from 2 languages</div>
+                <div class="description">Select your preferred language (English / Hindi)</div>
               </div>
             </div>
             <select class="setting-select" id="siteLanguage" onchange="Settings.changeLanguage(this.value)"></select>
@@ -1657,10 +1723,10 @@
       <!-- TAB 3: APPEARANCE -->
       <div class="tab-panel" id="panel-appearance">
         <div class="setting-group">
-          <div class="setting-group-title"><i class="fa-solid fa-paint-brush" aria-hidden="true"></i> Theme &amp; Layout</div>
+          <div class="setting-group-title"><i class="fa-solid fa-paint-brush"></i> Theme &amp; Layout</div>
           <div class="setting-row">
             <div class="setting-info">
-              <div class="icon-circle"><i class="fa-solid fa-moon" aria-hidden="true"></i></div>
+              <div class="icon-circle"><i class="fa-solid fa-moon"></i></div>
               <div>
                 <div class="label">Dark Reading Mode</div>
                 <div class="description">High-contrast night reading theme</div>
@@ -1676,26 +1742,26 @@
       <!-- TAB 4: PRIVACY & SUPPORT -->
       <div class="tab-panel" id="panel-privacy">
         <div class="setting-group">
-          <div class="setting-group-title"><i class="fa-solid fa-headset" aria-hidden="true"></i> Official Support Desk</div>
+          <div class="setting-group-title"><i class="fa-solid fa-headset"></i> Official Support Desk</div>
           <div class="setting-row">
             <div class="setting-info">
-              <div class="icon-circle"><i class="fa-solid fa-envelope" aria-hidden="true"></i></div>
+              <div class="icon-circle"><i class="fa-solid fa-envelope"></i></div>
               <div>
                 <div class="label">Direct Support Email</div>
                 <div class="description">notespoint2026@gmail.com</div>
               </div>
             </div>
-            <a href="mailto:notespoint2026@gmail.com" class="header-chip-btn"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Contact Support</a>
+            <a href="mailto:notespoint2026@gmail.com" class="header-chip-btn"><i class="fa-solid fa-paper-plane"></i> Contact Support</a>
           </div>
         </div>
       </div>
 
       <div class="setting-actions">
         <button type="button" class="btn-hero-primary" style="padding:10px 24px;" onclick="Settings.save()">
-          <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Save Changes
+          <i class="fa-solid fa-floppy-disk"></i> Save Changes
         </button>
         <button type="button" class="btn-hero-secondary" style="padding:10px 20px;" onclick="Settings.reset()">
-          <i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Reset Defaults
+          <i class="fa-solid fa-rotate-left"></i> Reset Defaults
         </button>
       </div>
     </div>
@@ -1705,7 +1771,7 @@
   <div id="allReviewsModal" role="dialog" aria-modal="true" aria-label="Student Reviews">
     <div class="reviews-top-bar">
       <button type="button" class="reviews-back-btn" onclick="Reviews.closeModal()">
-        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to Homepage
+        <i class="fa-solid fa-arrow-left"></i> Back to Homepage
       </button>
       <span style="font-size:0.95rem; font-weight:800; color:var(--brand-navy);">Verified Student Feedback</span>
     </div>
@@ -1726,8 +1792,8 @@
         <label for="revUserName" style="display:none;">Your Name</label>
         <input type="text" id="revUserName" placeholder="Your Name" required>
 
-        <label for="revUserSubject" style="display:none;">Class / Subject</label>
-        <input type="text" id="revUserSubject" placeholder="Class / Subject (e.g. Class 10 Science)" required>
+        <label for="revUserSubject" style="display:none;">Class / Target Exam</label>
+        <input type="text" id="revUserSubject" placeholder="Class / Exam (e.g. Class 12 PCM / JEE Main)" required>
 
         <label for="revUserComment" style="display:none;">Your Review</label>
         <textarea id="revUserComment" rows="3" placeholder="Tell us how NotesPoint helped in your study preparation..." required></textarea>
@@ -1741,12 +1807,13 @@
 
   <!-- ACADEMIC WORKFLOW BANNER -->
   <section class="academic-workflow-bar" aria-label="Academic Workflow Standard">
-    <div class="workflow-bar-title" data-i18n="workflowTitle">STANDARDIZED K-12 ACADEMIC WORKSPACE</div>
+    <div class="workflow-bar-title" data-i18n="workflowTitle">STANDARDIZED K-12 &amp; ENTRANCE ACADEMIC WORKSPACE</div>
     <div class="workflow-chips-flex">
-      <div class="workflow-chip"><i class="fa-solid fa-book-open" style="color:var(--primary);" aria-hidden="true"></i> NCERT Line-by-Line Solutions</div>
-      <div class="workflow-chip"><i class="fa-solid fa-file-lines" style="color:var(--accent-amber);" aria-hidden="true"></i> Solved Question Blueprints</div>
-      <div class="workflow-chip"><i class="fa-solid fa-bolt" style="color:var(--primary-sage);" aria-hidden="true"></i> High-Yield Formula Sheets</div>
-      <div class="workflow-chip"><i class="fa-solid fa-mobile-screen-button" style="color:var(--accent-blue);" aria-hidden="true"></i> Instant In-App Mobile PDF Stream</div>
+      <div class="workflow-chip"><i class="fa-solid fa-book-open" style="color:var(--primary);"></i> NCERT Line-by-Line Solutions</div>
+      <div class="workflow-chip"><i class="fa-solid fa-atom" style="color:var(--accent-cyan);"></i> JEE/NEET High-Yield Sheets</div>
+      <div class="workflow-chip"><i class="fa-solid fa-file-lines" style="color:var(--accent-amber);"></i> Solved Question Blueprints</div>
+      <div class="workflow-chip"><i class="fa-solid fa-bolt" style="color:var(--primary-sage);"></i> High-Yield Formula Books</div>
+      <div class="workflow-chip"><i class="fa-solid fa-mobile-screen-button" style="color:var(--accent-blue);"></i> Instant Mobile PDF Stream</div>
     </div>
   </section>
 
@@ -1755,7 +1822,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <h2>NotesPoint</h2>
-        <p>Standardized Academic Resources and Handwritten Notes Repository.</p>
+        <p>Standardized Academic Resources, Handwritten Notes &amp; Competitive Entrance Repository.</p>
       </div>
 
       <div class="footer-col">
@@ -1769,12 +1836,12 @@
       </div>
 
       <div class="footer-col">
-        <h3>Direct Class Links</h3>
+        <h3>Direct Class &amp; Exams</h3>
         <ul>
-          <li><a href="student.html?class=primary">Primary (Class 1–5)</a></li>
-          <li><a href="student.html?class=middle">Middle (Class 6–8)</a></li>
-          <li><a href="student.html?class=10">Class 10 Secondary</a></li>
+          <li><a href="student.html?class=10">Class 10 Board Prep</a></li>
           <li><a href="student.html?class=12">Class 12 Senior Secondary</a></li>
+          <li><a href="student.html?class=competitive&exam=jee">JEE Main &amp; Advanced</a></li>
+          <li><a href="student.html?class=competitive&exam=neet">NEET-UG Medical Hub</a></li>
         </ul>
       </div>
 
@@ -1783,16 +1850,16 @@
         <p style="font-size: 0.85rem; color: #94A3B8; margin-bottom: 12px;">Connect with official student communities:</p>
         <div class="footer-social-icons">
           <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener noreferrer" class="f-social-btn telegram" title="Telegram Channel" aria-label="Telegram Channel">
-            <i class="fa-brands fa-telegram" aria-hidden="true"></i>
+            <i class="fa-brands fa-telegram"></i>
           </a>
           <a href="https://www.instagram.com/notespoint_?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener noreferrer" class="f-social-btn instagram" title="Instagram Profile" aria-label="Instagram Profile">
-            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            <i class="fa-brands fa-instagram"></i>
           </a>
           <a href="https://whatsapp.com/channel/0029VbDBkW7DuMRXnoY2Th11" target="_blank" rel="noopener noreferrer" class="f-social-btn whatsapp" title="WhatsApp Channel" aria-label="WhatsApp Community">
-            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+            <i class="fa-brands fa-whatsapp"></i>
           </a>
           <a href="mailto:notespoint2026@gmail.com" class="f-social-btn email" title="Email Us" aria-label="Send an email to NotesPoint">
-            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            <i class="fa-solid fa-envelope"></i>
           </a>
         </div>
       </div>
@@ -1809,13 +1876,13 @@
       <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='50' fill='%23059669'/><circle cx='35' cy='45' r='8' fill='%230F172A'/><circle cx='65' cy='45' r='8' fill='%230F172A'/><path d='M35 65 Q50 80 65 65' stroke='%230F172A' stroke-width='5' fill='none'/><circle cx='50' cy='18' r='5' fill='%2310B981'/><line x1='50' y1='23' x2='50' y2='32' stroke='%2310B981' stroke-width='4'/></svg>" alt="AI Assistant Icon">
     </button>
     <a href="https://whatsapp.com/channel/0029VbDBkW7DuMRXnoY2Th11" target="_blank" rel="noopener noreferrer" class="dock-circle-btn whatsapp-dock-btn" title="WhatsApp Channel" aria-label="WhatsApp Community">
-      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+      <i class="fa-brands fa-whatsapp"></i>
     </a>
     <a href="https://www.instagram.com/notespoint_?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener noreferrer" class="dock-circle-btn insta-dock-btn" title="Instagram Page" aria-label="Instagram Profile">
-      <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+      <i class="fa-brands fa-instagram"></i>
     </a>
     <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener noreferrer" class="dock-circle-btn telegram-dock-btn" title="Telegram Channel" aria-label="Telegram Group">
-      <i class="fa-brands fa-telegram" aria-hidden="true"></i>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
     </a>
   </div>
 
@@ -1823,7 +1890,7 @@
   <div id="aiChatModal" role="dialog" aria-modal="true" aria-label="AI Academic Assistant">
     <div class="chat-header">
       <div style="display:flex; align-items:center; gap:8px;">
-        <i class="fa-solid fa-robot" aria-hidden="true"></i>
+        <i class="fa-solid fa-robot"></i>
         <div>
           <strong style="display:block; font-size:0.88rem;">NotesPoint AI Tutor</strong>
           <span style="font-size:0.7rem; opacity:0.85;">24x7 Multi-lingual Academic Assistant</span>
@@ -1831,7 +1898,7 @@
       </div>
       <div style="display:flex; align-items:center; gap:6px;">
         <button type="button" onclick="Chatbot.clearChat()" title="Clear Chat" style="background:none; border:none; color:#FFF; cursor:pointer; font-size:0.85rem;" aria-label="Clear chat messages">
-          <i class="fa-solid fa-trash" aria-hidden="true"></i>
+          <i class="fa-solid fa-trash"></i>
         </button>
         <button type="button" onclick="Chatbot.close()" style="background:none; border:none; color:#FFF; cursor:pointer; font-size:1.3rem; margin-left:4px;" aria-label="Close Chat">&times;</button>
       </div>
@@ -1847,24 +1914,40 @@
 
     <div id="aiChatMessages" class="chat-body-feed" aria-live="polite">
       <div class="chat-msg-bot" id="chatWelcomeMsg">
-        👋 <strong>नमस्ते!</strong> मैं हूँ <strong>NotesPoint AI Tutor</strong>। आप मुझसे किसी भी क्लास (1–12), फॉर्मूले, साइंस या कोडिंग का सवाल पूछ सकते हैं या <strong>"quiz physics"</strong> टाइप करके टेस्ट ले सकते हैं!
+        👋 <strong>नमस्ते!</strong> मैं हूँ <strong>NotesPoint AI Tutor</strong>। आप मुझसे किसी भी क्लास (1–12), JEE, NEET, CUET या NDA के फॉर्मूले और डाउट्स पूछ सकते हैं!
       </div>
     </div>
 
     <div style="padding:10px; background:var(--card-bg); border-top:1px solid var(--border-color); display:flex; gap:8px;">
-      <input type="text" id="aiUserInput" placeholder="Ask anything (e.g. Newton's law, quiz math)..." style="flex:1; padding:8px 12px; border:1px solid var(--border-color); border-radius:8px; font-size:0.85rem; outline:none; background:var(--paper-bg); color:var(--brand-navy);" onkeypress="if(event.key === 'Enter') Chatbot.sendMessage()">
+      <input type="text" id="aiUserInput" placeholder="Ask anything (e.g. Newton's law, JEE math, quiz)..." style="flex:1; padding:8px 12px; border:1px solid var(--border-color); border-radius:8px; font-size:0.85rem; outline:none; background:var(--paper-bg); color:var(--brand-navy);" onkeypress="if(event.key === 'Enter') Chatbot.sendMessage()">
       <button type="button" onclick="Chatbot.sendMessage()" style="background:var(--primary); color:#FFF; border:none; padding:8px 14px; border-radius:8px; font-weight:700; cursor:pointer;" aria-label="Send Message">
-        <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+        <i class="fa-solid fa-paper-plane"></i>
       </button>
     </div>
   </div>
 
+  <!-- Firebase Core SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
   <script>
     "use strict";
 
-    // ================================================================
-    // ONLY ENGLISH AND HINDI – All other languages removed.
-    // ================================================================
+    // 1. Firebase Initialization for Live Review Sync
+    const firebaseConfig = {
+      apiKey: "AIzaSyB8Q233ol5opi0Io8tEp498yDEmMesjmgE",
+      authDomain: "notes-point-215c8.firebaseapp.com",
+      projectId: "notes-point-215c8",
+      storageBucket: "notes-point-215c8.firebasestorage.app",
+      messagingSenderId: "945990871633",
+      appId: "1:945990871633:web:4cfd8339055182317fa670"
+    };
+
+    if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const db = (typeof firebase !== 'undefined') ? firebase.firestore() : null;
+
     const LANGUAGES = [
       { code: 'en', name: 'English' },
       { code: 'hi', name: 'हिन्दी (Hindi)' }
@@ -1873,10 +1956,11 @@
     const TRANSLATIONS = {
       en: {
         navClasses: "Class 1–12",
+        navCompetitive: "Competitive Exams",
         navFaq: "FAQs",
         navSettings: "Settings",
         heroTitle: "Great notes <br>shouldn't end <br>with you.",
-        heroSubtitle: "NotesPoint is a curated academic repository of topper-style handwritten notes, NCERT solutions, and revision papers for Class 1 to Class 12.",
+        heroSubtitle: "NotesPoint is a curated academic repository of topper-style handwritten notes, NCERT solutions, and revision papers for Class 1 to Class 12 & Competitive Entrance Aspirants.",
         heroCtaExplore: "Explore Resources",
         heroCtaBot: "Ask AI Bot",
         valF1Title: "NCERT Aligned",
@@ -1889,6 +1973,8 @@
         valF4Desc: "Zero barrier open access",
         classesHeading: "CLASS 1 TO 12 CURRICULUM",
         classesSubtitle: "Tap your class to open subject notes and solutions directly.",
+        compHeading: "COMPETITIVE ENTRANCE HUB",
+        compSubtitle: "Direct formula books, quick derivations & solved practice sets for entrance exams.",
         reviewsBtnText: "What Students Say About NotesPoint ★",
         supportDeskBtn: "Verified Support & Privacy Desk",
         faqHeading: "Frequently Asked Questions",
@@ -1898,20 +1984,21 @@
         faq2Q: "Is account creation or registration mandatory?",
         faq2A: "No registration or phone login is required. You can directly tap on your class, select your subject, and view or download notes instantly.",
         faq3Q: "How can I access and download study notes on mobile?",
-        faq3A: "Simply tap any class card above (Class 1–12). The documents open seamlessly inside your mobile browser without demanding third-party PDF viewers.",
-        faq4Q: "Are these notes aligned with the latest CBSE & State Board syllabus?",
-        faq4A: "Yes, our resources are curated in alignment with the latest rationalized NCERT textbooks and curriculum updates, including high-yield formulas and essential derivations.",
+        faq3A: "Simply tap any class card above (Class 1–12 or Competitive). The documents open seamlessly inside your mobile browser without demanding third-party PDF viewers.",
+        faq4Q: "Are competitive exams (JEE, NEET, CUET, NDA) material available?",
+        faq4A: "Yes! We provide dedicated high-yield formula sheets, physics derivations, organic reaction mechanisms, and past year questions for JEE Main, NEET-UG, CUET and NDA.",
         faq5Q: "How does the 24/7 AI Tutor work?",
         faq5A: "You can tap the floating green bot icon anytime to ask textbook doubts, request formulas, get line-by-line concept explanations, or launch an instant topic quiz.",
-        workflowTitle: "STANDARDIZED K-12 ACADEMIC WORKSPACE",
+        workflowTitle: "STANDARDIZED K-12 & ENTRANCE ACADEMIC WORKSPACE",
         settingsTitle: "Settings & Preferences"
       },
       hi: {
         navClasses: "कक्षा 1–12",
+        navCompetitive: "प्रतियोगी परीक्षा",
         navFaq: "अक्सर पूछे जाने वाले सवाल",
         navSettings: "सेटिंग्स",
         heroTitle: "शानदार नोट्स <br>सिर्फ आप तक सीमित <br>नहीं रहने चाहिए।",
-        heroSubtitle: "NotesPoint कक्षा 1 से 12 तक के टॉपर्स के हस्तलिखित नोट्स, एनसीईआरटी समाधान और रिवीज़न पेपर्स का एक संगठित मंच है।",
+        heroSubtitle: "NotesPoint कक्षा 1 से 12 तक के टॉपर्स के हस्तलिखित नोट्स, एनसीईआरटी समाधान, जेईई, नीट, सीयूईटी और एनडीए का एक संगठित मंच है।",
         heroCtaExplore: "नोट्स देखें",
         heroCtaBot: "एआई सहायक से पूछें",
         valF1Title: "NCERT आधारित",
@@ -1924,28 +2011,26 @@
         valF4Desc: "पूरी तरह से मुफ़्त अध्ययन",
         classesHeading: "कक्षा 1 से 12 पाठ्यक्रम",
         classesSubtitle: "अपनी कक्षा चुनें और सीधे विषयवार नोट्स व समाधान खोलें।",
+        compHeading: "प्रतियोगी परीक्षा हब (JEE / NEET / CUET / NDA)",
+        compSubtitle: "प्रतियोगी परीक्षाओं के लिए सीधे फॉर्मूला शीट्स, ट्रिक्स और हल किए गए पेपर्स।",
         reviewsBtnText: "छात्रों की राय NotesPoint के बारे में ★",
         supportDeskBtn: "सत्यापित सहायता एवं गोपनीयता डेस्क",
         faqHeading: "अक्सर पूछे जाने वाले प्रश्न",
         faqSubtitle: "स्टडी पोर्टल से जुड़ी महत्वपूर्ण जानकारी",
         faq1Q: "क्या सभी अध्ययन सामग्री और पीडीएफ पूरी तरह मुफ्त हैं?",
-        faq1A: "हाँ, 100%! सभी अध्याय नोट्स, टॉपर्स हस्तलिखित शीट्स, एनसीईआरटी समाधान और फॉर्मूला बुक्स बिना किसी सब्सक्रिप्शन के मुफ्त हैं।",
+        faq1A: "हाँ, 100%! सभी अध्याय नोट्स, टॉपर्स हस्तलिखित शीट्स, एनसीईआरटी समाधान और फॉर्मूला बुक्स बिना किसी शुल्क के मुफ्त हैं।",
         faq2Q: "क्या पीडीएफ पढ़ने के लिए खाता बनाना अनिवार्य है?",
-        faq2A: "कोई खाता या लॉगिन आवश्यक नहीं है। आप सीधे किसी भी कक्षा पर टैप करके अध्ययन शुरू कर सकते हैं।",
+        faq2A: "कोई खाता या लॉगिन आवश्यक नहीं है। आप सीधे किसी भी कक्षा या परीक्षा पर टैप करके अध्ययन शुरू कर सकते हैं।",
         faq3Q: "मोबाइल पर नोट्स कैसे डाउनलोड और पढ़ें?",
         faq3A: "ऊपर दिए गए कक्षा कार्ड पर टैप करें। पीडीएफ सीधे आपके मोबाइल ब्राउज़र में बिना किसी रुकावट के खुल जाएगी।",
-        faq4Q: "क्या यह नोट्स नवीनतम पाठ्यक्रम के अनुसार हैं?",
-        faq4A: "हाँ, सभी नोट्स नवीनतम एनसीईआरटी पाठ्यक्रम और बोर्ड परीक्षाओं के पैटर्न पर आधारित हैं।",
+        faq4Q: "क्या प्रतियोगी परीक्षाओं (JEE, NEET, CUET, NDA) के नोट्स उपलब्ध हैं?",
+        faq4A: "हाँ! जेईई मेन, नीट, सीयूईटी और एनडीए के लिए फॉर्मूला बुक्स और पिछले वर्षों के पेपर्स उपलब्ध हैं।",
         faq5Q: "24/7 एआई ट्यूटर कैसे काम करता है?",
         faq5A: "आप कभी भी ग्रीन बॉट आइकन पर टैप करके अपने डाउट्स पूछ सकते हैं या फॉर्मूला और क्विज़ प्राप्त कर सकते हैं।",
-        workflowTitle: "मानकीकृत K-12 शैक्षणिक वर्कस्पेस",
+        workflowTitle: "मानकीकृत K-12 और प्रतियोगी शैक्षणिक वर्कस्पेस",
         settingsTitle: "सेटिंग्स और प्राथमिकताएं"
       }
     };
-
-    // ================================================================
-    // ALL OTHER CODE REMAINS EXACTLY THE SAME (Theme, Settings, UI, Reviews, Chatbot)
-    // ================================================================
 
     const CLASSES_DATA = [
       { num: 1, name: "Class 1", subtitle: "Primary", icon: "fa-child", styleClass: "c-nat-1" },
@@ -2096,7 +2181,7 @@
         if (!container) return;
         container.innerHTML = CLASSES_DATA.map(c => `
           <a href="student.html?class=${c.num}" class="class-box-card ${c.styleClass}" aria-label="${c.name} ${c.subtitle}">
-            <div class="class-avatar-badge"><i class="fa-solid ${c.icon}" aria-hidden="true"></i></div>
+            <div class="class-avatar-badge"><i class="fa-solid ${c.icon}"></i></div>
             <strong>${c.name}</strong><span>${c.subtitle}</span>
           </a>
         `).join("");
@@ -2158,7 +2243,7 @@
         });
       },
 
-      handleSubmit(e) {
+      async handleSubmit(e) {
         e.preventDefault();
         const nameInput = document.getElementById("revUserName");
         const subjectInput = document.getElementById("revUserSubject");
@@ -2175,19 +2260,33 @@
           userClass: userSubject || "Student",
           comment,
           rating: this.currentRating,
-          date: "Just now"
+          date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+          timestamp: new Date().toISOString()
         };
 
+        // 1. Save locally for instant UI update
         try {
           const saved = JSON.parse(localStorage.getItem("np_real_reviews") || "[]");
           saved.unshift(newReview);
           localStorage.setItem("np_real_reviews", JSON.stringify(saved));
         } catch (err) {}
 
+        // 2. Sync to Firebase Firestore so admin can download in CSV/Excel
+        if (db) {
+          try {
+            await db.collection("reviews").add({
+              ...newReview,
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+          } catch(err) {
+            console.error("Firestore Review Save Error:", err);
+          }
+        }
+
         e.target.reset();
         this.setRating(5);
         this.loadFeed();
-        Toast.show("Review published successfully!");
+        Toast.show("Review submitted successfully & synced with admin!");
       },
 
       loadFeed() {
@@ -2196,7 +2295,7 @@
 
         let reviews = [
           { name: "Verified Student", userClass: "Physics Derivations", rating: 5, comment: "Derivations and mechanisms are super clear and directly aligned with NCERT.", date: "August 2026" },
-          { name: "Active Scholar", userClass: "Class 10 Science", rating: 5, comment: "Fast loading handwritten notes without unnecessary ads. Loved the UI!", date: "August 2026" }
+          { name: "JEE Aspirant", userClass: "JEE Main Physics", rating: 5, comment: "High-yield short tricks & formula sheets helped in my revision!", date: "August 2026" }
         ];
 
         try {
@@ -2297,7 +2396,7 @@
         this.appendMessage("user", query);
 
         setTimeout(() => {
-          let reply = `📚 <strong>NotesPoint AI:</strong> Query received: <em>"${this.escapeHTML(query)}"</em>.<br>Explore the <strong>Class 1 to 12</strong> cards above for complete chapter solutions and formula books!`;
+          let reply = `📚 <strong>NotesPoint AI:</strong> Query received: <em>"${this.escapeHTML(query)}"</em>.<br>Explore the <strong>Class 1 to 12 & Competitive Hub</strong> above for complete chapter solutions and formula books!`;
           if (query.toLowerCase().includes("ohm")) {
             reply = `⚡ <strong>Ohm's Law:</strong> V = I × R (Potential difference is directly proportional to Current at constant temperature).`;
           }
@@ -2319,7 +2418,7 @@
         if (this.history.length === 0) {
           container.innerHTML = `
             <div class="chat-msg-bot">
-              👋 <strong>नमस्ते!</strong> मैं हूँ <strong>NotesPoint AI Tutor</strong>। आप मुझसे किसी भी क्लास (1–12), फॉर्मूले, साइंस या कोडिंग का सवाल पूछ सकते हैं!
+              👋 <strong>नमस्ते!</strong> मैं हूँ <strong>NotesPoint AI Tutor</strong>। आप मुझसे किसी भी क्लास (1–12), JEE, NEET, CUET या NDA के फॉर्मूले और डाउट्स पूछ सकते हैं!
             </div>
           `;
           return;
