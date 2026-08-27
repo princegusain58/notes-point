@@ -2,644 +2,1231 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>NotesPoint — Enterprise Super Admin Master Control Console</title>
 
   <!-- Google Typography Fonts Engine -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Favicon Icon for Notes Point Admin Console -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+  <!-- Favicon Icon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
 
-  <!-- FontAwesome Icons Engine v6.4.0 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- FontAwesome Icons Engine v6.5.1 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- Master Admin Control System Stylesheet -->
-  <link rel="stylesheet" href="admin.css">
+  <style>
+    :root {
+      --primary: #059669;
+      --primary-hover: #047857;
+      --primary-dark: #064E3B;
+      --primary-light: #ECFDF5;
+      --primary-mint: #D1FAE5;
+      --primary-sage: #34D399;
+      
+      --accent-cyan: #06B6D4;
+      --accent-amber: #F59E0B;
+      --accent-blue: #2563EB;
+      --accent-purple: #7C3AED;
+      --accent-rose: #E11D48;
+      
+      --brand-navy: #0F172A;
+      --brand-slate: #1E293B;
+      --slate-800: #1E293B;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748B;
+      --slate-400: #94A3B8;
+      --slate-300: #CBD5E1;
+      --slate-200: #E2E8F0;
+      --slate-100: #F8FAFC;
+      
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --paper-bg: #F8FAFC;
+      
+      --radius-2xl: 20px;
+      --radius-xl: 16px;
+      --radius-lg: 12px;
+      --radius-md: 8px;
+      --radius-sm: 6px;
+      
+      --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 6px 20px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
+      
+      --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      --transition-fast: 0.18s ease;
+      --transition-normal: 0.28s ease;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box !important;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100% !important;
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      position: relative;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body.admin-body {
+      font-family: var(--font-main);
+      background-color: var(--paper-bg);
+      color: var(--brand-navy);
+      min-height: 100vh;
+      display: flex;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font-family: inherit; }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--paper-bg); }
+    ::-webkit-scrollbar-thumb { background: var(--slate-300); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--slate-400); }
+
+    /* ==========================================================================
+       0. PIN SECURITY LOCK MODAL
+       ========================================================================== */
+    .admin-pin-lock-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, #1E293B 0%, #0F172A 100%);
+      z-index: 9999999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .pin-card-box {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-2xl);
+      padding: 36px 28px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .pin-icon-shield {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 1.8rem;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 16px auto;
+    }
+
+    .pin-input-field {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1.6rem;
+      letter-spacing: 12px;
+      text-align: center;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      font-family: var(--font-mono);
+      font-weight: 800;
+      outline: none;
+      margin: 18px 0;
+      background: #F8FAFC;
+    }
+
+    .pin-input-field:focus {
+      border-color: var(--primary);
+      background: #FFF;
+    }
+
+    /* ==========================================================================
+       SIDEBAR NAVIGATION DRAWER
+       ========================================================================== */
+    .admin-shell {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .admin-sidebar {
+      width: 270px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: var(--card-bg);
+      border-right: 1.5px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 1000;
+      box-shadow: 4px 0 20px rgba(15, 23, 42, 0.03);
+    }
+
+    .sidebar-brand {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1.5px solid var(--border-color);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .brand-logo-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: #FFFFFF;
+      display: grid;
+      place-items: center;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+      flex-shrink: 0;
+    }
+
+    .sidebar-quick-export-box {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+      background: #FAFAFA;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 16px 14px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .menu-category-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--slate-400);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin: 16px 8px 8px 8px;
+    }
+
+    .sidebar-menu .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 14px;
+      border-radius: var(--radius-md);
+      color: var(--slate-700);
+      font-weight: 700;
+      font-size: 0.88rem;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-menu .nav-item:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    .sidebar-menu .nav-item.active {
+      background: var(--primary) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);
+    }
+
+    .menu-count-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 12px;
+      background: var(--slate-200);
+      color: var(--slate-700);
+    }
+
+    .menu-count-badge.green {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .sidebar-menu .nav-item.active .menu-count-badge {
+      background: rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+    }
+
+    .sidebar-footer {
+      padding: 16px;
+      border-top: 1.5px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--slate-100);
+    }
+
+    .admin-user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #FFFFFF;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    .user-name {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--brand-navy);
+      display: block;
+    }
+
+    .user-role {
+      font-size: 0.72rem;
+      color: var(--slate-500);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       MAIN WORKSPACE & TOP HEADER TOOLBAR
+       ========================================================================== */
+    .admin-main {
+      margin-left: 270px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      width: calc(100% - 270px);
+    }
+
+    .admin-topbar {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1.5px solid var(--border-color);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 900;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .sidebar-toggle-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      color: var(--brand-navy);
+      cursor: pointer;
+    }
+
+    .topbar-clock-chip {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(5, 150, 105, 0.15);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-topbar-action {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--brand-navy);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .btn-topbar-action:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .admin-workspace {
+      padding: 28px;
+      flex: 1;
+    }
+
+    .workspace-section { display: none; }
+    .workspace-section.active { display: block; animation: fadeIn 0.2s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       METRIC STATS & CHARTS
+       ========================================================================== */
+    .stats-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+    .stat-icon.blue   { background: #EFF6FF; color: var(--accent-blue); }
+    .stat-icon.green  { background: var(--primary-light); color: var(--primary); }
+    .stat-icon.purple { background: #F3E8FF; color: var(--accent-purple); }
+    .stat-icon.orange { background: #FEF3C7; color: var(--accent-amber); }
+
+    .stat-data .stat-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--slate-500);
+      display: block;
+    }
+
+    .stat-data h3 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--brand-navy);
+      margin: 2px 0 4px 0;
+    }
+
+    .stat-trend {
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .stat-trend.positive { color: var(--primary); }
+    .stat-trend.neutral { color: var(--accent-amber); }
+
+    .analytics-panels-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .analytics-panels-row { grid-template-columns: 1fr; }
+    }
+
+    .custom-bar-chart {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 190px;
+      padding-top: 20px;
+      gap: 12px;
+    }
+
+    .chart-bar-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+    }
+
+    .bar-value { font-size: 0.75rem; font-weight: 800; color: var(--brand-navy); margin-bottom: 4px; }
+    .bar-label { font-size: 0.75rem; font-weight: 700; color: var(--slate-500); margin-top: 6px; }
+
+    .bar-track {
+      width: 100%;
+      max-width: 44px;
+      height: 130px;
+      background: var(--slate-100);
+      border-radius: 6px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      width: 100%;
+      background: var(--accent-blue);
+      border-radius: 6px 6px 0 0;
+      transition: height 0.6s ease;
+    }
+    .bar-fill.purple { background: var(--accent-purple); }
+    .bar-fill.green  { background: var(--primary); }
+    .bar-fill.orange { background: var(--accent-amber); }
+    .bar-fill.cyan   { background: var(--accent-cyan); }
+    .bar-fill.red    { background: var(--accent-rose); }
+
+    .quick-buttons-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .btn-quick-action {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-color);
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--brand-navy);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all var(--transition-fast);
+      text-align: left;
+    }
+
+    .btn-quick-action:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+      transform: translateX(4px);
+    }
+
+    .btn-quick-action.danger:hover {
+      border-color: #EF4444;
+      color: #EF4444;
+      background: #FEF2F2;
+    }
+
+    .panel-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+
+    .panel-header-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .panel-header-toolbar h3, .panel-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--brand-navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .panel-header-toolbar p, .panel-card p {
+      font-size: 0.82rem;
+      color: var(--slate-500);
+      margin: 0;
+    }
+
+    /* ==========================================================================
+       FORM STYLES & BULK MULTI-FILE QUEUE
+       ========================================================================== */
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-group label {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .input-group select,
+    .input-group input,
+    .input-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      outline: none;
+      font-family: inherit;
+      background: #FFFFFF;
+      color: var(--brand-navy);
+      transition: border-color var(--transition-fast);
+    }
+
+    .input-group select:focus,
+    .input-group input:focus,
+    .input-group textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .drop-zone-area {
+      border: 2px dashed var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 32px 20px;
+      text-align: center;
+      background: var(--paper-bg);
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: all var(--transition-fast);
+    }
+
+    .drop-zone-area:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .cloud-icon-circle {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 1.6rem;
+      margin: 0 auto 10px auto;
+    }
+
+    .btn-admin-primary {
+      background: var(--primary);
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 22px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-admin-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-admin-secondary {
+      background: #FFFFFF;
+      color: var(--slate-700);
+      border: 1.5px solid var(--border-color);
+      padding: 10px 20px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-admin-secondary:hover {
+      border-color: var(--slate-400);
+      background: var(--slate-100);
+    }
+
+    .bulk-row-input {
+      width: 100%;
+      padding: 6px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      outline: none;
+      background: #FFF;
+      color: var(--brand-navy);
+    }
+
+    /* ==========================================================================
+       DATA DIRECTORY TABLE
+       ========================================================================== */
+    .table-responsive-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: #FFFFFF;
+    }
+
+    .admin-data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    .admin-data-table th {
+      background: var(--slate-100);
+      padding: 12px 14px;
+      font-weight: 700;
+      color: var(--slate-700);
+      border-bottom: 1.5px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    .admin-data-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+      color: var(--slate-600);
+    }
+
+    .admin-data-table tr:hover {
+      background: #F8FAFC;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 992px) {
+      .admin-sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+      .admin-sidebar.open { transform: translateX(0); }
+      .admin-main { margin-left: 0 !important; width: 100% !important; }
+      .sidebar-toggle-btn { display: block; }
+    }
+
+    @media (max-width: 600px) {
+      .admin-topbar { padding: 12px 16px; }
+      .admin-workspace { padding: 16px; }
+      .form-grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body class="admin-body">
 
   <!-- ==========================================================================
-     TOP SYSTEM ANNOUNCEMENT / MAINTENANCE BANNER (GLOBAL CONTROL)
+     PIN SECURITY LOCK SCREEN OVERLAY (PIN: 2008)
      ========================================================================== -->
+  <div id="adminPinLockModal" class="admin-pin-lock-overlay">
+    <div class="pin-card-box">
+      <div class="pin-icon-shield">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <h2 style="font-family:var(--font-heading); font-size:1.35rem; font-weight:800; color:var(--brand-navy); margin-bottom:4px;">Admin Portal Access</h2>
+      <p style="font-size:0.82rem; color:var(--slate-500); margin:0;">Enter 4-Digit Master PIN to unlock console</p>
+
+      <form id="pinUnlockForm" onsubmit="AdminController.verifySecurityPin(event)">
+        <input type="password" id="adminPinInput" class="pin-input-field" maxlength="4" placeholder="••••" autofocus required>
+        <button type="submit" class="btn-admin-primary" style="width:100%; justify-content:center; padding:12px;">
+          <i class="fa-solid fa-key"></i> Unlock Dashboard
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOP SYSTEM BANNER -->
   <div id="systemTopNotificationBar" class="admin-system-banner" style="display: none;">
     <div class="banner-content">
       <i class="fa-solid fa-triangle-exclamation"></i>
-      <span><strong>SYSTEM ALERT:</strong> Live Synchronization Engine Active. Local Cache Synced with Firebase Cloud Storage.</span>
+      <span><strong>SYSTEM ALERT:</strong> Live Synchronization Active. Data Synced with Firebase Cloud Storage.</span>
     </div>
-    <button class="banner-close-btn" onclick="document.getElementById('systemTopNotificationBar').style.display='none'">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
+    <button type="button" class="banner-close-btn" onclick="document.getElementById('systemTopNotificationBar').style.display='none'">&times;</button>
   </div>
 
+  <div id="adminDashboardShell" class="admin-shell" style="display: none;">
 
-  <!-- ==========================================================================
-     MAIN SHELL WRAPPER CONTAINER
-     ========================================================================== -->
-  <div id="adminDashboardShell" class="admin-shell">
+    <!-- SIDEBAR NAVIGATION DRAWER -->
+    <aside class="admin-sidebar" id="appAdminSidebar">
+      <div>
+        <div class="sidebar-brand" onclick="window.location.href='index.html'">
+          <div class="brand-logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <div>
+            <span style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; display:block; color:var(--brand-navy);">NotesPoint</span>
+            <span style="font-size:0.72rem; color:var(--slate-500); font-weight:700;">ERP Super Admin</span>
+          </div>
+        </div>
 
-    <!-- ==========================================================================
-       SIDEBAR NAVIGATION DRAWER (LEFT COMMAND PANEL)
-       ========================================================================== -->
-    <aside class="admin-sidebar">
-      <div class="sidebar-brand">
-        <div class="brand-logo-icon">
-          <i class="fa-solid fa-layer-group"></i>
+        <div class="sidebar-quick-export-box">
+          <button type="button" onclick="AdminController.exportVisitorsCSV()" class="btn-admin-primary" style="background:#10B981; padding:8px 12px; font-size:0.8rem; width:100%; justify-content:center;">
+            <i class="fa-solid fa-file-excel"></i> <span>Export Traffic (CSV)</span>
+          </button>
+          <button type="button" onclick="AdminController.exportFeedbacksCSV()" class="btn-admin-primary" style="background:#2563EB; padding:8px 12px; font-size:0.8rem; width:100%; justify-content:center;">
+            <i class="fa-solid fa-comments"></i> <span>Export Reviews (CSV)</span>
+          </button>
         </div>
-        <div class="brand-info">
-          <span class="brand-title">NotesPoint</span>
-          <span class="brand-subtitle">Enterprise Command Center</span>
-        </div>
+
+        <nav class="sidebar-menu">
+          <div class="menu-category-label">Core Management</div>
+          <a class="nav-item active" data-target="overviewSection">
+            <span><i class="fa-solid fa-chart-pie" style="margin-right:8px;"></i> Overview Analytics</span>
+          </a>
+          <a class="nav-item" data-target="uploaderSection">
+            <span><i class="fa-solid fa-cloud-arrow-up" style="margin-right:8px;"></i> Bulk PDF Uploader</span>
+            <span class="menu-count-badge green">SYNC</span>
+          </a>
+          <a class="nav-item" data-target="directorySection">
+            <span><i class="fa-solid fa-folder-tree" style="margin-right:8px;"></i> Content Directory</span>
+          </a>
+
+          <div class="menu-category-label">Broadcast &amp; Moderation</div>
+          <a class="nav-item" data-target="tickerSection">
+            <span><i class="fa-solid fa-bullhorn" style="margin-right:8px;"></i> Running Ticker</span>
+          </a>
+          <a class="nav-item" data-target="queriesSection">
+            <span><i class="fa-solid fa-headset" style="margin-right:8px;"></i> Student Queries</span>
+            <span id="badgeQueriesCount" class="menu-count-badge">0</span>
+          </a>
+          <a class="nav-item" data-target="visitorsSection">
+            <span><i class="fa-solid fa-users-viewfinder" style="margin-right:8px;"></i> Traffic Tracker</span>
+            <span class="menu-count-badge green">LIVE</span>
+          </a>
+        </nav>
       </div>
 
-      <!-- Quick Action Excel Buttons Drawer -->
-      <div class="sidebar-quick-export-box" style="padding: 12px 15px; border-bottom: 1px solid rgba(226, 232, 240, 0.8);">
-        <button type="button" id="downloadUsersExcelBtn" class="admin-btn-primary" style="background: #10B981; color: #ffffff; border: none; padding: 10px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);">
-          <i class="fa-solid fa-file-excel"></i>
-          <span>Visitors Traffic Excel (CSV)</span>
-        </button>
-        <button type="button" id="exportFeedbackExcelBtn" class="admin-btn-secondary" style="background: #2563EB; color: #ffffff; border: none; padding: 10px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 8px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);">
-          <i class="fa-solid fa-comments"></i>
-          <span>Export Feedback (CSV)</span>
-        </button>
-      </div>
-
-      <!-- Navigation Menu Item Links -->
-      <nav class="sidebar-menu">
-        <div class="menu-category-label">CORE MANAGEMENT</div>
-
-        <a href="#overview" class="nav-item active" data-target="overviewSection">
-          <i class="fa-solid fa-chart-pie"></i>
-          <span>Overview Analytics</span>
-        </a>
-
-        <a href="#visitors" class="nav-item" data-target="visitorsSection">
-          <i class="fa-solid fa-users-viewfinder"></i>
-          <span>Live Traffic Tracker</span>
-          <span id="visitorCountBadge" class="menu-count-badge green">LIVE</span>
-        </a>
-
-        <a href="#uploader" class="nav-item" data-target="uploaderSection">
-          <i class="fa-solid fa-cloud-arrow-up"></i>
-          <span>Bulk PDF Uploader</span>
-        </a>
-
-        <a href="#directory" class="nav-item" data-target="directorySection">
-          <i class="fa-solid fa-folder-tree"></i>
-          <span>Content Directory</span>
-        </a>
-
-        <div class="menu-category-label">BROADCAST & MODERATION</div>
-
-        <a href="#ticker" class="nav-item" data-target="tickerSection">
-          <i class="fa-solid fa-bullhorn"></i>
-          <span>Ticker Announcements</span>
-        </a>
-
-        <a href="#reviews" class="nav-item" data-target="reviewsSection">
-          <i class="fa-solid fa-comments"></i>
-          <span>Review Moderation</span>
-          <span id="pendingReviewsBadge" class="menu-count-badge">0</span>
-        </a>
-
-        <div class="menu-category-label">SYSTEM CONFIGURATION</div>
-
-        <a href="#maintenance" class="nav-item" data-target="maintenanceSection">
-          <i class="fa-solid fa-sliders"></i>
-          <span>Maintenance Controls</span>
-        </a>
-
-        <a href="#logs" class="nav-item" data-target="logsSection">
-          <i class="fa-solid fa-clock-rotate-left"></i>
-          <span>Audit Activity Logs</span>
-        </a>
-      </nav>
-
-      <!-- Sidebar System Status Footer -->
       <div class="sidebar-footer">
         <div class="admin-user-info">
-          <div class="avatar-circle">
-            <i class="fa-solid fa-user-gear"></i>
-          </div>
-          <div class="user-details">
-            <span class="user-name">NotesPoint Admin</span>
-            <span class="user-role">System Master Manager</span>
+          <div class="avatar-circle">A</div>
+          <div>
+            <span class="user-name">Master Faculty</span>
+            <span class="user-role">Super Admin Controller</span>
           </div>
         </div>
-        <a href="index.html" class="btn-icon-danger" title="Exit to Website">
+        <a href="index.html" style="color:#DC2626; font-size:1.1rem; text-decoration:none;" title="Exit to Public Site">
           <i class="fa-solid fa-arrow-right-from-bracket"></i>
         </a>
       </div>
     </aside>
 
-
-    <!-- ==========================================================================
-       MAIN WORKSPACE AREA CONTAINER
-       ========================================================================== -->
+    <!-- MAIN WORKSPACE -->
     <main class="admin-main">
-
-      <!-- Dashboard Top Header Toolbar -->
       <header class="admin-topbar">
         <div class="topbar-left">
-          <button id="toggleSidebarMobile" class="sidebar-toggle-btn" title="Toggle Menu">
+          <button type="button" class="sidebar-toggle-btn" onclick="document.getElementById('appAdminSidebar').classList.toggle('open')">
             <i class="fa-solid fa-bars"></i>
           </button>
           <div>
-            <h1 id="pageSectionTitle">Dashboard Overview & Analytics</h1>
-            <p class="topbar-subtitle" style="font-size: 0.8rem; color: #64748B; margin: 0;">Real-time content management, multi-PDF upload & traffic tracking engine</p>
+            <h1 id="pageSectionTitle" style="font-family:var(--font-heading); font-size:1.25rem; font-weight:800; color:var(--brand-navy); margin:0;">Dashboard Overview &amp; Analytics</h1>
+            <p style="font-size:0.8rem; color:var(--slate-500); margin:0;">Real-time content management, multi-PDF upload &amp; traffic tracking engine</p>
           </div>
         </div>
 
-        <div class="topbar-right">
-          <!-- Live Date & Clock Badges -->
+        <div style="display:flex; align-items:center; gap:12px;">
           <div class="topbar-clock-chip">
-            <span id="adminLiveDate"><i class="fa-regular fa-calendar-days"></i> Syncing...</span>
-            <span id="adminLiveClock" class="clock-accent"><i class="fa-regular fa-clock"></i> 00:00:00 AM</span>
+            <i class="fa-regular fa-clock"></i> <span id="adminLiveClock">00:00:00 AM</span>
           </div>
-
-          <!-- Quick System Actions -->
-          <button id="quickBackupBtn" class="btn-topbar-action" title="Export Backup JSON">
-            <i class="fa-solid fa-download"></i>
-            <span>Backup Data</span>
-          </button>
-          
-          <a href="index.html" target="_blank" class="btn-topbar-action outline" title="View Public Portal">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            <span>Live Site</span>
+          <a href="student.html" target="_blank" class="btn-topbar-action" style="background:var(--brand-navy); color:#FFF; border-color:var(--brand-navy);">
+            <i class="fa-solid fa-graduation-cap"></i> <span>Student Hub</span>
           </a>
         </div>
       </header>
 
-
-      <!-- Workspace Content Area Shell -->
       <div class="admin-workspace">
 
         <!-- ==========================================================================
-           SECTION 01: OVERVIEW ANALYTICS DASHBOARD
+           SECTION 01: OVERVIEW ANALYTICS & BAR CHARTS
            ========================================================================== -->
         <section id="overviewSection" class="workspace-section active">
-          
-          <!-- Metric Stat Cards Grid Row -->
           <div class="stats-cards-grid">
             <div class="stat-card">
               <div class="stat-icon blue"><i class="fa-solid fa-file-pdf"></i></div>
               <div class="stat-data">
                 <span class="stat-label">Total Material Uploads</span>
                 <h3 id="statTotalNotes">0</h3>
-                <span class="stat-trend positive"><i class="fa-solid fa-arrows-rotate"></i> Live Firestore Sync</span>
+                <span class="stat-trend positive"><i class="fa-solid fa-arrows-rotate"></i> Live Storage Synced</span>
               </div>
             </div>
 
             <div class="stat-card">
-              <div class="stat-icon purple"><i class="fa-solid fa-users"></i></div>
+              <div class="stat-icon purple"><i class="fa-solid fa-headset"></i></div>
               <div class="stat-data">
-                <span class="stat-label">Registered Members</span>
-                <h3 id="statTotalUsers">0</h3>
-                <span class="stat-trend positive"><i class="fa-solid fa-user-check"></i> Account Data</span>
+                <span class="stat-label">Student Doubts / Queries</span>
+                <h3 id="statTotalQueries">0</h3>
+                <span class="stat-trend neutral"><i class="fa-solid fa-clock"></i> Realtime Desk</span>
               </div>
             </div>
 
             <div class="stat-card">
-              <div class="stat-icon green"><i class="fa-solid fa-database"></i></div>
+              <div class="stat-icon green"><i class="fa-solid fa-users"></i></div>
               <div class="stat-data">
-                <span class="stat-label">Storage Usage</span>
-                <h3 id="storageUsage">0.0 MB / 5 GB</h3>
-                <div class="progress-bar-wrap">
-                  <div id="storageProgressBar" class="progress-bar-fill" style="width: 0%;"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-icon orange"><i class="fa-solid fa-star"></i></div>
-              <div class="stat-data">
-                <span class="stat-label">Approved Feedbacks</span>
-                <h3 id="statApprovedReviews">0</h3>
-                <span class="stat-trend neutral"><i class="fa-solid fa-comments"></i> Student Ratings</span>
+                <span class="stat-label">Live Traffic Sessions</span>
+                <h3 id="statTotalVisitors">0</h3>
+                <span class="stat-trend positive"><i class="fa-solid fa-arrow-trend-up"></i> Organic &amp; Social</span>
               </div>
             </div>
           </div>
 
           <!-- Charts & Distribution Panels Row -->
-          <div class="analytics-panels-row" style="margin-top: 24px;">
-            <div class="panel-card chart-panel">
-              <div class="panel-header">
-                <div>
-                  <h3><i class="fa-solid fa-chart-column"></i> Material Category Breakdown</h3>
-                  <span class="panel-subtitle">Distribution across CBSE Classes & Streams</span>
+          <div class="analytics-panels-row">
+            <div class="panel-card">
+              <h3><i class="fa-solid fa-chart-column" style="color:var(--primary);"></i> Material Category Breakdown</h3>
+              <p>Distribution across Classes &amp; Streams</p>
+
+              <div class="custom-bar-chart">
+                <div class="chart-bar-group">
+                  <span class="bar-value">Class 10</span>
+                  <div class="bar-track"><div class="bar-fill" style="height: 85%;"></div></div>
+                  <span class="bar-label">Sci/Math</span>
                 </div>
-              </div>
-              <div class="chart-container">
-                <div class="custom-bar-chart">
-                  <div class="chart-bar-group">
-                    <span class="bar-value">Class 10</span>
-                    <div class="bar-track"><div class="bar-fill" style="height: 85%;"></div></div>
-                    <span class="bar-label">Sci/Math</span>
-                  </div>
-                  <div class="chart-bar-group">
-                    <span class="bar-value">Class 12</span>
-                    <div class="bar-track"><div class="bar-fill purple" style="height: 95%;"></div></div>
-                    <span class="bar-label">PCM/PCB</span>
-                  </div>
-                  <div class="chart-bar-group">
-                    <span class="bar-value">Class 12</span>
-                    <div class="bar-track"><div class="bar-fill green" style="height: 60%;"></div></div>
-                    <span class="bar-label">Commerce</span>
-                  </div>
-                  <div class="chart-bar-group">
-                    <span class="bar-value">Class 11</span>
-                    <div class="bar-track"><div class="bar-fill orange" style="height: 70%;"></div></div>
-                    <span class="bar-label">Science</span>
-                  </div>
-                  <div class="chart-bar-group">
-                    <span class="bar-value">Class 9</span>
-                    <div class="bar-track"><div class="bar-fill cyan" style="height: 50%;"></div></div>
-                    <span class="bar-label">Foundation</span>
-                  </div>
-                  <div class="chart-bar-group">
-                    <span class="bar-value">Entrance</span>
-                    <div class="bar-track"><div class="bar-fill red" style="height: 75%;"></div></div>
-                    <span class="bar-label">JEE/NEET</span>
-                  </div>
+                <div class="chart-bar-group">
+                  <span class="bar-value">Class 12</span>
+                  <div class="bar-track"><div class="bar-fill purple" style="height: 95%;"></div></div>
+                  <span class="bar-label">PCM/PCB</span>
+                </div>
+                <div class="chart-bar-group">
+                  <span class="bar-value">Class 12</span>
+                  <div class="bar-track"><div class="bar-fill green" style="height: 60%;"></div></div>
+                  <span class="bar-label">Commerce</span>
+                </div>
+                <div class="chart-bar-group">
+                  <span class="bar-value">Class 11</span>
+                  <div class="bar-track"><div class="bar-fill orange" style="height: 70%;"></div></div>
+                  <span class="bar-label">Science</span>
+                </div>
+                <div class="chart-bar-group">
+                  <span class="bar-value">Class 9</span>
+                  <div class="bar-track"><div class="bar-fill cyan" style="height: 50%;"></div></div>
+                  <span class="bar-label">Foundation</span>
+                </div>
+                <div class="chart-bar-group">
+                  <span class="bar-value">Entrance</span>
+                  <div class="bar-track"><div class="bar-fill red" style="height: 75%;"></div></div>
+                  <span class="bar-label">JEE/NEET</span>
                 </div>
               </div>
             </div>
 
-            <!-- Quick Controls Panel -->
-            <div class="panel-card quick-actions-panel">
-              <div class="panel-header">
-                <h3><i class="fa-solid fa-bolt"></i> Quick Command Actions</h3>
-              </div>
+            <div class="panel-card">
+              <h3><i class="fa-solid fa-bolt" style="color:var(--accent-amber);"></i> Quick Command Actions</h3>
               <div class="quick-buttons-stack">
-                <button class="btn-quick-action" onclick="switchSection('uploaderSection')">
-                  <i class="fa-solid fa-file-circle-plus"></i> Upload New PDF Chapter
+                <button type="button" class="btn-quick-action" onclick="AdminController.navigateToSection('uploaderSection')">
+                  <i class="fa-solid fa-file-circle-plus" style="color:var(--primary);"></i> Upload New PDF Chapter
                 </button>
-                <button class="btn-quick-action" onclick="switchSection('tickerSection')">
-                  <i class="fa-solid fa-pen-to-square"></i> Change Banner Announcement
+                <button type="button" class="btn-quick-action" onclick="AdminController.navigateToSection('tickerSection')">
+                  <i class="fa-solid fa-pen-to-square" style="color:var(--accent-blue);"></i> Change Banner Notice
                 </button>
-                <button class="btn-quick-action" onclick="switchSection('reviewsSection')">
-                  <i class="fa-solid fa-user-check"></i> Review Student Feedback
+                <button type="button" class="btn-quick-action" onclick="AdminController.navigateToSection('queriesSection')">
+                  <i class="fa-solid fa-headset" style="color:var(--accent-purple);"></i> Check Student Queries
                 </button>
-                <button class="btn-quick-action" onclick="switchSection('visitorsSection')">
-                  <i class="fa-solid fa-users-viewfinder"></i> Inspect Live Traffic
+                <button type="button" class="btn-quick-action" onclick="AdminController.navigateToSection('visitorsSection')">
+                  <i class="fa-solid fa-users-viewfinder" style="color:#10B981;"></i> Inspect Live Traffic
                 </button>
-                <button id="btnForceClearCache" class="btn-quick-action danger">
-                  <i class="fa-solid fa-broom"></i> Flush Storage Cache
+                <button type="button" class="btn-quick-action danger" onclick="AdminController.flushLocalStorageCache()">
+                  <i class="fa-solid fa-broom" style="color:#EF4444;"></i> Flush Storage Cache
                 </button>
               </div>
             </div>
           </div>
         </section>
 
-
         <!-- ==========================================================================
-           SECTION 02: LIVE TRAFFIC & VISITOR SOURCE TRACKER
-           ========================================================================== -->
-        <section id="visitorsSection" class="workspace-section">
-          <div class="panel-card">
-            <div class="panel-header-toolbar">
-              <div>
-                <h3><i class="fa-solid fa-users-viewfinder"></i> Live Visitor Traffic & Source Inspector</h3>
-                <p>Track visitors coming from WhatsApp, Instagram, Facebook & Google Search without login requirement</p>
-              </div>
-              <button type="button" onclick="window.downloadUsersExcel()" class="admin-btn-primary" style="background: #10B981; color:#fff; padding: 8px 16px; border:none; border-radius:8px; font-weight:600; cursor:pointer;">
-                <i class="fa-solid fa-file-excel"></i> Export Visitors Excel (CSV)
-              </button>
-            </div>
-
-            <!-- Traffic Sources Quick Summary Cards -->
-            <div class="form-grid-3" style="margin-bottom: 20px;">
-              <div style="background: #EFF6FF; border: 1px solid #BFDBFE; padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 12px;">
-                <i class="fa-brands fa-whatsapp" style="font-size: 2rem; color: #25D366;"></i>
-                <div>
-                  <h4 style="margin: 0; font-size: 0.9rem; color: #1E3A8A;">WhatsApp Traffic</h4>
-                  <span style="font-size: 0.8rem; color: #3B82F6; font-weight: 700;">Direct Shared Links</span>
-                </div>
-              </div>
-
-              <div style="background: #FDF2F8; border: 1px solid #FBCFE8; padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 12px;">
-                <i class="fa-brands fa-instagram" style="font-size: 2rem; color: #E1306C;"></i>
-                <div>
-                  <h4 style="margin: 0; font-size: 0.9rem; color: #831843;">Instagram Traffic</h4>
-                  <span style="font-size: 0.8rem; color: #EC4899; font-weight: 700;">Bio & Story Links</span>
-                </div>
-              </div>
-
-              <div style="background: #F0FDF4; border: 1px solid #BBF7D0; padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 12px;">
-                <i class="fa-brands fa-google" style="font-size: 2rem; color: #4285F4;"></i>
-                <div>
-                  <h4 style="margin: 0; font-size: 0.9rem; color: #14532D;">Google & Facebook</h4>
-                  <span style="font-size: 0.8rem; color: #10B981; font-weight: 700;">Organic & Social Search</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Live Visitors Log Table -->
-            <div class="table-responsive-wrapper">
-              <table class="admin-data-table">
-                <thead>
-                  <tr>
-                    <th>Visitor ID</th>
-                    <th>Traffic Source (Kahan se aaya)</th>
-                    <th>Visit Date</th>
-                    <th>Exact Time</th>
-                    <th>Session Status</th>
-                  </tr>
-                </thead>
-                <tbody id="visitorsTableBody">
-                  <tr>
-                    <td colspan="5" class="table-empty-state">
-                      <i class="fa-solid fa-spinner fa-spin"></i> Syncing live traffic logs...
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-
-        <!-- ==========================================================================
-           SECTION 03: BULK PDF UPLOADER ENGINE (AUTO-CURRICULUM MAPPING)
+           SECTION 02: DIRECT & BULK PDF UPLOADER ENGINE
            ========================================================================== -->
         <section id="uploaderSection" class="workspace-section">
           <div class="panel-card">
-            <div class="panel-header">
-              <h3><i class="fa-solid fa-cloud-arrow-up"></i> Multi-PDF Storage Uploader Engine</h3>
-              <p>Upload NCERT Chapter Notes, Derivations, Formula Sheets & Solved Board PYQs with auto-subject dropdown mapping</p>
+            <div style="margin-bottom:18px;">
+              <h3><i class="fa-solid fa-cloud-arrow-up" style="color:var(--primary);"></i> Bulk PDF Uploader &amp; Stream URL Engine</h3>
+              <p>Upload handwritten notes, NCERT books, PYQs, derivations, and formula books with auto-curriculum subjects.</p>
             </div>
 
-            <form id="pdfUploadForm" class="uploader-form">
-              <!-- Drag and Drop Target Area -->
-              <div id="dropZone" class="drop-zone-area">
+            <form id="adminUploadForm">
+              <!-- Drop Zone -->
+              <div class="drop-zone-area" id="dropZone" onclick="document.getElementById('pdfFileInput').click()">
                 <input type="file" id="pdfFileInput" accept="application/pdf" multiple hidden>
-                <div class="drop-zone-content">
-                  <div class="cloud-icon-circle">
-                    <i class="fa-solid fa-file-pdf"></i>
+                <div class="cloud-icon-circle"><i class="fa-solid fa-file-pdf"></i></div>
+                <h4 style="font-weight:800; color:var(--brand-navy); margin-bottom:4px;">Drag &amp; Drop 1 or Multiple PDF Files Here</h4>
+                <p style="font-size:0.82rem; color:var(--slate-500);">or click to browse from your device</p>
+                <span id="selectedFileNameDisplay" style="display:block; margin-top:8px; font-weight:700; color:var(--primary); font-size:0.85rem;">No PDF selected yet</span>
+              </div>
+
+              <!-- Multi-File Bulk Queue Table Container (Auto displays when multiple files picked) -->
+              <div id="bulkFilesQueueContainer" style="display:none; margin-bottom:20px;">
+                <h4 style="font-size:0.95rem; font-weight:800; color:var(--brand-navy); margin-bottom:8px;"><i class="fa-solid fa-list-check"></i> Assign Metadata For Each Selected File:</h4>
+                <div class="table-responsive-wrapper">
+                  <table class="admin-data-table">
+                    <thead>
+                      <tr>
+                        <th>File Name</th>
+                        <th style="min-width:140px;">Grade / Stream</th>
+                        <th style="min-width:160px;">Subject</th>
+                        <th style="min-width:180px;">Chapter Name</th>
+                        <th style="min-width:130px;">Tag</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="bulkQueueTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Single File Metadata Controls (Fallback when 1 file picked) -->
+              <div id="singleFileConfigRow">
+                <div class="form-grid-3">
+                  <div class="input-group">
+                    <label><i class="fa-solid fa-graduation-cap"></i> Target Grade / Exam Goal *</label>
+                    <select id="uploadClassSelect">
+                      <option value="" disabled selected>Select Grade or Exam</option>
+                      <optgroup label="Primary School (Class 1–5)">
+                        <option value="1">Class 1</option>
+                        <option value="2">Class 2</option>
+                        <option value="3">Class 3</option>
+                        <option value="4">Class 4</option>
+                        <option value="5">Class 5</option>
+                      </optgroup>
+                      <optgroup label="Middle School (Class 6–8)">
+                        <option value="6">Class 6</option>
+                        <option value="7">Class 7</option>
+                        <option value="8">Class 8</option>
+                      </optgroup>
+                      <optgroup label="Secondary &amp; Senior Secondary">
+                        <option value="9">Class 9</option>
+                        <option value="10">Class 10 (Board)</option>
+                        <option value="11_science">Class 11 (Science Stream)</option>
+                        <option value="11_commerce">Class 11 (Commerce Stream)</option>
+                        <option value="11_humanities">Class 11 (Humanities Stream)</option>
+                        <option value="12_science">Class 12 (Science Stream)</option>
+                        <option value="12_commerce">Class 12 (Commerce Stream)</option>
+                        <option value="12_arts">Class 12 (Humanities / Arts)</option>
+                      </optgroup>
+                      <optgroup label="Competitive Entrance Exams">
+                        <option value="competitive_jee">JEE Main &amp; Advanced</option>
+                        <option value="competitive_neet">NEET-UG Medical</option>
+                        <option value="competitive_cuet">CUET UG Entrance</option>
+                        <option value="competitive_nda">NDA Defence</option>
+                      </optgroup>
+                    </select>
                   </div>
-                  <h4>Drag & Drop PDF Material Files Here</h4>
-                  <p>or <button type="button" id="browsePdfBtn" class="btn-inline-link">Browse Files from Computer</button></p>
-                  <span class="file-size-hint">Maximum recommended file size: 25 MB per PDF</span>
-                </div>
-                <div id="selectedFilesList" class="selected-files-list"></div>
-              </div>
 
-              <!-- Metadata Selection Controls -->
-              <div class="form-grid-3">
-                <div class="input-group">
-                  <label><i class="fa-solid fa-graduation-cap"></i> Target Class Level *</label>
-                  <select id="uploadClassSelect" required>
-                    <option value="" disabled selected>Select Class Level</option>
-                    <option value="9">Class 9th Foundation</option>
-                    <option value="10">Class 10th Board</option>
-                    <option value="11">Class 11th Higher Secondary</option>
-                    <option value="12">Class 12th Board Special</option>
-                    <option value="competitive">Competitive Entrance Exams</option>
-                  </select>
+                  <div class="input-group">
+                    <label><i class="fa-solid fa-book-bookmark"></i> Subject (Auto-Loaded) *</label>
+                    <select id="uploadSubjectInput">
+                      <option value="" disabled selected>Select Grade/Stream first...</option>
+                    </select>
+                  </div>
+
+                  <div class="input-group">
+                    <label><i class="fa-solid fa-list-check"></i> Chapter / Unit Name *</label>
+                    <input type="text" id="uploadChapterInput" placeholder="e.g. Chapter 1: Real Numbers / Electrostatics">
+                  </div>
                 </div>
 
-                <div class="input-group">
-                  <label><i class="fa-solid fa-book-bookmark"></i> Subject Title (Auto-Loaded) *</label>
-                  <select id="uploadSubjectInput" required>
-                    <option value="" disabled selected>Select class first...</option>
-                  </select>
-                </div>
+                <div class="form-grid-3">
+                  <div class="input-group">
+                    <label><i class="fa-solid fa-tags"></i> Document Material Tag *</label>
+                    <select id="uploadDocTypeSelect">
+                      <option value="Full Chapter Note" selected>Full Chapter NCERT Note</option>
+                      <option value="Formula Sheet">Formula &amp; Derivations</option>
+                      <option value="PYQ Solutions">10-Year Solved PYQ Bank</option>
+                      <option value="NCERT Solutions">NCERT Solutions 📚</option>
+                    </select>
+                  </div>
 
-                <div class="input-group">
-                  <label><i class="fa-solid fa-list-check"></i> Chapter Name & Number *</label>
-                  <input type="text" id="uploadChapterInput" placeholder="e.g. Chapter 3: Electrostatics" required>
-                </div>
-              </div>
-
-              <div class="form-grid-3">
-                <div class="input-group">
-                  <label><i class="fa-solid fa-tags"></i> Document Material Tag *</label>
-                  <select id="uploadDocTypeSelect" required>
-                    <option value="NCERT Book">NCERT Book 📚</option>
-                    <option value="Chapter Note" selected>Full Chapter NCERT Note</option>
-                    <option value="Formula Sheet">Formula & Derivation Sheet</option>
-                    <option value="PYQ">10-Year Solved Board PYQ</option>
-                    <option value="Sample Paper">Official Board Sample Paper</option>
-                  </select>
-                </div>
-
-                <div class="input-group">
-                  <label><i class="fa-solid fa-pen-nib"></i> Author / Contributor</label>
-                  <input type="text" id="uploadAuthorInput" value="NotesPoint Senior Faculty" placeholder="e.g. Core Faculty Team">
+                  <div class="input-group">
+                    <label><i class="fa-solid fa-user-pen"></i> Faculty / Contributor Name *</label>
+                    <input type="text" id="uploadAuthorInput" value="NotesPoint Senior Faculty">
+                  </div>
                 </div>
               </div>
 
-              <!-- Upload Progress Tracking Bar -->
-              <div id="uploadProgressContainer" class="upload-progress-box" hidden>
-                <div class="progress-info">
-                  <span id="uploadProgressStatus">Uploading PDF to Storage...</span>
-                  <span id="uploadProgressPercent">0%</span>
-                </div>
-                <div class="progress-bar-track">
-                  <div id="uploadProgressBarFill" class="progress-bar-fill-active" style="width: 0%;"></div>
+              <!-- Realtime Direct Link Box -->
+              <div id="generatedLinkBox" style="display: none; background: #ECFDF5; border: 1.5px solid #6EE7B7; padding: 14px; border-radius: 8px; margin: 15px 0;">
+                <strong style="color: #065F46; font-size: 0.85rem; display:block; margin-bottom:6px;"><i class="fa-solid fa-circle-check"></i> Universal Direct PDF Stream URL Generated (Native Browser View):</strong>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="generatedCleanUrl" readonly style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-family: var(--font-mono); background:#FFF; font-size:0.82rem;">
+                  <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('generatedCleanUrl').value); alert('URL Copied!')" class="btn-admin-primary" style="padding: 6px 14px; font-size:0.82rem;">Copy</button>
                 </div>
               </div>
 
-              <div class="form-actions-row">
-                <button type="reset" class="btn-admin-secondary">
-                  <i class="fa-solid fa-rotate-left"></i> Reset Form
-                </button>
+              <div style="margin-top:10px; display:flex; gap:10px;">
                 <button type="submit" id="startUploadBtn" class="btn-admin-primary">
-                  <i class="fa-solid fa-cloud-arrow-up"></i> Upload Document To Live Platform
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Upload &amp; Sync to Student Workspace
+                </button>
+                <button type="button" onclick="AdminController.resetForm()" class="btn-admin-secondary">
+                  <i class="fa-solid fa-rotate-left"></i> Reset Form
                 </button>
               </div>
             </form>
           </div>
         </section>
 
-
         <!-- ==========================================================================
-           SECTION 04: CONTENT MANAGEMENT DIRECTORY
+           SECTION 03: CONTENT DIRECTORY
            ========================================================================== -->
         <section id="directorySection" class="workspace-section">
           <div class="panel-card">
             <div class="panel-header-toolbar">
               <div>
-                <h3><i class="fa-solid fa-folder-tree"></i> Live Material File Directory</h3>
-                <p>Manage, Filter, Preview & Delete Uploaded Material PDFs</p>
+                <h3><i class="fa-solid fa-folder-tree" style="color:var(--primary);"></i> Live Material File Directory</h3>
+                <p>Filter, search, view clean direct links, or delete material</p>
               </div>
 
-              <!-- Filter Controls -->
-              <div class="directory-filters">
-                <div class="search-box">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                  <input type="text" id="directorySearchInput" placeholder="Search by subject or chapter...">
-                </div>
-
-                <select id="directoryClassFilter">
-                  <option value="ALL">All Classes</option>
-                  <option value="9">Class 9th</option>
-                  <option value="10">Class 10th</option>
-                  <option value="11">Class 11th</option>
-                  <option value="12">Class 12th</option>
-                  <option value="competitive">Competitive</option>
-                </select>
-
-                <select id="directoryTagFilter">
-                  <option value="ALL">All Document Types</option>
-                  <option value="Chapter Note">Chapter Notes</option>
-                  <option value="Formula Sheet">Formula Sheets</option>
-                  <option value="PYQ">PYQs</option>
-                  <option value="Sample Paper">Sample Papers</option>
-                </select>
-              </div>
+              <input type="text" id="directorySearchInput" placeholder="Search by chapter, grade, or subject..." style="padding:8px 14px; border:1.5px solid var(--border-color); border-radius:8px; font-size:0.85rem; outline:none; min-width:260px;" oninput="AdminController.filterDirectory(this.value)">
             </div>
 
-            <!-- Material Table Directory -->
             <div class="table-responsive-wrapper">
               <table class="admin-data-table">
                 <thead>
                   <tr>
-                    <th>Class</th>
-                    <th>Subject & Stream</th>
-                    <th>Chapter & Document Details</th>
-                    <th>Type Tag</th>
-                    <th>Date Added</th>
-                    <th>Actions</th>
+                    <th>Grade</th>
+                    <th>Subject</th>
+                    <th>Chapter &amp; Topic</th>
+                    <th>Tag</th>
+                    <th>Uploader</th>
+                    <th>Direct Link</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody id="directoryTableBody">
-                  <tr>
-                    <td colspan="6" class="table-empty-state">
-                      <i class="fa-solid fa-spinner fa-spin"></i> Loading directory contents...
-                    </td>
-                  </tr>
+                  <tr><td colspan="7" style="text-align: center; padding:20px; color:var(--slate-500);">Loading notes directory...</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
         </section>
 
-
         <!-- ==========================================================================
-           SECTION 05: TICKER & ANNOUNCEMENT MANAGER
+           SECTION 04: TICKER BANNER NOTICE CONTROL
            ========================================================================== -->
         <section id="tickerSection" class="workspace-section">
           <div class="panel-card">
-            <div class="panel-header">
-              <h3><i class="fa-solid fa-bullhorn"></i> Running Ticker Announcement Control</h3>
-              <p>Update running announcement message displayed at top bar of index.html</p>
+            <div style="margin-bottom:16px;">
+              <h3><i class="fa-solid fa-bullhorn" style="color:var(--primary);"></i> Running Ticker Notice Control</h3>
+              <p>Update banner announcement text moving across homepage portal</p>
             </div>
 
-            <form id="tickerUpdateForm" class="ticker-form">
-              <div class="input-group">
-                <label><i class="fa-solid fa-scroll"></i> Running Ticker Banner Text *</label>
-                <textarea id="tickerTextInput" rows="4" placeholder="Enter running notice text..." required>🔥 Welcome to NotesPoint! Class 9th to 12th CBSE & State Boards Revision Notes, PYQs & Sample Papers are Live! 100% Free Access. 🔥</textarea>
-              </div>
-
-              <div class="ticker-preview-box">
-                <span class="preview-label"><i class="fa-solid fa-eye"></i> Live Ticker Preview:</span>
-                <div class="ticker-preview-bar">
-                  <div id="tickerPreviewTrack" class="ticker-preview-text">
-                    🔥 Welcome to NotesPoint! Class 9th to 12th CBSE & State Boards Revision Notes, PYQs & Sample Papers are Live! 100% Free Access. 🔥
-                  </div>
-                </div>
+            <form id="tickerUpdateForm">
+              <div class="input-group" style="margin-bottom:14px;">
+                <label><i class="fa-solid fa-scroll"></i> Announcement Banner Text *</label>
+                <textarea id="tickerTextInput" rows="3" required style="resize:vertical;">🔥 Welcome to NotesPoint! Class 1 to 12th & Competitive Entrance Revision Notes, Formula Books, NCERT Solutions & PYQs are Live! 100% Free Access. 🔥</textarea>
               </div>
 
               <button type="submit" class="btn-admin-primary">
-                <i class="fa-solid fa-paper-plane"></i> Publish Ticker Notice To Website
+                <i class="fa-solid fa-paper-plane"></i> Publish Banner Notice
               </button>
             </form>
           </div>
         </section>
 
-
         <!-- ==========================================================================
-           SECTION 06: REVIEW MODERATION SYSTEM
+           SECTION 05: STUDENT INQUIRY DESK
            ========================================================================== -->
-        <section id="reviewsSection" class="workspace-section">
+        <section id="queriesSection" class="workspace-section">
           <div class="panel-card">
-            <div class="panel-header-toolbar">
-              <div>
-                <h3><i class="fa-solid fa-comments"></i> Student Review & Feedback Moderation</h3>
-                <p>Approve or Reject Student Feedback before publishing live to Public Index Page</p>
-              </div>
-              <button type="button" onclick="window.exportFeedbacksExcel()" class="admin-btn-secondary" style="background:#2563EB; color:#fff; padding:8px 16px; border:none; border-radius:8px; font-weight:600; cursor:pointer;">
-                <i class="fa-solid fa-file-csv"></i> Download Feedback Excel (CSV)
-              </button>
+            <div style="margin-bottom:16px;">
+              <h3><i class="fa-solid fa-headset" style="color:var(--primary);"></i> Student Queries &amp; Material Requests</h3>
+              <p>Inquiries received directly from student workspace support desk</p>
             </div>
 
-            <div id="adminReviewsList" class="reviews-moderation-grid">
-              <div class="empty-placeholder">
-                <i class="fa-solid fa-comments-dollar"></i>
-                <p>Loading pending reviews list...</p>
-              </div>
+            <div class="table-responsive-wrapper">
+              <table class="admin-data-table">
+                <thead>
+                  <tr>
+                    <th>Date &amp; Time</th>
+                    <th>Student Name</th>
+                    <th>Student Email</th>
+                    <th>Message / Doubt</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="queriesTableBody">
+                  <tr><td colspan="5" style="text-align: center; padding:20px; color:var(--slate-500);">Loading student inquiries...</td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
 
-
         <!-- ==========================================================================
-           SECTION 07: MAINTENANCE & SYSTEM CONTROLS
+           SECTION 06: LIVE TRAFFIC TRACKER
            ========================================================================== -->
-        <section id="maintenanceSection" class="workspace-section">
+        <section id="visitorsSection" class="workspace-section">
           <div class="panel-card">
-            <div class="panel-header">
-              <h3><i class="fa-solid fa-sliders"></i> Global Site Controls & Maintenance Mode</h3>
-              <p>Toggle Maintenance Screen or Site Options</p>
+            <div style="margin-bottom:16px;">
+              <h3><i class="fa-solid fa-users-viewfinder" style="color:var(--primary);"></i> Live Traffic Logs</h3>
+              <p>Real-time visitors incoming log</p>
             </div>
 
-            <div class="control-tiles-grid">
-              <div class="control-tile">
-                <div class="tile-info">
-                  <h4><i class="fa-solid fa-wrench"></i> Scheduled Maintenance Mode</h4>
-                  <p>Turn ON to show "Under Scheduled Maintenance" screen to public visitors.</p>
-                </div>
-                <label class="switch-toggle">
-                  <input type="checkbox" id="toggleMaintenanceSwitch">
-                  <span class="slider-round"></span>
-                </label>
-              </div>
-
-              <div class="control-tile">
-                <div class="tile-info">
-                  <h4><i class="fa-solid fa-user-lock"></i> Mandatory Student Registration Lock</h4>
-                  <p>Require students to login/signup before downloading any PDF notes.</p>
-                </div>
-                <label class="switch-toggle">
-                  <input type="checkbox" id="toggleLoginLockSwitch" checked>
-                  <span class="slider-round"></span>
-                </label>
-              </div>
-
-              <div class="control-tile">
-                <div class="tile-info">
-                  <h4><i class="fa-solid fa-volume-high"></i> Platform UI Sound Synthesizer</h4>
-                  <p>Enable/Disable audio feedback clicks across website.</p>
-                </div>
-                <label class="switch-toggle">
-                  <input type="checkbox" id="toggleAudioSwitch" checked>
-                  <span class="slider-round"></span>
-                </label>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
-        <!-- ==========================================================================
-           SECTION 08: AUDIT LOGS & ACTIVITY TRACKER
-           ========================================================================== -->
-        <section id="logsSection" class="workspace-section">
-          <div class="panel-card">
-            <div class="panel-header">
-              <h3><i class="fa-solid fa-clock-rotate-left"></i> System Audit & Activity Logs</h3>
-              <p>Time-stamped records of uploads, deletions and administrative changes</p>
-            </div>
-
-            <div class="audit-logs-list" id="auditLogsContainer">
-              <div class="log-item">
-                <span class="log-time">Just now</span>
-                <span class="log-tag info">SYSTEM</span>
-                <span class="log-text">Admin Control Portal session active.</span>
-              </div>
+            <div class="table-responsive-wrapper">
+              <table class="admin-data-table">
+                <thead>
+                  <tr>
+                    <th>Session ID</th>
+                    <th>Traffic Source</th>
+                    <th>Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody id="visitorsTableBody">
+                  <tr><td colspan="3" style="text-align: center; padding:20px; color:var(--slate-500);">Listening for traffic logs...</td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
@@ -650,11 +1237,681 @@
 
   <!-- Firebase Core SDKs v9.22.0 -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 
-  <!-- Dedicated Admin System Script -->
-  <script src="admin.js"></script>
+  <!-- Complete Master Controller Script -->
+  <script>
+  (() => {
+    'use strict';
+
+    // 1. FIREBASE CONFIGURATION
+    const firebaseConfig = {
+      apiKey: "AIzaSyB8Q233ol5opi0Io8tEp498yDEmMesjmgE",
+      authDomain: "notes-point-215c8.firebaseapp.com",
+      projectId: "notes-point-215c8",
+      storageBucket: "notes-point-215c8.firebasestorage.app",
+      messagingSenderId: "945990871633",
+      appId: "1:945990871633:web:4cfd8339055182317fa670"
+    };
+
+    if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const db = (typeof firebase !== 'undefined') ? firebase.firestore() : null;
+    const storage = (typeof firebase !== 'undefined') ? firebase.storage() : null;
+
+    // 2. CURRICULUM SUBJECTS MATRIX (Class 1–12 & Competitive Entrance Hub)
+    const RESOURCE_EXTRAS = ["NCERT Solutions 📚", "Formula Books & Derivations", "Previous Year Questions (PYQs)"];
+
+    const ALL_SUBJECTS_MAP = {
+      "1": ["English", "Hindi", "Mathematics", "Environmental Studies (EVS)", "GK", "Computer Science", "Art & Craft", "Moral Science", "Physical Education", ...RESOURCE_EXTRAS],
+      "2": ["English", "Hindi", "Mathematics", "Environmental Studies (EVS)", "GK", "Computer Science", "Art & Craft", "Moral Science", "Physical Education", ...RESOURCE_EXTRAS],
+      "3": ["English", "Hindi", "Mathematics", "Environmental Studies (EVS)", "GK", "Computer Science", "Art & Craft", "Moral Science", "Physical Education", ...RESOURCE_EXTRAS],
+      "4": ["English", "Hindi", "Mathematics", "Environmental Studies (EVS)", "GK", "Computer Science", "Art & Craft", "Moral Science", "Physical Education", ...RESOURCE_EXTRAS],
+      "5": ["English", "Hindi", "Mathematics", "Environmental Studies (EVS)", "GK", "Computer Science", "Art & Craft", "Moral Science", "Physical Education", ...RESOURCE_EXTRAS],
+      "6": ["English", "Hindi", "Mathematics", "Science (Physics, Chemistry, Biology)", "Social Science (History, Geography, Civics)", "Third Language", "Computer Science", "GK", "Art", "Value Education", "Physical Education & Yoga", ...RESOURCE_EXTRAS],
+      "7": ["English", "Hindi", "Mathematics", "Science (Physics, Chemistry, Biology)", "Social Science (History, Geography, Civics)", "Third Language", "Computer Science", "GK", "Art", "Value Education", "Physical Education & Yoga", ...RESOURCE_EXTRAS],
+      "8": ["English", "Hindi", "Mathematics", "Science (Physics, Chemistry, Biology)", "Social Science (History, Geography, Civics)", "Third Language", "Computer Science", "GK", "Art", "Value Education", "Physical Education & Yoga", ...RESOURCE_EXTRAS],
+      "9": ["English (Lang & Lit)", "Hindi / Regional Lang", "Mathematics", "Science (Physics, Chemistry, Biology)", "Social Science (History, Geo, Civics, Economics)", "IT/AI", "Art Education", "Health & Physical Education", ...RESOURCE_EXTRAS],
+      "10": ["English (Lang & Lit)", "Hindi / Regional Lang", "Mathematics", "Science (Physics, Chemistry, Biology)", "Social Science (History, Geo, Civics, Economics)", "IT/AI", "Art Education", "Health & Physical Education", ...RESOURCE_EXTRAS],
+      "11_science": ["English Core", "Physics", "Chemistry", "Mathematics", "Biology", "Computer Science", "IP", "Physical Education", "Economics", "Psychology", "Fine Arts", ...RESOURCE_EXTRAS],
+      "11_commerce": ["English Core", "Accountancy", "Business Studies", "Economics", "Mathematics", "Applied Math", "IP", "Physical Education", "Entrepreneurship", ...RESOURCE_EXTRAS],
+      "11_humanities": ["English Core", "History", "Political Science", "Geography / Sociology", "Psychology", "Economics", "Mathematics", "IP", "Physical Education", "Fine Arts", ...RESOURCE_EXTRAS],
+      "12_science": ["English Core", "Physics", "Chemistry", "Mathematics", "Biology", "Computer Science", "IP", "Physical Education", "Economics", "Psychology", "Fine Arts", ...RESOURCE_EXTRAS],
+      "12_commerce": ["English Core", "Accountancy", "Business Studies", "Economics", "Mathematics", "Applied Math", "IP", "Physical Education", "Entrepreneurship", ...RESOURCE_EXTRAS],
+      "12_arts": ["English Core", "History", "Political Science", "Geography / Sociology", "Psychology", "Economics", "Mathematics", "IP", "Physical Education", "Fine Arts", ...RESOURCE_EXTRAS],
+      "competitive_jee": ["JEE Physics", "JEE Mathematics", "JEE Chemistry (Organic/Inorganic)", "10-Year JEE PYQs", ...RESOURCE_EXTRAS],
+      "competitive_neet": ["NEET Biology (Botany & Zoology)", "NEET Physics High-Yield", "NEET Chemistry", ...RESOURCE_EXTRAS],
+      "competitive_cuet": ["CUET English & Hindi", "Domain Physics / Math / Accounts / PolSci", "CUET General Test", ...RESOURCE_EXTRAS],
+      "competitive_nda": ["NDA Mathematics (Algebra/Calculus/Trigo)", "NDA GAT (General Ability Test)", "English & Current Affairs", ...RESOURCE_EXTRAS]
+    };
+
+    window.AdminController = {
+      selectedFiles: [],
+      cachedNotes: [],
+
+      init() {
+        this.checkPinSession();
+        this.setupClock();
+        this.setupNavigation();
+        this.setupSingleClassDropdown();
+        this.setupFileSelection();
+        this.setupUploadForm();
+        this.setupTickerForm();
+        this.loadDirectory();
+        this.loadQueries();
+        this.loadVisitorLogs();
+        this.loadOverviewStats();
+      },
+
+      checkPinSession() {
+        const isUnlocked = sessionStorage.getItem("np_admin_session_unlocked");
+        if (isUnlocked === "true") {
+          document.getElementById("adminPinLockModal").style.display = "none";
+          document.getElementById("adminDashboardShell").style.display = "flex";
+        }
+      },
+
+      verifySecurityPin(e) {
+        e.preventDefault();
+        const pinInput = document.getElementById("adminPinInput");
+        const enteredPin = pinInput.value.trim();
+
+        if (enteredPin === "2008") {
+          sessionStorage.setItem("np_admin_session_unlocked", "true");
+          document.getElementById("adminPinLockModal").style.display = "none";
+          document.getElementById("adminDashboardShell").style.display = "flex";
+        } else {
+          alert("❌ Incorrect Master PIN! Access Denied.");
+          pinInput.value = "";
+          pinInput.focus();
+        }
+      },
+
+      setupClock() {
+        const clockEl = document.getElementById("adminLiveClock");
+        if (clockEl) {
+          setInterval(() => clockEl.textContent = new Date().toLocaleTimeString(), 1000);
+        }
+      },
+
+      setupNavigation() {
+        document.querySelectorAll(".sidebar-menu .nav-item").forEach(item => {
+          item.addEventListener("click", (e) => {
+            e.preventDefault();
+            const target = item.getAttribute("data-target");
+            this.navigateToSection(target);
+          });
+        });
+      },
+
+      navigateToSection(target) {
+        document.querySelectorAll(".sidebar-menu .nav-item").forEach(i => i.classList.remove("active"));
+        document.querySelectorAll(".workspace-section").forEach(sec => sec.classList.remove("active"));
+
+        const activeNavItem = document.querySelector(`.sidebar-menu .nav-item[data-target="${target}"]`);
+        if (activeNavItem) activeNavItem.classList.add("active");
+
+        const panel = document.getElementById(target);
+        if (panel) {
+          panel.classList.add("active");
+          const titles = {
+            overviewSection: 'Dashboard Overview & Analytics',
+            uploaderSection: 'Bulk PDF Uploader Engine',
+            directorySection: 'Material Content Directory',
+            tickerSection: 'Announcement Ticker Control',
+            queriesSection: 'Student Support & Query Desk',
+            visitorsSection: 'Live Traffic Tracker'
+          };
+          document.getElementById("pageSectionTitle").textContent = titles[target] || 'Admin Console';
+        }
+        document.getElementById('appAdminSidebar').classList.remove('open');
+      },
+
+      setupSingleClassDropdown() {
+        const classSelect = document.getElementById("uploadClassSelect");
+        const subjectSelect = document.getElementById("uploadSubjectInput");
+
+        classSelect.addEventListener("change", (e) => {
+          const selectedKey = e.target.value;
+          const subjects = ALL_SUBJECTS_MAP[selectedKey] || [];
+
+          subjectSelect.innerHTML = '<option value="" disabled selected>Choose Subject</option>';
+          subjects.forEach(sub => {
+            const opt = document.createElement("option");
+            opt.value = sub;
+            opt.textContent = sub;
+            subjectSelect.appendChild(opt);
+          });
+        });
+      },
+
+      setupFileSelection() {
+        const input = document.getElementById("pdfFileInput");
+        const dropZone = document.getElementById("dropZone");
+
+        input.addEventListener("change", () => this.handlePickedFiles(input.files));
+
+        dropZone.addEventListener("dragover", (e) => { e.preventDefault(); dropZone.style.borderColor = "#059669"; });
+        dropZone.addEventListener("dragleave", () => { dropZone.style.borderColor = "#CBD5E1"; });
+        dropZone.addEventListener("drop", (e) => {
+          e.preventDefault();
+          dropZone.style.borderColor = "#CBD5E1";
+          if (e.dataTransfer.files.length > 0) this.handlePickedFiles(e.dataTransfer.files);
+        });
+      },
+
+      handlePickedFiles(files) {
+        const pdfFiles = Array.from(files).filter(f => f.type === "application/pdf" || f.name.endsWith(".pdf"));
+        if (pdfFiles.length === 0) return alert("Please select PDF files only!");
+
+        this.selectedFiles = pdfFiles;
+        const display = document.getElementById("selectedFileNameDisplay");
+        const bulkContainer = document.getElementById("bulkFilesQueueContainer");
+        const singleConfig = document.getElementById("singleFileConfigRow");
+
+        if (pdfFiles.length > 1) {
+          display.textContent = `${pdfFiles.length} PDFs selected in batch queue.`;
+          bulkContainer.style.display = "block";
+          singleConfig.style.display = "none";
+          this.renderBulkQueueTable();
+        } else {
+          display.textContent = `Selected: ${pdfFiles[0].name} (${(pdfFiles[0].size / (1024*1024)).toFixed(2)} MB)`;
+          bulkContainer.style.display = "none";
+          singleConfig.style.display = "block";
+          document.getElementById("uploadChapterInput").value = pdfFiles[0].name.replace(/\.pdf$/i, '').replace(/[-_]/g, ' ');
+        }
+      },
+
+      renderBulkQueueTable() {
+        const tbody = document.getElementById("bulkQueueTableBody");
+        tbody.innerHTML = "";
+
+        this.selectedFiles.forEach((file, index) => {
+          const tr = document.createElement("tr");
+          const defaultTitle = file.name.replace(/\.pdf$/i, '').replace(/[-_]/g, ' ');
+
+          tr.innerHTML = `
+            <td>
+              <strong style="font-size:0.82rem; display:block; color:var(--brand-navy);">${file.name}</strong>
+              <span style="font-size:0.72rem; color:var(--slate-500);">${(file.size / (1024*1024)).toFixed(2)} MB</span>
+            </td>
+            <td>
+              <select class="bulk-row-input row-grade-select" onchange="AdminController.updateBulkRowSubjects(${index}, this.value)" required>
+                <option value="" disabled selected>Select Grade</option>
+                <option value="1">Class 1</option>
+                <option value="2">Class 2</option>
+                <option value="3">Class 3</option>
+                <option value="4">Class 4</option>
+                <option value="5">Class 5</option>
+                <option value="6">Class 6</option>
+                <option value="7">Class 7</option>
+                <option value="8">Class 8</option>
+                <option value="9">Class 9</option>
+                <option value="10">Class 10</option>
+                <option value="11_science">Class 11 Science</option>
+                <option value="11_commerce">Class 11 Commerce</option>
+                <option value="11_humanities">Class 11 Humanities</option>
+                <option value="12_science">Class 12 Science</option>
+                <option value="12_commerce">Class 12 Commerce</option>
+                <option value="12_arts">Class 12 Humanities</option>
+                <option value="competitive_jee">JEE Main</option>
+                <option value="competitive_neet">NEET-UG</option>
+                <option value="competitive_cuet">CUET UG</option>
+                <option value="competitive_nda">NDA</option>
+              </select>
+            </td>
+            <td>
+              <select class="bulk-row-input row-subject-select" id="bulkSubjectSelect_${index}" required>
+                <option value="" disabled selected>Grade first</option>
+              </select>
+            </td>
+            <td>
+              <input type="text" class="bulk-row-input row-chapter-title" value="${defaultTitle}" placeholder="Chapter Title" required>
+            </td>
+            <td>
+              <select class="bulk-row-input row-doc-tag">
+                <option value="Full Chapter Note" selected>Chapter Note</option>
+                <option value="Formula Sheet">Formula Sheet</option>
+                <option value="PYQ Solutions">Solved PYQ</option>
+                <option value="NCERT Solutions">NCERT Solutions</option>
+              </select>
+            </td>
+            <td>
+              <button type="button" onclick="AdminController.removeBulkItem(${index})" style="background:#FEF2F2; color:#DC2626; border:1px solid #FECACA; border-radius:6px; padding:4px 8px; cursor:pointer;">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      },
+
+      updateBulkRowSubjects(index, gradeKey) {
+        const subSelect = document.getElementById(`bulkSubjectSelect_${index}`);
+        if (!subSelect) return;
+
+        const subjects = ALL_SUBJECTS_MAP[gradeKey] || [];
+        subSelect.innerHTML = '<option value="" disabled selected>Select Subject</option>';
+        subjects.forEach(sub => {
+          const opt = document.createElement("option");
+          opt.value = sub;
+          opt.textContent = sub;
+          subSelect.appendChild(opt);
+        });
+      },
+
+      removeBulkItem(index) {
+        this.selectedFiles.splice(index, 1);
+        if (this.selectedFiles.length === 0) {
+          this.resetForm();
+        } else if (this.selectedFiles.length === 1) {
+          this.handlePickedFiles(this.selectedFiles);
+        } else {
+          this.renderBulkQueueTable();
+        }
+      },
+
+      resetForm() {
+        this.selectedFiles = [];
+        document.getElementById("adminUploadForm").reset();
+        document.getElementById("selectedFileNameDisplay").textContent = "No PDF selected yet";
+        document.getElementById("bulkFilesQueueContainer").style.display = "none";
+        document.getElementById("singleFileConfigRow").style.display = "block";
+        document.getElementById("generatedLinkBox").style.display = "none";
+      },
+
+      setupUploadForm() {
+        const form = document.getElementById("adminUploadForm");
+        const submitBtn = document.getElementById("startUploadBtn");
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          if (this.selectedFiles.length === 0) return alert("Please select at least 1 PDF file!");
+
+          submitBtn.disabled = true;
+
+          // Multi-File Bulk Processing
+          if (this.selectedFiles.length > 1) {
+            const rows = document.querySelectorAll("#bulkQueueTableBody tr");
+            const total = this.selectedFiles.length;
+
+            for (let i = 0; i < total; i++) {
+              submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Uploading ${i + 1} of ${total} files...`;
+
+              const file = this.selectedFiles[i];
+              const row = rows[i];
+              const rawGrade = row.querySelector(".row-grade-select").value;
+              const subject = row.querySelector(".row-subject-select").value;
+              const chapter = row.querySelector(".row-chapter-title").value.trim();
+              const tag = row.querySelector(".row-doc-tag").value;
+
+              if (!rawGrade || !subject) {
+                alert(`Please select Grade & Subject for ${file.name}`);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Upload & Sync to Student Workspace';
+                return;
+              }
+
+              let normalizedClass = rawGrade;
+              if (rawGrade.startsWith("11_")) normalizedClass = "11";
+              else if (rawGrade.startsWith("12_")) normalizedClass = "12";
+              else if (rawGrade.startsWith("competitive_")) normalizedClass = "competitive";
+
+              await this.uploadSingleNoteFile(file, normalizedClass, subject, chapter, tag, "NotesPoint Senior Faculty");
+            }
+
+            alert(`✅ All ${total} PDFs uploaded & synced successfully!`);
+            this.resetForm();
+            this.loadDirectory();
+            this.loadOverviewStats();
+          } 
+          // Single File Processing
+          else {
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Uploading PDF...`;
+            const file = this.selectedFiles[0];
+            const rawGrade = document.getElementById("uploadClassSelect").value;
+            const subject = document.getElementById("uploadSubjectInput").value;
+            const chapter = document.getElementById("uploadChapterInput").value.trim();
+            const tag = document.getElementById("uploadDocTypeSelect").value;
+            const author = document.getElementById("uploadAuthorInput").value.trim();
+
+            if (!rawGrade || !subject || !chapter) {
+              alert("Please fill all required fields!");
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Upload & Sync to Student Workspace';
+              return;
+            }
+
+            let normalizedClass = rawGrade;
+            if (rawGrade.startsWith("11_")) normalizedClass = "11";
+            else if (rawGrade.startsWith("12_")) normalizedClass = "12";
+            else if (rawGrade.startsWith("competitive_")) normalizedClass = "competitive";
+
+            const generatedUrl = await this.uploadSingleNoteFile(file, normalizedClass, subject, chapter, tag, author);
+
+            if (generatedUrl) {
+              document.getElementById("generatedLinkBox").style.display = "block";
+              document.getElementById("generatedCleanUrl").value = generatedUrl;
+              alert("✅ PDF successfully uploaded and synced live to Student Workspace!");
+            }
+            this.loadDirectory();
+            this.loadOverviewStats();
+          }
+
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Upload & Sync to Student Workspace';
+        });
+      },
+
+      async uploadSingleNoteFile(file, normalizedClass, subject, chapter, docType, author) {
+        const sanitizedFileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, "_")}`;
+        let downloadUrl = "";
+
+        try {
+          if (storage) {
+            const storageRef = storage.ref(`notes/${normalizedClass}/${sanitizedFileName}`);
+            const metadata = { contentType: 'application/pdf', contentDisposition: 'inline' };
+            const uploadTask = await storageRef.put(file, metadata);
+            downloadUrl = await uploadTask.ref.getDownloadURL();
+          } else {
+            downloadUrl = URL.createObjectURL(file);
+          }
+
+          const noteObj = {
+            id: 'note_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+            class: normalizedClass,
+            subject: subject,
+            chapter: chapter,
+            title: chapter,
+            docType: docType,
+            author: author,
+            fileUrl: downloadUrl,
+            pdfUrl: downloadUrl,
+            url: downloadUrl,
+            fileName: sanitizedFileName,
+            createdAt: new Date().toISOString()
+          };
+
+          // 1. LocalStorage Sync
+          const storageKeys = ['notespoint_uploaded_notes_v7', 'notespoint_uploaded_notes', 'np_uploaded_notes', 'notes'];
+          storageKeys.forEach(k => {
+            try {
+              const list = JSON.parse(localStorage.getItem(k) || '[]');
+              list.unshift(noteObj);
+              localStorage.setItem(k, JSON.stringify(list));
+            } catch(e) {}
+          });
+
+          // 2. Firebase Firestore Sync
+          if (db) {
+            await db.collection("notes").doc(noteObj.id).set({
+              ...noteObj,
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            }).catch(() => {});
+          }
+
+          return downloadUrl;
+        } catch(err) {
+          console.error("Upload error:", err);
+          return null;
+        }
+      },
+
+      setupTickerForm() {
+        const form = document.getElementById("tickerUpdateForm");
+        if (!form) return;
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const text = document.getElementById("tickerTextInput").value.trim();
+          localStorage.setItem("np_live_ticker_notice", text);
+          if (db) {
+            db.collection("settings").doc("ticker").set({ text: text }).catch(() => {});
+          }
+          alert("✅ Running ticker notice published!");
+        });
+      },
+
+      loadDirectory() {
+        let allNotes = [];
+        try {
+          allNotes = JSON.parse(localStorage.getItem('notespoint_uploaded_notes_v7') || '[]');
+        } catch (e) {}
+
+        this.cachedNotes = allNotes;
+        this.renderDirectoryTable(allNotes);
+
+        if (db) {
+          db.collection("notes").orderBy("createdAt", "desc").onSnapshot(snapshot => {
+            if (!snapshot.empty) {
+              const cloudNotes = [];
+              snapshot.forEach(doc => cloudNotes.push({ id: doc.id, ...doc.data() }));
+              this.cachedNotes = cloudNotes;
+              this.renderDirectoryTable(cloudNotes);
+            }
+          }, () => {});
+        }
+      },
+
+      filterDirectory(query) {
+        const q = (query || '').toLowerCase().trim();
+        const filtered = this.cachedNotes.filter(n => {
+          return (n.subject || '').toLowerCase().includes(q) ||
+                 (n.chapter || n.title || '').toLowerCase().includes(q) ||
+                 (n.class || '').toString().toLowerCase().includes(q);
+        });
+        this.renderDirectoryTable(filtered);
+      },
+
+      renderDirectoryTable(notes) {
+        const tableBody = document.getElementById("directoryTableBody");
+        if (!tableBody) return;
+        tableBody.innerHTML = "";
+
+        if (!notes || notes.length === 0) {
+          tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:20px; color:var(--slate-500);">No notes uploaded yet.</td></tr>`;
+          return;
+        }
+
+        notes.forEach(data => {
+          const tr = document.createElement("tr");
+          const cleanUrl = data.fileUrl || data.pdfUrl || data.url || '#';
+          const uploader = data.author || 'Faculty';
+
+          tr.innerHTML = `
+            <td><span style="background:#ECFDF5; color:#065F46; padding:3px 8px; border-radius:6px; font-weight:700; font-size:0.75rem;">Class ${data.class}</span></td>
+            <td><strong>${data.subject || 'General'}</strong></td>
+            <td>${data.chapter || data.title || 'Untitled'}</td>
+            <td><span style="background:#F1F5F9; color:#334155; padding:2px 6px; border-radius:4px; font-size:0.72rem; font-weight:600;">${data.docType || 'Chapter Note'}</span></td>
+            <td><span style="color:#059669; font-weight:700; font-size:0.8rem;">${uploader}</span></td>
+            <td>
+              <a href="${cleanUrl}" target="_blank" style="color: #2563EB; font-weight:700; text-decoration: underline; font-size:0.82rem;">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Link
+              </a>
+            </td>
+            <td>
+              <button onclick="AdminController.deleteMaterial('${data.id}', '${data.class}', '${data.fileName}')" style="background:#FEF2F2; color:#DC2626; border:1px solid #FECACA; border-radius:6px; padding:4px 8px; cursor:pointer;">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
+          `;
+          tableBody.appendChild(tr);
+        });
+      },
+
+      async deleteMaterial(docId, classLevel, fileName) {
+        if (!confirm("Are you sure you want to delete this study note?")) return;
+
+        const storageKeys = ['notespoint_uploaded_notes_v7', 'notespoint_uploaded_notes', 'np_uploaded_notes', 'notes'];
+        storageKeys.forEach(key => {
+          try {
+            let existing = JSON.parse(localStorage.getItem(key) || '[]');
+            existing = existing.filter(n => n.id !== docId && n.fileName !== fileName);
+            localStorage.setItem(key, JSON.stringify(existing));
+          } catch (e) {}
+        });
+
+        if (db) {
+          await db.collection("notes").doc(docId).delete().catch(() => {});
+        }
+        if (storage && fileName) {
+          await storage.ref(`notes/${classLevel}/${fileName}`).delete().catch(() => {});
+        }
+
+        alert("Document deleted successfully!");
+        this.loadDirectory();
+        this.loadOverviewStats();
+      },
+
+      loadQueries() {
+        const tableBody = document.getElementById("queriesTableBody");
+        let queries = [];
+        try {
+          queries = JSON.parse(localStorage.getItem('notespoint_admin_queries_v7') || '[]');
+        } catch (e) {}
+
+        this.renderQueriesTable(queries);
+
+        if (db) {
+          db.collection("queries").orderBy("timestamp", "desc").limit(30).onSnapshot(snapshot => {
+            if (!snapshot.empty) {
+              const cloudQueries = [];
+              snapshot.forEach(doc => cloudQueries.push({ id: doc.id, ...doc.data() }));
+              this.renderQueriesTable(cloudQueries);
+            }
+          }, () => {});
+        }
+      },
+
+      renderQueriesTable(queries) {
+        const tableBody = document.getElementById("queriesTableBody");
+        if (!tableBody) return;
+        tableBody.innerHTML = "";
+
+        if (!queries || queries.length === 0) {
+          tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:20px; color:var(--slate-500);">No student queries received yet.</td></tr>`;
+          return;
+        }
+
+        queries.forEach(q => {
+          const tr = document.createElement("tr");
+          const dateStr = q.timestamp ? new Date(q.timestamp).toLocaleString() : 'Recent';
+          tr.innerHTML = `
+            <td style="font-size:0.75rem; color:var(--slate-500);">${dateStr}</td>
+            <td><strong>${q.studentName || 'Scholar'}</strong></td>
+            <td><a href="mailto:${q.studentEmail}" style="color:#2563EB;">${q.studentEmail || 'N/A'}</a></td>
+            <td>${q.message || 'No message provided'}</td>
+            <td><span style="background:#FEF3C7; color:#B45309; padding:2px 8px; border-radius:4px; font-weight:700; font-size:0.75rem;">Received</span></td>
+          `;
+          tableBody.appendChild(tr);
+        });
+      },
+
+      loadOverviewStats() {
+        let localCount = 0;
+        try {
+          localCount = JSON.parse(localStorage.getItem('notespoint_uploaded_notes_v7') || '[]').length;
+        } catch (e) {}
+        document.getElementById("statTotalNotes").innerText = localCount;
+
+        let queryCount = 0;
+        try {
+          queryCount = JSON.parse(localStorage.getItem('notespoint_admin_queries_v7') || '[]').length;
+        } catch (e) {}
+        document.getElementById("statTotalQueries").innerText = queryCount;
+        document.getElementById("badgeQueriesCount").innerText = queryCount;
+
+        if (db) {
+          db.collection("notes").get().then(snap => {
+            document.getElementById("statTotalNotes").innerText = snap.size || localCount;
+          }).catch(() => {});
+          db.collection("queries").get().then(snap => {
+            document.getElementById("statTotalQueries").innerText = snap.size || queryCount;
+            document.getElementById("badgeQueriesCount").innerText = snap.size || queryCount;
+          }).catch(() => {});
+        }
+      },
+
+      loadVisitorLogs() {
+        const tableBody = document.getElementById("visitorsTableBody");
+        if (!tableBody) return;
+        if (db) {
+          db.collection("visitors").orderBy("timestamp", "desc").limit(15).onSnapshot(snapshot => {
+            if (!snapshot.empty) {
+              tableBody.innerHTML = "";
+              snapshot.forEach(doc => {
+                const v = doc.data();
+                const time = v.timestamp ? new Date(v.timestamp.toDate()).toLocaleTimeString() : "Recent";
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                  <td><code>${doc.id.substring(0, 8)}</code></td>
+                  <td><strong>${v.source || "Direct Link / Bookmark"}</strong></td>
+                  <td>${time}</td>
+                `;
+                tableBody.appendChild(tr);
+              });
+            }
+          }, () => {});
+        }
+      },
+
+      flushLocalStorageCache() {
+        if (!confirm("Are you sure you want to flush local cached data? (Firestore documents will remain safe)")) return;
+        localStorage.removeItem("notespoint_uploaded_notes_v7");
+        localStorage.removeItem("notespoint_admin_queries_v7");
+        this.loadDirectory();
+        this.loadOverviewStats();
+        alert("Cache flushed successfully!");
+      },
+
+      async exportFeedbacksCSV() {
+        let reviews = [];
+        if (db) {
+          try {
+            const snap = await db.collection("reviews").orderBy("createdAt", "desc").get();
+            snap.forEach(doc => reviews.push(doc.data()));
+          } catch(e) {}
+        }
+        if (reviews.length === 0) {
+          try {
+            reviews = JSON.parse(localStorage.getItem("np_real_reviews") || "[]");
+          } catch(e) {}
+        }
+        if (reviews.length === 0) {
+          alert("No reviews submitted yet!");
+          return;
+        }
+
+        let csvContent = "data:text/csv;charset=utf-8,Student Name,Class/Subject,Rating (Stars),Review Comment,Date\n";
+        reviews.forEach(r => {
+          const cleanComment = (r.comment || "").replace(/(\r\n|\n|\r|,)/gm, " ");
+          csvContent += `"${r.name}","${r.userClass || 'Student'}","${r.rating} Stars","${cleanComment}","${r.date || 'Recent'}"\n`;
+        });
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `NotesPoint_Reviews_${Date.now()}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      },
+
+      exportVisitorsCSV() {
+        const csvContent = "data:text/csv;charset=utf-8,VisitorID,Source,Date,Time\n";
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `NotesPoint_Visitors_${Date.now()}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    };
+
+    document.addEventListener("DOMContentLoaded", () => AdminController.init());
+  })();
+  </script>
 </body>
 </html>
