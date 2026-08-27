@@ -2259,7 +2259,7 @@
           name,
           userClass: userSubject || "Student",
           comment,
-          rating: this.currentRating,
+          rating: Number(this.currentRating),
           date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
           timestamp: new Date().toISOString()
         };
@@ -2293,18 +2293,38 @@
         const container = document.getElementById("fullReviewsFeedContainer");
         if (!container) return;
 
-        let reviews = [
+        const defaultReviews = [
           { name: "Verified Student", userClass: "Physics Derivations", rating: 5, comment: "Derivations and mechanisms are super clear and directly aligned with NCERT.", date: "August 2026" },
           { name: "JEE Aspirant", userClass: "JEE Main Physics", rating: 5, comment: "High-yield short tricks & formula sheets helped in my revision!", date: "August 2026" }
         ];
 
-        try {
-          const custom = JSON.parse(localStorage.getItem("np_real_reviews") || "[]");
-          reviews = [...custom, ...reviews];
-        } catch (e) {}
+        if (db) {
+          db.collection("reviews").orderBy("createdAt", "desc").onSnapshot(snapshot => {
+            if (!snapshot.empty) {
+              const cloudReviews = [];
+              snapshot.forEach(doc => cloudReviews.push(doc.data()));
+              this.renderReviewCards([...cloudReviews, ...defaultReviews]);
+            } else {
+              this.renderReviewCards(defaultReviews);
+            }
+          }, () => {
+            this.renderReviewCards(defaultReviews);
+          });
+        } else {
+          let localReviews = [];
+          try {
+            localReviews = JSON.parse(localStorage.getItem("np_real_reviews") || "[]");
+          } catch (e) {}
+          this.renderReviewCards([...localReviews, ...defaultReviews]);
+        }
+      },
 
-        container.innerHTML = reviews.map(r => {
-          const starStr = "★".repeat(r.rating) + "☆".repeat(Math.max(0, 5 - r.rating));
+      renderReviewCards(reviewsList) {
+        const container = document.getElementById("fullReviewsFeedContainer");
+        if (!container) return;
+
+        container.innerHTML = reviewsList.map(r => {
+          const starStr = "★".repeat(r.rating || 5) + "☆".repeat(Math.max(0, 5 - (r.rating || 5)));
           const initial = (r.name || "S").charAt(0).toUpperCase();
           return `
             <div class="play-review-item">
@@ -2319,7 +2339,7 @@
                 <div style="color:#F59E0B; font-size:0.85rem; margin-bottom:6px;">${starStr}</div>
                 <p style="font-size:0.88rem; color:var(--slate-700);">${this.escapeHTML(r.comment)}</p>
               </div>
-              <span style="font-size:0.72rem; color:var(--slate-400); margin-top:10px;">${r.date}</span>
+              <span style="font-size:0.72rem; color:var(--slate-400); margin-top:10px;">${r.date || 'Recent'}</span>
             </div>
           `;
         }).join("");
