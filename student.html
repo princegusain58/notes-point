@@ -61,24 +61,6 @@
       --transition-normal: 0.28s ease;
     }
 
-    body.dark-mode {
-      --brand-navy: #F8FAFC;
-      --brand-slate: #E2E8F0;
-      --slate-700: #CBD5E1;
-      --slate-600: #94A3B8;
-      --slate-500: #64748B;
-      --slate-400: #94A3B8;
-      --slate-200: #334155;
-      --slate-100: #1E293B;
-      --card-bg: #111827;
-      --border-color: #1F2937;
-      --paper-bg: #0B0F19;
-      --paper-line: #1F2937;
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
-      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
-      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
-    }
-
     *, *::before, *::after {
       box-sizing: border-box !important;
       margin: 0;
@@ -168,8 +150,6 @@
       cursor: pointer;
     }
 
-    body.dark-mode .sidebar-nav-link { color: var(--slate-300); }
-
     .sidebar-nav-link:hover {
       background: var(--primary-light);
       color: var(--primary);
@@ -182,7 +162,6 @@
       box-shadow: 0 6px 18px rgba(5, 150, 105, 0.3);
     }
 
-    /* 100% White Progress Tracker */
     .sidebar-study-tracker {
       margin: 10px 16px 14px 16px;
       background: #0F172A !important;
@@ -285,8 +264,6 @@
       align-items: center;
       gap: 12px;
     }
-
-    body.dark-mode .student-topbar { background: rgba(17, 24, 39, 0.94); }
 
     .btn-topbar-action {
       background: var(--card-bg);
@@ -407,7 +384,6 @@
       box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
     }
 
-    /* Fixed Subject Card: Text Wrap & Overflow Guard */
     .subject-card-box {
       border-radius: var(--radius-lg);
       padding: 16px;
@@ -457,7 +433,7 @@
       box-shadow: var(--shadow-md);
     }
 
-    /* Fullscreen PDF Reading Modal with Touch Zoom Support */
+    /* FULLSCREEN READER */
     .fullscreen-pdf-overlay {
       position: fixed;
       inset: 0;
@@ -575,32 +551,6 @@
       border: 1.5px solid var(--border-color);
     }
 
-    #toastContainer {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1000010;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      pointer-events: none;
-    }
-
-    .toast-msg {
-      background: #0F172A;
-      color: #FFFFFF;
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      box-shadow: var(--shadow-lg);
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.25s ease;
-    }
-    .toast-msg.show { opacity: 1; transform: translateY(0); }
-
     .student-footer-dark {
       background: #0F172A;
       color: #CBD5E1;
@@ -633,7 +583,7 @@
     }
   </style>
 </head>
-<body class="student-body-wrap admin-body-wrap">
+<body class="student-body-wrap">
 
   <div class="mobile-menu-overlay" id="mobileOverlay" onclick="closeMobileNav()"></div>
 
@@ -675,7 +625,6 @@
         </li>
       </ul>
 
-      <!-- Study Goal Widget with White Progress Bar -->
       <div class="sidebar-study-tracker">
         <div class="tracker-header">
           <span class="tracker-title"><i class="fa-solid fa-fire" style="color:#F59E0B;"></i> DAILY TARGET</span>
@@ -705,7 +654,7 @@
     </div>
   </aside>
 
-  <!-- MAIN DASHBOARD CONTENT WRAPPER -->
+  <!-- MAIN WRAPPER -->
   <div class="student-main-wrapper">
     <header class="student-topbar">
       <div style="display:flex; align-items:center; gap:12px;">
@@ -732,7 +681,6 @@
             <p style="color:var(--slate-600); font-size:.92rem;">Click any grade or exam card to explore subjects &amp; uploaded chapter notes.</p>
           </div>
 
-          <!-- All Class & Competitive Rails -->
           <div class="class-rail" id="classRail">
             <button type="button" class="class-card card-theme-1" data-class="1">
               <div>
@@ -842,7 +790,6 @@
               <span style="font-size:.85rem; color:#DC2626; font-weight:700;">Open Notes →</span>
             </button>
 
-            <!-- Competitive Goal Cards -->
             <button type="button" class="class-card card-theme-jee" data-class="competitive" data-exam="jee">
               <div>
                 <span style="background:#7C3AED; color:#fff; font-weight:800; padding:3px 8px; border-radius:6px; font-size:.78rem;">JEE</span>
@@ -880,7 +827,7 @@
             </button>
           </div>
 
-          <!-- Step 2: Stream & Subject Container with Step-by-Step Back Navigation -->
+          <!-- Step 2: Stream & Subject Container -->
           <div id="subjectContainerArea" hidden style="margin-top:16px; padding-top:16px; border-top:1px solid var(--border-color);">
             <button type="button" class="btn-step-back" id="btnBackToClasses">
               <i class="fa-solid fa-arrow-left"></i> ← Back to Grade Rails
@@ -888,7 +835,6 @@
 
             <div id="selectedClassTitle" style="text-align:center; margin-bottom:16px;"></div>
 
-            <!-- Stream selection (for Class 11, 12 and Competitive) -->
             <div id="streamLevel" hidden style="margin-bottom:20px; text-align:center;">
               <span style="font-size:.88rem; font-weight:700; color:var(--slate-700); margin-right:10px;">Select Stream / Branch:</span>
               <div id="streamPills" style="display:inline-flex; gap:10px; flex-wrap:wrap; justify-content:center;"></div>
@@ -981,7 +927,7 @@
       </div>
 
       <div style="padding:20px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:12px;">
-        <div id="notesPanelLoading" hidden style="text-align:center; padding:20px; color:var(--slate-500);">Connecting to Admin Material Stream...</div>
+        <div id="notesPanelLoading" hidden style="text-align:center; padding:20px; color:var(--slate-500);">Connecting to Material Stream...</div>
         <p id="notesPanelStatus" style="font-size:.85rem; color:var(--slate-500); margin:0; font-weight:600;"></p>
         <div id="notesPanelGrid" style="display:flex; flex-direction:column; gap:12px;"></div>
         <div id="notesPanelEmpty" hidden></div>
@@ -989,7 +935,7 @@
     </div>
   </div>
 
-  <!-- FULLSCREEN READING OVERLAY (PINCH-TO-ZOOM + BUTTON CONTROLS + DIRECT CHROME EMBED) -->
+  <!-- FULLSCREEN READING OVERLAY (NATIVE BLOB STREAM VIEWER) -->
   <div class="fullscreen-pdf-overlay" id="fullscreenViewerOverlay">
     <div class="pdf-toolbar-header">
       <div style="display:flex; align-items:center; gap:8px; overflow:hidden; max-width:40%;">
@@ -1033,7 +979,6 @@
     'use strict';
 
     const ENGINE_CONFIG = {
-      adminEmail: 'notespoint2026@gmail.com',
       storageKeys: {
         notes: 'notespoint_uploaded_notes_v7',
         bookmarks: 'notespoint_saved_bookmarks_v7',
@@ -1042,14 +987,35 @@
       }
     };
 
-    /* ==========================================================================
-       FULLSCREEN PDF ZOOM CONTROLLER (MOBILE PINCH + BUTTON ZOOM)
-       ========================================================================== */
+    /* Convert Base64 / Data URI to High-Speed Blob Stream URL */
+    function makeStreamableBlobUrl(rawUrl) {
+      if (!rawUrl) return '';
+      if (rawUrl.startsWith('data:application/pdf;base64,')) {
+        try {
+          const base64Data = rawUrl.split(',')[1];
+          const byteCharacters = atob(base64Data);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: 'application/pdf' });
+          return URL.createObjectURL(blob);
+        } catch(e) {
+          console.error("Blob stream conversion error:", e);
+          return rawUrl;
+        }
+      }
+      return rawUrl;
+    }
+
+    /* FULLSCREEN PDF CONTROLLER */
     window.PDFViewerController = {
       currentScale: 1.0,
       minScale: 0.6,
       maxScale: 3.0,
       currentUrl: '',
+      activeBlobUrl: '',
       initialDistance: null,
 
       open(url, title) {
@@ -1058,23 +1024,15 @@
         const titleEl = document.getElementById("pdfActiveDocumentTitle");
 
         let cleanUrl = (url || '').trim();
-        if (!cleanUrl || cleanUrl === 'undefined' || cleanUrl === 'null') {
+        if (!cleanUrl || cleanUrl === 'undefined' || cleanUrl === 'null' || cleanUrl.includes('Direct Stream Loaded')) {
           cleanUrl = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
         }
 
-        if (cleanUrl.includes('drive.google.com')) {
-          cleanUrl = cleanUrl.replace(/\/view(\?usp=.*)?$/, '/preview');
-          if (!cleanUrl.includes('/preview')) {
-            const match = cleanUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
-            if (match && match[1]) {
-              cleanUrl = `https://drive.google.com/file/d/${match[1]}/preview`;
-            }
-          }
-        }
-
         this.currentUrl = cleanUrl;
+        this.activeBlobUrl = makeStreamableBlobUrl(cleanUrl);
+
         if (titleEl) titleEl.textContent = title || "Academic Study Document";
-        if (frame) frame.src = cleanUrl;
+        if (frame) frame.src = this.activeBlobUrl;
         if (overlay) {
           overlay.style.display = "flex";
           document.body.style.overflow = "hidden";
@@ -1089,12 +1047,10 @@
       },
 
       openExternal() {
-        if (this.currentUrl) {
-          let directOpenUrl = this.currentUrl;
-          if (directOpenUrl.includes('/preview')) {
-            directOpenUrl = directOpenUrl.replace('/preview', '/view');
-          }
-          window.open(directOpenUrl, '_blank');
+        if (!this.currentUrl) return;
+        const targetUrl = this.activeBlobUrl || makeStreamableBlobUrl(this.currentUrl);
+        if (targetUrl) {
+          window.open(targetUrl, '_blank');
         }
       },
 
@@ -1190,7 +1146,7 @@
     const db = (typeof firebase !== 'undefined') ? firebase.firestore() : null;
     const notesCollection = db ? db.collection('notes') : null;
 
-    /* DYNAMIC STUDENT PROFILE SYNC */
+    /* STUDENT PROFILE SYNC */
     function initStudentSession() {
       const studentHeaderName = document.getElementById('studentHeaderName');
       const userAvatarLetter = document.getElementById('userAvatarLetter');
@@ -1208,7 +1164,7 @@
     }
     initStudentSession();
 
-    /* PURE WHITE PROGRESS BAR */
+    /* PROGRESS TRACKER */
     function initStudyProgressTracker() {
       const todayStr = new Date().toISOString().slice(0, 10);
       let trackerData = { date: todayStr, seconds: 0, pdfCount: 0 };
@@ -1250,7 +1206,7 @@
     }
     initStudyProgressTracker();
 
-    /* COMPLETE ALL-GRADE & COMPETITIVE CURRICULUM */
+    /* CURRICULUM SUBJECTS MATRIX */
     const RESOURCE_EXTRAS = ['NCERT Solutions 📚', 'Formula Books & Derivations', 'Previous Year Questions (PYQs)'];
     
     const CURRICULUM = {
@@ -1288,7 +1244,6 @@
       }
     };
 
-    /* UNIQUE THEMES FOR GRADES AND INNER CARDS */
     const CLASS_THEMES = {
       '1': { bg: '#ECFDF5', border: '#A7F3D0', text: '#064E3B', accent: '#059669', cardBg: '#D1FAE5' },
       '2': { bg: '#FEF3C7', border: '#FDE68A', text: '#78350F', accent: '#D97706', cardBg: '#FEEBC8' },
@@ -1621,7 +1576,6 @@
       if (panel) panel.hidden = true;
     });
 
-    /* AUTO URL PARAMETER PARSER */
     function checkUrlClassParameters() {
       const params = new URLSearchParams(window.location.search);
       const requestedClass = params.get('class');
@@ -1666,7 +1620,6 @@
       });
     });
 
-    /* SUPPORT FORM HANDLER */
     const supportForm = document.getElementById('supportForm');
     if (supportForm) {
       supportForm.addEventListener('submit', async (e) => {
