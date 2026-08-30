@@ -769,6 +769,206 @@
       .admin-workspace { padding: 16px; }
       .form-grid-3 { grid-template-columns: 1fr; }
     }
+
+    /* ==========================================================================
+       PDF LINK / UPLOAD RESPONSIVENESS
+       ========================================================================== */
+    .pdf-link-cell {
+      min-width: 150px;
+      max-width: 220px;
+    }
+
+    .pdf-link-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .pdf-action-btn {
+      border: 1px solid var(--border-color);
+      background: #FFFFFF;
+      color: var(--slate-700);
+      min-height: 34px;
+      padding: 6px 9px;
+      border-radius: 7px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .pdf-action-btn.primary {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+    }
+
+    .pdf-action-btn.primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .pdf-action-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .pdf-file-meta {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .pdf-file-icon {
+      width: 30px;
+      height: 30px;
+      min-width: 30px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: #FEF2F2;
+      color: #DC2626;
+    }
+
+    .pdf-file-name {
+      min-width: 0;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--brand-navy);
+    }
+
+    .pdf-file-size {
+      display: block;
+      font-size: 0.68rem;
+      color: var(--slate-500);
+      margin-top: 1px;
+    }
+
+    @media (max-width: 700px) {
+      .panel-card {
+        padding: 16px;
+      }
+
+      .pdf-link-cell {
+        min-width: 180px;
+      }
+
+      .pdf-action-btn {
+        flex: 1 1 auto;
+      }
+
+      #generatedLinkActions .btn-admin-primary,
+      #generatedLinkActions .btn-admin-secondary {
+        flex: 1 1 140px;
+        justify-content: center;
+      }
+
+      #generatedCleanUrl {
+        font-size: 0.68rem !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .pdf-link-cell {
+        min-width: 160px;
+      }
+
+      .pdf-action-btn {
+        width: 100%;
+      }
+
+      .pdf-link-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+    /* ==========================================================================
+       CLOUDINARY FREE-PLAN CONFIGURATION UI
+       ========================================================================== */
+    .cloudinary-config-card {
+      margin: 0 0 18px;
+      border: 1.5px solid #A7F3D0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #F0FDF4, #FFFFFF);
+      padding: 16px;
+    }
+    .cloudinary-config-head {
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+      margin-bottom:14px;
+    }
+    .cloudinary-config-head h4 {
+      font-family:var(--font-heading);
+      font-size:1rem;
+      font-weight:800;
+      color:#065F46;
+      margin-bottom:3px;
+    }
+    .cloudinary-config-head p {
+      font-size:0.76rem;
+      color:#64748B;
+      line-height:1.5;
+      margin:0;
+    }
+    .config-status {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      flex-shrink:0;
+      padding:5px 8px;
+      border-radius:999px;
+      font-size:0.68rem;
+      font-weight:800;
+      white-space:nowrap;
+    }
+    .config-status.pending { background:#FFF7ED;color:#C2410C; }
+    .config-status.ready { background:#DCFCE7;color:#166534; }
+    .cloudinary-config-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    .cloudinary-config-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:12px;
+    }
+    .cloudinary-help-note {
+      display:flex;
+      align-items:flex-start;
+      gap:8px;
+      margin-top:12px;
+      padding:9px 10px;
+      border-radius:8px;
+      background:#FFFFFF;
+      border:1px solid #D1FAE5;
+      color:#475569;
+      font-size:0.72rem;
+      line-height:1.45;
+    }
+    .cloudinary-help-note i { color:#059669; margin-top:2px; }
+    @media (max-width:700px) {
+      .cloudinary-config-grid { grid-template-columns:1fr; }
+      .cloudinary-config-head { flex-direction:column; }
+      .cloudinary-config-actions .btn-admin-primary,
+      .cloudinary-config-actions .btn-admin-secondary { flex:1 1 140px; justify-content:center; }
+    }
+
   </style>
 </head>
 <body class="admin-body">
@@ -860,7 +1060,7 @@
           </button>
           <div>
             <h1 id="pageSectionTitle" style="font-family:var(--font-heading); font-size:1.25rem; font-weight:800; color:var(--brand-navy); margin:0;">Dashboard Overview &amp; Analytics</h1>
-            <p style="font-size:0.8rem; color:var(--slate-500); margin:0;">Real-time content management &amp; zero-CORS stream engine</p>
+            <p style="font-size:0.8rem; color:var(--slate-500); margin:0;">Real-time content management &amp; mobile-safe PDF cloud delivery</p>
           </div>
         </div>
 
@@ -972,9 +1172,47 @@
         <section id="uploaderSection" class="workspace-section">
           <div class="panel-card">
             <h3><i class="fa-solid fa-cloud-arrow-up" style="color:var(--primary);"></i> Direct Stream PDF Uploader Engine</h3>
-            <p style="margin-bottom: 18px;">Direct stream pipeline: 100% bypasses CORS restrictions, loads instantaneously on any mobile device.</p>
+            <p style="margin-bottom: 18px;">Free-plan friendly PDF pipeline: uploads the PDF directly to Cloudinary and keeps only a lightweight URL + metadata in Firestore.</p>
 
-            <form id="adminUploadForm">
+            
+            <div class="cloudinary-config-card" id="cloudinaryConfigCard">
+              <div class="cloudinary-config-head">
+                <div>
+                  <h4><i class="fa-solid fa-cloud"></i> PDF Cloud Connection</h4>
+                  <p>One-time setup: enter your Cloudinary Cloud Name and an <strong>unsigned upload preset</strong>. These are not your API secret.</p>
+                </div>
+                <span id="cloudinaryConfigStatus" class="config-status pending">
+                  <i class="fa-solid fa-circle"></i> Not configured
+                </span>
+              </div>
+
+              <div class="cloudinary-config-grid">
+                <div class="input-group">
+                  <label for="cloudinaryCloudName"><i class="fa-solid fa-server"></i> Cloud Name *</label>
+                  <input id="cloudinaryCloudName" type="text" autocomplete="off" placeholder="e.g. dxxxxxxx">
+                </div>
+                <div class="input-group">
+                  <label for="cloudinaryUploadPreset"><i class="fa-solid fa-key"></i> Unsigned Upload Preset *</label>
+                  <input id="cloudinaryUploadPreset" type="text" autocomplete="off" placeholder="e.g. notespoint_pdf_upload">
+                </div>
+              </div>
+
+              <div class="cloudinary-config-actions">
+                <button type="button" id="saveCloudinaryConfigBtn" class="btn-admin-primary" style="padding:8px 14px;font-size:0.8rem;">
+                  <i class="fa-solid fa-floppy-disk"></i> Save PDF Cloud Setup
+                </button>
+                <button type="button" id="clearCloudinaryConfigBtn" class="btn-admin-secondary" style="padding:8px 14px;font-size:0.8rem;">
+                  <i class="fa-solid fa-trash-can"></i> Clear
+                </button>
+              </div>
+
+              <div class="cloudinary-help-note">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Cloudinary Free supports browser uploads through unsigned presets. Keep the preset restricted to <strong>PDF</strong> and set a sensible file-size limit.</span>
+              </div>
+            </div>
+
+<form id="adminUploadForm">
               <div class="drop-zone-area" id="dropZone" onclick="document.getElementById('pdfFileInput').click()">
                 <input type="file" id="pdfFileInput" accept="application/pdf" hidden>
                 <div class="cloud-icon-circle"><i class="fa-solid fa-file-pdf"></i></div>
@@ -1049,9 +1287,27 @@
                 </div>
               </div>
 
-              <div id="generatedLinkBox" style="display: none; background: #ECFDF5; border: 1.5px solid #6EE7B7; padding: 14px; border-radius: 8px; margin: 15px 0;">
-                <strong style="color: #065F46; font-size: 0.85rem; display:block; margin-bottom:6px;"><i class="fa-solid fa-circle-check"></i> Direct Mobile PDF Stream Ready:</strong>
-                <input type="text" id="generatedCleanUrl" readonly style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-family: var(--font-mono); background:#FFF; font-size:0.82rem;">
+              <div id="generatedLinkBox" style="display:none; background:#ECFDF5; border:1.5px solid #6EE7B7; padding:16px; border-radius:10px; margin:15px 0;">
+                <div style="display:flex;align-items:flex-start;gap:10px;">
+                  <div style="width:34px;height:34px;min-width:34px;border-radius:9px;background:#D1FAE5;color:#047857;display:grid;place-items:center;">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                  </div>
+                  <div style="min-width:0;flex:1;">
+                    <strong style="color:#065F46;font-size:0.86rem;display:block;">Mobile PDF uploaded successfully</strong>
+                    <span id="generatedFileStatus" style="display:block;color:#047857;font-size:0.76rem;margin-top:2px;">Short internal record created — no Base64 URL is exposed.</span>
+                    <div id="generatedLinkActions" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:11px;">
+                      <a id="generatedOpenPdfBtn" href="#" target="_blank" rel="noopener" class="btn-admin-primary" style="padding:8px 12px;font-size:0.78rem;text-decoration:none;">
+                        <i class="fa-solid fa-file-pdf"></i> Open PDF
+                      </a>
+                      <button type="button" id="generatedCopyPdfBtn" class="btn-admin-secondary" style="padding:8px 12px;font-size:0.78rem;">
+                        <i class="fa-regular fa-copy"></i> Copy PDF Link
+                      </button>
+                    </div>
+                    <div style="margin-top:10px;">
+                      <input type="text" id="generatedCleanUrl" readonly aria-label="PDF link" style="width:100%;padding:8px 10px;border:1px solid #A7F3D0;border-radius:7px;font-family:var(--font-mono);background:#F0FDF4;color:#065F46;font-size:0.74rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div style="margin-top:10px; display:flex; gap:10px;">
@@ -1074,7 +1330,7 @@
                 <h3><i class="fa-solid fa-folder-tree" style="color:var(--primary);"></i> Live Material File Directory</h3>
                 <p>Manage, inspect stream links, or delete material</p>
               </div>
-              <input type="text" id="directorySearchInput" placeholder="Filter by chapter or subject..." style="padding:8px 14px; border:1.5px solid var(--border-color); border-radius:8px; font-size:0.85rem; outline:none;" oninput="AdminController.filterDirectory(this.value)">
+              <input type="text" id="directorySearchInput" placeholder="Filter by chapter or subject..." style="padding:8px 14px; border:1.5px solid var(--border-color); border-radius:8px; font-size:0.85rem; outline:none; min-width:220px; max-width:100%; flex:1 1 260px;" oninput="AdminController.filterDirectory(this.value)">
             </div>
 
             <div class="table-responsive-wrapper">
@@ -1199,6 +1455,7 @@
       firebase.initializeApp(firebaseConfig);
     }
     const db = (typeof firebase !== 'undefined') ? firebase.firestore() : null;
+    const CLOUDINARY_CONFIG_KEY = "notespoint_cloudinary_config_v1";
 
     // 2. COMPLETE CURRICULUM SUBJECTS MATRIX (Class 1 to 12 & Entrance Hub)
     const RESOURCE_EXTRAS = ["NCERT Solutions 📚", "Formula Books & Derivations", "Previous Year Questions (PYQs)"];
@@ -1237,6 +1494,7 @@
         this.setupSingleClassDropdown();
         this.setupFileSelection();
         this.setupUploadForm();
+        this.wireCloudinaryConfigUI();
         this.setupTickerForm();
         this.loadDirectory();
         this.loadQueries();
@@ -1346,43 +1604,290 @@
         const dropZone = document.getElementById("dropZone");
         if (!input || !dropZone) return;
 
-        input.addEventListener("change", () => {
-          if (input.files.length > 0) {
-            this.selectedFile = input.files[0];
-            const display = document.getElementById("selectedFileNameDisplay");
-            if (display) display.textContent = `Selected: ${this.selectedFile.name} (${(this.selectedFile.size / (1024*1024)).toFixed(2)} MB)`;
-            const chapterInput = document.getElementById("uploadChapterInput");
-            if (chapterInput) {
-              chapterInput.value = this.selectedFile.name.replace(/\.pdf$/i, '').replace(/[-_]/g, ' ');
-            }
+        const applyFile = (file) => {
+          if (!file) return;
+
+          if (file.type !== "application/pdf" && !/\.pdf$/i.test(file.name)) {
+            alert("Please select a valid PDF file.");
+            return;
           }
+
+          this.selectedFile = file;
+
+          const display = document.getElementById("selectedFileNameDisplay");
+          if (display) {
+            display.textContent = `Selected: ${file.name} (${this.formatFileSize(file.size)})`;
+          }
+
+          const chapterInput = document.getElementById("uploadChapterInput");
+          if (chapterInput && !chapterInput.value.trim()) {
+            chapterInput.value = file.name
+              .replace(/\.pdf$/i, "")
+              .replace(/[-_]+/g, " ")
+              .trim();
+          }
+        };
+
+        input.addEventListener("change", () => {
+          applyFile(input.files && input.files[0]);
         });
 
-        dropZone.addEventListener("dragover", (e) => { e.preventDefault(); dropZone.style.borderColor = "#059669"; });
-        dropZone.addEventListener("dragleave", () => { dropZone.style.borderColor = "#CBD5E1"; });
+        dropZone.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          dropZone.style.borderColor = "#059669";
+          dropZone.style.background = "#ECFDF5";
+        });
+
+        dropZone.addEventListener("dragleave", () => {
+          dropZone.style.borderColor = "#CBD5E1";
+          dropZone.style.background = "";
+        });
+
         dropZone.addEventListener("drop", (e) => {
           e.preventDefault();
           dropZone.style.borderColor = "#CBD5E1";
-          if (e.dataTransfer.files.length > 0) {
-            this.selectedFile = e.dataTransfer.files[0];
-            const display = document.getElementById("selectedFileNameDisplay");
-            if (display) display.textContent = `Selected: ${this.selectedFile.name} (${(this.selectedFile.size / (1024*1024)).toFixed(2)} MB)`;
-            const chapterInput = document.getElementById("uploadChapterInput");
-            if (chapterInput) {
-              chapterInput.value = this.selectedFile.name.replace(/\.pdf$/i, '').replace(/[-_]/g, ' ');
-            }
-          }
+          dropZone.style.background = "";
+          const file = e.dataTransfer.files && e.dataTransfer.files[0];
+          applyFile(file);
         });
+
+        const copyBtn = document.getElementById("generatedCopyPdfBtn");
+        if (copyBtn) {
+          copyBtn.addEventListener("click", () => this.copyGeneratedPdfLink());
+        }
+      },
+
+      formatFileSize(bytes) {
+        const value = Number(bytes) || 0;
+        if (value < 1024) return `${value} B`;
+        if (value < 1024 * 1024) return `${(value / 1024).toFixed(1)} KB`;
+        if (value < 1024 * 1024 * 1024) return `${(value / (1024 * 1024)).toFixed(2)} MB`;
+        return `${(value / (1024 * 1024 * 1024)).toFixed(2)} GB`;
+      },
+
+      escapeHtml(value) {
+        return String(value ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      },
+
+      makeSafeStorageFileName(originalName) {
+        const safe = String(originalName || "document.pdf")
+          .replace(/[^a-zA-Z0-9._-]/g, "_")
+          .replace(/_+/g, "_")
+          .replace(/^_+|_+$/g, "");
+        return safe.toLowerCase().endsWith(".pdf") ? safe.toLowerCase() : `${safe.toLowerCase()}.pdf`;
+      },
+
+      loadCloudinaryConfig() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(CLOUDINARY_CONFIG_KEY) || "{}");
+          const cloudNameInput = document.getElementById("cloudinaryCloudName");
+          const presetInput = document.getElementById("cloudinaryUploadPreset");
+
+          if (cloudNameInput) cloudNameInput.value = saved.cloudName || "";
+          if (presetInput) presetInput.value = saved.uploadPreset || "";
+
+          this.updateCloudinaryConfigStatus(saved);
+          return saved;
+        } catch (err) {
+          this.updateCloudinaryConfigStatus({});
+          return {};
+        }
+      },
+
+      saveCloudinaryConfig() {
+        const cloudName = (document.getElementById("cloudinaryCloudName")?.value || "").trim();
+        const uploadPreset = (document.getElementById("cloudinaryUploadPreset")?.value || "").trim();
+
+        if (!cloudName || !uploadPreset) {
+          alert("Please enter both Cloud Name and Unsigned Upload Preset.");
+          return;
+        }
+
+        const config = {
+          cloudName,
+          uploadPreset,
+          savedAt: new Date().toISOString()
+        };
+
+        localStorage.setItem(CLOUDINARY_CONFIG_KEY, JSON.stringify(config));
+        this.updateCloudinaryConfigStatus(config);
+        alert("✅ PDF cloud setup saved.");
+      },
+
+      clearCloudinaryConfig() {
+        if (!confirm("Clear the saved Cloudinary PDF setup from this browser?")) return;
+        localStorage.removeItem(CLOUDINARY_CONFIG_KEY);
+        const cloudNameInput = document.getElementById("cloudinaryCloudName");
+        const presetInput = document.getElementById("cloudinaryUploadPreset");
+        if (cloudNameInput) cloudNameInput.value = "";
+        if (presetInput) presetInput.value = "";
+        this.updateCloudinaryConfigStatus({});
+      },
+
+      updateCloudinaryConfigStatus(config) {
+        const status = document.getElementById("cloudinaryConfigStatus");
+        if (!status) return;
+
+        const ready = !!(config && config.cloudName && config.uploadPreset);
+        status.className = `config-status ${ready ? "ready" : "pending"}`;
+        status.innerHTML = ready
+          ? `<i class="fa-solid fa-circle-check"></i> Configured`
+          : `<i class="fa-solid fa-circle"></i> Not configured`;
+      },
+
+      getCloudinaryConfig() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(CLOUDINARY_CONFIG_KEY) || "{}");
+          if (saved && saved.cloudName && saved.uploadPreset) return saved;
+        } catch (err) {}
+
+        const cloudName = (document.getElementById("cloudinaryCloudName")?.value || "").trim();
+        const uploadPreset = (document.getElementById("cloudinaryUploadPreset")?.value || "").trim();
+
+        return { cloudName, uploadPreset };
+      },
+
+      async uploadPdfToCloudinary(file, onProgress) {
+        const config = this.getCloudinaryConfig();
+
+        if (!config.cloudName || !config.uploadPreset) {
+          throw new Error("Cloudinary is not configured. Enter Cloud Name + Unsigned Upload Preset and save the setup first.");
+        }
+
+        const endpoint = `https://api.cloudinary.com/v1_1/${encodeURIComponent(config.cloudName)}/image/upload`;
+
+        return await new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          const formData = new FormData();
+
+          formData.append("file", file);
+          formData.append("upload_preset", config.uploadPreset);
+
+          xhr.open("POST", endpoint, true);
+          xhr.responseType = "json";
+          xhr.timeout = 10 * 60 * 1000;
+
+          xhr.upload.addEventListener("progress", (event) => {
+            if (!event.lengthComputable) return;
+            const percent = Math.round((event.loaded / event.total) * 100);
+            if (typeof onProgress === "function") onProgress(percent);
+          });
+
+          xhr.onload = () => {
+            const data = xhr.response || (() => {
+              try { return JSON.parse(xhr.responseText || "{}"); } catch (e) { return {}; }
+            })();
+
+            if (xhr.status >= 200 && xhr.status < 300 && data.secure_url) {
+              resolve({
+                downloadURL: data.secure_url,
+                fileName: file.name,
+                fileSize: file.size,
+                contentType: file.type || "application/pdf",
+                publicId: data.public_id || "",
+                resourceType: data.resource_type || "image",
+                format: data.format || "pdf",
+                version: data.version || "",
+                cloudName: config.cloudName
+              });
+              return;
+            }
+
+            const message =
+              data?.error?.message ||
+              `Cloudinary upload failed (HTTP ${xhr.status}).`;
+
+            reject(new Error(message));
+          };
+
+          xhr.onerror = () => reject(new Error("Network/CORS error while connecting to Cloudinary."));
+          xhr.ontimeout = () => reject(new Error("Upload timed out. Check your connection or try a smaller PDF."));
+          xhr.onabort = () => reject(new Error("Upload was cancelled."));
+
+          xhr.send(formData);
+        });
+      },
+
+      wireCloudinaryConfigUI() {
+        const saveBtn = document.getElementById("saveCloudinaryConfigBtn");
+        const clearBtn = document.getElementById("clearCloudinaryConfigBtn");
+
+        if (saveBtn) saveBtn.addEventListener("click", () => this.saveCloudinaryConfig());
+        if (clearBtn) clearBtn.addEventListener("click", () => this.clearCloudinaryConfig());
+
+        this.loadCloudinaryConfig();
+      },
+
+      showGeneratedPdfResult(noteObj) {
+        const linkBox = document.getElementById("generatedLinkBox");
+        const cleanUrlInput = document.getElementById("generatedCleanUrl");
+        const openBtn = document.getElementById("generatedOpenPdfBtn");
+        const status = document.getElementById("generatedFileStatus");
+
+        if (linkBox) linkBox.style.display = "block";
+
+        const url = noteObj.pdfUrl || noteObj.fileUrl || "";
+        if (openBtn) {
+          openBtn.href = url || "#";
+          openBtn.style.pointerEvents = url ? "auto" : "none";
+          openBtn.style.opacity = url ? "1" : "0.55";
+        }
+
+        if (cleanUrlInput) {
+          cleanUrlInput.value = url || `notespoint://pdf/${noteObj.id}`;
+        }
+
+        if (status) {
+          status.textContent =
+            `${noteObj.fileName || "PDF"} • ${this.formatFileSize(noteObj.fileSize)} • Cloud PDF link ready for mobile.`;
+        }
+      },
+
+      async copyGeneratedPdfLink() {
+        const input = document.getElementById("generatedCleanUrl");
+        if (!input || !input.value) return;
+
+        try {
+          await navigator.clipboard.writeText(input.value);
+          alert("✅ PDF link copied.");
+        } catch (err) {
+          input.select();
+          input.setSelectionRange(0, input.value.length);
+          document.execCommand("copy");
+          alert("✅ PDF link copied.");
+        }
       },
 
       resetForm() {
         this.selectedFile = null;
         const form = document.getElementById("adminUploadForm");
         if (form) form.reset();
+
         const display = document.getElementById("selectedFileNameDisplay");
         if (display) display.textContent = "No PDF selected yet";
+
         const linkBox = document.getElementById("generatedLinkBox");
         if (linkBox) linkBox.style.display = "none";
+
+        const cleanUrlInput = document.getElementById("generatedCleanUrl");
+        if (cleanUrlInput) cleanUrlInput.value = "";
+
+        const openBtn = document.getElementById("generatedOpenPdfBtn");
+        if (openBtn) {
+          openBtn.href = "#";
+          openBtn.style.pointerEvents = "none";
+          openBtn.style.opacity = "0.55";
+        }
+
+        const subjectSelect = document.getElementById("uploadSubjectInput");
+        if (subjectSelect) {
+          subjectSelect.innerHTML = '<option value="" disabled selected>Select Grade first...</option>';
+        }
       },
 
       setupUploadForm() {
@@ -1390,74 +1895,165 @@
         const submitBtn = document.getElementById("startUploadBtn");
         if (!form || !submitBtn) return;
 
-        form.addEventListener("submit", (e) => {
+        form.addEventListener("submit", async (e) => {
           e.preventDefault();
-          if (!this.selectedFile) return alert("Please select a PDF file!");
+
+          if (!this.selectedFile) {
+            alert("Please select a PDF file!");
+            return;
+          }
+
+          if (this.selectedFile.type !== "application/pdf" && !/\.pdf$/i.test(this.selectedFile.name)) {
+            alert("Only PDF files are supported.");
+            return;
+          }
+
+          if (!db) {
+            alert("❌ Firebase Firestore is not ready. Check your Firebase setup and internet connection.");
+            return;
+          }
 
           submitBtn.disabled = true;
-          submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Converting to Embedded Stream...`;
 
-          const rawGrade = document.getElementById("uploadClassSelect").value;
-          const subject = document.getElementById("uploadSubjectInput").value;
-          const chapter = document.getElementById("uploadChapterInput").value.trim();
-          const tag = document.getElementById("uploadDocTypeSelect").value;
-          const author = document.getElementById("uploadAuthorInput").value.trim();
+          try {
+            const rawGrade = document.getElementById("uploadClassSelect").value;
+            const subject = document.getElementById("uploadSubjectInput").value;
+            const chapter = document.getElementById("uploadChapterInput").value.trim();
+            const tag = document.getElementById("uploadDocTypeSelect").value;
+            const author = document.getElementById("uploadAuthorInput").value.trim();
 
-          let normalizedClass = rawGrade;
-          if (rawGrade.startsWith("11_")) normalizedClass = "11";
-          else if (rawGrade.startsWith("12_")) normalizedClass = "12";
-          else if (rawGrade.startsWith("competitive_")) normalizedClass = "competitive";
+            let normalizedClass = rawGrade;
+            if (rawGrade.startsWith("11_")) normalizedClass = "11";
+            else if (rawGrade.startsWith("12_")) normalizedClass = "12";
+            else if (rawGrade.startsWith("competitive_")) normalizedClass = "competitive";
 
-          // Read real Base64 data so student.html can render it inside an iframe / object natively
-          const reader = new FileReader();
-          reader.onload = async (event) => {
-            const actualBase64DataUrl = event.target.result;
-            const sanitizedFileName = `np_${Date.now()}_${this.selectedFile.name.replace(/[^a-zA-Z0-9.]/g, "_").toLowerCase()}`;
+            const noteId = "note_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7);
 
+            submitBtn.innerHTML =
+              `<i class="fa-solid fa-spinner fa-spin"></i> Uploading PDF 0%`;
+
+            const uploaded = await this.uploadPdfToCloudinary(
+              this.selectedFile,
+              (percent) => {
+                submitBtn.innerHTML =
+                  `<i class="fa-solid fa-spinner fa-spin"></i> Uploading PDF ${percent}%`;
+              }
+            );
+
+            /*
+             * IMPORTANT:
+             * Do NOT store the PDF as Base64.
+             * Firestore stores only small metadata + the Firebase Storage URL.
+             * This prevents giant data:application/pdf;base64,... links.
+             */
             const noteObj = {
-              id: 'note_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+              id: noteId,
               class: normalizedClass,
               subject: subject,
               chapter: chapter,
               title: chapter,
               docType: tag,
               author: author,
-              fileUrl: actualBase64DataUrl,
-              pdfUrl: actualBase64DataUrl,
-              url: actualBase64DataUrl,
-              fileName: sanitizedFileName,
+
+              // Preferred cloud PDF fields:
+              pdfUrl: uploaded.downloadURL,
+              fileUrl: uploaded.downloadURL,
+              url: uploaded.downloadURL,
+
+              // Cloudinary metadata:
+              storageProvider: "cloudinary",
+              cloudName: uploaded.cloudName,
+              publicId: uploaded.publicId,
+              resourceType: uploaded.resourceType,
+              format: uploaded.format,
+              fileName: uploaded.fileName,
+              fileSize: uploaded.fileSize,
+              contentType: uploaded.contentType,
+
+              sourceType: "cloudinary",
               createdAt: new Date().toISOString()
             };
 
-            // 1. Save Full Data in LocalStorage for Instant Local Viewing
-            const storageKeys = ['notespoint_uploaded_notes_v7', 'notespoint_uploaded_notes', 'np_uploaded_notes', 'notes'];
-            storageKeys.forEach(k => {
-              try {
-                const list = JSON.parse(localStorage.getItem(k) || '[]');
-                list.unshift(noteObj);
-                localStorage.setItem(k, JSON.stringify(list));
-              } catch(err) {}
-            });
+            await db.collection("notes").doc(noteId).set(noteObj);
 
-            // 2. Sync to Cloud Firestore with Actual Stream URL
-            if (db) {
-              await db.collection("notes").doc(noteObj.id).set(noteObj).catch(() => {});
+            /*
+             * Keep ONLY lightweight metadata in localStorage.
+             * Old versions stored huge Base64 strings here, so this intentionally
+             * removes any legacy copy of the just-uploaded document.
+             */
+            try {
+              const storageKeys = [
+                "notespoint_uploaded_notes_v7",
+                "notespoint_uploaded_notes",
+                "np_uploaded_notes",
+                "notes"
+              ];
+
+              storageKeys.forEach((key) => {
+                let list = [];
+                try {
+                  list = JSON.parse(localStorage.getItem(key) || "[]");
+                  if (!Array.isArray(list)) list = [];
+                } catch (err) {
+                  list = [];
+                }
+
+                const lightweightList = list
+                  .filter((item) => item && item.id !== noteId)
+                  .map((item) => {
+                    if (
+                      typeof item.pdfUrl === "string" &&
+                      item.pdfUrl.startsWith("data:application/pdf")
+                    ) {
+                      const { pdfUrl, fileUrl, url, ...light } = item;
+                      return light;
+                    }
+
+                    if (
+                      typeof item.fileUrl === "string" &&
+                      item.fileUrl.startsWith("data:application/pdf")
+                    ) {
+                      const { pdfUrl, fileUrl, url, ...light } = item;
+                      return light;
+                    }
+
+                    return item;
+                  });
+
+                lightweightList.unshift(noteObj);
+                localStorage.setItem(key, JSON.stringify(lightweightList.slice(0, 250)));
+              });
+            } catch (localErr) {
+              console.warn("Local metadata cache skipped:", localErr);
             }
 
-            const linkBox = document.getElementById("generatedLinkBox");
-            const cleanUrlInput = document.getElementById("generatedCleanUrl");
-            if (linkBox) linkBox.style.display = "block";
-            if (cleanUrlInput) cleanUrlInput.value = `notespoint://stream/${normalizedClass}/${sanitizedFileName}`;
+            this.showGeneratedPdfResult(noteObj);
 
             submitBtn.disabled = false;
-            submitBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Upload &amp; Sync Instantly`;
+            submitBtn.innerHTML =
+              `<i class="fa-solid fa-cloud-arrow-up"></i> Upload &amp; Sync Instantly`;
 
-            alert("✅ PDF successfully processed! Now open student.html and click 'Read Here' — it will render smoothly without 404 error.");
+            alert(
+              "✅ PDF uploaded successfully!\n\n" +
+              "The PDF is stored as a normal cloud URL — no Base64 data is saved in Firestore."
+            );
+
             this.loadDirectory();
             this.loadOverviewStats();
-          };
+          } catch (error) {
+            console.error("PDF upload failed:", error);
 
-          reader.readAsDataURL(this.selectedFile);
+            submitBtn.disabled = false;
+            submitBtn.innerHTML =
+              `<i class="fa-solid fa-cloud-arrow-up"></i> Upload &amp; Sync Instantly`;
+
+            const message = error && error.message ? error.message : String(error);
+            alert(
+              "❌ PDF upload failed.\n\n" +
+              message +
+              "\n\nCloudinary Cloud Name + Unsigned Upload Preset check karo."
+            );
+          }
         });
       },
 
@@ -1509,35 +2105,131 @@
       renderDirectoryTable(notes) {
         const tableBody = document.getElementById("directoryTableBody");
         if (!tableBody) return;
+
         tableBody.innerHTML = "";
 
         if (!notes || notes.length === 0) {
-          tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:20px; color:var(--slate-500);">No notes uploaded yet.</td></tr>`;
+          tableBody.innerHTML =
+            `<tr><td colspan="7" style="text-align:center; padding:20px; color:var(--slate-500);">No notes uploaded yet.</td></tr>`;
           return;
         }
 
-        notes.forEach(data => {
+        notes.forEach((data) => {
           const tr = document.createElement("tr");
-          const cleanUrl = data.fileUrl || data.pdfUrl || data.url || '#';
-          const uploader = data.author || 'Faculty';
+
+          const pdfUrl =
+            data.pdfUrl ||
+            data.fileUrl ||
+            data.url ||
+            "";
+
+          const uploader = this.escapeHtml(data.author || "Faculty");
+          const subject = this.escapeHtml(data.subject || "General");
+          const chapter = this.escapeHtml(data.chapter || data.title || "Untitled");
+          const docType = this.escapeHtml(data.docType || "Chapter Note");
+          const fileName = this.escapeHtml(data.fileName || "PDF Document");
+          const className = this.escapeHtml(data.class || "");
+
+          const isLegacyBase64 =
+            typeof pdfUrl === "string" &&
+            pdfUrl.startsWith("data:application/pdf");
+
+          const sizeText = data.fileSize
+            ? this.formatFileSize(data.fileSize)
+            : (isLegacyBase64 ? "Legacy embedded PDF" : "Cloud PDF");
+
+          const openButton = pdfUrl
+            ? `
+              <a
+                href="${this.escapeHtml(pdfUrl)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="pdf-action-btn primary"
+                title="Open PDF"
+              >
+                <i class="fa-solid fa-file-pdf"></i> Open
+              </a>`
+            : `
+              <button type="button" class="pdf-action-btn" disabled title="No PDF link found">
+                <i class="fa-solid fa-link-slash"></i> Missing
+              </button>`;
+
+          const copyButton = pdfUrl
+            ? `
+              <button
+                type="button"
+                class="pdf-action-btn"
+                title="Copy PDF link"
+                data-pdf-copy="${encodeURIComponent(pdfUrl)}"
+              >
+                <i class="fa-regular fa-copy"></i> Copy
+              </button>`
+            : "";
+
+          const legacyBadge = isLegacyBase64
+            ? `<span style="display:inline-flex;align-items:center;gap:4px;margin-top:5px;padding:2px 6px;border-radius:5px;background:#FFF7ED;color:#C2410C;font-size:0.65rem;font-weight:800;">
+                 <i class="fa-solid fa-triangle-exclamation"></i> Legacy
+               </span>`
+            : `<span style="display:inline-flex;align-items:center;gap:4px;margin-top:5px;padding:2px 6px;border-radius:5px;background:#ECFDF5;color:#047857;font-size:0.65rem;font-weight:800;">
+                 <i class="fa-solid fa-cloud"></i> Cloud PDF
+               </span>`;
 
           tr.innerHTML = `
-            <td><span style="background:#ECFDF5; color:#065F46; padding:3px 8px; border-radius:6px; font-weight:700; font-size:0.75rem;">Class ${data.class}</span></td>
-            <td><strong>${data.subject || 'General'}</strong></td>
-            <td>${data.chapter || data.title || 'Untitled'}</td>
-            <td><span style="background:#F1F5F9; color:#334155; padding:2px 6px; border-radius:4px; font-size:0.72rem; font-weight:600;">${data.docType || 'Chapter Note'}</span></td>
-            <td><span style="color:#059669; font-weight:700; font-size:0.8rem;">${uploader}</span></td>
             <td>
-              <a href="${cleanUrl}" target="_blank" style="color: #2563EB; font-weight:700; text-decoration: underline; font-size:0.82rem;">
-                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Stream
-              </a>
+              <span style="background:#ECFDF5;color:#065F46;padding:3px 8px;border-radius:6px;font-weight:700;font-size:0.75rem;">
+                Class ${className}
+              </span>
+            </td>
+            <td><strong>${subject}</strong></td>
+            <td>${chapter}</td>
+            <td>
+              <span style="background:#F1F5F9;color:#334155;padding:2px 6px;border-radius:4px;font-size:0.72rem;font-weight:600;">
+                ${docType}
+              </span>
             </td>
             <td>
-              <button onclick="AdminController.deleteMaterial('${data.id}')" style="background:#FEF2F2; color:#DC2626; border:1px solid #FECACA; border-radius:6px; padding:4px 8px; cursor:pointer;">
+              <span style="color:#059669;font-weight:700;font-size:0.8rem;">${uploader}</span>
+            </td>
+            <td class="pdf-link-cell">
+              <div class="pdf-file-meta" title="${fileName}">
+                <div class="pdf-file-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                <div style="min-width:0;">
+                  <span class="pdf-file-name">${fileName}</span>
+                  <span class="pdf-file-size">${sizeText}</span>
+                  ${legacyBadge}
+                </div>
+              </div>
+
+              <div class="pdf-link-actions" style="margin-top:7px;">
+                ${openButton}
+                ${copyButton}
+              </div>
+            </td>
+            <td>
+              <button
+                type="button"
+                onclick="AdminController.deleteMaterial('${this.escapeHtml(data.id)}')"
+                style="background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:6px;padding:6px 9px;cursor:pointer;"
+                title="Delete material"
+              >
                 <i class="fa-solid fa-trash"></i>
               </button>
             </td>
           `;
+
+          const copyBtn = tr.querySelector("[data-pdf-copy]");
+          if (copyBtn) {
+            copyBtn.addEventListener("click", async () => {
+              try {
+                const link = decodeURIComponent(copyBtn.getAttribute("data-pdf-copy") || "");
+                await navigator.clipboard.writeText(link);
+                alert("✅ PDF link copied.");
+              } catch (err) {
+                alert("Unable to copy PDF link on this browser.");
+              }
+            });
+          }
+
           tableBody.appendChild(tr);
         });
       },
@@ -1554,11 +2246,21 @@
           } catch (e) {}
         });
 
+        let materialToDelete = null;
+        try {
+          materialToDelete = this.cachedNotes.find((n) => n.id === docId) || null;
+        } catch (e) {}
+
+        /*
+         * Cloudinary browser uploads are intentionally not destroyed here because
+         * asset deletion requires authenticated server-side signing/API credentials.
+         * The Firestore directory record is removed safely from the admin UI.
+         */
         if (db) {
           await db.collection("notes").doc(docId).delete().catch(() => {});
         }
 
-        alert("Document deleted successfully!");
+        alert("Document record deleted successfully. The Cloudinary file can be removed later from the Cloudinary Media Library.");
         this.loadDirectory();
         this.loadOverviewStats();
       },
