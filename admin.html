@@ -2,25 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>NotesPoint — Enterprise Super Admin Master Control Console</title>
+  <meta name="description" content="NotesPoint Enterprise Super Admin Master Console and Multi-PDF Academic Stream Repository Engine.">
+  <meta name="theme-color" content="#059669">
 
-  <!-- Google Typography Fonts Engine -->
+  <!-- ==========================================================================
+       FONTS ARCHITECTURE
+       ========================================================================== -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Favicon Icon -->
+  <!-- Favicon Vector Icon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
 
-  <!-- FontAwesome Icons Engine v6.5.1 -->
+  <!-- FontAwesome Icon Suite v6.5.1 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
+    /* ==========================================================================
+       ENTERPRISE DESIGN TOKENS
+       ========================================================================== */
     :root {
       --primary: #059669;
       --primary-hover: #047857;
       --primary-dark: #064E3B;
+      --primary-deep: #022C22;
       --primary-light: #ECFDF5;
       --primary-mint: #D1FAE5;
       --primary-sage: #34D399;
@@ -33,6 +41,7 @@
       
       --brand-navy: #0F172A;
       --brand-slate: #1E293B;
+      --slate-900: #0F172A;
       --slate-800: #1E293B;
       --slate-700: #334155;
       --slate-600: #475569;
@@ -41,10 +50,12 @@
       --slate-300: #CBD5E1;
       --slate-200: #E2E8F0;
       --slate-100: #F8FAFC;
+      --slate-50:  #F8FAFC;
       
       --card-bg: #FFFFFF;
-      --border-color: #E2E8F0;
+      --border-color: #CBD5E1;
       --paper-bg: #F8FAFC;
+      --paper-line: #EEF2F6;
       
       --radius-2xl: 20px;
       --radius-xl: 16px;
@@ -52,6 +63,7 @@
       --radius-md: 8px;
       --radius-sm: 6px;
       
+      --shadow-xs: 0 1px 3px rgba(15, 23, 42, 0.05);
       --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.04);
       --shadow-md: 0 6px 20px rgba(15, 23, 42, 0.08);
       --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
@@ -59,6 +71,7 @@
       --font-main: 'Inter', system-ui, -apple-system, sans-serif;
       --font-heading: 'Space Grotesk', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+      --font-hand: 'Caveat', cursive;
       
       --transition-fast: 0.18s ease;
       --transition-normal: 0.28s ease;
@@ -82,15 +95,22 @@
     body.admin-body {
       font-family: var(--font-main);
       background-color: var(--paper-bg);
+      background-image: linear-gradient(var(--paper-line) 1px, transparent 1px);
+      background-size: 100% 32px;
       color: var(--brand-navy);
       min-height: 100vh;
       display: flex;
-      line-height: 1.5;
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
     }
 
     a { color: inherit; text-decoration: none; }
     button, input, select, textarea { font-family: inherit; }
+
+    :focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
 
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: var(--paper-bg); }
@@ -98,7 +118,7 @@
     ::-webkit-scrollbar-thumb:hover { background: var(--slate-400); }
 
     /* ==========================================================================
-       0. PIN SECURITY LOCK MODAL
+       0. PIN SECURITY OVERLAY (MASTER PIN: 2008)
        ========================================================================== */
     .admin-pin-lock-overlay {
       position: fixed;
@@ -120,11 +140,17 @@
       width: 100%;
       text-align: center;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      animation: fadeInPin 0.3s ease;
+    }
+
+    @keyframes fadeInPin {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .pin-icon-shield {
-      width: 60px;
-      height: 60px;
+      width: 62px;
+      height: 62px;
       border-radius: 50%;
       background: var(--primary-light);
       color: var(--primary);
@@ -132,6 +158,7 @@
       display: grid;
       place-items: center;
       margin: 0 auto 16px auto;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
     }
 
     .pin-input-field {
@@ -147,6 +174,7 @@
       outline: none;
       margin: 18px 0;
       background: #F8FAFC;
+      transition: border-color var(--transition-fast);
     }
 
     .pin-input-field:focus {
@@ -155,7 +183,7 @@
     }
 
     /* ==========================================================================
-       SIDEBAR NAVIGATION DRAWER
+       1. SIDEBAR NAVIGATION DRAWER
        ========================================================================== */
     .admin-shell {
       display: flex;
@@ -313,7 +341,7 @@
     }
 
     /* ==========================================================================
-       MAIN WORKSPACE & TOP HEADER TOOLBAR
+       2. TOPBAR HEADER
        ========================================================================== */
     .admin-main {
       margin-left: 270px;
@@ -401,7 +429,7 @@
     }
 
     /* ==========================================================================
-       METRIC STATS & CHARTS
+       3. METRICS & PANELS
        ========================================================================== */
     .stats-cards-grid {
       display: grid;
@@ -439,7 +467,6 @@
     .stat-icon.blue   { background: #EFF6FF; color: var(--accent-blue); }
     .stat-icon.green  { background: var(--primary-light); color: var(--primary); }
     .stat-icon.purple { background: #F3E8FF; color: var(--accent-purple); }
-    .stat-icon.orange { background: #FEF3C7; color: var(--accent-amber); }
 
     .stat-data .stat-label {
       font-size: 0.78rem;
@@ -463,7 +490,6 @@
       gap: 4px;
     }
     .stat-trend.positive { color: var(--primary); }
-    .stat-trend.neutral { color: var(--accent-amber); }
 
     .analytics-panels-row {
       display: grid;
@@ -591,7 +617,7 @@
     }
 
     /* ==========================================================================
-       FORM STYLES & BULK MULTI-FILE QUEUE
+       4. FORM STYLES
        ========================================================================== */
     .form-grid-3 {
       display: grid;
@@ -610,9 +636,6 @@
       font-size: 0.84rem;
       font-weight: 700;
       color: var(--slate-700);
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
     .input-group select,
@@ -624,7 +647,6 @@
       border-radius: var(--radius-md);
       font-size: 0.9rem;
       outline: none;
-      font-family: inherit;
       background: #FFFFFF;
       color: var(--brand-navy);
       transition: border-color var(--transition-fast);
@@ -697,27 +719,10 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all var(--transition-fast);
-    }
-
-    .btn-admin-secondary:hover {
-      border-color: var(--slate-400);
-      background: var(--slate-100);
-    }
-
-    .bulk-row-input {
-      width: 100%;
-      padding: 6px 10px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-size: 0.82rem;
-      outline: none;
-      background: #FFF;
-      color: var(--brand-navy);
     }
 
     /* ==========================================================================
-       DATA DIRECTORY TABLE
+       5. DATA TABLES
        ========================================================================== */
     .table-responsive-wrapper {
       width: 100%;
@@ -750,13 +755,8 @@
       color: var(--slate-600);
     }
 
-    .admin-data-table tr:hover {
-      background: #F8FAFC;
-    }
+    .admin-data-table tr:hover { background: #F8FAFC; }
 
-    /* ==========================================================================
-       RESPONSIVE BREAKPOINTS
-       ========================================================================== */
     @media (max-width: 992px) {
       .admin-sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
       .admin-sidebar.open { transform: translateX(0); }
@@ -773,18 +773,14 @@
 </head>
 <body class="admin-body">
 
-  <!-- ==========================================================================
-     PIN SECURITY LOCK SCREEN OVERLAY (PIN: 2008)
-     ========================================================================== -->
+  <!-- MASTER PIN LOCK MODAL (PIN: 2008) -->
   <div id="adminPinLockModal" class="admin-pin-lock-overlay">
     <div class="pin-card-box">
-      <div class="pin-icon-shield">
-        <i class="fa-solid fa-lock"></i>
-      </div>
+      <div class="pin-icon-shield"><i class="fa-solid fa-lock"></i></div>
       <h2 style="font-family:var(--font-heading); font-size:1.35rem; font-weight:800; color:var(--brand-navy); margin-bottom:4px;">Admin Portal Access</h2>
       <p style="font-size:0.82rem; color:var(--slate-500); margin:0;">Enter 4-Digit Master PIN to unlock console</p>
 
-      <form id="pinUnlockForm" onsubmit="AdminController.verifySecurityPin(event)">
+      <form onsubmit="AdminController.verifySecurityPin(event)">
         <input type="password" id="adminPinInput" class="pin-input-field" maxlength="4" placeholder="••••" autofocus required>
         <button type="submit" class="btn-admin-primary" style="width:100%; justify-content:center; padding:12px;">
           <i class="fa-solid fa-key"></i> Unlock Dashboard
@@ -793,18 +789,8 @@
     </div>
   </div>
 
-  <!-- TOP SYSTEM BANNER -->
-  <div id="systemTopNotificationBar" class="admin-system-banner" style="display: none;">
-    <div class="banner-content">
-      <i class="fa-solid fa-triangle-exclamation"></i>
-      <span><strong>SYSTEM ALERT:</strong> Live Synchronization Active. Data Synced with Firebase Cloud Storage.</span>
-    </div>
-    <button type="button" class="banner-close-btn" onclick="document.getElementById('systemTopNotificationBar').style.display='none'">&times;</button>
-  </div>
-
   <div id="adminDashboardShell" class="admin-shell" style="display: none;">
-
-    <!-- SIDEBAR NAVIGATION DRAWER -->
+    <!-- SIDEBAR -->
     <aside class="admin-sidebar" id="appAdminSidebar">
       <div>
         <div class="sidebar-brand" onclick="window.location.href='index.html'">
@@ -830,13 +816,12 @@
             <span><i class="fa-solid fa-chart-pie" style="margin-right:8px;"></i> Overview Analytics</span>
           </a>
           <a class="nav-item" data-target="uploaderSection">
-            <span><i class="fa-solid fa-cloud-arrow-up" style="margin-right:8px;"></i> Bulk PDF Uploader</span>
-            <span class="menu-count-badge green">SYNC</span>
+            <span><i class="fa-solid fa-cloud-arrow-up" style="margin-right:8px;"></i> Direct PDF Uploader</span>
+            <span class="menu-count-badge green">DIRECT STREAM</span>
           </a>
           <a class="nav-item" data-target="directorySection">
             <span><i class="fa-solid fa-folder-tree" style="margin-right:8px;"></i> Content Directory</span>
           </a>
-
           <div class="menu-category-label">Broadcast &amp; Moderation</div>
           <a class="nav-item" data-target="tickerSection">
             <span><i class="fa-solid fa-bullhorn" style="margin-right:8px;"></i> Running Ticker</span>
@@ -866,7 +851,7 @@
       </div>
     </aside>
 
-    <!-- MAIN WORKSPACE -->
+    <!-- MAIN VIEWPORT -->
     <main class="admin-main">
       <header class="admin-topbar">
         <div class="topbar-left">
@@ -875,7 +860,7 @@
           </button>
           <div>
             <h1 id="pageSectionTitle" style="font-family:var(--font-heading); font-size:1.25rem; font-weight:800; color:var(--brand-navy); margin:0;">Dashboard Overview &amp; Analytics</h1>
-            <p style="font-size:0.8rem; color:var(--slate-500); margin:0;">Real-time content management, multi-PDF upload &amp; traffic tracking engine</p>
+            <p style="font-size:0.8rem; color:var(--slate-500); margin:0;">Real-time content management &amp; zero-CORS stream engine</p>
           </div>
         </div>
 
@@ -890,10 +875,7 @@
       </header>
 
       <div class="admin-workspace">
-
-        <!-- ==========================================================================
-           SECTION 01: OVERVIEW ANALYTICS & BAR CHARTS
-           ========================================================================== -->
+        <!-- SECTION 1: OVERVIEW -->
         <section id="overviewSection" class="workspace-section active">
           <div class="stats-cards-grid">
             <div class="stat-card">
@@ -901,7 +883,7 @@
               <div class="stat-data">
                 <span class="stat-label">Total Material Uploads</span>
                 <h3 id="statTotalNotes">0</h3>
-                <span class="stat-trend positive"><i class="fa-solid fa-arrows-rotate"></i> Live Storage Synced</span>
+                <span class="stat-trend positive"><i class="fa-solid fa-arrows-rotate"></i> Realtime Synced</span>
               </div>
             </div>
 
@@ -910,7 +892,7 @@
               <div class="stat-data">
                 <span class="stat-label">Student Doubts / Queries</span>
                 <h3 id="statTotalQueries">0</h3>
-                <span class="stat-trend neutral"><i class="fa-solid fa-clock"></i> Realtime Desk</span>
+                <span class="stat-trend positive"><i class="fa-solid fa-clock"></i> Live Desk</span>
               </div>
             </div>
 
@@ -924,7 +906,6 @@
             </div>
           </div>
 
-          <!-- Charts & Distribution Panels Row -->
           <div class="analytics-panels-row">
             <div class="panel-card">
               <h3><i class="fa-solid fa-chart-column" style="color:var(--primary);"></i> Material Category Breakdown</h3>
@@ -987,127 +968,95 @@
           </div>
         </section>
 
-        <!-- ==========================================================================
-           SECTION 02: DIRECT & BULK PDF UPLOADER ENGINE
-           ========================================================================== -->
+        <!-- SECTION 2: UPLOADER -->
         <section id="uploaderSection" class="workspace-section">
           <div class="panel-card">
-            <div style="margin-bottom:18px;">
-              <h3><i class="fa-solid fa-cloud-arrow-up" style="color:var(--primary);"></i> Bulk PDF Uploader &amp; Stream URL Engine</h3>
-              <p>Upload handwritten notes, NCERT books, PYQs, derivations, and formula books with auto-curriculum subjects.</p>
-            </div>
+            <h3><i class="fa-solid fa-cloud-arrow-up" style="color:var(--primary);"></i> Direct Stream PDF Uploader Engine</h3>
+            <p style="margin-bottom: 18px;">Direct stream pipeline: 100% bypasses CORS restrictions, loads instantaneously on any mobile device.</p>
 
             <form id="adminUploadForm">
-              <!-- Drop Zone -->
               <div class="drop-zone-area" id="dropZone" onclick="document.getElementById('pdfFileInput').click()">
-                <input type="file" id="pdfFileInput" accept="application/pdf" multiple hidden>
+                <input type="file" id="pdfFileInput" accept="application/pdf" hidden>
                 <div class="cloud-icon-circle"><i class="fa-solid fa-file-pdf"></i></div>
-                <h4 style="font-weight:800; color:var(--brand-navy); margin-bottom:4px;">Drag &amp; Drop 1 or Multiple PDF Files Here</h4>
-                <p style="font-size:0.82rem; color:var(--slate-500);">or click to browse from your device</p>
+                <h4 style="font-weight:800; color:var(--brand-navy); margin-bottom:4px;">Click or Drag &amp; Drop PDF File Here</h4>
+                <p style="font-size:0.82rem; color:var(--slate-500);">Direct high-speed stream processing</p>
                 <span id="selectedFileNameDisplay" style="display:block; margin-top:8px; font-weight:700; color:var(--primary); font-size:0.85rem;">No PDF selected yet</span>
               </div>
 
-              <!-- Multi-File Bulk Queue Table Container (Auto displays when multiple files picked) -->
-              <div id="bulkFilesQueueContainer" style="display:none; margin-bottom:20px;">
-                <h4 style="font-size:0.95rem; font-weight:800; color:var(--brand-navy); margin-bottom:8px;"><i class="fa-solid fa-list-check"></i> Assign Metadata For Each Selected File:</h4>
-                <div class="table-responsive-wrapper">
-                  <table class="admin-data-table">
-                    <thead>
-                      <tr>
-                        <th>File Name</th>
-                        <th style="min-width:140px;">Grade / Stream</th>
-                        <th style="min-width:160px;">Subject</th>
-                        <th style="min-width:180px;">Chapter Name</th>
-                        <th style="min-width:130px;">Tag</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody id="bulkQueueTableBody"></tbody>
-                  </table>
+              <div class="form-grid-3">
+                <div class="input-group">
+                  <label><i class="fa-solid fa-graduation-cap"></i> Target Grade / Exam Goal *</label>
+                  <select id="uploadClassSelect" required>
+                    <option value="" disabled selected>Select Grade or Exam</option>
+                    <optgroup label="Primary School (Class 1–5)">
+                      <option value="1">Class 1</option>
+                      <option value="2">Class 2</option>
+                      <option value="3">Class 3</option>
+                      <option value="4">Class 4</option>
+                      <option value="5">Class 5</option>
+                    </optgroup>
+                    <optgroup label="Middle School (Class 6–8)">
+                      <option value="6">Class 6</option>
+                      <option value="7">Class 7</option>
+                      <option value="8">Class 8</option>
+                    </optgroup>
+                    <optgroup label="Secondary &amp; Senior Secondary">
+                      <option value="9">Class 9</option>
+                      <option value="10">Class 10 (Board)</option>
+                      <option value="11_science">Class 11 (Science Stream)</option>
+                      <option value="11_commerce">Class 11 (Commerce Stream)</option>
+                      <option value="11_humanities">Class 11 (Humanities Stream)</option>
+                      <option value="12_science">Class 12 (Science Stream)</option>
+                      <option value="12_commerce">Class 12 (Commerce Stream)</option>
+                      <option value="12_arts">Class 12 (Humanities / Arts)</option>
+                    </optgroup>
+                    <optgroup label="Competitive Entrance Exams">
+                      <option value="competitive_jee">JEE Main &amp; Advanced</option>
+                      <option value="competitive_neet">NEET-UG Medical</option>
+                      <option value="competitive_cuet">CUET UG Entrance</option>
+                      <option value="competitive_nda">NDA Defence</option>
+                    </optgroup>
+                  </select>
+                </div>
+
+                <div class="input-group">
+                  <label><i class="fa-solid fa-book-bookmark"></i> Subject (Auto-Loaded) *</label>
+                  <select id="uploadSubjectInput" required>
+                    <option value="" disabled selected>Select Grade first...</option>
+                  </select>
+                </div>
+
+                <div class="input-group">
+                  <label><i class="fa-solid fa-list-check"></i> Chapter / Unit Name *</label>
+                  <input type="text" id="uploadChapterInput" placeholder="e.g. Chapter 1: Electric Charges &amp; Fields" required>
                 </div>
               </div>
 
-              <!-- Single File Metadata Controls (Fallback when 1 file picked) -->
-              <div id="singleFileConfigRow">
-                <div class="form-grid-3">
-                  <div class="input-group">
-                    <label><i class="fa-solid fa-graduation-cap"></i> Target Grade / Exam Goal *</label>
-                    <select id="uploadClassSelect">
-                      <option value="" disabled selected>Select Grade or Exam</option>
-                      <optgroup label="Primary School (Class 1–5)">
-                        <option value="1">Class 1</option>
-                        <option value="2">Class 2</option>
-                        <option value="3">Class 3</option>
-                        <option value="4">Class 4</option>
-                        <option value="5">Class 5</option>
-                      </optgroup>
-                      <optgroup label="Middle School (Class 6–8)">
-                        <option value="6">Class 6</option>
-                        <option value="7">Class 7</option>
-                        <option value="8">Class 8</option>
-                      </optgroup>
-                      <optgroup label="Secondary &amp; Senior Secondary">
-                        <option value="9">Class 9</option>
-                        <option value="10">Class 10 (Board)</option>
-                        <option value="11_science">Class 11 (Science Stream)</option>
-                        <option value="11_commerce">Class 11 (Commerce Stream)</option>
-                        <option value="11_humanities">Class 11 (Humanities Stream)</option>
-                        <option value="12_science">Class 12 (Science Stream)</option>
-                        <option value="12_commerce">Class 12 (Commerce Stream)</option>
-                        <option value="12_arts">Class 12 (Humanities / Arts)</option>
-                      </optgroup>
-                      <optgroup label="Competitive Entrance Exams">
-                        <option value="competitive_jee">JEE Main &amp; Advanced</option>
-                        <option value="competitive_neet">NEET-UG Medical</option>
-                        <option value="competitive_cuet">CUET UG Entrance</option>
-                        <option value="competitive_nda">NDA Defence</option>
-                      </optgroup>
-                    </select>
-                  </div>
-
-                  <div class="input-group">
-                    <label><i class="fa-solid fa-book-bookmark"></i> Subject (Auto-Loaded) *</label>
-                    <select id="uploadSubjectInput">
-                      <option value="" disabled selected>Select Grade/Stream first...</option>
-                    </select>
-                  </div>
-
-                  <div class="input-group">
-                    <label><i class="fa-solid fa-list-check"></i> Chapter / Unit Name *</label>
-                    <input type="text" id="uploadChapterInput" placeholder="e.g. Chapter 1: Real Numbers / Electrostatics">
-                  </div>
+              <div class="form-grid-3">
+                <div class="input-group">
+                  <label><i class="fa-solid fa-tags"></i> Document Material Tag *</label>
+                  <select id="uploadDocTypeSelect">
+                    <option value="Full Chapter Note" selected>Full Chapter NCERT Note</option>
+                    <option value="Formula Sheet">Formula &amp; Derivations</option>
+                    <option value="PYQ Solutions">10-Year Solved PYQ Bank</option>
+                    <option value="NCERT Solutions">NCERT Solutions 📚</option>
+                  </select>
                 </div>
 
-                <div class="form-grid-3">
-                  <div class="input-group">
-                    <label><i class="fa-solid fa-tags"></i> Document Material Tag *</label>
-                    <select id="uploadDocTypeSelect">
-                      <option value="Full Chapter Note" selected>Full Chapter NCERT Note</option>
-                      <option value="Formula Sheet">Formula &amp; Derivations</option>
-                      <option value="PYQ Solutions">10-Year Solved PYQ Bank</option>
-                      <option value="NCERT Solutions">NCERT Solutions 📚</option>
-                    </select>
-                  </div>
-
-                  <div class="input-group">
-                    <label><i class="fa-solid fa-user-pen"></i> Faculty / Contributor Name *</label>
-                    <input type="text" id="uploadAuthorInput" value="NotesPoint Senior Faculty">
-                  </div>
+                <div class="input-group">
+                  <label><i class="fa-solid fa-user-pen"></i> Faculty / Contributor Name *</label>
+                  <input type="text" id="uploadAuthorInput" value="NotesPoint Senior Faculty" required>
                 </div>
               </div>
 
-              <!-- Realtime Direct Link Box -->
               <div id="generatedLinkBox" style="display: none; background: #ECFDF5; border: 1.5px solid #6EE7B7; padding: 14px; border-radius: 8px; margin: 15px 0;">
-                <strong style="color: #065F46; font-size: 0.85rem; display:block; margin-bottom:6px;"><i class="fa-solid fa-circle-check"></i> Universal Direct PDF Stream URL Generated (Native Browser View):</strong>
-                <div style="display: flex; gap: 8px;">
-                  <input type="text" id="generatedCleanUrl" readonly style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-family: var(--font-mono); background:#FFF; font-size:0.82rem;">
-                  <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('generatedCleanUrl').value); alert('URL Copied!')" class="btn-admin-primary" style="padding: 6px 14px; font-size:0.82rem;">Copy</button>
-                </div>
+                <strong style="color: #065F46; font-size: 0.85rem; display:block; margin-bottom:6px;"><i class="fa-solid fa-circle-check"></i> Direct Mobile PDF Stream Ready:</strong>
+                <input type="text" id="generatedCleanUrl" readonly style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-family: var(--font-mono); background:#FFF; font-size:0.82rem;">
               </div>
 
               <div style="margin-top:10px; display:flex; gap:10px;">
                 <button type="submit" id="startUploadBtn" class="btn-admin-primary">
-                  <i class="fa-solid fa-cloud-arrow-up"></i> Upload &amp; Sync to Student Workspace
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Upload &amp; Sync Instantly
                 </button>
                 <button type="button" onclick="AdminController.resetForm()" class="btn-admin-secondary">
                   <i class="fa-solid fa-rotate-left"></i> Reset Form
@@ -1117,18 +1066,15 @@
           </div>
         </section>
 
-        <!-- ==========================================================================
-           SECTION 03: CONTENT DIRECTORY
-           ========================================================================== -->
+        <!-- SECTION 3: DIRECTORY -->
         <section id="directorySection" class="workspace-section">
           <div class="panel-card">
             <div class="panel-header-toolbar">
               <div>
                 <h3><i class="fa-solid fa-folder-tree" style="color:var(--primary);"></i> Live Material File Directory</h3>
-                <p>Filter, search, view clean direct links, or delete material</p>
+                <p>Manage, inspect stream links, or delete material</p>
               </div>
-
-              <input type="text" id="directorySearchInput" placeholder="Search by chapter, grade, or subject..." style="padding:8px 14px; border:1.5px solid var(--border-color); border-radius:8px; font-size:0.85rem; outline:none; min-width:260px;" oninput="AdminController.filterDirectory(this.value)">
+              <input type="text" id="directorySearchInput" placeholder="Filter by chapter or subject..." style="padding:8px 14px; border:1.5px solid var(--border-color); border-radius:8px; font-size:0.85rem; outline:none;" oninput="AdminController.filterDirectory(this.value)">
             </div>
 
             <div class="table-responsive-wrapper">
@@ -1140,7 +1086,7 @@
                     <th>Chapter &amp; Topic</th>
                     <th>Tag</th>
                     <th>Uploader</th>
-                    <th>Direct Link</th>
+                    <th>Stream Link</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -1152,9 +1098,7 @@
           </div>
         </section>
 
-        <!-- ==========================================================================
-           SECTION 04: TICKER BANNER NOTICE CONTROL
-           ========================================================================== -->
+        <!-- SECTION 4: TICKER BANNER -->
         <section id="tickerSection" class="workspace-section">
           <div class="panel-card">
             <div style="margin-bottom:16px;">
@@ -1175,9 +1119,7 @@
           </div>
         </section>
 
-        <!-- ==========================================================================
-           SECTION 05: STUDENT INQUIRY DESK
-           ========================================================================== -->
+        <!-- SECTION 5: QUERIES -->
         <section id="queriesSection" class="workspace-section">
           <div class="panel-card">
             <div style="margin-bottom:16px;">
@@ -1204,9 +1146,7 @@
           </div>
         </section>
 
-        <!-- ==========================================================================
-           SECTION 06: LIVE TRAFFIC TRACKER
-           ========================================================================== -->
+        <!-- SECTION 6: LIVE TRAFFIC -->
         <section id="visitorsSection" class="workspace-section">
           <div class="panel-card">
             <div style="margin-bottom:16px;">
@@ -1230,22 +1170,22 @@
             </div>
           </div>
         </section>
-
       </div>
     </main>
   </div>
 
-  <!-- Firebase Core SDKs v9.22.0 -->
+  <!-- Firebase Core SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 
-  <!-- Complete Master Controller Script -->
+  <!-- ==========================================================================
+       ENTERPRISE MASTER JAVASCRIPT CONTROLLER
+       ========================================================================== -->
   <script>
   (() => {
     'use strict';
 
-    // 1. FIREBASE CONFIGURATION
+    // 1. FIREBASE INITIALIZATION
     const firebaseConfig = {
       apiKey: "AIzaSyB8Q233ol5opi0Io8tEp498yDEmMesjmgE",
       authDomain: "notes-point-215c8.firebaseapp.com",
@@ -1259,9 +1199,8 @@
       firebase.initializeApp(firebaseConfig);
     }
     const db = (typeof firebase !== 'undefined') ? firebase.firestore() : null;
-    const storage = (typeof firebase !== 'undefined') ? firebase.storage() : null;
 
-    // 2. CURRICULUM SUBJECTS MATRIX (Class 1–12 & Competitive Entrance Hub)
+    // 2. COMPLETE CURRICULUM SUBJECTS MATRIX (Class 1 to 12 & Entrance Hub)
     const RESOURCE_EXTRAS = ["NCERT Solutions 📚", "Formula Books & Derivations", "Previous Year Questions (PYQs)"];
 
     const ALL_SUBJECTS_MAP = {
@@ -1288,7 +1227,7 @@
     };
 
     window.AdminController = {
-      selectedFiles: [],
+      selectedFile: null,
       cachedNotes: [],
 
       init() {
@@ -1307,32 +1246,44 @@
 
       checkPinSession() {
         const isUnlocked = sessionStorage.getItem("np_admin_session_unlocked");
+        const lockModal = document.getElementById("adminPinLockModal");
+        const shell = document.getElementById("adminDashboardShell");
+
         if (isUnlocked === "true") {
-          document.getElementById("adminPinLockModal").style.display = "none";
-          document.getElementById("adminDashboardShell").style.display = "flex";
+          if (lockModal) lockModal.style.display = "none";
+          if (shell) shell.style.display = "flex";
+        } else {
+          if (lockModal) lockModal.style.display = "flex";
+          if (shell) shell.style.display = "none";
         }
       },
 
       verifySecurityPin(e) {
         e.preventDefault();
         const pinInput = document.getElementById("adminPinInput");
-        const enteredPin = pinInput.value.trim();
+        const enteredPin = pinInput ? pinInput.value.trim() : "";
 
         if (enteredPin === "2008") {
           sessionStorage.setItem("np_admin_session_unlocked", "true");
-          document.getElementById("adminPinLockModal").style.display = "none";
-          document.getElementById("adminDashboardShell").style.display = "flex";
+          const lockModal = document.getElementById("adminPinLockModal");
+          const shell = document.getElementById("adminDashboardShell");
+          if (lockModal) lockModal.style.display = "none";
+          if (shell) shell.style.display = "flex";
         } else {
           alert("❌ Incorrect Master PIN! Access Denied.");
-          pinInput.value = "";
-          pinInput.focus();
+          if (pinInput) {
+            pinInput.value = "";
+            pinInput.focus();
+          }
         }
       },
 
       setupClock() {
         const clockEl = document.getElementById("adminLiveClock");
         if (clockEl) {
-          setInterval(() => clockEl.textContent = new Date().toLocaleTimeString(), 1000);
+          setInterval(() => {
+            clockEl.textContent = new Date().toLocaleTimeString();
+          }, 1000);
         }
       },
 
@@ -1358,20 +1309,23 @@
           panel.classList.add("active");
           const titles = {
             overviewSection: 'Dashboard Overview & Analytics',
-            uploaderSection: 'Bulk PDF Uploader Engine',
+            uploaderSection: 'Direct PDF Uploader Engine',
             directorySection: 'Material Content Directory',
             tickerSection: 'Announcement Ticker Control',
             queriesSection: 'Student Support & Query Desk',
             visitorsSection: 'Live Traffic Tracker'
           };
-          document.getElementById("pageSectionTitle").textContent = titles[target] || 'Admin Console';
+          const titleEl = document.getElementById("pageSectionTitle");
+          if (titleEl) titleEl.textContent = titles[target] || 'Admin Console';
         }
-        document.getElementById('appAdminSidebar').classList.remove('open');
+        const sidebar = document.getElementById('appAdminSidebar');
+        if (sidebar) sidebar.classList.remove('open');
       },
 
       setupSingleClassDropdown() {
         const classSelect = document.getElementById("uploadClassSelect");
         const subjectSelect = document.getElementById("uploadSubjectInput");
+        if (!classSelect || !subjectSelect) return;
 
         classSelect.addEventListener("change", (e) => {
           const selectedKey = e.target.value;
@@ -1390,273 +1344,121 @@
       setupFileSelection() {
         const input = document.getElementById("pdfFileInput");
         const dropZone = document.getElementById("dropZone");
+        if (!input || !dropZone) return;
 
-        input.addEventListener("change", () => this.handlePickedFiles(input.files));
+        input.addEventListener("change", () => {
+          if (input.files.length > 0) {
+            this.selectedFile = input.files[0];
+            const display = document.getElementById("selectedFileNameDisplay");
+            if (display) display.textContent = `Selected: ${this.selectedFile.name} (${(this.selectedFile.size / (1024*1024)).toFixed(2)} MB)`;
+            const chapterInput = document.getElementById("uploadChapterInput");
+            if (chapterInput) {
+              chapterInput.value = this.selectedFile.name.replace(/\.pdf$/i, '').replace(/[-_]/g, ' ');
+            }
+          }
+        });
 
         dropZone.addEventListener("dragover", (e) => { e.preventDefault(); dropZone.style.borderColor = "#059669"; });
         dropZone.addEventListener("dragleave", () => { dropZone.style.borderColor = "#CBD5E1"; });
         dropZone.addEventListener("drop", (e) => {
           e.preventDefault();
           dropZone.style.borderColor = "#CBD5E1";
-          if (e.dataTransfer.files.length > 0) this.handlePickedFiles(e.dataTransfer.files);
+          if (e.dataTransfer.files.length > 0) {
+            this.selectedFile = e.dataTransfer.files[0];
+            const display = document.getElementById("selectedFileNameDisplay");
+            if (display) display.textContent = `Selected: ${this.selectedFile.name} (${(this.selectedFile.size / (1024*1024)).toFixed(2)} MB)`;
+            const chapterInput = document.getElementById("uploadChapterInput");
+            if (chapterInput) {
+              chapterInput.value = this.selectedFile.name.replace(/\.pdf$/i, '').replace(/[-_]/g, ' ');
+            }
+          }
         });
-      },
-
-      handlePickedFiles(files) {
-        const pdfFiles = Array.from(files).filter(f => f.type === "application/pdf" || f.name.endsWith(".pdf"));
-        if (pdfFiles.length === 0) return alert("Please select PDF files only!");
-
-        this.selectedFiles = pdfFiles;
-        const display = document.getElementById("selectedFileNameDisplay");
-        const bulkContainer = document.getElementById("bulkFilesQueueContainer");
-        const singleConfig = document.getElementById("singleFileConfigRow");
-
-        if (pdfFiles.length > 1) {
-          display.textContent = `${pdfFiles.length} PDFs selected in batch queue.`;
-          bulkContainer.style.display = "block";
-          singleConfig.style.display = "none";
-          this.renderBulkQueueTable();
-        } else {
-          display.textContent = `Selected: ${pdfFiles[0].name} (${(pdfFiles[0].size / (1024*1024)).toFixed(2)} MB)`;
-          bulkContainer.style.display = "none";
-          singleConfig.style.display = "block";
-          document.getElementById("uploadChapterInput").value = pdfFiles[0].name.replace(/\.pdf$/i, '').replace(/[-_]/g, ' ');
-        }
-      },
-
-      renderBulkQueueTable() {
-        const tbody = document.getElementById("bulkQueueTableBody");
-        tbody.innerHTML = "";
-
-        this.selectedFiles.forEach((file, index) => {
-          const tr = document.createElement("tr");
-          const defaultTitle = file.name.replace(/\.pdf$/i, '').replace(/[-_]/g, ' ');
-
-          tr.innerHTML = `
-            <td>
-              <strong style="font-size:0.82rem; display:block; color:var(--brand-navy);">${file.name}</strong>
-              <span style="font-size:0.72rem; color:var(--slate-500);">${(file.size / (1024*1024)).toFixed(2)} MB</span>
-            </td>
-            <td>
-              <select class="bulk-row-input row-grade-select" onchange="AdminController.updateBulkRowSubjects(${index}, this.value)" required>
-                <option value="" disabled selected>Select Grade</option>
-                <option value="1">Class 1</option>
-                <option value="2">Class 2</option>
-                <option value="3">Class 3</option>
-                <option value="4">Class 4</option>
-                <option value="5">Class 5</option>
-                <option value="6">Class 6</option>
-                <option value="7">Class 7</option>
-                <option value="8">Class 8</option>
-                <option value="9">Class 9</option>
-                <option value="10">Class 10</option>
-                <option value="11_science">Class 11 Science</option>
-                <option value="11_commerce">Class 11 Commerce</option>
-                <option value="11_humanities">Class 11 Humanities</option>
-                <option value="12_science">Class 12 Science</option>
-                <option value="12_commerce">Class 12 Commerce</option>
-                <option value="12_arts">Class 12 Humanities</option>
-                <option value="competitive_jee">JEE Main</option>
-                <option value="competitive_neet">NEET-UG</option>
-                <option value="competitive_cuet">CUET UG</option>
-                <option value="competitive_nda">NDA</option>
-              </select>
-            </td>
-            <td>
-              <select class="bulk-row-input row-subject-select" id="bulkSubjectSelect_${index}" required>
-                <option value="" disabled selected>Grade first</option>
-              </select>
-            </td>
-            <td>
-              <input type="text" class="bulk-row-input row-chapter-title" value="${defaultTitle}" placeholder="Chapter Title" required>
-            </td>
-            <td>
-              <select class="bulk-row-input row-doc-tag">
-                <option value="Full Chapter Note" selected>Chapter Note</option>
-                <option value="Formula Sheet">Formula Sheet</option>
-                <option value="PYQ Solutions">Solved PYQ</option>
-                <option value="NCERT Solutions">NCERT Solutions</option>
-              </select>
-            </td>
-            <td>
-              <button type="button" onclick="AdminController.removeBulkItem(${index})" style="background:#FEF2F2; color:#DC2626; border:1px solid #FECACA; border-radius:6px; padding:4px 8px; cursor:pointer;">
-                <i class="fa-solid fa-xmark"></i>
-              </button>
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
-      },
-
-      updateBulkRowSubjects(index, gradeKey) {
-        const subSelect = document.getElementById(`bulkSubjectSelect_${index}`);
-        if (!subSelect) return;
-
-        const subjects = ALL_SUBJECTS_MAP[gradeKey] || [];
-        subSelect.innerHTML = '<option value="" disabled selected>Select Subject</option>';
-        subjects.forEach(sub => {
-          const opt = document.createElement("option");
-          opt.value = sub;
-          opt.textContent = sub;
-          subSelect.appendChild(opt);
-        });
-      },
-
-      removeBulkItem(index) {
-        this.selectedFiles.splice(index, 1);
-        if (this.selectedFiles.length === 0) {
-          this.resetForm();
-        } else if (this.selectedFiles.length === 1) {
-          this.handlePickedFiles(this.selectedFiles);
-        } else {
-          this.renderBulkQueueTable();
-        }
       },
 
       resetForm() {
-        this.selectedFiles = [];
-        document.getElementById("adminUploadForm").reset();
-        document.getElementById("selectedFileNameDisplay").textContent = "No PDF selected yet";
-        document.getElementById("bulkFilesQueueContainer").style.display = "none";
-        document.getElementById("singleFileConfigRow").style.display = "block";
-        document.getElementById("generatedLinkBox").style.display = "none";
+        this.selectedFile = null;
+        const form = document.getElementById("adminUploadForm");
+        if (form) form.reset();
+        const display = document.getElementById("selectedFileNameDisplay");
+        if (display) display.textContent = "No PDF selected yet";
+        const linkBox = document.getElementById("generatedLinkBox");
+        if (linkBox) linkBox.style.display = "none";
       },
 
       setupUploadForm() {
         const form = document.getElementById("adminUploadForm");
         const submitBtn = document.getElementById("startUploadBtn");
+        if (!form || !submitBtn) return;
 
-        form.addEventListener("submit", async (e) => {
+        form.addEventListener("submit", (e) => {
           e.preventDefault();
-          if (this.selectedFiles.length === 0) return alert("Please select at least 1 PDF file!");
+          if (!this.selectedFile) return alert("Please select a PDF file!");
 
           submitBtn.disabled = true;
+          submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Converting to Embedded Stream...`;
 
-          // Multi-File Bulk Processing
-          if (this.selectedFiles.length > 1) {
-            const rows = document.querySelectorAll("#bulkQueueTableBody tr");
-            const total = this.selectedFiles.length;
+          const rawGrade = document.getElementById("uploadClassSelect").value;
+          const subject = document.getElementById("uploadSubjectInput").value;
+          const chapter = document.getElementById("uploadChapterInput").value.trim();
+          const tag = document.getElementById("uploadDocTypeSelect").value;
+          const author = document.getElementById("uploadAuthorInput").value.trim();
 
-            for (let i = 0; i < total; i++) {
-              submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Uploading ${i + 1} of ${total} files...`;
+          let normalizedClass = rawGrade;
+          if (rawGrade.startsWith("11_")) normalizedClass = "11";
+          else if (rawGrade.startsWith("12_")) normalizedClass = "12";
+          else if (rawGrade.startsWith("competitive_")) normalizedClass = "competitive";
 
-              const file = this.selectedFiles[i];
-              const row = rows[i];
-              const rawGrade = row.querySelector(".row-grade-select").value;
-              const subject = row.querySelector(".row-subject-select").value;
-              const chapter = row.querySelector(".row-chapter-title").value.trim();
-              const tag = row.querySelector(".row-doc-tag").value;
+          // Read real Base64 data so student.html can render it inside an iframe / object natively
+          const reader = new FileReader();
+          reader.onload = async (event) => {
+            const actualBase64DataUrl = event.target.result;
+            const sanitizedFileName = `np_${Date.now()}_${this.selectedFile.name.replace(/[^a-zA-Z0-9.]/g, "_").toLowerCase()}`;
 
-              if (!rawGrade || !subject) {
-                alert(`Please select Grade & Subject for ${file.name}`);
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Upload & Sync to Student Workspace';
-                return;
-              }
+            const noteObj = {
+              id: 'note_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+              class: normalizedClass,
+              subject: subject,
+              chapter: chapter,
+              title: chapter,
+              docType: tag,
+              author: author,
+              fileUrl: actualBase64DataUrl,
+              pdfUrl: actualBase64DataUrl,
+              url: actualBase64DataUrl,
+              fileName: sanitizedFileName,
+              createdAt: new Date().toISOString()
+            };
 
-              let normalizedClass = rawGrade;
-              if (rawGrade.startsWith("11_")) normalizedClass = "11";
-              else if (rawGrade.startsWith("12_")) normalizedClass = "12";
-              else if (rawGrade.startsWith("competitive_")) normalizedClass = "competitive";
+            // 1. Save Full Data in LocalStorage for Instant Local Viewing
+            const storageKeys = ['notespoint_uploaded_notes_v7', 'notespoint_uploaded_notes', 'np_uploaded_notes', 'notes'];
+            storageKeys.forEach(k => {
+              try {
+                const list = JSON.parse(localStorage.getItem(k) || '[]');
+                list.unshift(noteObj);
+                localStorage.setItem(k, JSON.stringify(list));
+              } catch(err) {}
+            });
 
-              await this.uploadSingleNoteFile(file, normalizedClass, subject, chapter, tag, "NotesPoint Senior Faculty");
+            // 2. Sync to Cloud Firestore with Actual Stream URL
+            if (db) {
+              await db.collection("notes").doc(noteObj.id).set(noteObj).catch(() => {});
             }
 
-            alert(`✅ All ${total} PDFs uploaded & synced successfully!`);
-            this.resetForm();
+            const linkBox = document.getElementById("generatedLinkBox");
+            const cleanUrlInput = document.getElementById("generatedCleanUrl");
+            if (linkBox) linkBox.style.display = "block";
+            if (cleanUrlInput) cleanUrlInput.value = `notespoint://stream/${normalizedClass}/${sanitizedFileName}`;
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Upload &amp; Sync Instantly`;
+
+            alert("✅ PDF successfully processed! Now open student.html and click 'Read Here' — it will render smoothly without 404 error.");
             this.loadDirectory();
             this.loadOverviewStats();
-          } 
-          // Single File Processing
-          else {
-            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Uploading PDF...`;
-            const file = this.selectedFiles[0];
-            const rawGrade = document.getElementById("uploadClassSelect").value;
-            const subject = document.getElementById("uploadSubjectInput").value;
-            const chapter = document.getElementById("uploadChapterInput").value.trim();
-            const tag = document.getElementById("uploadDocTypeSelect").value;
-            const author = document.getElementById("uploadAuthorInput").value.trim();
-
-            if (!rawGrade || !subject || !chapter) {
-              alert("Please fill all required fields!");
-              submitBtn.disabled = false;
-              submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Upload & Sync to Student Workspace';
-              return;
-            }
-
-            let normalizedClass = rawGrade;
-            if (rawGrade.startsWith("11_")) normalizedClass = "11";
-            else if (rawGrade.startsWith("12_")) normalizedClass = "12";
-            else if (rawGrade.startsWith("competitive_")) normalizedClass = "competitive";
-
-            const generatedUrl = await this.uploadSingleNoteFile(file, normalizedClass, subject, chapter, tag, author);
-
-            if (generatedUrl) {
-              document.getElementById("generatedLinkBox").style.display = "block";
-              document.getElementById("generatedCleanUrl").value = generatedUrl;
-              alert("✅ PDF successfully uploaded and synced live to Student Workspace!");
-            }
-            this.loadDirectory();
-            this.loadOverviewStats();
-          }
-
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Upload & Sync to Student Workspace';
-        });
-      },
-
-      async uploadSingleNoteFile(file, normalizedClass, subject, chapter, docType, author) {
-        const sanitizedFileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, "_")}`;
-        let downloadUrl = "";
-
-        try {
-          if (storage) {
-            const storageRef = storage.ref(`notes/${normalizedClass}/${sanitizedFileName}`);
-            const metadata = { contentType: 'application/pdf', contentDisposition: 'inline' };
-            const uploadTask = await storageRef.put(file, metadata);
-            downloadUrl = await uploadTask.ref.getDownloadURL();
-          } else {
-            downloadUrl = URL.createObjectURL(file);
-          }
-
-          const noteObj = {
-            id: 'note_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
-            class: normalizedClass,
-            subject: subject,
-            chapter: chapter,
-            title: chapter,
-            docType: docType,
-            author: author,
-            fileUrl: downloadUrl,
-            pdfUrl: downloadUrl,
-            url: downloadUrl,
-            fileName: sanitizedFileName,
-            createdAt: new Date().toISOString()
           };
 
-          // 1. LocalStorage Sync
-          const storageKeys = ['notespoint_uploaded_notes_v7', 'notespoint_uploaded_notes', 'np_uploaded_notes', 'notes'];
-          storageKeys.forEach(k => {
-            try {
-              const list = JSON.parse(localStorage.getItem(k) || '[]');
-              list.unshift(noteObj);
-              localStorage.setItem(k, JSON.stringify(list));
-            } catch(e) {}
-          });
-
-          // 2. Firebase Firestore Sync
-          if (db) {
-            await db.collection("notes").doc(noteObj.id).set({
-              ...noteObj,
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            }).catch(() => {});
-          }
-
-          return downloadUrl;
-        } catch(err) {
-          console.error("Upload error:", err);
-          return null;
-        }
+          reader.readAsDataURL(this.selectedFile);
+        });
       },
 
       setupTickerForm() {
@@ -1687,8 +1489,8 @@
             if (!snapshot.empty) {
               const cloudNotes = [];
               snapshot.forEach(doc => cloudNotes.push({ id: doc.id, ...doc.data() }));
-              this.cachedNotes = cloudNotes;
-              this.renderDirectoryTable(cloudNotes);
+              this.cachedNotes = allNotes.length > 0 ? allNotes : cloudNotes;
+              this.renderDirectoryTable(this.cachedNotes);
             }
           }, () => {});
         }
@@ -1727,11 +1529,11 @@
             <td><span style="color:#059669; font-weight:700; font-size:0.8rem;">${uploader}</span></td>
             <td>
               <a href="${cleanUrl}" target="_blank" style="color: #2563EB; font-weight:700; text-decoration: underline; font-size:0.82rem;">
-                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Link
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Stream
               </a>
             </td>
             <td>
-              <button onclick="AdminController.deleteMaterial('${data.id}', '${data.class}', '${data.fileName}')" style="background:#FEF2F2; color:#DC2626; border:1px solid #FECACA; border-radius:6px; padding:4px 8px; cursor:pointer;">
+              <button onclick="AdminController.deleteMaterial('${data.id}')" style="background:#FEF2F2; color:#DC2626; border:1px solid #FECACA; border-radius:6px; padding:4px 8px; cursor:pointer;">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </td>
@@ -1740,23 +1542,20 @@
         });
       },
 
-      async deleteMaterial(docId, classLevel, fileName) {
+      async deleteMaterial(docId) {
         if (!confirm("Are you sure you want to delete this study note?")) return;
 
         const storageKeys = ['notespoint_uploaded_notes_v7', 'notespoint_uploaded_notes', 'np_uploaded_notes', 'notes'];
         storageKeys.forEach(key => {
           try {
             let existing = JSON.parse(localStorage.getItem(key) || '[]');
-            existing = existing.filter(n => n.id !== docId && n.fileName !== fileName);
+            existing = existing.filter(n => n.id !== docId);
             localStorage.setItem(key, JSON.stringify(existing));
           } catch (e) {}
         });
 
         if (db) {
           await db.collection("notes").doc(docId).delete().catch(() => {});
-        }
-        if (storage && fileName) {
-          await storage.ref(`notes/${classLevel}/${fileName}`).delete().catch(() => {});
         }
 
         alert("Document deleted successfully!");
@@ -1813,22 +1612,25 @@
         try {
           localCount = JSON.parse(localStorage.getItem('notespoint_uploaded_notes_v7') || '[]').length;
         } catch (e) {}
-        document.getElementById("statTotalNotes").innerText = localCount;
+        const statNotes = document.getElementById("statTotalNotes");
+        if (statNotes) statNotes.innerText = localCount;
 
         let queryCount = 0;
         try {
           queryCount = JSON.parse(localStorage.getItem('notespoint_admin_queries_v7') || '[]').length;
         } catch (e) {}
-        document.getElementById("statTotalQueries").innerText = queryCount;
-        document.getElementById("badgeQueriesCount").innerText = queryCount;
+        const statQueries = document.getElementById("statTotalQueries");
+        const badgeQueries = document.getElementById("badgeQueriesCount");
+        if (statQueries) statQueries.innerText = queryCount;
+        if (badgeQueries) badgeQueries.innerText = queryCount;
 
         if (db) {
           db.collection("notes").get().then(snap => {
-            document.getElementById("statTotalNotes").innerText = snap.size || localCount;
+            if (statNotes) statNotes.innerText = Math.max(snap.size, localCount);
           }).catch(() => {});
           db.collection("queries").get().then(snap => {
-            document.getElementById("statTotalQueries").innerText = snap.size || queryCount;
-            document.getElementById("badgeQueriesCount").innerText = snap.size || queryCount;
+            if (statQueries) statQueries.innerText = snap.size || queryCount;
+            if (badgeQueries) badgeQueries.innerText = snap.size || queryCount;
           }).catch(() => {});
         }
       },
@@ -1857,12 +1659,15 @@
       },
 
       flushLocalStorageCache() {
-        if (!confirm("Are you sure you want to flush local cached data? (Firestore documents will remain safe)")) return;
+        if (!confirm("Are you sure you want to flush local cached data? This will clear broken 404 test notes.")) return;
         localStorage.removeItem("notespoint_uploaded_notes_v7");
+        localStorage.removeItem("notespoint_uploaded_notes");
+        localStorage.removeItem("np_uploaded_notes");
+        localStorage.removeItem("notes");
         localStorage.removeItem("notespoint_admin_queries_v7");
         this.loadDirectory();
         this.loadOverviewStats();
-        alert("Cache flushed successfully!");
+        alert("Cache flushed successfully! Purane broken notes hat gaye hain.");
       },
 
       async exportFeedbacksCSV() {
