@@ -1,1939 +1,1235 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>NotesPoint — Great Notes Shouldn't End With You | Standardized Academic Workspace</title>
-  <meta name="description" content="NotesPoint is a standardized academic workspace providing verified handwritten topper notes, NCERT solutions, formula books, and question banks for Class 1 to 12, JEE, NEET, CUET & NDA.">
-  <meta name="keywords" content="NotesPoint, Class 1 to 12 Notes, JEE Main Notes, NEET Biology, CUET Preparation, NDA Exam Notes, NCERT Solutions, Handwritten Notes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>NotesPoint — Learn Smarter, Score Higher | Standardized Academic Workspace</title>
+  <meta name="description" content="NotesPoint is India's standardized academic workspace providing verified handwritten topper notes, NCERT line-by-line solutions, and solved question banks for Class 1 to 12, JEE, NEET, CUET & NDA.">
+  <meta name="keywords" content="NotesPoint, Class 1 to 12 Notes, CBSE Handwritten Notes, NCERT Solutions, JEE Main Notes, NEET Biology Diagrams, CUET Preparation, NDA Exam Notes">
+  <meta name="author" content="NotesPoint Platform">
   <meta name="theme-color" content="#059669">
 
-  <meta property="og:title" content="NotesPoint — Standardized Academic Workspace">
+  <!-- Open Graph Meta -->
+  <meta property="og:title" content="NotesPoint — Learn Smarter, Score Higher">
   <meta property="og:description" content="Access verified topper notes, NCERT solutions, and competitive study resources for Class 1 to 12, JEE, NEET, CUET & NDA.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.notespoint.in/">
+<!-- Custom Branded Favicon -->
+  <link rel="icon" type="image/png" href="imanges/logo.png">
+  <link rel="apple-touch-icon" href="imanges/logo.png">
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%23059669%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22 font-size=%2248%22 fill=%22%23ffffff%22>NP</text></svg>">
-
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome & Lucide Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwind CSS v3 CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            head: ['"Space Grotesk"', 'sans-serif'],
+            hand: ['"Caveat"', 'cursive'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#064e3b',
+              900: '#022c22',
+            }
+          },
+          boxShadow: {
+            'soft': '0 8px 30px -4px rgba(16, 185, 129, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04)',
+            'card': '0 14px 34px -6px rgba(15, 23, 42, 0.07)',
+            'floating': '0 20px 45px -10px rgba(5, 150, 105, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
 
   <style>
-    :root {
-      --primary: #059669;
-      --primary-hover: #047857;
-      --primary-dark: #064E3B;
-      --primary-deep: #022C22;
-      --primary-light: #ECFDF5;
-      --primary-mint: #D1FAE5;
-      --primary-sage: #34D399;
-      --accent-cyan: #06B6D4;
-      --accent-amber: #F59E0B;
-      --accent-blue: #2563EB;
-      
-      --brand-navy: #0F172A;
-      --brand-slate: #1E293B;
-      --slate-800: #1E293B;
-      --slate-700: #334155;
-      --slate-600: #475569;
-      --slate-500: #64748B;
-      --slate-400: #94A3B8;
-      --slate-300: #CBD5E1;
-      --slate-200: #E2E8F0;
-      --slate-100: #F8FAFC;
-      
-      --card-bg: #FFFFFF;
-      --border-color: #E2E8F0;
-      --paper-bg: #F8FAFC;
-      --paper-line: #EEF2F6;
-      
-      --radius-2xl: 24px;
-      --radius-xl: 18px;
-      --radius-lg: 14px;
-      --radius-md: 10px;
-      --radius-sm: 8px;
-      
-      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
-      --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
-      --shadow-lg: 0 16px 40px rgba(15, 23, 42, 0.12);
-      
-      --font-main: 'Plus Jakarta Sans', sans-serif;
-      --font-heading: 'Space Grotesk', sans-serif;
-      --font-hand: 'Caveat', cursive;
-      --font-mono: 'JetBrains Mono', monospace;
-      
-      --transition-fast: 0.18s ease;
-      --transition-normal: 0.28s ease;
-    }
-
-    body.dark-mode {
-      --brand-navy: #F8FAFC;
-      --brand-slate: #E2E8F0;
-      --slate-700: #CBD5E1;
-      --slate-600: #94A3B8;
-      --slate-500: #64748B;
-      --slate-400: #94A3B8;
-      --slate-200: #334155;
-      --slate-100: #1E293B;
-      --card-bg: #111827;
-      --border-color: #1F2937;
-      --paper-bg: #0B0F19;
-      --paper-line: #1F2937;
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
-      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
-      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
-    }
-
     *, *::before, *::after {
-      box-sizing: border-box !important;
-      margin: 0;
-      padding: 0;
+      box-sizing: border-box;
     }
 
     html, body {
-      width: 100% !important;
-      max-width: 100vw !important;
-      overflow-x: hidden !important;
-      position: relative;
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
       scroll-behavior: smooth;
-      -webkit-text-size-adjust: 100%;
     }
 
     body {
-      font-family: var(--font-main);
-      background-color: var(--paper-bg);
-      background-image: linear-gradient(var(--paper-line) 1px, transparent 1px);
-      background-size: 100% 32px;
-      color: var(--brand-navy);
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      transition: background-color var(--transition-normal), color var(--transition-normal);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc;
+      background-image: radial-gradient(#cbd5e1 0.85px, transparent 0.85px);
+      background-size: 24px 24px;
+      color: #0f172a;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
-    img, svg {
-      max-width: 100%;
-      height: auto;
-      display: block;
+    /* Dark Mode Overrides */
+    body.dark-mode {
+      background-color: #090d16;
+      background-image: radial-gradient(#1e293b 0.85px, transparent 0.85px);
+      color: #f8fafc;
     }
 
-    a { color: inherit; text-decoration: none; }
-    button, input, select, textarea { font-family: inherit; }
-
-    :focus-visible {
-      outline: 2px solid var(--primary);
-      outline-offset: 2px;
+    body.dark-mode .surface-card {
+      background-color: #111827 !important;
+      border-color: #1f2937 !important;
+      color: #f8fafc !important;
     }
 
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: var(--paper-bg); }
-    ::-webkit-scrollbar-thumb { background: var(--slate-300); border-radius: 4px; }
-    body.dark-mode ::-webkit-scrollbar-thumb { background: var(--slate-700); }
-
-    .site-header {
-      background: rgba(255, 255, 255, 0.94);
-      border-bottom: 1.5px solid var(--border-color);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      padding: 12px 20px;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: var(--shadow-sm);
-      width: 100%;
+    body.dark-mode .surface-sub {
+      background-color: #1e293b !important;
+      border-color: #334155 !important;
+      color: #cbd5e1 !important;
     }
 
-    body.dark-mode .site-header { background: rgba(11, 15, 25, 0.94); }
-
-    .header-inner {
-      width: 100%;
-      max-width: 1320px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+    body.dark-mode .text-main {
+      color: #f8fafc !important;
     }
 
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    body.dark-mode .text-muted {
+      color: #94a3b8 !important;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      user-select: none;
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #10b981;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #059669;
     }
 
-    .brand-logo-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-      color: #ffffff;
-      display: grid;
-      place-items: center;
-      font-size: 1.1rem;
-      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
-      flex-shrink: 0;
+    /* Smooth Offcanvas Drawer */
+    #mobileDrawer {
+      transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #mobileBackdrop {
+      transition: opacity 0.28s ease, visibility 0.28s ease;
     }
 
-    .brand-name {
-      font-family: var(--font-heading);
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: var(--brand-navy);
-      letter-spacing: -0.5px;
-    }
-
-    .brand-accent { color: var(--primary); }
-
-    .main-nav ul {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      list-style: none;
-    }
-
-    .main-nav a {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--slate-700);
-      transition: color var(--transition-fast);
-      cursor: pointer;
-    }
-
-    body.dark-mode .main-nav a { color: var(--slate-300); }
-    .main-nav a:hover, .main-nav a:focus-visible { color: var(--primary); }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .header-chip-btn {
-      background: #0F172A;
-      color: #FFFFFF !important;
-      border: 1.5px solid #0F172A;
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-size: 0.84rem;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: all var(--transition-fast);
-      white-space: nowrap;
-      box-shadow: var(--shadow-sm);
-    }
-
-    body.dark-mode .header-chip-btn {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: #0F172A !important;
-    }
-
-    .header-chip-btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .icon-circle-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--card-bg);
-      border: 1.5px solid var(--border-color);
-      display: grid;
-      place-items: center;
-      color: var(--brand-navy);
-      cursor: pointer;
-      font-size: 1.05rem;
-      transition: all var(--transition-fast);
-      box-shadow: var(--shadow-sm);
-      position: relative;
-    }
-
-    .icon-circle-btn:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-    }
-
-    .gear-dot {
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      width: 8px;
-      height: 8px;
-      background: #3B82F6;
-      border-radius: 50%;
-      border: 1.5px solid var(--card-bg);
-    }
-
-    .nav-toggle-btn {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.4rem;
-      color: var(--brand-navy);
-      cursor: pointer;
-    }
-
-    .mobile-menu-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.65);
-      z-index: 99998;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
-
-    .mobile-nav-drawer-header {
-      display: none;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 16px;
-      margin-bottom: 20px;
-      border-bottom: 2px solid var(--border-color);
-    }
-
-    .mobile-nav-close-btn {
-      background: var(--slate-100);
-      border: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      color: var(--slate-700);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-wrapper {
-      width: 100%;
-      max-width: 1320px;
-      margin: 24px auto 16px auto;
-      padding: 0 16px;
-    }
-
-    .hero-container {
-      background: var(--card-bg);
-      border: 2px solid var(--border-color);
-      border-radius: var(--radius-2xl);
-      padding: 48px 36px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow-md);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 36px;
-      width: 100%;
-    }
-
-    .hero-content-front {
-      position: relative;
-      z-index: 3;
-      flex: 1;
-      max-width: 620px;
-    }
-
-    .hero-title-main {
-      font-family: var(--font-main);
-      font-size: clamp(2.3rem, 5.2vw, 3.6rem);
-      font-weight: 800;
-      color: var(--brand-navy);
-      margin: 0 0 16px 0;
-      line-height: 1.15;
-      letter-spacing: -0.03em;
-    }
-
-    .hero-subtitle-text {
-      font-size: clamp(0.95rem, 2.2vw, 1.1rem);
-      color: var(--slate-600);
-      margin: 0 0 28px 0;
-      line-height: 1.65;
-      max-width: 560px;
-    }
-
-    .hero-btn-row {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .btn-hero-primary {
-      background: var(--primary);
-      color: #ffffff !important;
-      font-weight: 700;
-      padding: 14px 28px;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border: 1px solid var(--primary);
-      box-shadow: 0 6px 18px rgba(5, 150, 105, 0.25);
-      cursor: pointer;
-      transition: all var(--transition-fast);
-    }
-
-    .btn-hero-primary:hover {
-      background: var(--primary-hover);
-      transform: translateY(-2px);
-    }
-
-    .btn-hero-secondary {
-      background: transparent;
-      color: var(--brand-navy) !important;
-      font-weight: 700;
-      padding: 14px 26px;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border: 2px solid var(--border-color);
-      cursor: pointer;
-      transition: all var(--transition-fast);
-    }
-
-    .btn-hero-secondary:hover {
-      border-color: var(--primary);
-      color: var(--primary) !important;
-    }
-
-    .hero-notes-visual-stack {
-      position: relative;
-      width: 360px;
-      height: 390px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      z-index: 1;
-    }
-
-    .photo-paper-sheet {
-      position: absolute;
-      width: 260px;
-      height: 340px;
-      background: #FAF9F5;
-      border: 2px solid #334155;
-      border-radius: 14px;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
-      padding: 18px 16px;
-      background-image: linear-gradient(var(--paper-line) 1px, transparent 1px);
-      background-size: 100% 24px;
-      transition: transform var(--transition-normal);
-    }
-
-    body.dark-mode .photo-paper-sheet {
-      background-color: var(--card-bg);
-      border-color: #64748B;
-    }
-
-    .sheet-pos-1 { transform: rotate(-10deg) translate(-25px, -10px); z-index: 1; }
-    .sheet-pos-2 { transform: rotate(5deg) translate(20px, 8px); z-index: 2; }
-    .sheet-pos-3 { transform: rotate(-2deg) translate(0px, 0px); z-index: 3; }
-
-    .hero-notes-visual-stack:hover .sheet-pos-1 { transform: rotate(-15deg) translate(-40px, -18px); }
-    .hero-notes-visual-stack:hover .sheet-pos-2 { transform: rotate(10deg) translate(35px, 12px); }
-    .hero-notes-visual-stack:hover .sheet-pos-3 { transform: scale(1.03); }
-
-    .sheet-hand-title {
-      font-family: var(--font-hand);
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #0F172A;
-      border-bottom: 2px solid var(--primary);
-      padding-bottom: 2px;
-      margin-bottom: 12px;
-      line-height: 1.1;
-    }
-    body.dark-mode .sheet-hand-title { color: var(--primary-sage); border-color: var(--primary-sage); }
-
-    .sheet-hand-text {
-      font-family: var(--font-hand);
-      font-size: 1.15rem;
-      color: #334155;
-      line-height: 24px;
-    }
-    body.dark-mode .sheet-hand-text { color: #CBD5E1; }
-
-    .topper-seal-badge {
-      position: absolute;
-      bottom: 15px;
-      right: 15px;
-      width: 95px;
-      height: 95px;
-      border-radius: 50%;
-      background: var(--primary);
-      color: #FFFFFF;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-heading);
-      font-size: 0.72rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      text-align: center;
-      border: 3px dashed #FFF;
-      box-shadow: 0 8px 24px rgba(5, 150, 105, 0.4);
-      transform: rotate(10deg);
-      z-index: 5;
-      line-height: 1.15;
-    }
-
-    .value-features-strip {
-      max-width: 1320px;
-      margin: 0 auto 32px auto;
-      padding: 0 16px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .value-feature-card {
-      background: var(--card-bg);
-      border: 1.5px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: 18px 20px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .value-feature-icon {
-      font-size: 1.4rem;
-      color: var(--primary);
-    }
-
-    .value-feature-card h3 {
-      font-family: var(--font-heading);
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--brand-navy);
-      line-height: 1.2;
-      margin-bottom: 3px;
-    }
-
-    .value-feature-card p {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--slate-500);
-      margin: 0;
-    }
-
+    /* Moving Academic Ticker */
     .ticker-wrap {
       width: 100%;
       overflow: hidden;
-      background: #0F172A;
-      color: #E2E8F0;
-      padding: 12px 0;
-      margin: 10px 0 36px 0;
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 14px 0;
+      border-radius: 20px;
     }
-
     .ticker-move {
       display: flex;
-      gap: 36px;
+      gap: 48px;
       width: max-content;
-      animation: tickerAnim 24s linear infinite;
+      animation: tickerSlide 30s linear infinite;
     }
-
-    .ticker-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 700;
-      font-size: 0.88rem;
-      white-space: nowrap;
+    .ticker-move:hover {
+      animation-play-state: paused;
     }
-
-    .ticker-item i { color: var(--primary-sage); }
-
-    @keyframes tickerAnim {
+    @keyframes tickerSlide {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
 
-    .section-container {
-      width: 100%;
-      max-width: 1320px;
-      margin: 0 auto 48px auto;
-      padding: 0 16px;
+    /* Hero Floating Note Sheets */
+    .paper-sheet {
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      background-image: linear-gradient(#e2e8f0 1px, transparent 1px);
+      background-size: 100% 24px;
+    }
+    .hero-visual-stack:hover .sheet-1 {
+      transform: rotate(-12deg) translate(-26px, -12px);
+    }
+    .hero-visual-stack:hover .sheet-2 {
+      transform: rotate(10deg) translate(26px, 10px);
+    }
+    .hero-visual-stack:hover .sheet-3 {
+      transform: scale(1.04) translateY(-4px);
     }
 
-    .section-header-compact {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 16px;
-      border-bottom: 2px solid var(--border-color);
-      padding-bottom: 10px;
-      gap: 12px;
-    }
-
-    .section-header-compact h2 {
-      font-family: var(--font-heading);
-      font-size: clamp(1.2rem, 3.2vw, 1.45rem);
-      font-weight: 800;
-      color: var(--brand-navy);
-    }
-
-    .section-header-compact p {
-      font-size: 0.84rem;
-      color: var(--slate-600);
-    }
-
-    .classes-grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 14px;
-      width: 100%;
-    }
-
-    .class-box-card {
-      border-radius: var(--radius-lg);
-      padding: 18px 10px;
-      text-align: center;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: all var(--transition-fast);
-      box-shadow: var(--shadow-sm);
-      color: #FFFFFF;
-      text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-
-    .class-box-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.2);
-    }
-
-    .class-avatar-badge {
-      width: 44px;
-      height: 44px;
-      margin-bottom: 8px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 1.25rem;
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .class-box-card strong { font-size: 0.95rem; font-weight: 800; display: block; }
-    .class-box-card span { font-size: 0.72rem; opacity: 0.9; margin-top: 4px; font-weight: 600; }
-
-    .c-nat-1  { background: linear-gradient(135deg, #10B981, #059669); }
-    .c-nat-2  { background: linear-gradient(135deg, #F59E0B, #D97706); }
-    .c-nat-3  { background: linear-gradient(135deg, #3B82F6, #2563EB); }
-    .c-nat-4  { background: linear-gradient(135deg, #8B5CF6, #7C3AED); }
-    .c-nat-5  { background: linear-gradient(135deg, #EC4899, #DB2777); }
-    .c-nat-6  { background: linear-gradient(135deg, #06B6D4, #0891B2); }
-    .c-nat-7  { background: linear-gradient(135deg, #14B8A6, #0F766E); }
-    .c-nat-8  { background: linear-gradient(135deg, #F97316, #EA580C); }
-    .c-nat-9  { background: linear-gradient(135deg, #6366F1, #4F46E5); }
-    .c-nat-10 { background: linear-gradient(135deg, #059669, #047857); }
-    .c-nat-11 { background: linear-gradient(135deg, #2563EB, #1D4ED8); }
-    .c-nat-12 { background: linear-gradient(135deg, #E11D48, #BE123C); }
-
-    .c-comp-jee  { background: linear-gradient(135deg, #7C3AED, #4C1D95); }
-    .c-comp-neet { background: linear-gradient(135deg, #059669, #064E3B); }
-    .c-comp-cuet { background: linear-gradient(135deg, #D97706, #78350F); }
-    .c-comp-nda  { background: linear-gradient(135deg, #1E3A8A, #0F172A); }
-
-    .reviews-trigger-section {
-      padding: 42px 20px;
-      background: var(--slate-100);
-      text-align: center;
-      border-radius: var(--radius-2xl);
-      width: 100%;
-      border: 1.5px solid var(--border-color);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .btn-reviews-trigger {
-      background: var(--card-bg);
-      color: var(--brand-navy);
-      border: 2px solid var(--border-color);
-      padding: 14px 32px;
-      border-radius: 30px;
-      font-size: 0.98rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: var(--shadow-sm);
-      transition: all var(--transition-fast);
-    }
-
-    .btn-reviews-trigger:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-      transform: translateY(-2px);
-    }
-
-    .faq-section {
-      padding: 48px 28px;
-      background: var(--card-bg);
-      border-radius: var(--radius-2xl);
-      width: 100%;
-      border: 1.5px solid var(--border-color);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .faq-container {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .faq-item {
-      border: 1.5px solid var(--border-color);
-      border-radius: var(--radius-md);
-      background: var(--card-bg);
-      overflow: hidden;
-      transition: all var(--transition-fast);
-    }
-
-    .faq-question {
-      width: 100%;
-      padding: 18px 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: none;
-      border: none;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--brand-navy);
-      cursor: pointer;
-      text-align: left;
-      gap: 12px;
-    }
-
-    .faq-answer {
-      padding: 0 22px 20px 22px;
-      font-size: 0.92rem;
-      color: var(--slate-600);
-      line-height: 1.7;
-      display: none;
-    }
-
-    .faq-item.active {
-      border-color: var(--primary);
-      box-shadow: 0 4px 16px rgba(5, 150, 105, 0.12);
-    }
-
-    .faq-item.active .faq-answer { display: block; }
-    .faq-icon {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--primary);
-      transition: transform 0.25s ease;
-      flex-shrink: 0;
-    }
-    .faq-item.active .faq-icon { transform: rotate(45deg); }
-
-    .modal-backdrop-full {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(8px);
-      z-index: 100000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      overflow-y: auto;
-    }
-
-    .settings-card-wrapper {
-      background: var(--card-bg);
-      border-radius: var(--radius-2xl);
-      box-shadow: var(--shadow-lg);
-      max-width: 850px;
-      width: 100%;
-      padding: clamp(24px, 4vw, 36px);
-      border: 1.5px solid var(--border-color);
-      position: relative;
-      margin: auto;
-    }
-
-    .settings-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .settings-header h2 {
-      font-family: var(--font-heading);
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--brand-navy);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .settings-header h2 i { color: var(--primary); }
-
-    .tabs {
-      display: flex;
-      gap: 6px;
-      border-bottom: 2px solid var(--border-color);
-      margin-bottom: 24px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .tab-btn {
-      background: transparent;
-      border: none;
-      padding: 10px 18px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--slate-500);
-      cursor: pointer;
-      border-radius: 10px 10px 0 0;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-      position: relative;
-    }
-
-    .tab-btn:hover { color: var(--brand-navy); background: var(--slate-100); }
-    .tab-btn.active { color: var(--primary); background: var(--primary-light); }
-    .tab-btn.active::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: var(--primary);
-      border-radius: 4px 4px 0 0;
-    }
-
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; animation: fadeIn 0.25s ease; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .setting-group { margin-bottom: 24px; }
-    .setting-group-title {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--brand-navy);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .setting-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
-      background: var(--paper-bg);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .setting-info {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex: 1;
-      min-width: 200px;
-    }
-
-    .setting-info .icon-circle {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: var(--primary-light);
-      display: grid;
-      place-items: center;
-      color: var(--primary);
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-
-    .setting-info .label { font-weight: 700; font-size: 0.92rem; color: var(--brand-navy); }
-    .setting-info .description { font-size: 0.78rem; color: var(--slate-500); margin-top: 2px; }
-
-    .toggle {
+    /* Custom Toggle Switch */
+    .np-toggle {
       position: relative;
       width: 48px;
       height: 26px;
-      background: var(--slate-300);
-      border-radius: 30px;
+      background: #cbd5e1;
+      border-radius: 999px;
       cursor: pointer;
-      transition: background 0.3s;
-      flex-shrink: 0;
+      transition: background 0.25s ease;
     }
-    .toggle.active { background: var(--primary); }
-    .toggle .thumb {
+    .np-toggle.active {
+      background: #059669;
+    }
+    .np-toggle .np-thumb {
       position: absolute;
       top: 3px;
       left: 3px;
       width: 20px;
       height: 20px;
-      background: #FFF;
+      background: #ffffff;
       border-radius: 50%;
-      transition: transform 0.3s;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: transform 0.25s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
-    .toggle.active .thumb { transform: translateX(22px); }
-
-    .setting-select, .setting-input {
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1.5px solid var(--border-color);
-      background: var(--card-bg);
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--brand-navy);
-      outline: none;
+    .np-toggle.active .np-thumb {
+      transform: translateX(22px);
     }
 
-    .setting-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 24px;
-      padding-top: 18px;
-      border-top: 1.5px solid var(--border-color);
-      flex-wrap: wrap;
-    }
-
-    #allReviewsModal {
-      position: fixed;
-      inset: 0;
-      background: var(--paper-bg);
-      background-image: linear-gradient(var(--paper-line) 1px, transparent 1px);
-      background-size: 100% 30px;
-      z-index: 100000;
+    /* Modal Overlay */
+    .modal-overlay {
       display: none;
-      flex-direction: column;
-      overflow-y: auto;
-      padding: 20px;
-    }
-
-    .reviews-top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1100px;
-      margin: 0 auto 20px auto;
-      width: 100%;
-    }
-
-    .reviews-back-btn {
-      background: var(--card-bg);
-      border: 1.5px solid var(--border-color);
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      cursor: pointer;
-      color: var(--brand-navy);
-    }
-
-    .write-review-card {
-      background: var(--card-bg);
-      border: 1.5px solid var(--border-color);
-      border-radius: var(--radius-xl);
-      padding: 26px;
-      max-width: 1100px;
-      margin: 0 auto 28px auto;
-      width: 100%;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .review-form-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      width: 100%;
-    }
-
-    .review-form-stack input, .review-form-stack textarea {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1.5px solid var(--border-color);
-      border-radius: 10px;
-      font-size: 0.9rem;
-      outline: none;
-      background: var(--paper-bg);
-      color: var(--brand-navy);
-    }
-
-    .interactive-stars {
-      display: flex;
-      gap: 8px;
-      font-size: 1.6rem;
-      color: #CBD5E1;
-      cursor: pointer;
-      margin: 8px 0 14px 0;
-    }
-    .interactive-stars i.active { color: #F59E0B; }
-
-    .reviews-full-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
-      max-width: 1100px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .play-review-item {
-      background: var(--card-bg);
-      border: 1.5px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 20px;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .p-reviewer-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .p-avatar-circle {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--primary-light);
-      color: var(--primary);
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-
-    .vedantu-floating-dock {
-      position: fixed;
-      bottom: 24px;
-      right: 20px;
-      z-index: 9990;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .dock-circle-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.25);
-      border: none;
-      font-size: 1.25rem;
-      cursor: pointer;
-      transition: transform var(--transition-fast);
-      text-decoration: none;
-    }
-
-    .dock-circle-btn:hover { transform: scale(1.1); }
-    .ai-dock-robot-btn { background: #ffffff; border: 2px solid var(--primary); padding: 4px; }
-    .whatsapp-dock-btn { background: #25D366; }
-    .insta-dock-btn { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
-    .telegram-dock-btn { background: #229ED9; }
-
-    #aiChatModal {
-      position: fixed;
-      bottom: 84px;
-      right: 20px;
-      width: 380px;
-      max-width: calc(100vw - 32px);
-      background: var(--card-bg);
-      border-radius: 20px;
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.25);
-      border: 1px solid var(--border-color);
-      z-index: 99999;
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .chat-header {
-      background: linear-gradient(135deg, var(--brand-navy), var(--primary));
-      color: #ffffff;
-      padding: 14px 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .chat-body-feed {
-      height: 340px;
-      padding: 16px;
-      overflow-y: auto;
-      background: var(--paper-bg);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      font-size: 0.86rem;
-    }
-
-    .chat-msg-user {
-      background: var(--brand-navy);
-      color: #ffffff;
-      padding: 10px 14px;
-      border-radius: 14px 14px 2px 14px;
-      max-width: 85%;
-      align-self: flex-end;
-      font-size: 0.86rem;
-      line-height: 1.45;
-      word-break: break-word;
-    }
-
-    .chat-msg-bot {
-      background: var(--card-bg);
-      color: var(--brand-navy);
-      padding: 12px 16px;
-      border-radius: 14px 14px 14px 2px;
-      max-width: 90%;
-      align-self: flex-start;
-      border: 1px solid var(--border-color);
-      font-size: 0.86rem;
-      line-height: 1.5;
-      word-break: break-word;
-    }
-
-    .chat-prompt-chips {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding: 8px 14px;
-      background: var(--slate-100);
-      border-top: 1px solid var(--border-color);
-      scrollbar-width: none;
-    }
-
-    .chat-chip {
-      white-space: nowrap;
-      font-size: 0.74rem;
-      font-weight: 700;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 5px 12px;
-      border-radius: 14px;
-      cursor: pointer;
-      color: var(--brand-navy);
-    }
-    .chat-chip:hover { border-color: var(--primary); color: var(--primary); }
-
-    .chat-code-block {
-      background: #0F172A;
-      color: #F8FAFC;
-      padding: 10px 12px;
-      border-radius: 8px;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      margin: 8px 0;
-      position: relative;
-      overflow-x: auto;
-    }
-
-    .quiz-option-btn {
-      display: block;
-      width: 100%;
-      text-align: left;
-      padding: 9px 12px;
-      margin: 4px 0;
-      background: var(--paper-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--brand-navy);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .quiz-option-btn.correct-choice {
-      background: #ECFDF5 !important;
-      border-color: #10B981 !important;
-      color: #065F46 !important;
-      font-weight: 700;
-    }
-
-    .quiz-option-btn.wrong-choice {
-      background: #FEF2F2 !important;
-      border-color: #EF4444 !important;
-      color: #991B1B !important;
-    }
-
-    #toastContainer {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100010;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      pointer-events: none;
-    }
-
-    .toast-msg {
-      background: #0F172A;
-      color: #ffffff;
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      box-shadow: var(--shadow-lg);
       opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.25s ease;
+      transition: opacity 0.22s ease;
     }
-    .toast-msg.show { opacity: 1; transform: translateY(0); }
-
-    .academic-workflow-bar {
-      background: var(--slate-100);
-      border-top: 1.5px solid var(--border-color);
-      border-bottom: 1.5px solid var(--border-color);
-      padding: 22px 16px;
-      text-align: center;
-      width: 100%;
-    }
-
-    .workflow-bar-title {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: 800;
-      color: var(--slate-500);
-      margin-bottom: 12px;
-    }
-
-    .workflow-chips-flex {
+    .modal-overlay.open {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .workflow-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--brand-navy);
-    }
-
-    .site-footer {
-      background: #0F172A;
-      color: #ffffff;
-      padding: 50px 20px 24px 20px;
-      width: 100%;
-    }
-
-    .footer-inner {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr 1.1fr;
-      gap: 30px;
-      max-width: 1240px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .footer-brand h2 { font-family: var(--font-heading); font-size: 1.45rem; font-weight: 700; color: #ffffff; margin: 0 0 8px 0; }
-    .footer-brand p { color: #94A3B8; font-size: 0.86rem; line-height: 1.55; margin: 0; }
-    .footer-col h3 { font-size: 1rem; font-weight: 700; color: #ffffff; margin-bottom: 12px; }
-    .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-    .footer-col ul a { color: #94A3B8; font-size: 0.86rem; cursor: pointer; }
-    .footer-col ul a:hover { color: var(--primary-sage); }
-    
-    .footer-social-icons {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      margin-top: 14px;
-      flex-wrap: wrap;
-    }
-
-    .f-social-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: #1E293B;
-      color: #ffffff;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      border: 1px solid #334155;
-      transition: all 0.25s ease;
-      text-decoration: none;
-    }
-
-    .f-social-btn.telegram:hover { background: #229ED9; border-color: #229ED9; transform: translateY(-2px); }
-    .f-social-btn.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); border-color: transparent; transform: translateY(-2px); }
-    .f-social-btn.whatsapp:hover { background: #25D366; border-color: #25D366; transform: translateY(-2px); }
-    .f-social-btn.email:hover { background: #EA4335; border-color: #EA4335; transform: translateY(-2px); }
-
-    .footer-bottom-copy { text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 32px; padding-top: 20px; font-size: 0.82rem; color: #94A3B8; }
-
-    @media (max-width: 992px) {
-      .hero-container {
-        display: flex;
-        flex-direction: column;
-        padding: 34px 20px;
-        position: relative;
-      }
-      
-      .hero-content-front {
-        width: 100%;
-        text-align: center;
-      }
-
-      .hero-notes-visual-stack {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 260px;
-        height: 300px;
-        opacity: 0.12;
-        pointer-events: none;
-        z-index: 0;
-      }
-
-      .hero-btn-row { justify-content: center; width: 100%; }
-      .value-features-strip { grid-template-columns: 1fr 1fr; }
-      .footer-inner { grid-template-columns: 1fr; }
-
-      .nav-toggle-btn { display: block; }
-      .main-nav {
-        position: fixed; top: 0; left: -100%; width: 280px; height: 100vh;
-        background: var(--card-bg); box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
-        z-index: 99999; padding: 24px 20px; transition: left 0.3s ease;
-        display: flex; flex-direction: column; overflow-y: auto;
-      }
-      .main-nav.nav-open { left: 0; }
-      .mobile-nav-drawer-header { display: flex; }
-      .main-nav ul { flex-direction: column; align-items: flex-start; gap: 12px; width: 100%; }
-      .main-nav a { font-size: 1.05rem; padding: 8px 0; width: 100%; display: block; }
-    }
-
-    @media (max-width: 600px) {
-      .site-header { padding: 10px 12px; }
-      .brand-name { font-size: 1.15rem; }
-      
-      .hero-wrapper { padding: 0 12px; }
-      .hero-container { padding: 26px 16px; margin: 12px auto; }
-      .hero-title-main { font-size: 1.95rem; line-height: 1.22; margin-bottom: 12px; }
-      .hero-subtitle-text { font-size: 0.9rem; margin-bottom: 20px; margin-inline: auto; }
-      
-      .btn-hero-primary, .btn-hero-secondary { width: 100%; justify-content: center; text-align: center; }
-      
-      .value-features-strip { grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 12px; }
-      .value-feature-card { padding: 12px 10px; gap: 10px; flex-direction: column; text-align: center; }
-
-      .classes-grid-container { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .btn-reviews-trigger { width: 100%; font-size: 0.92rem; padding: 14px 16px; }
-      .site-footer { padding: 36px 16px 20px 16px; }
-      
-      #aiChatModal { width: calc(100% - 24px); right: 12px; left: 12px; bottom: 75px; }
-      .dock-circle-btn { width: 44px; height: 44px; font-size: 1.15rem; }
-      .vedantu-floating-dock { bottom: 16px; right: 12px; gap: 8px; }
+      opacity: 1;
     }
   </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-600 selection:text-white">
 
-  <div id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+  <!-- =====================================================================
+       1. FLOATING TOAST DISPATCHER
+       ===================================================================== -->
+  <div id="toastContainer" class="fixed top-5 right-5 z-[100000] flex flex-col gap-2.5 pointer-events-none" aria-live="polite"></div>
 
-  <div class="mobile-menu-overlay" id="mobileOverlay" onclick="UI.closeMobileNav()"></div>
+  <!-- =====================================================================
+       2. MOBILE 3-DOT / MENU SLIDING DRAWER (INCLUDES STUDENT PANEL CTA)
+       ===================================================================== -->
+  <div id="mobileBackdrop" onclick="UI.closeMobileNav()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 invisible opacity-0"></div>
 
-  <!-- SITE HEADER -->
-  <header class="site-header" role="banner">
-    <div class="header-inner">
-      <div class="header-left">
-        <button type="button" class="nav-toggle-btn" onclick="UI.toggleMobileNav()" aria-label="Open Navigation Menu">
-          <i class="fa-solid fa-bars"></i>
+  <aside id="mobileDrawer" class="fixed top-0 right-0 bottom-0 w-80 max-w-[88vw] bg-white surface-card z-[51] shadow-2xl p-6 flex flex-col justify-between translate-x-full border-l border-slate-200 overflow-y-auto">
+    <div class="space-y-6">
+      
+      <!-- Drawer Brand Header -->
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <a href="index.html" class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-black flex items-center justify-center text-lg shadow-md">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div>
+            <span class="text-lg font-black text-slate-900 text-main block leading-none">Notes<span class="text-emerald-600">Point</span></span>
+            <span class="text-[10px] font-bold text-slate-400 tracking-wide mt-1 block">Learn Smarter, Score Higher</span>
+          </div>
+        </a>
+        <button onclick="UI.closeMobileNav()" class="w-9 h-9 rounded-xl bg-slate-100 surface-sub text-slate-600 hover:text-rose-600 flex items-center justify-center transition-colors" aria-label="Close Menu">
+          <i class="fa-solid fa-xmark text-base"></i>
         </button>
-        <div class="brand" onclick="window.scrollTo({top:0, behavior:'smooth'})" role="button" tabindex="0" aria-label="NotesPoint Home">
-          <div class="brand-logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-          <span class="brand-name">Notes<span class="brand-accent">Point</span></span>
-        </div>
       </div>
 
-      <nav class="main-nav" id="mainNav" role="navigation" aria-label="Main Navigation">
-        <div class="mobile-nav-drawer-header">
-          <div class="brand" onclick="UI.closeMobileNav()">
-            <div class="brand-logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-            <span class="brand-name">Notes<span class="brand-accent">Point</span></span>
+      <!-- STUDENT WORKSPACE CARD INSIDE MOBILE 3-DOT MENU -->
+      <div class="p-4 rounded-2xl bg-gradient-to-br from-slate-900 to-emerald-950 text-white space-y-3 shadow-md">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center text-emerald-400 font-black text-base">
+            <i class="fa-solid fa-user-graduate"></i>
           </div>
-          <button type="button" class="mobile-nav-close-btn" onclick="UI.closeMobileNav()" aria-label="Close Navigation Menu">&times;</button>
+          <div>
+            <span class="text-[10px] font-black uppercase tracking-wider text-emerald-400 block">Direct Portal</span>
+            <strong id="mobileDrawerStudentName" class="text-sm font-black block">Student Workspace</strong>
+          </div>
         </div>
-        <ul>
-          <li><a onclick="UI.navigateTo('#classes')" data-i18n="navClasses">Class 1–12</a></li>
-          <li><a onclick="UI.navigateTo('#competitiveSection')" data-i18n="navCompetitive">Competitive Exams</a></li>
-          <li><a onclick="UI.navigateTo('#faq')" data-i18n="navFaq">FAQs</a></li>
-          <li><a onclick="Settings.open()" data-i18n="navSettings">Settings</a></li>
-        </ul>
-      </nav>
-
-      <div class="header-actions">
-        <button type="button" class="icon-circle-btn" onclick="Settings.open()" title="Website Settings" aria-label="Open Settings">
-          <i class="fa-solid fa-gear"></i>
-          <span class="gear-dot" aria-hidden="true"></span>
-        </button>
-
-        <button type="button" class="theme-toggle-btn icon-circle-btn" onclick="Theme.toggle()" title="Toggle Dark/Light Mode" id="themeToggleBtn" aria-label="Toggle Theme">
-          <i class="fa-solid fa-moon"></i>
-        </button>
-
-        <a href="student.html" class="header-chip-btn" id="headerWorkspaceBtn">
-          <i class="fa-solid fa-user-graduate"></i> <span id="headerStudentNameText">Scholar</span>
+        <p class="text-[11px] text-slate-300 leading-relaxed">
+          Open your class notes, embedded PDF reader, study target timer, and saved bookmarks.
+        </p>
+        <a href="student.html" class="w-full py-2.5 bg-white text-slate-900 hover:bg-emerald-50 rounded-xl text-xs font-black flex items-center justify-center gap-2 shadow-sm transition-all">
+          <span>Launch Student Panel</span>
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
         </a>
+      </div>
+
+      <!-- Mobile Quick Search -->
+      <div class="relative w-full">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+        <input type="text" oninput="UI.filterClasses(this.value)" placeholder="Filter Class 1 to 12..." 
+               class="w-full pl-9 pr-4 py-2.5 text-xs font-semibold rounded-xl border border-slate-200 bg-slate-50 surface-sub focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500">
+      </div>
+
+      <!-- Drawer Navigation Links -->
+      <nav class="flex flex-col gap-1 text-xs font-bold text-slate-700 text-main">
+        <a href="#classesSection" onclick="UI.closeMobileNav()" class="p-3 rounded-xl hover:bg-emerald-50 hover:text-emerald-700 flex items-center justify-between transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-layer-group text-emerald-600 w-4"></i> <span data-i18n="navClasses">Class 1–12 Curriculum</span></span>
+          <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        </a>
+
+        <a href="#competitiveSection" onclick="UI.closeMobileNav()" class="p-3 rounded-xl hover:bg-emerald-50 hover:text-emerald-700 flex items-center justify-between transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-atom text-indigo-600 w-4"></i> <span data-i18n="navCompetitive">Competitive Entrance Hub</span></span>
+          <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        </a>
+
+        
+
+        <a href="#methodologySection" onclick="UI.closeMobileNav()" class="p-3 rounded-xl hover:bg-emerald-50 hover:text-emerald-700 flex items-center justify-between transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-diagram-project text-purple-500 w-4"></i> <span>How NotesPoint Works</span></span>
+          <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        </a>
+
+        <button onclick="UI.closeMobileNav(); Reviews.openModal()" class="p-3 rounded-xl hover:bg-emerald-50 hover:text-emerald-700 flex items-center justify-between transition-colors text-left w-full">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-star text-amber-400 w-4"></i> <span>Student Reviews ★</span></span>
+          <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        </button>
+
+        <a href="#faqSection" onclick="UI.closeMobileNav()" class="p-3 rounded-xl hover:bg-emerald-50 hover:text-emerald-700 flex items-center justify-between transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-circle-question text-sky-600 w-4"></i> <span data-i18n="navFaq">Expanded FAQs</span></span>
+          <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        </a>
+
+        <button onclick="UI.closeMobileNav(); Settings.open()" class="p-3 rounded-xl hover:bg-emerald-50 hover:text-emerald-700 flex items-center justify-between transition-colors text-left w-full">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-sliders text-slate-500 w-4"></i> <span data-i18n="navSettings">Preferences &amp; Language</span></span>
+          <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        </button>
+
+        <button onclick="UI.closeMobileNav(); Modals.open('privacyModal')" class="p-3 rounded-xl hover:bg-emerald-50 hover:text-emerald-700 flex items-center justify-between transition-colors text-left w-full">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-shield-halved text-emerald-600 w-4"></i> <span>Privacy Policy</span></span>
+          <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        </button>
+      </nav>
+    </div>
+
+    <div class="pt-4 border-t border-slate-100 text-center">
+      <span class="text-[11px] font-bold text-slate-400">&copy; 2026 NotesPoint Academic Engine</span>
+    </div>
+  </aside>
+
+  <!-- =====================================================================
+       3. MASTER STICKY HEADER (WHITE STUDENT BUTTON ON LAPTOP, 3-DOT ON MOBILE)
+       ===================================================================== -->
+      <!-- MASTER STICKY HEADER (Centered Navigation) -->
+  <header class="bg-white/95 surface-card backdrop-blur-md border-b border-slate-200/90 sticky top-0 z-40 shadow-sm">
+    <div class="w-full max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 sm:h-20 items-center gap-4">
+        
+        <!-- Left: Brand Logo & Slogan -->
+        <div class="flex items-center gap-3 shrink-0">
+          <a href="index.html" class="flex items-center gap-3 cursor-pointer select-none group">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-black flex items-center justify-center text-lg sm:text-xl shadow-md shadow-emerald-600/20 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div>
+              <span class="text-xl sm:text-2xl font-black text-slate-900 text-main tracking-tight leading-none block">Notes<span class="text-emerald-600">Point</span></span>
+              <span class="text-[10px] sm:text-[11px] font-bold text-slate-400 tracking-wide mt-0.5 block">Learn Smarter, Score Higher</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Center: Navigation Links (Bilkul Beech Mein) -->
+        <nav class="hidden xl:flex items-center justify-center gap-8 text-xs font-bold text-slate-600 text-muted">
+          <a href="#classesSection" class="hover:text-emerald-600 transition-colors" data-i18n="navClasses">Class 1–12</a>
+          <a href="#competitiveSection" class="hover:text-emerald-600 transition-colors" data-i18n="navCompetitive">Competitive Hub</a>
+          <a href="#faqSection" class="hover:text-emerald-600 transition-colors" data-i18n="navFaq">FAQs</a>
+        </nav>
+
+        <!-- Right: Controls & Buttons -->
+        <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+          <!-- Theme Mode Toggle -->
+          <button type="button" onclick="Theme.toggle()" id="themeToggleBtn" class="w-10 h-10 rounded-xl border border-slate-200 bg-white surface-sub text-slate-700 text-main hover:border-emerald-500 hover:text-emerald-600 flex items-center justify-center transition-all shadow-sm" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+            <i class="fa-solid fa-moon text-sm"></i>
+          </button>
+
+          <!-- Settings Trigger Button -->
+          <button type="button" onclick="Settings.open()" class="w-10 h-10 rounded-xl border border-slate-200 bg-white surface-sub text-slate-700 text-main hover:border-emerald-500 hover:text-emerald-600 flex items-center justify-center transition-all shadow-sm relative" title="Preferences & Language" aria-label="Open Settings">
+            <i class="fa-solid fa-gear text-sm"></i>
+            <span class="w-2 h-2 rounded-full bg-emerald-500 absolute top-2 right-2"></span>
+          </button>
+
+          <!-- Student Workspace Button -->
+          <a href="student.html" class="hidden lg:inline-flex items-center gap-2.5 px-5 py-2.5 bg-white surface-card text-slate-900 text-main border-2 border-slate-200 hover:border-emerald-600 hover:text-emerald-600 rounded-2xl text-xs font-black shadow-sm hover:-translate-y-0.5 transition-all whitespace-nowrap">
+            <i class="fa-solid fa-user-graduate text-emerald-600"></i>
+            <span id="headerStudentNameText">Student Workspace</span>
+          </a>
+
+          <!-- Mobile Menu Trigger -->
+          <button type="button" onclick="UI.openMobileNav()" class="lg:hidden w-10 h-10 rounded-xl border border-slate-200 bg-white surface-sub text-slate-800 text-main hover:border-emerald-600 hover:text-emerald-600 flex items-center justify-center transition-all shadow-sm" aria-label="Open More Menu">
+            <i class="fa-solid fa-ellipsis-vertical text-base"></i>
+          </button>
+        </div>
+
       </div>
     </div>
   </header>
 
-  <main role="main">
-    <!-- HERO SECTION -->
-    <div class="hero-wrapper">
-      <section class="hero-container" aria-label="Hero Introduction">
-        <div class="hero-content-front">
-          <h1 class="hero-title-main" data-i18n="heroTitle">Great notes <br>shouldn't end <br>with you.</h1>
-          <p class="hero-subtitle-text" data-i18n="heroSubtitle">
-            NotesPoint is a curated academic repository of topper-style handwritten notes, NCERT solutions, and revision papers for Class 1 to Class 12 &amp; Competitive Entrance Aspirants.
-          </p>
+  <!-- =====================================================================
+       4. MAIN ACADEMIC PORTAL BODY (MASSIVE, RICH & STRUCTURED)
+       ===================================================================== -->
+  <main class="flex-1 w-full max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-16">
 
-          <div class="hero-btn-row">
-            <a href="student.html" class="btn-hero-primary"><i class="fa-solid fa-arrow-right"></i> <span data-i18n="heroCtaExplore">Explore Resources</span></a>
-            <button type="button" onclick="Chatbot.open()" class="btn-hero-secondary"><i class="fa-solid fa-robot"></i> <span data-i18n="heroCtaBot">Ask AI Bot</span></button>
-          </div>
+    <!-- SECTION 1: HERO DISPLAY BANNER -->
+    <section class="bg-white surface-card rounded-3xl sm:rounded-[36px] p-6 sm:p-10 lg:p-14 border border-slate-200/90 shadow-card flex flex-col lg:flex-row items-center justify-between gap-10 relative overflow-hidden">
+      
+      <!-- Left Hero Content -->
+      <div class="space-y-5 max-w-2xl text-center lg:text-left z-10 w-full">
+        <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-800 text-[10px] sm:text-xs font-black px-4 py-1.5 rounded-full border border-emerald-200/80 tracking-wider uppercase">
+          <i class="fa-solid fa-award text-emerald-600"></i> Clsses 1-12 &amp; Entrance exams
         </div>
 
-        <div class="hero-notes-visual-stack" aria-hidden="true">
-          <div class="photo-paper-sheet sheet-pos-1">
-            <div class="sheet-hand-title">Human Settlement</div>
-            <div class="sheet-hand-text">
-              • Types of settlements<br>
-              • Rural vs Urban hierarchy<br>
-              • Compact &amp; dispersed patterns
+        <h1 class="text-3xl sm:text-5xl lg:text-[58px] font-black text-slate-900 text-main tracking-tight leading-[1.1]" data-i18n="heroTitle">
+          Great notes <br class="hidden sm:inline">shouldn't end <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">with you.</span>
+        </h1>
+
+        <p class="text-slate-500 text-muted text-xs sm:text-base font-medium leading-relaxed max-w-xl mx-auto lg:mx-0" data-i18n="heroSubtitle">
+          NotesPoint is a comprehensive academic workspace providing topper-verified handwritten notes, line-by-line NCERT solutions, chapter derivations, and solved PYQ banks for Class 1 to Class 12, JEE, NEET, CUET &amp; NDA.
+        </p>
+
+        <!-- Primary Action Buttons -->
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-2">
+          <a href="student.html" class="w-full sm:w-auto px-7 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl text-xs sm:text-sm font-black shadow-floating flex items-center justify-center gap-2.5 hover:-translate-y-0.5 transition-all">
+            <i class="fa-solid fa-book-open"></i>
+            <span data-i18n="heroCtaExplore">Enter Student Workspace</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+
+          <a href="#classesSection" class="w-full sm:w-auto px-6 py-4 bg-white surface-sub hover:bg-slate-50 text-slate-900 text-main border-2 border-slate-200 hover:border-emerald-600 rounded-2xl text-xs sm:text-sm font-black flex items-center justify-center gap-2 transition-all">
+            <i class="fa-solid fa-layer-group text-emerald-600"></i>
+            <span>Browse Class 1–12</span>
+          </a>
+        </div>
+      <!-- Professional Mouse Scroll Down Indicator -->
+    <!-- Responsive Scroll Down Button (Centered on Mobile, Left-aligned on Desktop) -->
+        <div class="flex justify-center lg:justify-start pt-4 pb-2">
+          <a href="#classesSection" class="group inline-flex items-center gap-3 text-slate-400 hover:text-emerald-600 transition-colors select-none">
+            <div class="w-9 h-9 rounded-full border-2 border-slate-200 group-hover:border-emerald-600 bg-white shadow-sm flex items-center justify-center transition-all group-hover:scale-105">
+              <i class="fa-solid fa-chevron-down text-xs text-slate-500 group-hover:text-emerald-600 animate-bounce transition-colors"></i>
             </div>
-          </div>
-
-          <div class="photo-paper-sheet sheet-pos-2">
-            <div class="sheet-hand-title">Organic Chemistry</div>
-            <div class="sheet-hand-text">
-              • Aldol Condensation<br>
-              • Cannizzaro mechanism<br>
-              • Electrophilic addition steps
-            </div>
-          </div>
-
-          <div class="photo-paper-sheet sheet-pos-3">
-            <div class="sheet-hand-title">Calculus &amp; Vectors</div>
-            <div class="sheet-hand-text">
-              • Integration by parts shortcuts<br>
-              • Limit evaluation tricks<br>
-              • 3D Coordinate geometry
-            </div>
-            
-            <div class="topper-seal-badge">
-              <span>Topper<br>Checked</span>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- VALUE FEATURES STRIP -->
-    <section class="value-features-strip" aria-label="Academic Toolkit Highlights">
-      <div class="value-feature-card">
-        <i class="fa-solid fa-book-bookmark value-feature-icon"></i>
-        <div>
-          <h3 data-i18n="valF1Title">NCERT Aligned</h3>
-          <p data-i18n="valF1Desc">Line-by-line chapter theory</p>
-        </div>
-      </div>
-
-      <div class="value-feature-card">
-        <i class="fa-solid fa-bolt value-feature-icon"></i>
-        <div>
-          <h3 data-i18n="valF2Title">Formula Books</h3>
-          <p data-i18n="valF2Desc">High-yield quick cheat sheets</p>
-        </div>
-      </div>
-
-      <div class="value-feature-card">
-        <i class="fa-solid fa-mobile-screen-button value-feature-icon"></i>
-        <div>
-          <h3 data-i18n="valF3Title">Instant Stream</h3>
-          <p data-i18n="valF3Desc">Read PDFs right in browser</p>
-        </div>
-      </div>
-
-      <div class="value-feature-card">
-        <i class="fa-solid fa-shield-halved value-feature-icon"></i>
-        <div>
-          <h3 data-i18n="valF4Title">100% Free</h3>
-          <p data-i18n="valF4Desc">Zero barrier open access</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- MOVING TICKER -->
-    <div class="ticker-wrap" aria-hidden="true">
-      <div class="ticker-move">
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Standardized Handwritten Notes</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> NCERT Line-by-Line Solutions</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Class 1 to Class 12 All Subjects</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> JEE Main &amp; Advanced Chapter Modules</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> NEET-UG Biology &amp; Physics Sheets</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> CUET General Test &amp; Domain Notes</div>
-        <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> NDA Entrance Question Bank</div>
-      </div>
-    </div>
-
-    <!-- CLASS 1 TO 12 SECTION -->
-    <section class="section-container" id="classes" aria-label="Curated Class 1 to 12 Modules">
-      <div class="section-header-compact">
-        <div>
-          <h2 data-i18n="classesHeading">CLASS 1 TO 12 CURRICULUM</h2>
-          <p data-i18n="classesSubtitle">Tap your class to open subject notes and solutions directly.</p>
-        </div>
-      </div>
-
-      <div class="classes-grid-container" id="classesGridContainer"></div>
-    </section>
-
-    <!-- COMPETITIVE ENTRANCE EXAMS SECTION -->
-    <section class="section-container" id="competitiveSection" aria-label="Competitive Entrance Exam Notes">
-      <div class="section-header-compact">
-        <div>
-          <h2 data-i18n="compHeading" style="color: #7C3AED;"><i class="fa-solid fa-fire"></i> COMPETITIVE ENTRANCE HUB</h2>
-          <p data-i18n="compSubtitle">Direct formula books, quick derivations &amp; solved practice sets for entrance exams.</p>
-        </div>
-      </div>
-
-      <div class="classes-grid-container" id="competitiveGridContainer">
-        <a href="student.html?class=competitive&exam=jee" class="class-box-card c-comp-jee" aria-label="JEE Main & Advanced">
-          <div class="class-avatar-badge"><i class="fa-solid fa-atom"></i></div>
-          <strong>JEE Main &amp; Adv</strong><span>Physics, Chem, Math</span>
-        </a>
-
-        <a href="student.html?class=competitive&exam=neet" class="class-box-card c-comp-neet" aria-label="NEET-UG Medical">
-          <div class="class-avatar-badge"><i class="fa-solid fa-dna"></i></div>
-          <strong>NEET-UG</strong><span>Biology &amp; Physics</span>
-        </a>
-
-        <a href="student.html?class=competitive&exam=cuet" class="class-box-card c-comp-cuet" aria-label="CUET UG Entrance">
-          <div class="class-avatar-badge"><i class="fa-solid fa-graduation-cap"></i></div>
-          <strong>CUET Entrance</strong><span>General &amp; Domains</span>
-        </a>
-
-        <a href="student.html?class=competitive&exam=nda" class="class-box-card c-comp-nda" aria-label="NDA Defence Entrance">
-          <div class="class-avatar-badge"><i class="fa-solid fa-shield-halved"></i></div>
-          <strong>NDA Defence</strong><span>Maths &amp; GAT Papers</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- REVIEWS & SUPPORT TRIGGER SECTION -->
-    <section class="section-container" aria-label="Student Feedback and Support">
-      <div class="reviews-trigger-section">
-        <button type="button" onclick="Reviews.openModal()" class="btn-reviews-trigger">
-          <i class="fa-solid fa-comments"></i> <span data-i18n="reviewsBtnText">What Students Say About NotesPoint ★</span>
-        </button>
-        <button type="button" onclick="Settings.openTab('privacy')" class="btn-hero-secondary" style="border-radius: 30px; padding: 10px 24px; font-size: 0.88rem;">
-          <i class="fa-solid fa-headset"></i> <span data-i18n="supportDeskBtn">Verified Support &amp; Privacy Desk</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- EXPANDED FAQS ACCORDION -->
-    <section class="section-container" id="faq" aria-label="Frequently Asked Questions">
-      <div class="faq-section">
-        <div class="section-header-compact" style="border:none; margin-bottom:24px;">
+            <span class="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-emerald-600 transition-colors">Scroll Down</span>
+          </a>
+        </div>  
+        <!-- Key Academic Metrics Row -->
+        <div class="grid grid-cols-3 gap-4 pt-5 border-t border-slate-100 max-w-lg mx-auto lg:mx-0">
           <div>
-            <h2 data-i18n="faqHeading">Frequently Asked Questions</h2>
-            <p data-i18n="faqSubtitle">Comprehensive answers to common questions about study materials and downloads.</p>
+            <strong class="text-lg sm:text-2xl font-black text-slate-900 text-main block">Class 1–12</strong>
+            <span class="text-[11px] font-bold text-slate-400">Complete Scoring Notes</span>
           </div>
-        </div>
+          <div>
+            <strong class="text-lg sm:text-2xl font-black text-emerald-600 block">5 Major Entrance Exams</strong>
 
-        <div class="faq-container">
-          <div class="faq-item">
-            <button type="button" class="faq-question" aria-expanded="false">
-              <span data-i18n="faq1Q">Are all study resources and PDFs completely free?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer" data-i18n="faq1A">
-              Yes, 100%! All chapter notes, handwritten topper sheets, NCERT solutions, formula sheets, and revision papers are completely free without any hidden subscription or paywall.
-            </div>
           </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-question" aria-expanded="false">
-              <span data-i18n="faq2Q">Is account creation or registration mandatory?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer" data-i18n="faq2A">
-              No registration or phone login is required. You can directly tap on your class, select your subject, and view or download notes instantly.
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-question" aria-expanded="false">
-              <span data-i18n="faq3Q">How can I access and download study notes on mobile?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer" data-i18n="faq3A">
-              Simply tap any class card above (Class 1–12 or Competitive). The documents open seamlessly inside your mobile browser without demanding third-party PDF viewers.
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-question" aria-expanded="false">
-              <span data-i18n="faq4Q">Are competitive exams (JEE, NEET, CUET, NDA) material available?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer" data-i18n="faq4A">
-              Yes! We provide dedicated high-yield formula sheets, physics derivations, organic reaction mechanisms, and past year questions for JEE Main, NEET-UG, CUET and NDA.
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-question" aria-expanded="false">
-              <span data-i18n="faq5Q">How does the 24/7 AI Tutor work?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer" data-i18n="faq5A">
-              You can tap the floating green bot icon anytime to ask textbook doubts, request formulas, get line-by-line concept explanations, or launch an instant topic quiz.
-            </div>
+          <div>
+            <strong class="text-lg sm:text-2xl font-black text-slate-900 text-main block">100% Free</strong>
+            <span class="text-[11px] font-bold text-slate-400">Direct PDF Reader</span>
           </div>
         </div>
       </div>
+
+      <!-- Right Hero Visual Handwritten Stack -->
+      <div class="hero-visual-stack relative w-72 sm:w-80 h-80 flex items-center justify-center shrink-0 z-10">
+        
+        <!-- Sheet 1 -->
+        <div class="paper-sheet sheet-1 absolute w-56 sm:w-64 h-72 bg-[#faf9f5] surface-sub border-2 border-slate-700 rounded-2xl shadow-lg p-5 transform -rotate-6 -translate-x-5 -translate-y-2">
+          <div class="font-hand text-xl font-bold text-slate-900 text-main border-b-2 border-emerald-600 pb-1 mb-2">Human Settlement</div>
+          <div class="font-hand text-base text-slate-700 text-muted leading-6">
+            • Rural vs Urban hierarchy<br>
+            • Compact &amp; dispersed patterns<br>
+            • NCERT Class 12 Geography
+          </div>
+        </div>
+
+        <!-- Sheet 2 -->
+        <div class="paper-sheet sheet-2 absolute w-56 sm:w-64 h-72 bg-[#faf9f5] surface-sub border-2 border-slate-700 rounded-2xl shadow-lg p-5 transform rotate-6 translate-x-5 translate-y-2">
+          <div class="font-hand text-xl font-bold text-slate-900 text-main border-b-2 border-indigo-600 pb-1 mb-2">Organic Chemistry</div>
+          <div class="font-hand text-base text-slate-700 text-muted leading-6">
+            • Aldol Condensation steps<br>
+            • Cannizzaro Mechanism<br>
+            • Haloalkanes &amp; Haloarenes
+          </div>
+        </div>
+
+        <!-- Sheet 3 (Front) -->
+        <div class="paper-sheet sheet-3 relative w-56 sm:w-64 h-72 bg-white surface-card border-2 border-slate-900 rounded-2xl shadow-2xl p-5 transform -rotate-1">
+          <div class="flex items-center justify-between border-b-2 border-emerald-600 pb-1 mb-2.5">
+            <span class="font-hand text-xl font-bold text-slate-900 text-main">Electrostatics &amp; Flux</span>
+            <span class="text-[9px] font-black uppercase bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Ch 01</span>
+          </div>
+          <div class="font-hand text-base text-slate-700 text-muted leading-6">
+            • Coulomb's Vector Law<br>
+            • Electric Dipole Torque<br>
+            • Gauss Theorem Derivations<br>
+            • Equipotential Surfaces
+          </div>
+
+          <!-- Topper Checked Stamp -->
+          <div class="absolute bottom-3 right-3 w-20 h-20 rounded-full bg-emerald-600 text-white flex flex-col items-center justify-center text-center font-head text-[10px] font-extrabold uppercase border-2 border-dashed border-white shadow-lg transform rotate-12 leading-tight">
+            <i class="fa-solid fa-check-double text-xs mb-0.5"></i>
+            <span>Topper<br>Verified</span>
+          </div>
+        </div>
+
+      </div>
+
     </section>
+
+    <!-- SECTION 2: VALUE FEATURES 4-COLUMN STRIP -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+      <div class="bg-white surface-card p-5 sm:p-6 rounded-3xl border border-slate-200/90 shadow-sm flex items-center gap-4 hover:border-emerald-500 transition-all">
+        <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0">
+          <i class="fa-solid fa-book-bookmark"></i>
+        </div>
+        <div>
+          <h3 class="text-xs sm:text-sm font-black text-slate-900 text-main" data-i18n="valF1Title">NCERT Aligned</h3>
+          <p class="text-[11px] text-slate-500 text-muted font-semibold mt-0.5" data-i18n="valF1Desc">Line-by-line chapter theory</p>
+        </div>
+      </div>
+
+      <div class="bg-white surface-card p-5 sm:p-6 rounded-3xl border border-slate-200/90 shadow-sm flex items-center gap-4 hover:border-emerald-500 transition-all">
+        <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shrink-0">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <div>
+          <h3 class="text-xs sm:text-sm font-black text-slate-900 text-main" data-i18n="valF2Title">Revision Sheets</h3>
+          <p class="text-[11px] text-slate-500 text-muted font-semibold mt-0.5" data-i18n="valF2Desc">Complete chapter summaries</p>
+        </div>
+      </div>
+
+      <div class="bg-white surface-card p-5 sm:p-6 rounded-3xl border border-slate-200/90 shadow-sm flex items-center gap-4 hover:border-emerald-500 transition-all">
+        <div class="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl shrink-0">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+        </div>
+        <div>
+          <h3 class="text-xs sm:text-sm font-black text-slate-900 text-main" data-i18n="valF3Title">Instant Stream</h3>
+          <p class="text-[11px] text-slate-500 text-muted font-semibold mt-0.5" data-i18n="valF3Desc">Read PDFs right in browser</p>
+        </div>
+      </div>
+
+      <div class="bg-white surface-card p-5 sm:p-6 rounded-3xl border border-slate-200/90 shadow-sm flex items-center gap-4 hover:border-emerald-500 transition-all">
+        <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shrink-0">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div>
+          <h3 class="text-xs sm:text-sm font-black text-slate-900 text-main" data-i18n="valF4Title">100% Free</h3>
+          <p class="text-[11px] text-slate-500 text-muted font-semibold mt-0.5" data-i18n="valF4Desc">Zero barrier open access</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOVING ACADEMIC TICKER -->
+    <div class="ticker-wrap shadow-sm" aria-hidden="true">
+      <div class="ticker-move text-xs font-bold">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Standardized Topper Handwritten Notes</span>
+        <span class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Complete Class 1 to Class 12 All Subjects</span>
+        <span class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> IIT JEE Main &amp; Advanced Chapter Modules</span>
+        <span class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> NEET-UG NCERT Biology Flowcharts</span>
+        <span class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> CUET Domain &amp; General Test Notes</span>
+        <span class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> NDA Mathematics &amp; GAT Blueprints</span>
+        <span class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Standardized Topper Handwritten Notes</span>
+        <span class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Complete Class 1 to Class 12 All Subjects</span>
+      </div>
+    </div>
+<!-- =====================================================================
+         SECTION 3: COMPLETE CLASS 1 TO 12 CURRICULUM (ALL 12 CARDS VISIBLE)
+         ===================================================================== -->
+    <section id="classesSection" class="space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-2 border-slate-200/80 pb-4">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <span class="w-3 h-3 rounded-full bg-emerald-600"></span>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 text-main tracking-tight" data-i18n="classesHeading">CLASS 1 TO 12 CURRICULUM</h2>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 text-muted font-medium mt-1" data-i18n="classesSubtitle">
+            Tap your class to open subject notes, derivations, and NCERT solutions directly in Student Workspace.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="UI.filterClasses('')" class="px-3.5 py-2 rounded-xl bg-emerald-50 text-emerald-700 text-xs font-black hover:bg-emerald-100 transition-colors">
+            Show All 12 Classes
+          </button>
+        </div>
+      </div>
+
+      <!-- 12 Classes Grid (With imanges/ folder paths) -->
+      <div id="classesGridContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5">
+        
+        <!-- Class 1 -->
+        <a href="student.html?class=1" data-class-card="class 1 primary english maths evs" class="bg-white surface-card p-5 rounded-3xl border border-slate-200/90 hover:border-emerald-500 hover:shadow-card transition-all flex flex-col items-center text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center p-2 mb-3 group-hover:scale-110 transition-transform shadow-sm overflow-hidden">
+            <img src="imanges/class1.png" alt="Class 1" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="text-emerald-700 font-black text-sm hidden items-center justify-center w-full h-full">1</span>
+          </div>
+          <strong class="text-base font-black text-slate-900 text-main">Class 1</strong>
+          <span class="text-[11px] font-semibold text-slate-400 mt-0.5">Primary Foundation</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs font-extrabold text-emerald-600 flex items-center justify-center gap-1">
+            <span>Open Notes</span> <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Class 2 -->
+        <a href="student.html?class=2" data-class-card="class 2 primary english maths evs" class="bg-white surface-card p-5 rounded-3xl border border-slate-200/90 hover:border-emerald-500 hover:shadow-card transition-all flex flex-col items-center text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-amber-50 flex items-center justify-center p-2 mb-3 group-hover:scale-110 transition-transform shadow-sm overflow-hidden">
+            <img src="imanges/class2.png" alt="Class 2" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="text-amber-700 font-black text-sm hidden items-center justify-center w-full h-full">2</span>
+          </div>
+          <strong class="text-base font-black text-slate-900 text-main">Class 2</strong>
+          <span class="text-[11px] font-semibold text-slate-400 mt-0.5">Primary Foundation</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs font-extrabold text-emerald-600 flex items-center justify-center gap-1">
+            <span>Open Notes</span> <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Class 3 -->
+        <a href="student.html?class=3" data-class-card="class 3 primary english maths evs" class="bg-white surface-card p-5 rounded-3xl border border-slate-200/90 hover:border-emerald-500 hover:shadow-card transition-all flex flex-col items-center text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-sky-50 flex items-center justify-center p-2 mb-3 group-hover:scale-110 transition-transform shadow-sm overflow-hidden">
+            <img src="imanges/class3.png" alt="Class 3" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="text-sky-700 font-black text-sm hidden items-center justify-center w-full h-full">3</span>
+          </div>
+          <strong class="text-base font-black text-slate-900 text-main">Class 3</strong>
+          <span class="text-[11px] font-semibold text-slate-400 mt-0.5">Elementary Core</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs font-extrabold text-emerald-600 flex items-center justify-center gap-1">
+            <span>Open Notes</span> <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Class 4 -->
+        <a href="student.html?class=4" data-class-card="class 4 primary english maths evs" class="bg-white surface-card p-5 rounded-3xl border border-slate-200/90 hover:border-emerald-500 hover:shadow-card transition-all flex flex-col items-center text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center p-2 mb-3 group-hover:scale-110 transition-transform shadow-sm overflow-hidden">
+            <img src="imanges/class4.png" alt="Class 4" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="text-purple-700 font-black text-sm hidden items-center justify-center w-full h-full">4</span>
+          </div>
+          <strong class="text-base font-black text-slate-900 text-main">Class 4</strong>
+          <span class="text-[11px] font-semibold text-slate-400 mt-0.5">Elementary Core</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs font-extrabold text-emerald-600 flex items-center justify-center gap-1">
+            <span>Open Notes</span> <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Class 5 -->
+        <a href="student.html?class=5" data-class-card="class 5 primary english maths evs" class="bg-white surface-card p-5 rounded-3xl border border-slate-200/90 hover:border-emerald-500 hover:shadow-card transition-all flex flex-col items-center text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-rose-50 flex items-center justify-center p-2 mb-3 group-hover:scale-110 transition-transform shadow-sm overflow-hidden">
+            <img src="imanges/class5.png" alt="Class 5" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="text-rose-700 font-black text-sm hidden items-center justify-center w-full h-full">5</span>
+          </div>
+          <strong class="text-base font-black text-slate-900 text-main">Class 5</strong>
+          <span class="text-[11px] font-semibold text-slate-400 mt-0.5">Primary Transition</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs font-extrabold text-emerald-600 flex items-center justify-center gap-1">
+            <span>Open Notes</span> <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Class 6 -->
+        <a href="student.html?class=6" data-class-card="class 6 middle science maths social english hindi" class="bg-white surface-card p-5 rounded-3xl border border-slate-200/90 hover:border-emerald-500 hover:shadow-card transition-all flex flex-col items-center text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-cyan-50 flex items-center justify-center p-2 mb-3 group-hover:scale-110 transition-transform shadow-sm overflow-hidden">
+            <img src="imanges/class6.png" alt="Class 6" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="text-cyan-700 font-black text-sm hidden items-center justify-center w-full h-full">6</span>
+          </div>
+          <strong class="text-base font-black text-slate-900 text-main">Class 6</strong>
+          <span class="text-[11px] font-semibold text-slate-400 mt-0.5">Middle School</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs font-extrabold text-emerald-600 flex items-center justify-center gap-1">
+            <span>Open Notes</span> <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Class 7 -->
+        <a href="student.html?class=7" data-class-card="class 7 middle science maths social english hindi" class="bg-white surface-card p-5 rounded-3xl border border-slate-200/90 hover:border-emerald-500 hover:shadow-card transition-all flex flex-col items-center text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-teal-50 flex items-center justify-center p-2 mb-3 group-hover:scale-110 transition-transform shadow-sm overflow-hidden">
+            <img src="imanges/class7.png" alt="Class 7" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="text-teal-700 font-black text-sm hidden items-center justify-center w-full h-full">7</span>
+          </div>
+          <strong class="text-base font-black text-slate-900 text-main">Class 7</strong>
+          <span class="text-[11px] font-semibold text-slate-400 mt-0.5">Middle School</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs font-extrabold text-emerald-600 flex items-center justify-center gap-1">
+            <span>Open Notes</span> <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Class 8 -->
+        <a href="student.html?class=8" data-class-card="class 8 middle science maths social english hindi" class="bg-white surface-card p-5 rounded-3xl border border-slate-200/90 hover:border-emerald-500 hover:shadow-card transition-all flex flex-col items-center text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-orange-50 flex items-center justify-center p-2 mb-3 group-hover:scale-110 transition-transform shadow-sm overflow-hidden">
+            <img src="imanges/class8.png" alt="Class 8" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="text-orange-700 font-black text-sm hidden items-center justify-center w-full h-full">8</span>
+          </div>
+          <strong class="text-base font-black text-slate-900 text-main">Class 8</strong>
+          <span class="text-[11px] font-semibold text-slate-400 mt-0.5">Pre-Secondary</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs font-extrabold text-emerald-600 flex items-center justify-center gap-1">
+            <span>Open Notes</span> <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Class 9 -->
+        <a href="student.html?class=9" data-class-card="class 9 foundation science maths social english" class="bg-white surface-card p-5 rounded-3xl border border-slate-200/90 hover:border-emerald-500 hover:shadow-card transition-all flex flex-col items-center text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-indigo-50 flex items-center justify-center p-2 mb-3 group-hover:scale-110 transition-transform shadow-sm overflow-hidden">
+            <img src="imanges/class9.png" alt="Class 9" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="text-indigo-700 font-black text-sm hidden items-center justify-center w-full h-full">9</span>
+          </div>
+          <strong class="text-base font-black text-slate-900 text-main">Class 9</strong>
+          <span class="text-[11px] font-semibold text-slate-400 mt-0.5">Board Foundation</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs font-extrabold text-emerald-600 flex items-center justify-center gap-1">
+            <span>Open Notes</span> <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Class 10 -->
+        <a href="student.html?class=10" data-class-card="class 10 board cbse science maths social english" class="bg-white surface-card p-5 rounded-3xl border border-slate-200/90 hover:border-emerald-500 hover:shadow-card transition-all flex flex-col items-center text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center p-2 mb-3 group-hover:scale-110 transition-transform shadow-sm overflow-hidden">
+            <img src="imanges/class10.png" alt="Class 10" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="text-emerald-700 font-black text-sm hidden items-center justify-center w-full h-full">10</span>
+          </div>
+          <strong class="text-base font-black text-slate-900 text-main">Class 10</strong>
+          <span class="text-[11px] font-semibold text-slate-400 mt-0.5">CBSE Board Prep</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs font-extrabold text-emerald-600 flex items-center justify-center gap-1">
+            <span>Open Notes</span> <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Class 11 -->
+        <a href="student.html?class=11" data-class-card="class 11 senior secondary science commerce humanities physics chemistry maths bio" class="bg-white surface-card p-5 rounded-3xl border border-slate-200/90 hover:border-emerald-500 hover:shadow-card transition-all flex flex-col items-center text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center p-2 mb-3 group-hover:scale-110 transition-transform shadow-sm overflow-hidden">
+            <img src="imanges/class11.png" alt="Class 11" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="text-blue-700 font-black text-sm hidden items-center justify-center w-full h-full">11</span>
+          </div>
+          <strong class="text-base font-black text-slate-900 text-main">Class 11</strong>
+          <span class="text-[11px] font-semibold text-slate-400 mt-0.5">All 3 Streams</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs font-extrabold text-emerald-600 flex items-center justify-center gap-1">
+            <span>Open Notes</span> <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Class 12 -->
+        <a href="student.html?class=12" data-class-card="class 12 senior secondary board physics chemistry maths biology english" class="bg-white surface-card p-5 rounded-3xl border border-slate-200/90 hover:border-emerald-500 hover:shadow-card transition-all flex flex-col items-center text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-rose-50 flex items-center justify-center p-2 mb-3 group-hover:scale-110 transition-transform shadow-sm overflow-hidden">
+            <img src="imanges/class12.png" alt="Class 12" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="text-rose-700 font-black text-sm hidden items-center justify-center w-full h-full">12</span>
+          </div>
+          <strong class="text-base font-black text-slate-900 text-main">Class 12</strong>
+          <span class="text-[11px] font-semibold text-slate-400 mt-0.5">Board &amp; Entrance</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs font-extrabold text-emerald-600 flex items-center justify-center gap-1">
+            <span>Open Notes</span> <i class="fa-solid fa-chevron-right text-[9px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION 4: COMPETITIVE ENTRANCE EXAMS HUB
+         ===================================================================== -->
+    <!-- COMPETITIVE EXAMS -->
+    <section id="competitiveSection" class="space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b-2 border-slate-200/80 pb-4">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <i class="fa-solid fa-fire text-indigo-600 text-xl"></i>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 text-main tracking-tight">Entrance Exams</h2>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 text-muted font-medium mt-1">
+            Direct chapter modules, quick derivations &amp; solved practice sets for national entrance examinations.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        
+        <!-- 1. JEE Main & Advanced -->
+        <a href="student.html?class=competitive&exam=jee" class="bg-white surface-card p-6 rounded-3xl border border-slate-200/90 hover:border-indigo-500 hover:shadow-card transition-all flex flex-col justify-between group">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-lg bg-indigo-50 text-indigo-700 font-black text-[10px] uppercase tracking-wider border border-indigo-100">Engineering</span>
+              <div class="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center p-2 shadow-sm group-hover:scale-110 transition-transform overflow-hidden">
+                <img src="imanges/jee.png" alt="JEE Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <i class="fa-solid fa-atom text-indigo-600 text-lg hidden items-center justify-center"></i>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-base font-black text-slate-900 text-main group-hover:text-indigo-600 transition-colors">IIT JEE Main &amp; Adv</h3>
+              <p class="text-xs text-slate-500 text-muted font-medium mt-1.5 leading-relaxed">Complete Physics mechanics, Organic reaction mechanisms &amp; calculus.</p>
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-black text-indigo-600">
+            <span>Open Modules</span>
+            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- 2. NEET-UG Medical -->
+        <a href="student.html?class=competitive&exam=neet" class="bg-white surface-card p-6 rounded-3xl border border-slate-200/90 hover:border-emerald-500 hover:shadow-card transition-all flex flex-col justify-between group">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-black text-[10px] uppercase tracking-wider border border-emerald-100">Medical UG</span>
+              <div class="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center p-2 shadow-sm group-hover:scale-110 transition-transform overflow-hidden">
+                <img src="imanges/neet.png" alt="NEET Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <i class="fa-solid fa-dna text-emerald-600 text-lg hidden items-center justify-center"></i>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-base font-black text-slate-900 text-main group-hover:text-emerald-600 transition-colors">NEET-UG Medical</h3>
+              <p class="text-xs text-slate-500 text-muted font-medium mt-1.5 leading-relaxed">NCERT line-by-line Biology diagrams &amp; Physiology flowcharts.</p>
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-black text-emerald-600">
+            <span>Open Modules</span>
+            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- 3. CUET Entrance -->
+        <a href="student.html?class=competitive&exam=cuet" class="bg-white surface-card p-6 rounded-3xl border border-slate-200/90 hover:border-amber-500 hover:shadow-card transition-all flex flex-col justify-between group">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-lg bg-amber-50 text-amber-800 font-black text-[10px] uppercase tracking-wider border border-amber-100">Central Univ</span>
+              <div class="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center p-2 shadow-sm group-hover:scale-110 transition-transform overflow-hidden">
+                <img src="imanges/cuet.png" alt="CUET Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <i class="fa-solid fa-graduation-cap text-amber-600 text-lg hidden items-center justify-center"></i>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-base font-black text-slate-900 text-main group-hover:text-amber-600 transition-colors">CUET-UG Entrance</h3>
+              <p class="text-xs text-slate-500 text-muted font-medium mt-1.5 leading-relaxed">Domain summaries, general reasoning &amp; English comprehension.</p>
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-black text-amber-600">
+            <span>Open Modules</span>
+            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- 4. NDA Defence -->
+        <a href="student.html?class=competitive&exam=nda" class="bg-white surface-card p-6 rounded-3xl border border-slate-200/90 hover:border-blue-600 hover:shadow-card transition-all flex flex-col justify-between group">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-lg bg-blue-50 text-blue-700 font-black text-[10px] uppercase tracking-wider border border-blue-100">UPSC Defence</span>
+              <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center p-2 shadow-sm group-hover:scale-110 transition-transform overflow-hidden">
+                <img src="imanges/nda.png" alt="NDA Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <i class="fa-solid fa-shield-halved text-blue-600 text-lg hidden items-center justify-center"></i>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-base font-black text-slate-900 text-main group-hover:text-blue-600 transition-colors">NDA &amp; NA Defence</h3>
+              <p class="text-xs text-slate-500 text-muted font-medium mt-1.5 leading-relaxed">Trigonometry speed tricks, GAT History &amp; Polity notes.</p>
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-black text-blue-600">
+            <span>Open Modules</span>
+            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- 5. CDS Defence -->
+        <a href="student.html?class=competitive&exam=cds" class="bg-white surface-card p-6 rounded-3xl border border-slate-200/90 hover:border-teal-600 hover:shadow-card transition-all flex flex-col justify-between group">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-lg bg-teal-50 text-teal-700 font-black text-[10px] uppercase tracking-wider border border-teal-100">UPSC Defence</span>
+              <div class="w-12 h-12 rounded-2xl bg-teal-50 flex items-center justify-center p-2 shadow-sm group-hover:scale-110 transition-transform overflow-hidden">
+                <img src="imanges/cds.png" alt="CDS Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <i class="fa-solid fa-jet-fighter text-teal-600 text-lg hidden items-center justify-center"></i>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-base font-black text-slate-900 text-main group-hover:text-teal-600 transition-colors">CDS Defence Exam</h3>
+              <p class="text-xs text-slate-500 text-muted font-medium mt-1.5 leading-relaxed">English proficiency, elementary mathematics &amp; GK modules for IMA, INA &amp; AFA.</p>
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-black text-teal-600">
+            <span>Open Modules</span>
+            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+      </div>
+    </section>    <!-- =====================================================================
+         SECTION 8: STUDENT FEEDBACK & SUPPORT TRIGGER BANNER
+         ===================================================================== -->
+    <section class="bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 rounded-3xl p-8 sm:p-12 text-white shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="space-y-2 text-center md:text-left max-w-xl">
+        <span class="text-[10px] font-black uppercase tracking-widest text-emerald-400">Verified Student Community</span>
+        <h3 class="text-xl sm:text-3xl font-black">What Students Say About NotesPoint ★</h3>
+        <p class="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
+          Read real feedback from CBSE board &amp; entrance aspirants or submit your own review directly to our live community board.
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-3.5 shrink-0">
+        <button type="button" onclick="Reviews.openModal()" class="px-6 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-2xl text-xs sm:text-sm shadow-md transition-all flex items-center gap-2">
+          <i class="fa-solid fa-star"></i>
+          <span data-i18n="reviewsBtnText">Read &amp; Write Reviews ★</span>
+        </button>
+        <button type="button" onclick="Modals.open('privacyModal')" class="px-5 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-2xl text-xs sm:text-sm border border-white/15 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+          <span data-i18n="supportDeskBtn">Privacy &amp; Support Desk</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION 9: EXPANDED 8-QUESTION FAQ ACCORDION (2-COLUMN RICH LAYOUT)
+         ===================================================================== -->
+    <section id="faqSection" class="bg-white surface-card rounded-3xl sm:rounded-[36px] p-6 sm:p-10 lg:p-12 border border-slate-200/90 shadow-sm space-y-8">
+      <div class="border-b border-slate-100 pb-4">
+        <span class="text-[11px] font-black uppercase tracking-widest text-emerald-600 block mb-1">Help &amp; Documentation</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 text-main" data-i18n="faqHeading">Frequently Asked Questions</h2>
+        <p class="text-xs sm:text-sm text-slate-500 text-muted font-medium mt-1" data-i18n="faqSubtitle">
+          Detailed answers to common questions regarding study notes, mobile reading, and exam preparation.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start" id="faqAccordionContainer">
+        
+        <!-- FAQ 1 -->
+        <div class="faq-item border border-slate-200/90 rounded-2xl overflow-hidden transition-all">
+          <button type="button" class="faq-trigger w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 text-main hover:bg-slate-50 transition-colors">
+            <span data-i18n="faq1Q">1. Are all study resources and PDFs completely free?</span>
+            <i class="fa-solid fa-plus text-emerald-600 transition-transform duration-200 shrink-0"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-xs text-slate-600 text-muted leading-relaxed" data-i18n="faq1A">
+            Yes, 100%! All chapter notes, handwritten topper sheets, NCERT solutions, derivations, and revision papers on NotesPoint are completely free without any subscription or hidden paywall.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item border border-slate-200/90 rounded-2xl overflow-hidden transition-all">
+          <button type="button" class="faq-trigger w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 text-main hover:bg-slate-50 transition-colors">
+            <span data-i18n="faq2Q">2. Is account registration or phone login mandatory?</span>
+            <i class="fa-solid fa-plus text-emerald-600 transition-transform duration-200 shrink-0"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-xs text-slate-600 text-muted leading-relaxed" data-i18n="faq2A">
+            No mandatory registration is required. You can directly tap on your class card, select your subject, and start reading notes immediately inside the Student Workspace.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item border border-slate-200/90 rounded-2xl overflow-hidden transition-all">
+          <button type="button" class="faq-trigger w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 text-main hover:bg-slate-50 transition-colors">
+            <span data-i18n="faq3Q">3. How can I read study notes on my mobile phone?</span>
+            <i class="fa-solid fa-plus text-emerald-600 transition-transform duration-200 shrink-0"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-xs text-slate-600 text-muted leading-relaxed" data-i18n="faq3A">
+            Simply tap any class card above or open the 3-dot menu on mobile to launch the Student Panel. All PDFs render smoothly inside your mobile browser via our embedded PDF.js reader.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item border border-slate-200/90 rounded-2xl overflow-hidden transition-all">
+          <button type="button" class="faq-trigger w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 text-main hover:bg-slate-50 transition-colors">
+            <span data-i18n="faq4Q">4. Are competitive exams (JEE, NEET, CUET, NDA) covered?</span>
+            <i class="fa-solid fa-plus text-emerald-600 transition-transform duration-200 shrink-0"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-xs text-slate-600 text-muted leading-relaxed" data-i18n="faq4A">
+            Yes! We provide dedicated chapter modules, physics derivations, organic chemistry mechanisms, biology flowcharts, and solved past year papers for JEE Main, NEET-UG, CUET, and NDA.
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item border border-slate-200/90 rounded-2xl overflow-hidden transition-all">
+          <button type="button" class="faq-trigger w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 text-main hover:bg-slate-50 transition-colors">
+            <span>5. Can I bookmark notes for last-minute exam revision?</span>
+            <i class="fa-solid fa-plus text-emerald-600 transition-transform duration-200 shrink-0"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-xs text-slate-600 text-muted leading-relaxed">
+            Yes! Inside the Student Workspace, every note card has a bookmark button. Saved notes are stored in your personal Saved Library for 1-click access before exams.
+          </div>
+        </div>
+
+        <!-- FAQ 6 -->
+        <div class="faq-item border border-slate-200/90 rounded-2xl overflow-hidden transition-all">
+          <button type="button" class="faq-trigger w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 text-main hover:bg-slate-50 transition-colors">
+            <span>6. How does the Daily 45-Minute Study Target Timer work?</span>
+            <i class="fa-solid fa-plus text-emerald-600 transition-transform duration-200 shrink-0"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-xs text-slate-600 text-muted leading-relaxed">
+            The Student Workspace includes an interactive 45-minute daily study timer that tracks your active reading time and saves your progress automatically in your browser.
+          </div>
+        </div>
+
+        <!-- FAQ 7 -->
+        <div class="faq-item border border-slate-200/90 rounded-2xl overflow-hidden transition-all">
+          <button type="button" class="faq-trigger w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 text-main hover:bg-slate-50 transition-colors">
+            <span>7. Are the notes updated according to the latest NCERT syllabus?</span>
+            <i class="fa-solid fa-plus text-emerald-600 transition-transform duration-200 shrink-0"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-xs text-slate-600 text-muted leading-relaxed">
+            Absolutely. All Class 1 to 12 notes and competitive modules are strictly aligned with the rationalized CBSE NCERT curriculum and current NTA examination guidelines.
+          </div>
+        </div>
+
+        <!-- FAQ 8 -->
+        <div class="faq-item border border-slate-200/90 rounded-2xl overflow-hidden transition-all">
+          <button type="button" class="faq-trigger w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 text-main hover:bg-slate-50 transition-colors">
+            <span>8. How can I request a missing chapter or report a broken link?</span>
+            <i class="fa-solid fa-plus text-emerald-600 transition-transform duration-200 shrink-0"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-xs text-slate-600 text-muted leading-relaxed">
+            You can submit a topic request anytime using the Support Desk inside the Student Workspace or email us directly at notespoint2026@gmail.com.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
-  <!-- SETTINGS MODAL -->
-  <div class="modal-backdrop-full" id="settingsModalBackdrop" role="dialog" aria-modal="true" aria-label="Website Settings">
-    <div class="settings-card-wrapper">
-      <div class="settings-header">
-        <h2><i class="fa-solid fa-gear"></i> <span data-i18n="settingsTitle">Settings &amp; Preferences</span></h2>
-        <button type="button" onclick="Settings.close()" class="mobile-nav-close-btn" aria-label="Close Settings">&times;</button>
-      </div>
-
-      <div class="tabs" id="settingsTabs">
-        <button class="tab-btn active" data-tab="account"><i class="fa-solid fa-user-graduate"></i> Scholar Identity</button>
-        <button class="tab-btn" data-tab="general"><i class="fa-solid fa-globe"></i> General</button>
-        <button class="tab-btn" data-tab="appearance"><i class="fa-solid fa-palette"></i> Appearance</button>
-        <button class="tab-btn" data-tab="privacy"><i class="fa-solid fa-shield-halved"></i> Privacy &amp; Support</button>
-      </div>
-
-      <!-- TAB 1: SCHOLAR IDENTITY -->
-      <div class="tab-panel active" id="panel-account">
-        <div class="setting-group">
-          <div class="setting-group-title"><i class="fa-solid fa-user"></i> Student Profile</div>
-          <div class="setting-row">
-            <div class="setting-info">
-              <div class="icon-circle"><i class="fa-solid fa-user-graduate"></i></div>
-              <div>
-                <div class="label">Student / Scholar Name</div>
-                <div class="description">Displays in the header button and for study notes</div>
-              </div>
-            </div>
-            <input type="text" class="setting-input" id="settingDisplayName" value="Scholar" placeholder="Enter student name...">
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 2: GENERAL -->
-      <div class="tab-panel" id="panel-general">
-        <div class="setting-group">
-          <div class="setting-group-title"><i class="fa-solid fa-language"></i> Workspace Language &amp; Basics</div>
-          <div class="setting-row">
-            <div class="setting-info">
-              <div class="icon-circle"><i class="fa-solid fa-globe"></i></div>
-              <div>
-                <div class="label">Site Language</div>
-                <div class="description">Select your preferred language (English / Hindi)</div>
-              </div>
-            </div>
-            <select class="setting-select" id="siteLanguage" onchange="Settings.changeLanguage(this.value)"></select>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 3: APPEARANCE -->
-      <div class="tab-panel" id="panel-appearance">
-        <div class="setting-group">
-          <div class="setting-group-title"><i class="fa-solid fa-paint-brush"></i> Theme &amp; Layout</div>
-          <div class="setting-row">
-            <div class="setting-info">
-              <div class="icon-circle"><i class="fa-solid fa-moon"></i></div>
-              <div>
-                <div class="label">Dark Reading Mode</div>
-                <div class="description">High-contrast night reading theme</div>
-              </div>
-            </div>
-            <div class="toggle" id="settingsDarkModeToggle" onclick="Theme.toggle(); Settings.syncToggle();">
-              <div class="thumb"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 4: PRIVACY & SUPPORT -->
-      <div class="tab-panel" id="panel-privacy">
-        <div class="setting-group">
-          <div class="setting-group-title"><i class="fa-solid fa-headset"></i> Official Support Desk</div>
-          <div class="setting-row">
-            <div class="setting-info">
-              <div class="icon-circle"><i class="fa-solid fa-envelope"></i></div>
-              <div>
-                <div class="label">Direct Support Email</div>
-                <div class="description">notespoint2026@gmail.com</div>
-              </div>
-            </div>
-            <a href="mailto:notespoint2026@gmail.com" class="header-chip-btn"><i class="fa-solid fa-paper-plane"></i> Contact Support</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="setting-actions">
-        <button type="button" class="btn-hero-primary" style="padding:10px 24px;" onclick="Settings.save()">
-          <i class="fa-solid fa-floppy-disk"></i> Save Changes
-        </button>
-        <button type="button" class="btn-hero-secondary" style="padding:10px 20px;" onclick="Settings.reset()">
-          <i class="fa-solid fa-rotate-left"></i> Reset Defaults
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ALL REVIEWS FULL-PAGE MODAL -->
-  <div id="allReviewsModal" role="dialog" aria-modal="true" aria-label="Student Reviews">
-    <div class="reviews-top-bar">
-      <button type="button" class="reviews-back-btn" onclick="Reviews.closeModal()">
-        <i class="fa-solid fa-arrow-left"></i> Back to Homepage
-      </button>
-      <span style="font-size:0.95rem; font-weight:800; color:var(--brand-navy);">Verified Student Feedback</span>
-    </div>
-
-    <div class="write-review-card">
-      <h3 style="font-size:1.2rem; font-weight:800; color:var(--brand-navy); margin-bottom:4px;">Rate NotesPoint Platform ★</h3>
-      <p style="font-size:0.85rem; color:var(--slate-600);">Select stars and write your feedback:</p>
+  <!-- =====================================================================
+       5. MASTER FOOTER (WITH QUICK LINKS, EMAIL, INSTA, TELEGRAM, WHATSAPP)
+       ===================================================================== -->
+  <footer class="bg-slate-900 text-white mt-16 pt-14 pb-8 border-t border-slate-800">
+    <div class="w-full max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
       
-      <div class="interactive-stars" id="starInputContainer" role="radiogroup" aria-label="Rating Stars">
-        <i class="fa-solid fa-star active" data-rating="1" onclick="Reviews.setRating(1)"></i>
-        <i class="fa-solid fa-star active" data-rating="2" onclick="Reviews.setRating(2)"></i>
-        <i class="fa-solid fa-star active" data-rating="3" onclick="Reviews.setRating(3)"></i>
-        <i class="fa-solid fa-star active" data-rating="4" onclick="Reviews.setRating(4)"></i>
-        <i class="fa-solid fa-star active" data-rating="5" onclick="Reviews.setRating(5)"></i>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- Col 1: Brand & Slogan -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-emerald-600 text-white font-black flex items-center justify-center text-lg shadow-md">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div>
+              <span class="text-xl font-black tracking-tight block leading-none">Notes<span class="text-emerald-400">Point</span></span>
+              <span class="text-[10px] text-slate-400 font-bold tracking-wide mt-0.5 block">Learn Smarter, Score Higher</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Standardized academic workspace providing verified handwritten topper notes, NCERT line-by-line solutions, and competitive entrance modules.
+          </p>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-black uppercase tracking-wider text-emerald-400">Quick Links</h4>
+          <ul class="space-y-2 text-xs font-semibold text-slate-300">
+            <li><a href="student.html" class="hover:text-emerald-400 transition-colors">Student Workspace</a></li>
+            <li><a href="#classesSection" class="hover:text-emerald-400 transition-colors">Class 1–12 Curriculum</a></li>
+            <li><a href="#competitiveSection" class="hover:text-emerald-400 transition-colors">Competitive Entrance Hub</a></li>
+            <li><button onclick="Reviews.openModal()" class="hover:text-emerald-400 transition-colors text-left">Student Feedback ★</button></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Direct Exam Streams -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-black uppercase tracking-wider text-emerald-400">Direct Streams</h4>
+          <ul class="space-y-2 text-xs font-semibold text-slate-300">
+            <li><a href="student.html?class=10" class="hover:text-emerald-400 transition-colors">Class 10 Board Prep</a></li>
+            <li><a href="student.html?class=12" class="hover:text-emerald-400 transition-colors">Class 12 Senior Secondary</a></li>
+            <li><a href="student.html?class=competitive&exam=jee" class="hover:text-emerald-400 transition-colors">IIT JEE Main &amp; Advanced</a></li>
+            <li><a href="student.html?class=competitive&exam=neet" class="hover:text-emerald-400 transition-colors">NEET-UG Medical Hub</a></li>
+            <li><a href="student.html?class=competitive&exam=cuet" class="hover:text-emerald-400 transition-colors">CUET-UG Domain Notes</a></li>
+            <li><button onclick="Modals.open('privacyModal')" class="hover:text-emerald-400 transition-colors text-left">Privacy Policy &amp; Terms</button></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Official Social & Email Links -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-black uppercase tracking-wider text-emerald-400">Connect With Us</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Join our official student channels for daily PDF updates &amp; support:</p>
+          
+          <div class="flex items-center gap-3 pt-1">
+            <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-[#229ED9] text-white flex items-center justify-center transition-all hover:-translate-y-1 shadow-sm" title="Telegram Channel" aria-label="Telegram">
+              <i class="fa-brands fa-telegram text-lg"></i>
+            </a>
+            <a href="https://www.instagram.com/notespoint_?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-pink-600 text-white flex items-center justify-center transition-all hover:-translate-y-1 shadow-sm" title="Instagram Page" aria-label="Instagram">
+              <i class="fa-brands fa-instagram text-lg"></i>
+            </a>
+            <a href="https://whatsapp.com/channel/0029VbDBkW7DuMRXnoY2Th11" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-[#25D366] text-white flex items-center justify-center transition-all hover:-translate-y-1 shadow-sm" title="WhatsApp Channel" aria-label="WhatsApp">
+              <i class="fa-brands fa-whatsapp text-lg"></i>
+            </a>
+            <a href="mailto:notespoint2026@gmail.com" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-rose-600 text-white flex items-center justify-center transition-all hover:-translate-y-1 shadow-sm" title="Email Us" aria-label="Email">
+              <i class="fa-solid fa-envelope text-base"></i>
+            </a>
+          </div>
+
+          <div class="pt-2">
+            <a href="mailto:notespoint2026@gmail.com" class="text-xs font-bold text-slate-300 hover:text-emerald-400 flex items-center gap-2">
+              <i class="fa-regular fa-envelope text-emerald-400"></i> notespoint2026@gmail.com
+            </a>
+          </div>
+        </div>
+
       </div>
 
-      <form id="liveReviewForm" onsubmit="Reviews.handleSubmit(event)" class="review-form-stack">
-        <label for="revUserName" style="display:none;">Your Name</label>
-        <input type="text" id="revUserName" placeholder="Your Name" required>
-
-        <label for="revUserSubject" style="display:none;">Class / Target Exam</label>
-        <input type="text" id="revUserSubject" placeholder="Class / Exam (e.g. Class 12 PCM / JEE Main)" required>
-
-        <label for="revUserComment" style="display:none;">Your Review</label>
-        <textarea id="revUserComment" rows="3" placeholder="Tell us how NotesPoint helped in your study preparation..." required></textarea>
-
-        <button type="submit" class="btn-hero-primary" style="align-self:flex-start;">Publish Review ★</button>
-      </form>
-    </div>
-
-    <div class="reviews-full-grid" id="fullReviewsFeedContainer"></div>
-  </div>
-
-  <!-- ACADEMIC WORKFLOW BANNER -->
-  <section class="academic-workflow-bar" aria-label="Academic Workflow Standard">
-    <div class="workflow-bar-title" data-i18n="workflowTitle">STANDARDIZED K-12 &amp; ENTRANCE ACADEMIC WORKSPACE</div>
-    <div class="workflow-chips-flex">
-      <div class="workflow-chip"><i class="fa-solid fa-book-open" style="color:var(--primary);"></i> NCERT Line-by-Line Solutions</div>
-      <div class="workflow-chip"><i class="fa-solid fa-atom" style="color:var(--accent-cyan);"></i> JEE/NEET High-Yield Sheets</div>
-      <div class="workflow-chip"><i class="fa-solid fa-file-lines" style="color:var(--accent-amber);"></i> Solved Question Blueprints</div>
-      <div class="workflow-chip"><i class="fa-solid fa-bolt" style="color:var(--primary-sage);"></i> High-Yield Formula Books</div>
-      <div class="workflow-chip"><i class="fa-solid fa-mobile-screen-button" style="color:var(--accent-blue);"></i> Instant Mobile PDF Stream</div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <h2>NotesPoint</h2>
-        <p>Standardized Academic Resources, Handwritten Notes &amp; Competitive Entrance Repository.</p>
-      </div>
-
-      <div class="footer-col">
-        <h3>Navigation</h3>
-        <ul>
-          <li><a href="student.html">Student Workspace</a></li>
-          <li><a onclick="Reviews.openModal()">Student Feedback</a></li>
-          <li><a onclick="Settings.open()">Preferences</a></li>
-          <li><a onclick="UI.navigateTo('#faq')">FAQs</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h3>Direct Class &amp; Exams</h3>
-        <ul>
-          <li><a href="student.html?class=10">Class 10 Board Prep</a></li>
-          <li><a href="student.html?class=12">Class 12 Senior Secondary</a></li>
-          <li><a href="student.html?class=competitive&exam=jee">JEE Main &amp; Advanced</a></li>
-          <li><a href="student.html?class=competitive&exam=neet">NEET-UG Medical Hub</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h3>Official Channels</h3>
-        <p style="font-size: 0.85rem; color: #94A3B8; margin-bottom: 12px;">Connect with official student communities:</p>
-        <div class="footer-social-icons">
-          <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener noreferrer" class="f-social-btn telegram" title="Telegram Channel" aria-label="Telegram Channel">
-            <i class="fa-brands fa-telegram"></i>
-          </a>
-          <a href="https://www.instagram.com/notespoint_?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener noreferrer" class="f-social-btn instagram" title="Instagram Profile" aria-label="Instagram Profile">
-            <i class="fa-brands fa-instagram"></i>
-          </a>
-          <a href="https://whatsapp.com/channel/0029VbDBkW7DuMRXnoY2Th11" target="_blank" rel="noopener noreferrer" class="f-social-btn whatsapp" title="WhatsApp Channel" aria-label="WhatsApp Community">
-            <i class="fa-brands fa-whatsapp"></i>
-          </a>
-          <a href="mailto:notespoint2026@gmail.com" class="f-social-btn email" title="Email Us" aria-label="Send an email to NotesPoint">
-            <i class="fa-solid fa-envelope"></i>
-          </a>
+      <!-- Bottom Copyright -->
+      <div class="pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-semibold">
+        <p>&copy; 2026 NotesPoint Platform. All Rights Reserved.</p>
+        <div class="flex items-center gap-4">
+          <button onclick="Settings.open()" class="hover:text-white transition-colors">Preferences</button>
+          <span>&bull;</span>
+          <button onclick="Modals.open('privacyModal')" class="hover:text-white transition-colors">Privacy Policy</button>
         </div>
       </div>
-    </div>
 
-    <div class="footer-bottom-copy">
-      <p>&copy; 2026 NotesPoint Platform. All Rights Reserved.</p>
     </div>
   </footer>
 
-  <!-- FLOATING DOCK -->
-  <div class="vedantu-floating-dock" aria-label="Contact and Assistant Dock">
-    <button type="button" class="dock-circle-btn ai-dock-robot-btn" onclick="Chatbot.toggle()" title="Open AI Study Bot" aria-label="Open AI Assistant">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='50' fill='%23059669'/><circle cx='35' cy='45' r='8' fill='%230F172A'/><circle cx='65' cy='45' r='8' fill='%230F172A'/><path d='M35 65 Q50 80 65 65' stroke='%230F172A' stroke-width='5' fill='none'/><circle cx='50' cy='18' r='5' fill='%2310B981'/><line x1='50' y1='23' x2='50' y2='32' stroke='%2310B981' stroke-width='4'/></svg>" alt="AI Assistant Icon">
-    </button>
-    <a href="https://whatsapp.com/channel/0029VbDBkW7DuMRXnoY2Th11" target="_blank" rel="noopener noreferrer" class="dock-circle-btn whatsapp-dock-btn" title="WhatsApp Channel" aria-label="WhatsApp Community">
-      <i class="fa-brands fa-whatsapp"></i>
-    </a>
-    <a href="https://www.instagram.com/notespoint_?igsh=MWp4N2Q3NWJ5ZmMwZg==" target="_blank" rel="noopener noreferrer" class="dock-circle-btn insta-dock-btn" title="Instagram Page" aria-label="Instagram Profile">
-      <i class="fa-brands fa-instagram"></i>
-    </a>
-    <a href="https://t.me/notespointfreenotes" target="_blank" rel="noopener noreferrer" class="dock-circle-btn telegram-dock-btn" title="Telegram Channel" aria-label="Telegram Group">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-    </a>
-  </div>
+  <!-- =====================================================================
+       6. MODAL 1: SETTINGS & PREFERENCES (PROFILE, LANGUAGE, THEME)
+       ===================================================================== -->
+  <div id="settingsModal" class="modal-overlay fixed inset-0 z-50 bg-slate-900/65 backdrop-blur-sm items-center justify-center p-4">
+    <div class="bg-white surface-card rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-sliders text-emerald-600 text-lg"></i>
+          <h3 class="text-lg font-black text-slate-900 text-main" data-i18n="settingsTitle">Workspace Preferences</h3>
+        </div>
+        <button onclick="Settings.close()" class="w-8 h-8 rounded-full bg-slate-100 surface-sub text-slate-500 hover:text-slate-900 flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
 
-  <!-- AI CHATBOT MODAL -->
-  <div id="aiChatModal" role="dialog" aria-modal="true" aria-label="AI Academic Assistant">
-    <div class="chat-header">
-      <div style="display:flex; align-items:center; gap:8px;">
-        <i class="fa-solid fa-robot"></i>
-        <div>
-          <strong style="display:block; font-size:0.88rem;">NotesPoint AI Tutor</strong>
-          <span style="font-size:0.7rem; opacity:0.85;">24x7 Multi-lingual Academic Assistant</span>
+      <div class="space-y-4">
+        <!-- Student Display Name -->
+        <div class="p-4 rounded-2xl bg-slate-50 surface-sub border border-slate-200/70 space-y-2">
+          <label for="settingDisplayName" class="block text-xs font-extrabold text-slate-800 text-main">Student Display Name</label>
+          <input type="text" id="settingDisplayName" placeholder="Enter your name..." value="Student"
+                 class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white surface-card text-xs font-bold text-slate-900 text-main focus:outline-none focus:border-emerald-500">
+        </div>
+
+        <!-- Language Selector -->
+        <div class="p-4 rounded-2xl bg-slate-50 surface-sub border border-slate-200/70 flex items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-extrabold text-slate-800 text-main">Portal Language</div>
+            <div class="text-[11px] text-slate-400 font-medium">Switch between English &amp; Hindi</div>
+          </div>
+          <select id="siteLanguage" onchange="Settings.changeLanguage(this.value)" class="px-3 py-2 rounded-xl border border-slate-200 bg-white surface-card text-xs font-bold text-slate-800 text-main">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+          </select>
+        </div>
+
+        <!-- Dark Reading Mode -->
+        <div class="p-4 rounded-2xl bg-slate-50 surface-sub border border-slate-200/70 flex items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-extrabold text-slate-800 text-main">Dark Reading Mode</div>
+            <div class="text-[11px] text-slate-400 font-medium">Eye-friendly night study theme</div>
+          </div>
+          <div id="settingsDarkModeToggle" onclick="Theme.toggle()" class="np-toggle">
+            <div class="np-thumb"></div>
+          </div>
         </div>
       </div>
-      <div style="display:flex; align-items:center; gap:6px;">
-        <button type="button" onclick="Chatbot.clearChat()" title="Clear Chat" style="background:none; border:none; color:#FFF; cursor:pointer; font-size:0.85rem;" aria-label="Clear chat messages">
-          <i class="fa-solid fa-trash"></i>
+
+      <div class="flex items-center justify-end gap-3 pt-2 border-t border-slate-100">
+        <button type="button" onclick="Settings.reset()" class="px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-100">
+          Reset Defaults
         </button>
-        <button type="button" onclick="Chatbot.close()" style="background:none; border:none; color:#FFF; cursor:pointer; font-size:1.3rem; margin-left:4px;" aria-label="Close Chat">&times;</button>
+        <button type="button" onclick="Settings.save()" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black shadow-md">
+          Save Preferences
+        </button>
       </div>
-    </div>
-
-    <!-- Suggested Prompts -->
-    <div class="chat-prompt-chips" aria-label="Suggested Prompts">
-      <button type="button" class="chat-chip" onclick="Chatbot.submitPrompt('Explain Ohm\'s Law in simple Hinglish')">⚡ Ohm's Law</button>
-      <button type="button" class="chat-chip" onclick="Chatbot.submitPrompt('quiz physics')">📝 Physics Quiz</button>
-      <button type="button" class="chat-chip" onclick="Chatbot.submitPrompt('Give Quadratic Equation formula step by step')">📐 Quadratic Eq</button>
-      <button type="button" class="chat-chip" onclick="Chatbot.submitPrompt('Explain Photosynthesis formula')">🌱 Photosynthesis</button>
-    </div>
-
-    <div id="aiChatMessages" class="chat-body-feed" aria-live="polite">
-      <div class="chat-msg-bot" id="chatWelcomeMsg">
-        👋 <strong>नमस्ते!</strong> मैं हूँ <strong>NotesPoint AI Tutor</strong>। आप मुझसे किसी भी क्लास (1–12), JEE, NEET, CUET या NDA के फॉर्मूले और डाउट्स पूछ सकते हैं!
-      </div>
-    </div>
-
-    <div style="padding:10px; background:var(--card-bg); border-top:1px solid var(--border-color); display:flex; gap:8px;">
-      <input type="text" id="aiUserInput" placeholder="Ask anything (e.g. Newton's law, JEE math, quiz)..." style="flex:1; padding:8px 12px; border:1px solid var(--border-color); border-radius:8px; font-size:0.85rem; outline:none; background:var(--paper-bg); color:var(--brand-navy);" onkeypress="if(event.key === 'Enter') Chatbot.sendMessage()">
-      <button type="button" onclick="Chatbot.sendMessage()" style="background:var(--primary); color:#FFF; border:none; padding:8px 14px; border-radius:8px; font-weight:700; cursor:pointer;" aria-label="Send Message">
-        <i class="fa-solid fa-paper-plane"></i>
-      </button>
     </div>
   </div>
 
-  <!-- Firebase Core SDKs -->
+  <!-- =====================================================================
+       7. MODAL 2: PRIVACY POLICY & PLATFORM SECURITY
+       ===================================================================== -->
+  <div id="privacyModal" class="modal-overlay fixed inset-0 z-50 bg-slate-900/65 backdrop-blur-sm items-center justify-center p-4">
+    <div class="bg-white surface-card rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col overflow-hidden shadow-2xl border border-slate-200">
+      <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50 surface-sub">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-shield-halved text-emerald-600 text-lg"></i>
+          <h3 class="text-base font-black text-slate-900 text-main">Privacy Policy &amp; Data Protection</h3>
+        </div>
+        <button onclick="Modals.close('privacyModal')" class="w-8 h-8 rounded-full bg-white surface-card text-slate-500 hover:text-slate-900 flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto text-xs text-slate-600 text-muted space-y-4 leading-relaxed font-medium">
+        <p class="text-[11px] text-slate-400 font-bold uppercase">Effective &amp; Updated: October 2026</p>
+
+        <div>
+          <h4 class="text-sm font-black text-slate-900 text-main mb-1">1. Open-Access Zero-Barrier Policy</h4>
+          <p>NotesPoint is built as an open educational platform. Students can browse classes, open subjects, and read PDF notes without mandatory personal data collection or paywalls.</p>
+        </div>
+
+        <div>
+          <h4 class="text-sm font-black text-slate-900 text-main mb-1">2. Local &amp; Cloud Data Storage</h4>
+          <p>Study preferences (such as your display name, daily study timer progress, and bookmarked notes) are stored locally in your browser's LocalStorage. Public reviews and support requests are securely managed via Google Firebase Cloud Firestore.</p>
+        </div>
+
+        <div>
+          <h4 class="text-sm font-black text-slate-900 text-main mb-1">3. Safe In-Browser PDF Rendering</h4>
+          <p>All educational PDFs hosted on our Cloudinary CDN are streamed through Mozilla's PDF.js HTML5 canvas engine directly inside your browser, isolating your device from third-party executable downloads.</p>
+        </div>
+
+        <div>
+          <h4 class="text-sm font-black text-slate-900 text-main mb-1">4. Direct Contact &amp; Takedown Desk</h4>
+          <p>For academic inquiries, missing chapter requests, or copyright questions, reach our official support desk at <a href="mailto:notespoint2026@gmail.com" class="text-emerald-600 font-bold underline">notespoint2026@gmail.com</a>.</p>
+        </div>
+      </div>
+
+      <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 surface-sub flex justify-end">
+        <button onclick="Modals.close('privacyModal')" class="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-black rounded-xl">
+          Understood &amp; Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       8. MODAL 3: STUDENT REVIEWS & LIVE FEEDBACK
+       ===================================================================== -->
+  <div id="reviewsModal" class="modal-overlay fixed inset-0 z-50 bg-slate-900/65 backdrop-blur-sm items-center justify-center p-4">
+    <div class="bg-white surface-card rounded-3xl max-w-3xl w-full max-h-[88vh] flex flex-col overflow-hidden shadow-2xl border border-slate-200">
+      <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50 surface-sub">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-comments text-emerald-600 text-lg"></i>
+          <h3 class="text-base font-black text-slate-900 text-main">Verified Student Reviews</h3>
+        </div>
+        <button onclick="Reviews.closeModal()" class="w-8 h-8 rounded-full bg-white surface-card text-slate-500 hover:text-slate-900 flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-6">
+        <!-- Submit New Review Form -->
+        <form id="liveReviewForm" onsubmit="Reviews.handleSubmit(event)" class="p-5 rounded-2xl bg-slate-50 surface-sub border border-slate-200/80 space-y-4">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <h4 class="text-xs font-black uppercase tracking-wider text-slate-700 text-main">Share Your Experience ★</h4>
+            <div id="starInputContainer" class="flex gap-1.5 text-lg text-amber-400 cursor-pointer">
+              <i class="fa-solid fa-star" onclick="Reviews.setRating(1)"></i>
+              <i class="fa-solid fa-star" onclick="Reviews.setRating(2)"></i>
+              <i class="fa-solid fa-star" onclick="Reviews.setRating(3)"></i>
+              <i class="fa-solid fa-star" onclick="Reviews.setRating(4)"></i>
+              <i class="fa-solid fa-star" onclick="Reviews.setRating(5)"></i>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input type="text" id="revUserName" required placeholder="Your Name" class="px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white surface-card text-xs font-bold">
+            <input type="text" id="revUserSubject" required placeholder="Class / Exam (e.g. Class 12 PCM / NEET)" class="px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white surface-card text-xs font-bold">
+          </div>
+
+          <textarea id="revUserComment" rows="2" required placeholder="How did NotesPoint help in your preparation?" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white surface-card text-xs font-bold"></textarea>
+
+          <button type="submit" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black shadow-sm">
+            Publish Review
+          </button>
+        </form>
+
+        <!-- Reviews Grid Feed -->
+        <div id="fullReviewsFeedContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       9. FIREBASE SDK & COMPLETE APPLICATION JAVASCRIPT
+       ===================================================================== -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
   <script>
     "use strict";
 
-    // 1. Firebase Initialization for Live Review Sync
+    // 1. Firebase Configuration & Initialization
     const firebaseConfig = {
       apiKey: "AIzaSyB8Q233ol5opi0Io8tEp498yDEmMesjmgE",
       authDomain: "notes-point-215c8.firebaseapp.com",
@@ -1943,68 +1239,64 @@
       appId: "1:945990871633:web:4cfd8339055182317fa670"
     };
 
-    if (typeof firebase !== 'undefined' && !firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
+    let db = null;
+    try {
+      if (typeof firebase !== "undefined") {
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+      }
+    } catch (e) {
+      console.warn("Firebase connection fallback:", e);
     }
-    const db = (typeof firebase !== 'undefined') ? firebase.firestore() : null;
 
-    const LANGUAGES = [
-      { code: 'en', name: 'English' },
-      { code: 'hi', name: 'हिन्दी (Hindi)' }
-    ];
-
+    // 2. Bilingual Dictionary (English & Hindi)
     const TRANSLATIONS = {
       en: {
         navClasses: "Class 1–12",
-        navCompetitive: "Competitive Exams",
+        navCompetitive: "Competitive Hub",
         navFaq: "FAQs",
-        navSettings: "Settings",
-        heroTitle: "Great notes <br>shouldn't end <br>with you.",
-        heroSubtitle: "NotesPoint is a curated academic repository of topper-style handwritten notes, NCERT solutions, and revision papers for Class 1 to Class 12 & Competitive Entrance Aspirants.",
-        heroCtaExplore: "Explore Resources",
-        heroCtaBot: "Ask AI Bot",
+        navSettings: "Preferences & Language",
+        heroTitle: "Great notes <br class='hidden sm:inline'>shouldn't end <span class='text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500'>with you.</span>",
+        heroSubtitle: "NotesPoint is a comprehensive academic workspace providing topper-verified handwritten notes, line-by-line NCERT solutions, chapter derivations, and solved PYQ banks for Class 1 to Class 12, JEE, NEET, CUET & NDA.",
+        heroCtaExplore: "Enter Student Workspace",
         valF1Title: "NCERT Aligned",
         valF1Desc: "Line-by-line chapter theory",
-        valF2Title: "Formula Books",
-        valF2Desc: "High-yield quick cheat sheets",
+        valF2Title: "Revision Sheets",
+        valF2Desc: "Complete chapter summaries",
         valF3Title: "Instant Stream",
         valF3Desc: "Read PDFs right in browser",
         valF4Title: "100% Free",
         valF4Desc: "Zero barrier open access",
-        classesHeading: "CLASS 1 TO 12 CURRICULUM",
-        classesSubtitle: "Tap your class to open subject notes and solutions directly.",
-        compHeading: "COMPETITIVE ENTRANCE HUB",
-        compSubtitle: "Direct formula books, quick derivations & solved practice sets for entrance exams.",
-        reviewsBtnText: "What Students Say About NotesPoint ★",
-        supportDeskBtn: "Verified Support & Privacy Desk",
+        classesHeading: "1st TO  12th",
+        classesSubtitle: "Tap your class to open subject notes, derivations, and NCERT solutions directly in Student Workspace.",
+        compHeading: "Entrance Exams",
+        compSubtitle: "Direct chapter modules, quick derivations & solved practice sets for national entrance examinations.",
+        reviewsBtnText: "Read & Write Reviews ★",
+        supportDeskBtn: "Privacy & Support Desk",
         faqHeading: "Frequently Asked Questions",
-        faqSubtitle: "Key information regarding our study repository",
-        faq1Q: "Are all study resources and PDFs completely free?",
-        faq1A: "Yes, 100%! All chapter notes, handwritten topper sheets, NCERT solutions, formula sheets, and revision papers are completely free without any hidden subscription or paywall.",
-        faq2Q: "Is account creation or registration mandatory?",
-        faq2A: "No registration or phone login is required. You can directly tap on your class, select your subject, and view or download notes instantly.",
-        faq3Q: "How can I access and download study notes on mobile?",
-        faq3A: "Simply tap any class card above (Class 1–12 or Competitive). The documents open seamlessly inside your mobile browser without demanding third-party PDF viewers.",
-        faq4Q: "Are competitive exams (JEE, NEET, CUET, NDA) material available?",
-        faq4A: "Yes! We provide dedicated high-yield formula sheets, physics derivations, organic reaction mechanisms, and past year questions for JEE Main, NEET-UG, CUET and NDA.",
-        faq5Q: "How does the 24/7 AI Tutor work?",
-        faq5A: "You can tap the floating green bot icon anytime to ask textbook doubts, request formulas, get line-by-line concept explanations, or launch an instant topic quiz.",
-        workflowTitle: "STANDARDIZED K-12 & ENTRANCE ACADEMIC WORKSPACE",
-        settingsTitle: "Settings & Preferences"
+        faqSubtitle: "Detailed answers to common questions regarding study notes, mobile reading, and exam preparation.",
+        faq1Q: "1. Are all study resources and PDFs completely free?",
+        faq1A: "Yes, 100%! All chapter notes, handwritten topper sheets, NCERT solutions, derivations, and revision papers on NotesPoint are completely free without any subscription or hidden paywall.",
+        faq2Q: "2. Is account registration or phone login mandatory?",
+        faq2A: "No mandatory registration is required. You can directly tap on your class card, select your subject, and start reading notes immediately inside the Student Workspace.",
+        faq3Q: "3. How can I read study notes on my mobile phone?",
+        faq3A: "Simply tap any class card above or open the 3-dot menu on mobile to launch the Student Panel. All PDFs render smoothly inside your mobile browser via our embedded PDF.js reader.",
+        faq4Q: "4. Are competitive exams (JEE, NEET, CUET, NDA) covered?",
+        faq4A: "Yes! We provide dedicated chapter modules, physics derivations, organic chemistry mechanisms, biology flowcharts, and solved past year papers for JEE Main, NEET-UG, CUET, and NDA.",
+        settingsTitle: "Workspace Preferences"
       },
       hi: {
         navClasses: "कक्षा 1–12",
         navCompetitive: "प्रतियोगी परीक्षा",
-        navFaq: "अक्सर पूछे जाने वाले सवाल",
-        navSettings: "सेटिंग्स",
-        heroTitle: "शानदार नोट्स <br>सिर्फ आप तक सीमित <br>नहीं रहने चाहिए।",
+        navFaq: "सामान्य प्रश्न",
+        navSettings: "सेटिंग्स और भाषा",
+        heroTitle: "शानदार नोट्स <br class='hidden sm:inline'>सिर्फ आप तक सीमित <span class='text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500'>नहीं रहने चाहिए।</span>",
         heroSubtitle: "NotesPoint कक्षा 1 से 12 तक के टॉपर्स के हस्तलिखित नोट्स, एनसीईआरटी समाधान, जेईई, नीट, सीयूईटी और एनडीए का एक संगठित मंच है।",
-        heroCtaExplore: "नोट्स देखें",
-        heroCtaBot: "एआई सहायक से पूछें",
+        heroCtaExplore: "स्टूडेंट वर्कस्पेस खोलें",
         valF1Title: "NCERT आधारित",
         valF1Desc: "हर अध्याय का सटीक अध्ययन",
-        valF2Title: "सूत्र पुस्तिका",
-        valF2Desc: "त्वरित रिवीज़न फॉर्मूला शीट्स",
+        valF2Title: "रिवीज़न शीट्स",
+        valF2Desc: "त्वरित अध्याय सारांश",
         valF3Title: "तुरंत पढ़ें",
         valF3Desc: "सीधे ब्राउज़र में पीडीएफ खोलें",
         valF4Title: "100% निशुल्क",
@@ -2013,493 +1305,297 @@
         classesSubtitle: "अपनी कक्षा चुनें और सीधे विषयवार नोट्स व समाधान खोलें।",
         compHeading: "प्रतियोगी परीक्षा हब (JEE / NEET / CUET / NDA)",
         compSubtitle: "प्रतियोगी परीक्षाओं के लिए सीधे फॉर्मूला शीट्स, ट्रिक्स और हल किए गए पेपर्स।",
-        reviewsBtnText: "छात्रों की राय NotesPoint के बारे में ★",
-        supportDeskBtn: "सत्यापित सहायता एवं गोपनीयता डेस्क",
+        reviewsBtnText: "छात्रों की राय ★",
+        supportDeskBtn: "सहायता एवं गोपनीयता डेस्क",
         faqHeading: "अक्सर पूछे जाने वाले प्रश्न",
-        faqSubtitle: "स्टडी पोर्टल से जुड़ी महत्वपूर्ण जानकारी",
-        faq1Q: "क्या सभी अध्ययन सामग्री और पीडीएफ पूरी तरह मुफ्त हैं?",
+        faqSubtitle: "अध्ययन सामग्री और पीडीएफ रीडर से जुड़ी जानकारी",
+        faq1Q: "1. क्या सभी अध्ययन सामग्री और पीडीएफ पूरी तरह मुफ्त हैं?",
         faq1A: "हाँ, 100%! सभी अध्याय नोट्स, टॉपर्स हस्तलिखित शीट्स, एनसीईआरटी समाधान और फॉर्मूला बुक्स बिना किसी शुल्क के मुफ्त हैं।",
-        faq2Q: "क्या पीडीएफ पढ़ने के लिए खाता बनाना अनिवार्य है?",
+        faq2Q: "2. क्या पीडीएफ पढ़ने के लिए खाता बनाना अनिवार्य है?",
         faq2A: "कोई खाता या लॉगिन आवश्यक नहीं है। आप सीधे किसी भी कक्षा या परीक्षा पर टैप करके अध्ययन शुरू कर सकते हैं।",
-        faq3Q: "मोबाइल पर नोट्स कैसे डाउनलोड और पढ़ें?",
+        faq3Q: "3. मोबाइल पर नोट्स कैसे डाउनलोड और पढ़ें?",
         faq3A: "ऊपर दिए गए कक्षा कार्ड पर टैप करें। पीडीएफ सीधे आपके मोबाइल ब्राउज़र में बिना किसी रुकावट के खुल जाएगी।",
-        faq4Q: "क्या प्रतियोगी परीक्षाओं (JEE, NEET, CUET, NDA) के नोट्स उपलब्ध हैं?",
+        faq4Q: "4. क्या प्रतियोगी परीक्षाओं (JEE, NEET, CUET, NDA) के नोट्स उपलब्ध हैं?",
         faq4A: "हाँ! जेईई मेन, नीट, सीयूईटी और एनडीए के लिए फॉर्मूला बुक्स और पिछले वर्षों के पेपर्स उपलब्ध हैं।",
-        faq5Q: "24/7 एआई ट्यूटर कैसे काम करता है?",
-        faq5A: "आप कभी भी ग्रीन बॉट आइकन पर टैप करके अपने डाउट्स पूछ सकते हैं या फॉर्मूला और क्विज़ प्राप्त कर सकते हैं।",
-        workflowTitle: "मानकीकृत K-12 और प्रतियोगी शैक्षणिक वर्कस्पेस",
-        settingsTitle: "सेटिंग्स और प्राथमिकताएं"
+        settingsTitle: "वर्कस्पेस प्राथमिकताएं"
       }
     };
 
-    const CLASSES_DATA = [
-      { num: 1, name: "Class 1", subtitle: "Primary", icon: "fa-child", styleClass: "c-nat-1" },
-      { num: 2, name: "Class 2", subtitle: "Primary", icon: "fa-shapes", styleClass: "c-nat-2" },
-      { num: 3, name: "Class 3", subtitle: "Primary", icon: "fa-book-open", styleClass: "c-nat-3" },
-      { num: 4, name: "Class 4", subtitle: "Primary", icon: "fa-pencil", styleClass: "c-nat-4" },
-      { num: 5, name: "Class 5", subtitle: "Primary", icon: "fa-apple-whole", styleClass: "c-nat-5" },
-      { num: 6, name: "Class 6", subtitle: "Middle", icon: "fa-compass", styleClass: "c-nat-6" },
-      { num: 7, name: "Class 7", subtitle: "Middle", icon: "fa-flask", styleClass: "c-nat-7" },
-      { num: 8, name: "Class 8", subtitle: "Middle", icon: "fa-calculator", styleClass: "c-nat-8" },
-      { num: 9, name: "Class 9", subtitle: "Foundation", icon: "fa-seedling", styleClass: "c-nat-9" },
-      { num: 10, name: "Class 10", subtitle: "Secondary", icon: "fa-award", styleClass: "c-nat-10" },
-      { num: 11, name: "Class 11", subtitle: "Streams", icon: "fa-microscope", styleClass: "c-nat-11" },
-      { num: 12, name: "Class 12", subtitle: "Senior Sec", icon: "fa-user-graduate", styleClass: "c-nat-12" }
-    ];
-
+    // 3. Toast Notification Engine
     const Toast = {
-      show(message) {
+      show(msg) {
         const container = document.getElementById("toastContainer");
         if (!container) return;
-        const toast = document.createElement("div");
-        toast.className = "toast-msg";
-        toast.textContent = message;
-        container.appendChild(toast);
-        setTimeout(() => toast.classList.add("show"), 20);
+        const item = document.createElement("div");
+        item.className = "pointer-events-auto px-4 py-3 rounded-2xl bg-slate-900 text-white text-xs font-bold shadow-xl border border-emerald-500/30 flex items-center gap-2.5 transition-all duration-200 transform translate-y-2 opacity-0";
+        item.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> <span>${msg}</span>`;
+        container.appendChild(item);
+        requestAnimationFrame(() => item.classList.remove("translate-y-2", "opacity-0"));
         setTimeout(() => {
-          toast.classList.remove("show");
-          setTimeout(() => toast.remove(), 300);
+          item.classList.add("translate-y-2", "opacity-0");
+          setTimeout(() => item.remove(), 250);
         }, 2800);
       }
     };
 
+    // 4. Generic Modal Helper
+    const Modals = {
+      open(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.add("open");
+          document.body.style.overflow = "hidden";
+        }
+      },
+      close(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.remove("open");
+          document.body.style.overflow = "";
+        }
+      }
+    };
+
+    // 5. Dark Mode Controller
     const Theme = {
       init() {
         try {
-          const saved = localStorage.getItem("np_theme_mode");
-          if (saved === "dark") {
+          if (localStorage.getItem("np_theme_mode") === "dark") {
             document.body.classList.add("dark-mode");
-            const icon = document.querySelector("#themeToggleBtn i");
-            if (icon) icon.className = "fa-solid fa-sun";
           }
+          this.syncIcons();
         } catch (e) {}
       },
       toggle() {
         document.body.classList.toggle("dark-mode");
         const isDark = document.body.classList.contains("dark-mode");
-        try {
-          localStorage.setItem("np_theme_mode", isDark ? "dark" : "light");
-        } catch (e) {}
-        const icon = document.querySelector("#themeToggleBtn i");
-        if (icon) icon.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
-        Settings.syncToggle();
-        Toast.show(isDark ? "Dark reading mode activated" : "Light reading mode activated");
+        try { localStorage.setItem("np_theme_mode", isDark ? "dark" : "light"); } catch (e) {}
+        this.syncIcons();
+        Toast.show(isDark ? "Dark reading mode enabled" : "Light mode enabled");
+      },
+      syncIcons() {
+        const isDark = document.body.classList.contains("dark-mode");
+        const btnIcon = document.querySelector("#themeToggleBtn i");
+        if (btnIcon) btnIcon.className = isDark ? "fa-solid fa-sun text-amber-400 text-sm" : "fa-solid fa-moon text-sm";
+        const toggleSwitch = document.getElementById("settingsDarkModeToggle");
+        if (toggleSwitch) toggleSwitch.classList.toggle("active", isDark);
       }
     };
 
+    // 6. Settings & Localization Controller
     const Settings = {
-      initScholarName() {
+      init() {
         try {
-          const savedData = JSON.parse(localStorage.getItem("np_user_settings") || "{}");
-          const scholarName = savedData.name || "Scholar";
+          const saved = JSON.parse(localStorage.getItem("np_user_settings") || "{}");
+          const studentName = saved.name || "Student";
           const input = document.getElementById("settingDisplayName");
           const headerText = document.getElementById("headerStudentNameText");
-          if (input) input.value = scholarName;
-          if (headerText) headerText.textContent = scholarName;
+          const mobileDrawerText = document.getElementById("mobileDrawerStudentName");
+          const label = studentName === "Student" ? "Student Workspace" : `${studentName}'s Workspace`;
+
+          if (input) input.value = studentName;
+          if (headerText) headerText.textContent = label;
+          if (mobileDrawerText) mobileDrawerText.textContent = label;
+
+          const lang = localStorage.getItem("np_site_lang") || "en";
+          const langSelect = document.getElementById("siteLanguage");
+          if (langSelect) langSelect.value = lang;
+          this.applyTranslations(lang);
         } catch (e) {}
       },
-
-      populateLanguages() {
-        const select = document.getElementById("siteLanguage");
-        if (!select) return;
-        const currentLang = localStorage.getItem("np_site_lang") || "en";
-        select.innerHTML = LANGUAGES.map(l => `<option value="${l.code}" ${l.code === currentLang ? 'selected' : ''}>${l.name}</option>`).join("");
+      open() {
+        Theme.syncIcons();
+        Modals.open("settingsModal");
       },
-
-      changeLanguage(langCode) {
-        try {
-          localStorage.setItem("np_site_lang", langCode);
-        } catch (e) {}
-        Toast.show("Updating Language...");
-        setTimeout(() => window.location.reload(), 400);
+      close() {
+        Modals.close("settingsModal");
       },
-
-      applyCurrentLanguage() {
-        const currentLang = localStorage.getItem("np_site_lang") || "en";
-        const dict = TRANSLATIONS[currentLang] || TRANSLATIONS['en'];
+      changeLanguage(lang) {
+        try { localStorage.setItem("np_site_lang", lang); } catch (e) {}
+        this.applyTranslations(lang);
+        Toast.show(lang === "hi" ? "भाषा हिंदी में बदल दी गई है" : "Language switched to English");
+      },
+      applyTranslations(lang) {
+        const dict = TRANSLATIONS[lang] || TRANSLATIONS.en;
         document.querySelectorAll("[data-i18n]").forEach(el => {
-          const key = el.dataset.i18n;
+          const key = el.getAttribute("data-i18n");
           if (dict[key]) el.innerHTML = dict[key];
         });
       },
-
-      open() {
-        const modal = document.getElementById("settingsModalBackdrop");
-        if (modal) {
-          modal.style.display = "flex";
-          document.body.style.overflow = "hidden";
-          this.syncToggle();
-        }
-      },
-
-      close() {
-        const modal = document.getElementById("settingsModalBackdrop");
-        if (modal) {
-          modal.style.display = "none";
-          document.body.style.overflow = "";
-        }
-      },
-
-      openTab(tabKey) {
-        this.open();
-        const tabBtn = document.querySelector(`.tab-btn[data-tab="${tabKey}"]`);
-        if (tabBtn) tabBtn.click();
-      },
-
-      syncToggle() {
-        const isDark = document.body.classList.contains("dark-mode");
-        const toggle = document.getElementById("settingsDarkModeToggle");
-        if (toggle) toggle.classList.toggle("active", isDark);
-      },
-
       save() {
-        const lang = document.getElementById("siteLanguage")?.value || "en";
-        const name = (document.getElementById("settingDisplayName")?.value || "Scholar").trim();
-        
+        const nameInput = document.getElementById("settingDisplayName");
+        const langSelect = document.getElementById("siteLanguage");
+        const name = (nameInput?.value || "Student").trim() || "Student";
+        const lang = langSelect?.value || "en";
+
         try {
-          localStorage.setItem("np_user_settings", JSON.stringify({ lang, name }));
+          localStorage.setItem("np_user_settings", JSON.stringify({ name, lang }));
+          localStorage.setItem("np_site_lang", lang);
         } catch (e) {}
 
+        const label = name === "Student" ? "Student Workspace" : `${name}'s Workspace`;
         const headerText = document.getElementById("headerStudentNameText");
-        if (headerText) headerText.textContent = name || "Scholar";
+        const mobileDrawerText = document.getElementById("mobileDrawerStudentName");
+        if (headerText) headerText.textContent = label;
+        if (mobileDrawerText) mobileDrawerText.textContent = label;
 
-        Toast.show("Profile & Settings saved!");
+        this.applyTranslations(lang);
         this.close();
+        Toast.show("Preferences saved successfully!");
       },
-
       reset() {
-        if (!confirm("Reset all settings to default values?")) return;
-        localStorage.removeItem("np_site_lang");
         localStorage.removeItem("np_user_settings");
+        localStorage.removeItem("np_site_lang");
+        localStorage.removeItem("np_theme_mode");
         window.location.reload();
       }
     };
 
+    // 7. Core UI & Right-Side Mobile Drawer Controller
     const UI = {
-      renderClasses() {
-        const container = document.getElementById("classesGridContainer");
-        if (!container) return;
-        container.innerHTML = CLASSES_DATA.map(c => `
-          <a href="student.html?class=${c.num}" class="class-box-card ${c.styleClass}" aria-label="${c.name} ${c.subtitle}">
-            <div class="class-avatar-badge"><i class="fa-solid ${c.icon}"></i></div>
-            <strong>${c.name}</strong><span>${c.subtitle}</span>
-          </a>
-        `).join("");
-      },
-
-      toggleMobileNav() {
-        const nav = document.getElementById("mainNav");
-        const overlay = document.getElementById("mobileOverlay");
-        if (!nav || !overlay) return;
-        const isOpen = nav.classList.contains("nav-open");
-        nav.classList.toggle("nav-open", !isOpen);
-        overlay.classList.toggle("active", !isOpen);
-        document.body.style.overflow = isOpen ? "" : "hidden";
-      },
-
-      closeMobileNav() {
-        const nav = document.getElementById("mainNav");
-        const overlay = document.getElementById("mobileOverlay");
-        if (nav) nav.classList.remove("nav-open");
-        if (overlay) overlay.classList.remove("active");
-        document.body.style.overflow = "";
-      },
-
-      navigateTo(targetId) {
-        this.closeMobileNav();
-        const element = document.querySelector(targetId);
-        if (element) element.scrollIntoView({ behavior: "smooth" });
-      }
-    };
-
-    const Reviews = {
-      currentRating: 5,
-
-      init() {
-        this.loadFeed();
-      },
-
-      openModal() {
-        const modal = document.getElementById("allReviewsModal");
-        if (modal) {
-          modal.style.display = "flex";
+      openMobileNav() {
+        const drawer = document.getElementById("mobileDrawer");
+        const backdrop = document.getElementById("mobileBackdrop");
+        if (drawer && backdrop) {
+          backdrop.classList.remove("invisible", "opacity-0");
+          drawer.classList.remove("translate-x-full");
           document.body.style.overflow = "hidden";
         }
       },
 
-      closeModal() {
-        const modal = document.getElementById("allReviewsModal");
-        if (modal) {
-          modal.style.display = "none";
+      closeMobileNav() {
+        const drawer = document.getElementById("mobileDrawer");
+        const backdrop = document.getElementById("mobileBackdrop");
+        if (drawer && backdrop) {
+          backdrop.classList.add("invisible", "opacity-0");
+          drawer.classList.add("translate-x-full");
           document.body.style.overflow = "";
         }
       },
 
-      setRating(val) {
-        this.currentRating = val;
-        const stars = document.querySelectorAll("#starInputContainer i");
-        stars.forEach((star, idx) => {
-          star.classList.toggle("active", idx < val);
+      filterClasses(query) {
+        const q = (query || "").toLowerCase().trim();
+        document.querySelectorAll("#classesGridContainer [data-class-card]").forEach(card => {
+          const matchText = (card.getAttribute("data-class-card") + " " + card.innerText).toLowerCase();
+          card.style.display = matchText.includes(q) ? "" : "none";
         });
       },
 
+      copyText(str) {
+        navigator.clipboard?.writeText(str);
+        Toast.show(`Formula copied: ${str}`);
+      },
+
+      escapeHTML(str) {
+        return String(str || "").replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
+      }
+    };
+
+    // 8. Student Reviews System (Synced with Firestore)
+    const Reviews = {
+      rating: 5,
+      openModal() {
+        Modals.open("reviewsModal");
+        this.loadReviews();
+      },
+      closeModal() {
+        Modals.close("reviewsModal");
+      },
+      setRating(val) {
+        this.rating = val;
+        document.querySelectorAll("#starInputContainer i").forEach((star, i) => {
+          star.className = i < val ? "fa-solid fa-star text-amber-400" : "fa-regular fa-star text-slate-300";
+        });
+      },
       async handleSubmit(e) {
         e.preventDefault();
-        const nameInput = document.getElementById("revUserName");
-        const subjectInput = document.getElementById("revUserSubject");
-        const commentInput = document.getElementById("revUserComment");
-
-        const name = (nameInput?.value || "").trim();
-        const userSubject = (subjectInput?.value || "").trim();
-        const comment = (commentInput?.value || "").trim();
-
+        const name = document.getElementById("revUserName")?.value.trim();
+        const userClass = document.getElementById("revUserSubject")?.value.trim();
+        const comment = document.getElementById("revUserComment")?.value.trim();
         if (!name || !comment) return;
 
-        const newReview = {
+        const payload = {
           name,
-          userClass: userSubject || "Student",
+          userClass: userClass || "Student",
           comment,
-          rating: Number(this.currentRating),
-          date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-          timestamp: new Date().toISOString()
+          rating: this.rating,
+          date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
         };
 
-        // 1. Save locally for instant UI update
-        try {
-          const saved = JSON.parse(localStorage.getItem("np_real_reviews") || "[]");
-          saved.unshift(newReview);
-          localStorage.setItem("np_real_reviews", JSON.stringify(saved));
-        } catch (err) {}
-
-        // 2. Sync to Firebase Firestore so admin can download in CSV/Excel
         if (db) {
           try {
             await db.collection("reviews").add({
-              ...newReview,
+              ...payload,
               createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
-          } catch(err) {
-            console.error("Firestore Review Save Error:", err);
-          }
+          } catch (err) {}
         }
 
         e.target.reset();
         this.setRating(5);
-        this.loadFeed();
-        Toast.show("Review submitted successfully & synced with admin!");
+        Toast.show("Thank you! Your review has been published.");
+        this.loadReviews();
       },
-
-      loadFeed() {
+      loadReviews() {
         const container = document.getElementById("fullReviewsFeedContainer");
         if (!container) return;
 
-        const defaultReviews = [
-          { name: "Verified Student", userClass: "Physics Derivations", rating: 5, comment: "Derivations and mechanisms are super clear and directly aligned with NCERT.", date: "August 2026" },
-          { name: "JEE Aspirant", userClass: "JEE Main Physics", rating: 5, comment: "High-yield short tricks & formula sheets helped in my revision!", date: "August 2026" }
-        ];
-
-        if (db) {
-          db.collection("reviews").orderBy("createdAt", "desc").onSnapshot(snapshot => {
-            if (!snapshot.empty) {
-              const cloudReviews = [];
-              snapshot.forEach(doc => cloudReviews.push(doc.data()));
-              this.renderReviewCards([...cloudReviews, ...defaultReviews]);
-            } else {
-              this.renderReviewCards(defaultReviews);
-            }
-          }, () => {
-            this.renderReviewCards(defaultReviews);
-          });
-        } else {
-          let localReviews = [];
-          try {
-            localReviews = JSON.parse(localStorage.getItem("np_real_reviews") || "[]");
-          } catch (e) {}
-          this.renderReviewCards([...localReviews, ...defaultReviews]);
-        }
-      },
-
-      renderReviewCards(reviewsList) {
-        const container = document.getElementById("fullReviewsFeedContainer");
-        if (!container) return;
-
-        container.innerHTML = reviewsList.map(r => {
-          const starStr = "★".repeat(r.rating || 5) + "☆".repeat(Math.max(0, 5 - (r.rating || 5)));
-          const initial = (r.name || "S").charAt(0).toUpperCase();
-          return `
-            <div class="play-review-item">
-              <div>
-                <div class="p-reviewer-header">
-                  <div class="p-avatar-circle">${initial}</div>
-                  <div>
-                    <strong style="display:block; font-size:0.92rem; color:var(--brand-navy);">${this.escapeHTML(r.name)}</strong>
-                    <span style="font-size:0.75rem; color:var(--slate-500);">${this.escapeHTML(r.userClass)}</span>
-                  </div>
-                </div>
-                <div style="color:#F59E0B; font-size:0.85rem; margin-bottom:6px;">${starStr}</div>
-                <p style="font-size:0.88rem; color:var(--slate-700);">${this.escapeHTML(r.comment)}</p>
-              </div>
-              <span style="font-size:0.72rem; color:var(--slate-400); margin-top:10px;">${r.date || 'Recent'}</span>
-            </div>
-          `;
-        }).join("");
-      },
-
-      escapeHTML(str) {
-        return (str || "").replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
-      }
-    };
-
-    const Chatbot = {
-      isOpen: false,
-      history: [],
-
-      quizBank: {
-        physics: [
-          { q: "What is the SI unit of Electric Potential?", options: ["Ampere", "Volt", "Ohm", "Joule"], correct: 1, exp: "Electric Potential (V) is measured in Volts (V = W/Q)." }
-        ]
-      },
-
-      init() {
-        try {
-          const saved = localStorage.getItem("np_chat_history");
-          if (saved) {
-            this.history = JSON.parse(saved);
-            this.renderFeed();
-          }
-        } catch (e) {}
-      },
-
-      toggle() {
-        this.isOpen ? this.close() : this.open();
-      },
-
-      open() {
-        const modal = document.getElementById("aiChatModal");
-        if (modal) {
-          modal.style.display = "flex";
-          this.isOpen = true;
-          const input = document.getElementById("aiUserInput");
-          setTimeout(() => input?.focus(), 50);
-        }
-      },
-
-      close() {
-        const modal = document.getElementById("aiChatModal");
-        if (modal) {
-          modal.style.display = "none";
-          this.isOpen = false;
-        }
-      },
-
-      clearChat() {
-        this.history = [];
-        try { localStorage.removeItem("np_chat_history"); } catch (e) {}
-        this.renderFeed();
-        Toast.show("Chat history cleared");
-      },
-
-      submitPrompt(text) {
-        const input = document.getElementById("aiUserInput");
-        if (input) {
-          input.value = text;
-          this.sendMessage();
-        }
-      },
-
-      sendMessage() {
-        const input = document.getElementById("aiUserInput");
-        const query = (input?.value || "").trim();
-        if (!query) return;
-
-        input.value = "";
-        this.appendMessage("user", query);
-
-        setTimeout(() => {
-          let reply = `📚 <strong>NotesPoint AI:</strong> Query received: <em>"${this.escapeHTML(query)}"</em>.<br>Explore the <strong>Class 1 to 12 & Competitive Hub</strong> above for complete chapter solutions and formula books!`;
-          if (query.toLowerCase().includes("ohm")) {
-            reply = `⚡ <strong>Ohm's Law:</strong> V = I × R (Potential difference is directly proportional to Current at constant temperature).`;
-          }
-          this.appendMessage("bot", reply);
-        }, 400);
-      },
-
-      appendMessage(role, text) {
-        this.history.push({ role, text });
-        if (this.history.length > 25) this.history.shift();
-        try { localStorage.setItem("np_chat_history", JSON.stringify(this.history)); } catch (e) {}
-        this.renderFeed();
-      },
-
-      renderFeed() {
-        const container = document.getElementById("aiChatMessages");
-        if (!container) return;
-
-        if (this.history.length === 0) {
-          container.innerHTML = `
-            <div class="chat-msg-bot">
-              👋 <strong>नमस्ते!</strong> मैं हूँ <strong>NotesPoint AI Tutor</strong>। आप मुझसे किसी भी क्लास (1–12), JEE, NEET, CUET या NDA के फॉर्मूले और डाउट्स पूछ सकते हैं!
-            </div>
-          `;
+        if (!db) {
+          container.innerHTML = `<p class="text-xs text-slate-400 col-span-2 text-center py-6">Connect to internet to view live student reviews.</p>`;
           return;
         }
 
-        container.innerHTML = this.history.map(msg => {
-          return msg.role === "user"
-            ? `<div class="chat-msg-user">${this.escapeHTML(msg.text)}</div>`
-            : `<div class="chat-msg-bot">${msg.text}</div>`;
-        }).join("");
-
-        container.scrollTop = container.scrollHeight;
-      },
-
-      escapeHTML(str) {
-        return (str || "").replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
+        db.collection("reviews").orderBy("createdAt", "desc").limit(12).onSnapshot(snap => {
+          if (snap.empty) {
+            container.innerHTML = `<p class="text-xs text-slate-400 col-span-2 text-center py-6">No reviews posted yet. Be the first to rate NotesPoint!</p>`;
+            return;
+          }
+          const items = [];
+          snap.forEach(d => items.push(d.data()));
+          container.innerHTML = items.map(r => `
+            <div class="p-4 rounded-2xl bg-slate-50 surface-sub border border-slate-200/80 space-y-2">
+              <div class="flex items-center justify-between">
+                <strong class="text-xs font-black text-slate-900 text-main">${UI.escapeHTML(r.name)}</strong>
+                <span class="text-amber-400 text-xs">${"★".repeat(r.rating || 5)}</span>
+              </div>
+              <span class="text-[10px] font-bold text-emerald-600 block">${UI.escapeHTML(r.userClass)}</span>
+              <p class="text-xs text-slate-600 text-muted leading-relaxed">${UI.escapeHTML(r.comment)}</p>
+            </div>
+          `).join("");
+        });
       }
     };
 
+    // 9. Initialize Everything on Load
     window.addEventListener("DOMContentLoaded", () => {
       Theme.init();
-      Settings.initScholarName();
-      Settings.populateLanguages();
-      Settings.applyCurrentLanguage();
-      UI.renderClasses();
-      Reviews.init();
-      Chatbot.init();
+      Settings.init();
 
-      const tabBtns = document.querySelectorAll(".tab-btn");
-      tabBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-          tabBtns.forEach(b => b.classList.remove("active"));
-          btn.classList.add("active");
-          const tabId = btn.dataset.tab;
-          document.querySelectorAll(".tab-panel").forEach(panel => {
-            panel.classList.toggle("active", panel.id === `panel-${tabId}`);
-          });
-        });
-      });
-
-      document.querySelectorAll(".faq-question").forEach(btn => {
+      // FAQ Accordion Logic
+      document.querySelectorAll(".faq-trigger").forEach(btn => {
         btn.addEventListener("click", () => {
           const item = btn.parentElement;
-          const isActive = item.classList.contains("active");
-          document.querySelectorAll(".faq-item").forEach(el => {
-            el.classList.remove("active");
-            el.querySelector(".faq-question")?.setAttribute("aria-expanded", "false");
-          });
-          if (!isActive) {
-            item.classList.add("active");
-            btn.setAttribute("aria-expanded", "true");
+          const content = item.querySelector(".faq-content");
+          const icon = btn.querySelector("i");
+          const isOpen = !content.classList.contains("hidden");
+
+          document.querySelectorAll(".faq-content").forEach(c => c.classList.add("hidden"));
+          document.querySelectorAll(".faq-trigger i").forEach(i => i.classList.remove("rotate-45"));
+
+          if (!isOpen) {
+            content.classList.remove("hidden");
+            if (icon) icon.classList.add("rotate-45");
           }
         });
       });
 
-      window.addEventListener("keydown", (e) => {
+      // Close Modals on Escape Key
+      window.addEventListener("keydown", e => {
         if (e.key === "Escape") {
-          Reviews.closeModal();
-          Chatbot.close();
-          Settings.close();
           UI.closeMobileNav();
+          Settings.close();
+          Modals.close("privacyModal");
+          Reviews.closeModal();
         }
       });
     });
